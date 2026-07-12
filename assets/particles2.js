@@ -2,8 +2,8 @@
    GPU-resident morphing: all 7 shapes live as vertex attributes; shape changes are
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
-   API: el.setShape(id 0..7), el.startIntro()
-   Shapes: 0 rocket, 1 website, 2 briefcase, 3 support headset, 4 workflow, 5 closed book, 6 logo, 7 cloud.
+   API: el.setShape(id 0..8), el.startIntro()
+   Shapes: 0 rocket, 1 website, 2 briefcase, 3 support headset, 4 workflow, 5 closed book, 6 logo, 7 telegram plane, 8 cloud.
    API also: el.setSide('left'|'right') — positions figure opposite section text.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
@@ -310,24 +310,44 @@
     // 6 LOGO — extruded glyphs
     shapes[6] = buildLogoRaw(buildLogoPts());
 
+    // 7 TELEGRAM — 3D paper plane with center crease glow
+    const TN = [1.25, 0.58], TBL = [-1.05, 0.38], TBR = [0.35, -0.28], TC = [0.02, 0.08], TKF = [-0.35, -0.72];
+    shapes[7] = gen((a, i, f) => {
+      if (f < 0.26) tri(a, i, TN, TBL, TC, 0.14, 0.02);
+      else if (f < 0.42) tri(a, i, TN, TC, TBR, 0.08, 0.02);
+      else if (f < 0.52) tri(a, i, TBL, TBR, TKF, -0.14, 0.025);
+      else if (f < 0.56) tri(a, i, TC, TBR, TKF, -0.1, 0.02);
+      else if (f < 0.62) seg(a, i, TN[0], TN[1], TBL[0], TBL[1], 0.14, 0.1);
+      else if (f < 0.66) seg(a, i, TN[0], TN[1], TBR[0], TBR[1], 0.1, 0.05);
+      else if (f < 0.70) seg(a, i, TBL[0], TBL[1], TKF[0], TKF[1], 0.02, -0.12);
+      else if (f < 0.76) {
+        const t = R();
+        seg(a, i, TN[0] - t * 1.1, TN[1] - t * 0.95, TN[0] - t * 1.1 + G() * 0.02, TN[1] - t * 0.95 + G() * 0.02, 0.12 - t * 0.18, 0.06 - t * 0.14);
+      } else if (f < 0.82) {
+        put(a, i, TN[0] + G() * 0.015, TN[1] + G() * 0.015, 0.16 + G() * 0.01);
+      } else if (f < 0.88) {
+        put(a, i, TBL[0] + G() * 0.02, TBL[1] + G() * 0.02, 0.12);
+      } else radialDust(a, i, 1.3, 9);
+    });
+
     return { shapes: shapes.map(shuffle), shuffle };
   }
 
-  /* All 7 shapes are vertex attributes; morph = uniform weights only.
+  /* All 8 shapes are vertex attributes; morph = uniform weights only.
      Current position = mix(F, T, tt) where F/T are weighted sums of shapes + seed-derived scatter. */
   const VS = `
 attribute vec3 aP0; attribute vec3 aP1; attribute vec3 aP2; attribute vec3 aP3;
-attribute vec3 aP4; attribute vec3 aP5; attribute vec3 aP6; attribute vec3 aSeed;
+attribute vec3 aP4; attribute vec3 aP5; attribute vec3 aP6; attribute vec3 aP7; attribute vec3 aSeed;
 uniform mat4 uMV; uniform mat4 uP;
-uniform float uWF[7]; uniform float uWT[7]; uniform float uScF; uniform float uScT;
+uniform float uWF[8]; uniform float uWT[8]; uniform float uScF; uniform float uScT;
 uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA;
 varying float vA; varying float vCloud; varying vec3 vColor;
 void main(){
   float tl = clamp(uT * 1.35 - aSeed.x * 0.35, 0.0, 1.0);
   float tt = tl * tl * (3.0 - 2.0 * tl);
   vec3 sc = vec3((aSeed.x * 2.0 - 1.0) * 5.0, (aSeed.y * 2.0 - 1.0) * 3.2, (aSeed.z * 2.0 - 1.0) * 3.0 - 0.8);
-  vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6];
-  vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6];
+  vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6] + aP7 * uWF[7];
+  vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6] + aP7 * uWT[7];
   vec3 form = mix(F, T, tt);
   float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
   float cloud = step(0.70, cloudSeed);
@@ -381,8 +401,8 @@ void main(){
   };
 
   // camera z distance per shape; horizontal shift comes from setSide()
-  const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.4, 3.9, 3.8, 4.2];
-  const CAM_RX = [0.08, 0.10, 0.10, 0.10, 0.06, 0.14, 0.08, 0.04];
+  const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.4, 3.9, 3.8, 3.7, 4.2];
+  const CAM_RX = [0.08, 0.10, 0.10, 0.10, 0.06, 0.14, 0.08, 0.12, 0.04];
   const SIDE_X = 1.15;
 
   class PFScene extends HTMLElement {
@@ -416,10 +436,10 @@ void main(){
       this._toId = 0;
       this._t = 0;
       this._playing = false;
-      // morph weights: scatter scalar + 7 shape weights, "from" and "to"
+      // morph weights: scatter scalar + 8 shape weights, "from" and "to"
       this._scF = 1; this._scT = 0;
-      this._wF = new Float32Array(7);
-      this._wT = new Float32Array(7); this._wT[0] = 1;
+      this._wF = new Float32Array(8);
+      this._wT = new Float32Array(8); this._wT[0] = 1;
 
       const seeds = new Float32Array(N * 3);
       for (let i = 0; i < N * 3; i++) seeds[i] = R();
@@ -434,7 +454,7 @@ void main(){
         return b;
       };
       this._bufs = [];
-      for (let s = 0; s < 7; s++) this._bufs[s] = mkBuf(built.shapes[s], 'aP' + s, gl.STATIC_DRAW);
+      for (let s = 0; s < 8; s++) this._bufs[s] = mkBuf(built.shapes[s], 'aP' + s, gl.STATIC_DRAW);
       mkBuf(seeds, 'aSeed', gl.STATIC_DRAW);
       this._gl = gl;
 
@@ -498,7 +518,7 @@ void main(){
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
         if (this._playing && this._t < 1) {
-          const morphSpeed = this._toId === 7 ? 0.72 : 0.42;
+          const morphSpeed = this._toId === 8 ? 0.72 : 0.42;
           this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.04) * (reduced ? 2 : morphSpeed));
         }
 
@@ -506,7 +526,7 @@ void main(){
         const morphing = this._t < 0.92;
         const morphEase = morphing ? (1 - this._t * this._t) : 0;
         const spinMul = morphing ? 0.15 + morphEase * 0.85 : 1;
-        const sway = id === 0 ? 0.05 : id === 6 ? 0.04 : id === 7 ? 0.02 : 0.09;
+        const sway = id === 0 ? 0.05 : id === 6 ? 0.04 : id === 8 ? 0.02 : 0.09;
         const tRy = Math.sin(time * 0.11) * sway * spinMul + this._mx * 0.05;
         const tRx = CAM_RX[id] - this._my * 0.04;
         this._ry += (tRy - this._ry) * 0.028;
@@ -542,14 +562,14 @@ void main(){
     }
 
     /* Retarget without any GPU uploads: fold eased progress into the "from" weights.
-       id 0..6 = shapes; id 7 = starfield (seed-derived scatter). */
+       id 0..7 = shapes; id 8 = starfield (seed-derived scatter). */
     setShape(id) {
       if (!this._gl || id === this._toId) return;
       const e = this._t * this._t * (3 - 2 * this._t);
       this._scF = this._scF * (1 - e) + this._scT * e;
-      for (let i = 0; i < 7; i++) this._wF[i] = this._wF[i] * (1 - e) + this._wT[i] * e;
+      for (let i = 0; i < 8; i++) this._wF[i] = this._wF[i] * (1 - e) + this._wT[i] * e;
       this._wT.fill(0);
-      if (id === 7) this._scT = 1; else { this._wT[id] = 1; this._scT = 0; }
+      if (id === 8) this._scT = 1; else { this._wT[id] = 1; this._scT = 0; }
       this._toId = id;
       this._t = 0;
       this._playing = true;
