@@ -196,7 +196,6 @@
     const routeSteps = route ? [...route.querySelectorAll(".route-step")] : [];
     const sections = [...doc.querySelectorAll("section[data-shape]")];
     const pf = doc.querySelector("pf-scene");
-    let overrideShape = false;
     let lastShape = -1;
     let lastSide = "";
     let sectionTops = [];
@@ -236,7 +235,7 @@
 
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
 
-      if (!overrideShape && sectionTops.length) {
+      if (sectionTops.length) {
         const { shape, side } = shapeForScroll(scrollY);
         applyScene(shape, side);
       }
@@ -253,20 +252,6 @@
     };
 
     const requestUpdate = () => window.requestAnimationFrame(update);
-
-    doc.querySelectorAll("[data-service]").forEach((item) => {
-      item.addEventListener("mouseenter", () => {
-        overrideShape = true;
-        const shape = Number(item.dataset.serviceShape || 1);
-        if (pf && typeof pf.setShape === "function") pf.setShape(shape);
-        lastShape = shape;
-      });
-      item.addEventListener("mouseleave", () => {
-        overrideShape = false;
-        lastShape = -1;
-        requestUpdate();
-      });
-    });
 
     measure();
     update();

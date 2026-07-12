@@ -260,7 +260,6 @@ void main(){
       this._shuffle = built.shuffle;
       this._toId = 0;
       this._t = 0;
-      this._queuedId = null;
       this._playing = false;
       // morph weights: scatter scalar + 7 shape weights, "from" and "to"
       this._scF = 1; this._scT = 0;
@@ -339,27 +338,22 @@ void main(){
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
-        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.025) * (reduced ? 1.8 : 0.22));
-        else if (this._queuedId !== null && this._t >= 1) {
-          const q = this._queuedId;
-          this._queuedId = null;
-          this.setShape(q);
-        }
+        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.04) * (reduced ? 2 : 0.42));
 
         const id = this._toId;
-        const morphing = this._t < 0.96;
+        const morphing = this._t < 0.92;
         const morphEase = morphing ? (1 - this._t * this._t) : 0;
-        const spinMul = morphing ? 0.08 + morphEase * 0.92 : 1;
+        const spinMul = morphing ? 0.15 + morphEase * 0.85 : 1;
         const sway = id === 0 ? 0.05 : id === 6 ? 0.04 : id === 7 ? 0.02 : 0.09;
         const tRy = Math.sin(time * 0.11) * sway * spinMul + this._mx * 0.05;
         const tRx = CAM_RX[id] - this._my * 0.04;
-        this._ry += (tRy - this._ry) * 0.018;
-        this._rx += (tRx - this._rx) * 0.018;
+        this._ry += (tRy - this._ry) * 0.028;
+        this._rx += (tRx - this._rx) * 0.028;
         const targetCx = MOBILE ? 0 : -this._side * SIDE_X;
         const targetCz = CAM_Z[id];
-        this._side += (this._targetSide - this._side) * 0.018;
-        this._cx += (targetCx - this._cx) * 0.018;
-        this._cz += (targetCz - this._cz) * 0.018;
+        this._side += (this._targetSide - this._side) * 0.05;
+        this._cx += (targetCx - this._cx) * 0.05;
+        this._cz += (targetCz - this._cz) * 0.05;
 
         const cy = Math.cos(this._ry), sy = Math.sin(this._ry), cx = Math.cos(this._rx), sx = Math.sin(this._rx);
         const m = this._mv;
@@ -389,10 +383,6 @@ void main(){
        id 0..6 = shapes; id 7 = starfield (seed-derived scatter). */
     setShape(id) {
       if (!this._gl || id === this._toId) return;
-      if (this._t < 0.55) {
-        this._queuedId = id;
-        return;
-      }
       const e = this._t * this._t * (3 - 2 * this._t);
       this._scF = this._scF * (1 - e) + this._scT * e;
       for (let i = 0; i < 7; i++) this._wF[i] = this._wF[i] * (1 - e) + this._wT[i] * e;
@@ -400,7 +390,6 @@ void main(){
       if (id === 7) this._scT = 1; else { this._wT[id] = 1; this._scT = 0; }
       this._toId = id;
       this._t = 0;
-      this._queuedId = null;
     }
 
     setSide(side) {
