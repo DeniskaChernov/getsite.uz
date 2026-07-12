@@ -28,15 +28,6 @@
     <meta property="og:url" content="https://getsite.uz/">
     <meta property="og:site_name" content="getsite">
     <meta property="og:image" content="https://getsite.uz/assets/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="getsite — digital-системы для бизнеса">
-    <meta
-      name="twitter:description"
-      content="Сайты, боты, CRM и автоматизации, которые двигают бизнес вперёд."
-    >
-    <meta name="twitter:image" content="https://getsite.uz/assets/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -62,6 +53,7 @@
 
     <div class="preloader" data-preloader role="status" aria-live="polite" aria-label="Загрузка сайта">
       <span class="preloader__word">GETSITE <span data-loader-value>0</span>%</span>
+      <p class="preloader__note">Собираем цифровую систему</p>
       <div class="preloader__bar" aria-hidden="true">
         <div data-loader-bar></div>
       </div>
@@ -72,23 +64,21 @@
       <button class="menu-panel__close" type="button" data-menu-close aria-label="Закрыть меню">закрыть</button>
       <nav class="menu-panel__nav" aria-label="Основное меню">
         <a href="#top" data-menu-link><span>01</span>Главная</a>
-        <a href="#agency" data-menu-link><span>02</span>Агентство</a>
-        <a href="#solutions" data-menu-link><span>03</span>Решения</a>
-        <a href="#team" data-menu-link><span>04</span>Команда</a>
-        <a href="#contact" data-menu-link><span>05</span>Контакты</a>
+        <a href="#services" data-menu-link><span>02</span>Услуги</a>
+        <a href="#process" data-menu-link><span>03</span>Процесс</a>
+        <a href="#contact" data-menu-link><span>04</span>Контакты</a>
       </nav>
     </div>
 
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="getsite на главную">getsite<span>*</span></a>
       <nav class="site-header__nav" aria-label="Навигация по странице">
-        <a href="#top">Главная</a>
-        <a href="#agency">Агентство</a>
-        <a href="#solutions">Решения</a>
-        <a href="#team">Команда</a>
+        <a href="#services">Услуги</a>
+        <a href="#process">Процесс</a>
+        <a href="#contact">Контакты</a>
       </nav>
       <div class="site-header__actions">
-        <a class="talk-link" href="#contact">Написать</a>
+        <a class="btn btn--accent" href="#contact">Обсудить проект</a>
         <button class="menu-button" type="button" data-menu-open aria-label="Открыть меню" aria-expanded="false" aria-controls="site-menu">
           <span></span>
           <span></span>
@@ -97,114 +87,189 @@
     </header>
 
     <main id="main-content" tabindex="-1">
-      <section class="hero section section--left" id="top" data-shape="0" data-side="left">
+      <section class="hero section section--left" id="top" data-screen-label="Hero" data-shape="0" data-side="left">
         <div class="section__content">
-          <p class="section-kicker line-reveal"><span>Digital-агентство · Ташкент</span></p>
-          <h1 class="hero__title" aria-label="Boost your digital">
-            <span class="line-reveal"><span>BOOST YOUR</span></span>
-            <span class="line-reveal"><span>DIGITAL<span class="accent">.</span></span></span>
+          <p class="section-kicker line-reveal"><span>Digital-система для бизнеса</span></p>
+          <h1 class="hero__title">
+            <span class="line-reveal"><span>Создаём</span></span>
+            <span class="line-reveal"><span>цифровые</span></span>
+            <span class="line-reveal"><span>продукты<span class="accent">.</span></span></span>
           </h1>
           <div class="hero__copy line-reveal">
-            <span>Сайты, боты и CRM — одна система для заявок.</span>
+            <span>Сайты, боты, CRM и автоматизации, которые двигают бизнес вперёд.</span>
           </div>
+          <div class="hero__actions line-reveal">
+            <a class="btn btn--accent" href="#contact">Обсудить проект</a>
+            <a class="btn btn--ghost" href="#services">Смотреть услуги</a>
+          </div>
+        </div>
+        <div class="hero__meta line-reveal">
+          <span>Ташкент, Узбекистан</span>
+          <span>Работаем с бизнесом по всему СНГ</span>
         </div>
       </section>
 
-      <div class="section-gap" aria-hidden="true"></div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Сайты · Боты · CRM · Автоматизации · Веб-сервисы ·&nbsp;</span>
+          <span>Сайты · Боты · CRM · Автоматизации · Веб-сервисы ·&nbsp;</span>
+        </div>
+      </div>
 
-      <section class="agency section section--right" id="agency" data-shape="5" data-side="right">
+      <section class="services section section--left" id="services" data-screen-label="Услуги" data-shape="1" data-side="left">
         <div class="section__content">
           <div class="section-title reveal">
             <span>01</span>
-            <h2>АГЕНТСТВО</h2>
+            <h2>Один партнёр для всей цифровой системы</h2>
           </div>
-          <p class="statement reveal">Цифровая система от интереса до сделки.</p>
+          <div class="service-list reveal">
+            <article class="service-row" data-service data-service-shape="1">
+              <span class="service-row__num">01</span>
+              <div>
+                <h3>Сайты</h3>
+                <p>Лендинги, корпоративные сайты, каталоги — с дизайном и SEO-базой.</p>
+              </div>
+            </article>
+            <article class="service-row" data-service data-service-shape="2">
+              <span class="service-row__num">02</span>
+              <div>
+                <h3>Telegram-боты</h3>
+                <p>Каталог, заявки, уведомления, передача менеджеру.</p>
+              </div>
+            </article>
+            <article class="service-row" data-service data-service-shape="3">
+              <span class="service-row__num">03</span>
+              <div>
+                <h3>CRM-системы</h3>
+                <p>Воронки, статусы, роли, отчётность.</p>
+              </div>
+            </article>
+            <article class="service-row" data-service data-service-shape="5">
+              <span class="service-row__num">04</span>
+              <div>
+                <h3>Веб-сервисы</h3>
+                <p>Личные кабинеты, панели, внутренние инструменты.</p>
+              </div>
+            </article>
+            <article class="service-row" data-service data-service-shape="4">
+              <span class="service-row__num">05</span>
+              <div>
+                <h3>Автоматизации</h3>
+                <p>Заявка → CRM → оплата → отчёт без ручной работы.</p>
+              </div>
+            </article>
+            <article class="service-row" data-service data-service-shape="5">
+              <span class="service-row__num">06</span>
+              <div>
+                <h3>Интеграции</h3>
+                <p>Сайт, бот, CRM и оплата в одной системе.</p>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
-      <div class="section-gap" aria-hidden="true"></div>
-
-      <section class="solutions section section--left" id="solutions" data-shape="1" data-side="left">
-        <div class="solutions__stage">
-          <div class="solutions__head reveal">
-            <div class="section-title">
-              <span>02</span>
-              <h2>РЕШЕНИЯ</h2>
+      <section class="process section section--right" id="process" data-screen-label="Процесс" data-shape="4" data-side="right">
+        <div class="section__content">
+          <div class="section-title reveal">
+            <span>02</span>
+            <h2>Как проходит работа</h2>
+          </div>
+          <div class="route reveal" data-route>
+            <div class="route__fill" data-route-fill aria-hidden="true"></div>
+            <div class="route-step">
+              <span class="route-step__dot" aria-hidden="true"></span>
+              <div>
+                <strong>01 — Погружаемся в бизнес</strong>
+                <span>Интервью, процессы, сценарии</span>
+              </div>
             </div>
-            <p class="statement statement--narrow">Стратегия, дизайн, разработка и автоматизация.</p>
-          </div>
-          <div class="solutions__visual" aria-hidden="true"></div>
-        </div>
-
-        <div class="expertise reveal" aria-label="Направления">
-          <article class="expertise-card" data-service data-service-shape="3">
-            <h3>Стратегия</h3>
-            <ul>
-              <li>Логика оффера</li>
-              <li>Путь клиента</li>
-            </ul>
-          </article>
-          <article class="expertise-card" data-service data-service-shape="1">
-            <h3>Дизайн</h3>
-            <ul>
-              <li>UX/UI</li>
-              <li>Motion</li>
-            </ul>
-          </article>
-          <article class="expertise-card" data-service data-service-shape="2">
-            <h3>Разработка</h3>
-            <ul>
-              <li>Сайты и боты</li>
-              <li>CRM</li>
-            </ul>
-          </article>
-          <article class="expertise-card" data-service data-service-shape="4">
-            <h3>Автоматизация</h3>
-            <ul>
-              <li>Маршрутизация лидов</li>
-              <li>Отчёты</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <div class="section-gap" aria-hidden="true"></div>
-
-      <section class="team section section--right" id="team" data-shape="4" data-side="right">
-        <div class="section__content">
-          <div class="team__headline reveal">
-            <span>03</span>
-            <h2>КОМАНДА</h2>
-          </div>
-          <p class="team__copy reveal">Небольшая senior-команда. Дизайн, код и системы в одном потоке.</p>
-          <div class="team-strip reveal" aria-label="Стек">
-            <span>Продукт</span>
-            <span>Дизайн</span>
-            <span>Разработка</span>
-            <span>CRM</span>
+            <div class="route-step">
+              <span class="route-step__dot" aria-hidden="true"></span>
+              <div>
+                <strong>02 — Проектируем решение</strong>
+                <span>Структура, прототип, MVP</span>
+              </div>
+            </div>
+            <div class="route-step">
+              <span class="route-step__dot" aria-hidden="true"></span>
+              <div>
+                <strong>03 — Создаём дизайн</strong>
+                <span>Интерфейс и адаптив</span>
+              </div>
+            </div>
+            <div class="route-step">
+              <span class="route-step__dot" aria-hidden="true"></span>
+              <div>
+                <strong>04 — Разрабатываем продукт</strong>
+                <span>Фронтенд, бэкенд, интеграции</span>
+              </div>
+            </div>
+            <div class="route-step">
+              <span class="route-step__dot" aria-hidden="true"></span>
+              <div>
+                <strong>05 — Тестируем и запускаем</strong>
+                <span>Аналитика, домен, публикация</span>
+              </div>
+            </div>
+            <div class="route-step">
+              <span class="route-step__dot" aria-hidden="true"></span>
+              <div>
+                <strong>06 — Поддерживаем и развиваем</strong>
+                <span>Сопровождение и рост</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <div class="section-gap" aria-hidden="true"></div>
-
-      <section class="contact section section--left" id="contact" data-shape="6" data-side="left">
-        <div class="section__content">
-          <p class="contact__eyebrow reveal">Связаться с нами</p>
-          <a class="contact__mail reveal" href="mailto:hello@getsite.uz">hello@getsite.uz</a>
-          <div class="contact__actions reveal">
-            <a href="https://t.me/getsite" target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a href="tel:+998000000000">+998 00 000-00-00</a>
-            <span>Ташкент</span>
+      <section class="contact section section--left" id="contact" data-screen-label="Контакты" data-shape="6" data-side="left">
+        <div class="contact__grid">
+          <div class="contact__info reveal">
+            <h2>Есть задача? Давайте соберём <span class="accent">решение</span></h2>
+            <p>Расскажите, что мешает бизнесу расти — предложим подходящий формат продукта.</p>
+            <div class="contact__links">
+              <a href="https://t.me/getsite" target="_blank" rel="noopener noreferrer">Telegram</a>
+              <a href="tel:+998000000000">+998 00 000-00-00</a>
+              <a href="mailto:hello@getsite.uz">hello@getsite.uz</a>
+            </div>
+            <span class="contact__city">Ташкент, Узбекистан</span>
           </div>
+
+          <form class="lead-form reveal" data-form>
+            <div data-form-body>
+              <div class="lead-form__row">
+                <label class="sr-only" for="lead-name">Имя</label>
+                <input id="lead-name" name="name" type="text" placeholder="Имя" required autocomplete="name">
+                <label class="sr-only" for="lead-phone">Телефон</label>
+                <input id="lead-phone" name="phone" type="tel" placeholder="Телефон" required autocomplete="tel">
+              </div>
+              <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <label class="sr-only" for="lead-task">Тип задачи</label>
+              <input id="lead-task" type="hidden" name="task" data-task-input value="Сайт">
+              <div class="lead-form__tags" role="group" aria-label="Тип задачи">
+                <button class="is-active" type="button" data-task-type aria-pressed="true">Сайт</button>
+                <button type="button" data-task-type aria-pressed="false">Telegram-бот</button>
+                <button type="button" data-task-type aria-pressed="false">CRM</button>
+                <button type="button" data-task-type aria-pressed="false">Автоматизация</button>
+              </div>
+              <label class="sr-only" for="lead-message">Описание задачи</label>
+              <textarea id="lead-message" name="message" rows="3" placeholder="Краткое описание задачи"></textarea>
+              <button class="lead-form__submit btn btn--accent" type="submit">Обсудить проект</button>
+            </div>
+            <div class="lead-form__success" data-form-success hidden tabindex="-1">
+              <strong>Заявка отправлена</strong>
+              <p>Спасибо! Менеджер свяжется с вами в течение рабочего дня.</p>
+            </div>
+          </form>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>© 2026 getsite</span>
-      <strong>GETSITE</strong>
-      <span>Digital-системы для бизнеса</span>
+      <strong>getsite<span class="accent">*</span></strong>
+      <span>Сайты · Боты · CRM · Веб-сервисы · Автоматизации</span>
+      <span>© getsite, 2026</span>
     </footer>
   </body>
 </html>

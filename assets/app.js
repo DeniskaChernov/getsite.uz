@@ -144,7 +144,7 @@
     }, { passive: true });
 
     window.addEventListener("pointerover", (event) => {
-      active = Boolean(event.target.closest("a, button, input, textarea, .service-row, .expertise-card"));
+      active = Boolean(event.target.closest("a, button, input, textarea, .service-row"));
     }, { passive: true });
 
     const loop = () => {
@@ -191,16 +191,23 @@
 
   function initScrollState() {
     const header = doc.querySelector("[data-header]");
+    const route = doc.querySelector("[data-route]");
+    const routeFill = doc.querySelector("[data-route-fill]");
+    const routeSteps = route ? [...route.querySelectorAll(".route-step")] : [];
     const sections = [...doc.querySelectorAll("section[data-shape]")];
     const pf = doc.querySelector("pf-scene");
-    const COSMOS = 7;
-    const ENTER = 0.14;
-    const HOLD = 0.28;
     let overrideShape = false;
-    let activeSection = sections[0] || null;
     let lastShape = -1;
     let lastSide = "";
-    let ticking = false;
+    let sectionTops = [];
+
+    const measure = () => {
+      sectionTops = sections.map((section) => ({
+        shape: Number(section.dataset.shape),
+        side: section.dataset.side || "left",
+        top: section.offsetTop,
+      }));
+    };
 
     const applyScene = (shape, side) => {
       if (!pf) return;
@@ -214,55 +221,38 @@
       }
     };
 
-    const pickSection = () => {
-      const viewport = window.innerHeight || 1;
-      const pivot = viewport * 0.5;
-      let candidate = null;
-      let bestDist = Infinity;
-
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.bottom < viewport * 0.15 || rect.top > viewport * 0.85) return;
-        if (rect.top > pivot || rect.bottom < pivot) return;
-
-        const center = rect.top + rect.height * 0.5;
-        const dist = Math.abs(center - pivot);
-        const limit = viewport * (section === activeSection ? HOLD : ENTER);
-        if (dist > limit) return;
-        if (dist < bestDist) {
-          bestDist = dist;
-          candidate = section;
-        }
+    const shapeForScroll = (scrollY) => {
+      const pivot = scrollY + (window.innerHeight || 1) * 0.42;
+      let current = sectionTops[0] || { shape: 0, side: "left" };
+      sectionTops.forEach((entry) => {
+        if (pivot >= entry.top) current = entry;
       });
-
-      return candidate;
+      return current;
     };
 
     const update = () => {
-      ticking = false;
       const scrollY = window.scrollY || doc.documentElement.scrollTop;
+      const viewport = window.innerHeight || 1;
 
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
 
-      if (overrideShape) return;
+      if (!overrideShape && sectionTops.length) {
+        const { shape, side } = shapeForScroll(scrollY);
+        applyScene(shape, side);
+      }
 
-      const next = pickSection();
-      if (next) {
-        activeSection = next;
-        applyScene(
-          Number(next.dataset.shape),
-          next.dataset.side || "left"
-        );
-      } else {
-        applyScene(COSMOS, activeSection?.dataset.side || lastSide || "left");
+      if (route && routeFill) {
+        const rect = route.getBoundingClientRect();
+        const progress = clamp((viewport * 0.72 - rect.top) / Math.max(1, rect.height));
+        routeFill.style.height = `${Math.round(progress * 100)}%`;
+        const done = Math.floor(progress * routeSteps.length + 0.5);
+        routeSteps.forEach((step, index) => {
+          step.classList.toggle("is-done", index < done);
+        });
       }
     };
 
-    const requestUpdate = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(update);
-    };
+    const requestUpdate = () => window.requestAnimationFrame(update);
 
     doc.querySelectorAll("[data-service]").forEach((item) => {
       item.addEventListener("mouseenter", () => {
@@ -278,13 +268,20 @@
       });
     });
 
-    if (sections[0]) {
-      applyScene(Number(sections[0].dataset.shape), sections[0].dataset.side || "left");
-    }
-
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
+    measure();
     update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", () => {
+      measure();
+      requestUpdate();
+    });
+    if ("ResizeObserver" in window) {
+      const ro = new ResizeObserver(() => {
+        measure();
+        requestUpdate();
+      });
+      sections.forEach((section) => ro.observe(section));
+    }
   }
 
   function initAnchorScroll() {
