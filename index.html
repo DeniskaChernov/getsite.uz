@@ -34,14 +34,14 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=16">
+    <link rel="stylesheet" href="assets/styles.css?v=18">
     <noscript>
       <style>
         .preloader { display: none !important; }
         .line-reveal > span, .reveal { opacity: 1 !important; transform: none !important; }
       </style>
     </noscript>
-    <script src="assets/particles2.js?v=13" defer></script>
+    <script src="assets/particles2.js?v=14" defer></script>
     <script src="assets/app.js?v=14" defer></script>
   </head>
   <body>
@@ -121,7 +121,7 @@
         </div>
       </section>
 
-      <section class="pricing section section--left section--pricing" id="pricing" data-screen-label="Цены" data-shape="1" data-side="left">
+      <section class="pricing pricing-block section section--left section--pricing" id="pricing" data-screen-label="Цены · Сайты" data-shape="1" data-side="right">
         <div class="section__content section__content--pricing">
           <div class="spotlight-intro reveal">
             <h2 class="spotlight__title">Цены</h2>
@@ -129,10 +129,8 @@
               Цена «от» — при стандартном составе. Точная сумма зависит от объёма, функций и интеграций. Сложный проект начинаем с аналитики.
             </p>
           </div>
-
           <div class="pricing-catalog reveal">
-            <section class="pricing-group">
-              <h3 class="pricing-group__title">Сайты</h3>
+            <h3 class="pricing-group__title">Сайты</h3>
               <div class="pricing-mains pricing-mains--duo" data-stagger>
                 <article class="price-card">
                   <div class="price-card__top">
@@ -190,10 +188,14 @@
                   <li><span class="pricing-subs__name">Личный кабинет</span><span class="pricing-subs__meta">от 3 млн · модуль</span><span class="pricing-subs__desc">Авторизация, профиль и один рабочий раздел.</span></li>
                 </ul>
               </details>
-            </section>
+          </div>
+        </div>
+      </section>
 
-            <section class="pricing-group">
-              <h3 class="pricing-group__title">Telegram</h3>
+      <section class="pricing pricing-block section section--right section--pricing" id="pricing-telegram" data-screen-label="Цены · Telegram" data-shape="2" data-side="left">
+        <div class="section__content section__content--pricing">
+          <div class="pricing-catalog reveal">
+            <h3 class="pricing-group__title">Telegram</h3>
               <div class="pricing-mains" data-stagger>
                 <article class="price-card price-card--accent">
                   <div class="price-card__top">
@@ -231,10 +233,14 @@
                   <li><span class="pricing-subs__name">AI-модуль</span><span class="pricing-subs__meta">от 3 млн · сценарий</span><span class="pricing-subs__desc">Один управляемый AI-сценарий.</span></li>
                 </ul>
               </details>
-            </section>
+          </div>
+        </div>
+      </section>
 
-            <section class="pricing-group">
-              <h3 class="pricing-group__title">Автоматизация</h3>
+      <section class="pricing pricing-block section section--left section--pricing" id="pricing-automation" data-screen-label="Цены · Автоматизация" data-shape="4" data-side="right">
+        <div class="section__content section__content--pricing">
+          <div class="pricing-catalog reveal">
+            <h3 class="pricing-group__title">Автоматизация</h3>
               <div class="pricing-mains pricing-mains--duo" data-stagger>
                 <article class="price-card">
                   <div class="price-card__top">
@@ -288,10 +294,14 @@
                   <li><span class="pricing-subs__name">Управленческий дашборд</span><span class="pricing-subs__meta">от 2,5 млн · дашборд</span><span class="pricing-subs__desc">KPI и контрольные показатели.</span></li>
                 </ul>
               </details>
-            </section>
+          </div>
+        </div>
+      </section>
 
-            <section class="pricing-group">
-              <h3 class="pricing-group__title">Поддержка</h3>
+      <section class="pricing pricing-block section section--right section--pricing" id="pricing-support" data-screen-label="Цены · Поддержка" data-shape="3" data-side="left">
+        <div class="section__content section__content--pricing">
+          <div class="pricing-catalog reveal">
+            <h3 class="pricing-group__title">Поддержка</h3>
               <div class="pricing-mains pricing-mains--solo" data-stagger>
                 <article class="price-card">
                   <div class="price-card__top">
@@ -309,139 +319,178 @@
                   <li><span class="pricing-subs__name">Пакет контентных изменений</span><span class="pricing-subs__meta">от 500 тыс · пакет</span><span class="pricing-subs__desc">До 10 изменений текста или фото.</span></li>
                 </ul>
               </details>
-            </section>
           </div>
         </div>
       </section>
 
-      <section class="process section section--left section--process" id="process" data-screen-label="Процесс" data-shape="4" data-side="right">
+      <section class="process section section--right section--process" id="process" data-screen-label="Процесс" data-shape="4" data-side="left">
         <div class="section__content section__content--process">
-          <div class="spotlight-intro reveal">
-            <h2 class="spotlight__title">Как идём</h2>
-            <p class="spotlight__text">
-              Один подход — разные сценарии. Для сайта, бота, автоматизации и поддержки шаги немного отличаются, но на связи на каждом этапе.
-            </p>
-          </div>
+          <div class="process-panel reveal">
+            <div class="spotlight-intro">
+              <h2 class="spotlight__title">Как идём</h2>
+              <p class="spotlight__text">
+                Один подход — разные сценарии. Для сайта, бота, автоматизации и поддержки шаги немного отличаются, но на связи на каждом этапе.
+              </p>
+            </div>
 
-          <div class="process-catalog reveal">
-            <section class="process-group">
-              <h3 class="process-group__title">Сайты</h3>
-              <div class="process-steps" data-stagger>
-                <article class="process-step">
-                  <span class="process-step__num">01</span>
-                  <h4>Разговор</h4>
-                  <p>15–30 минут: задача, аудитория, что должно произойти после визита.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">02</span>
-                  <h4>Структура</h4>
-                  <p>Карта страниц, блоки, прототип ключевых экранов до дизайна.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">03</span>
-                  <h4>Дизайн и код</h4>
-                  <p>Макет, адаптив, формы, проверка на телефоне по ходу сборки.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">04</span>
-                  <h4>Наполнение</h4>
-                  <p>Контент, аналитика, тестовые заявки — всё работает до публикации.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">05</span>
-                  <h4>Запуск</h4>
-                  <p>Домен, SSL, публикация и короткая передача: что где менять.</p>
-                </article>
-              </div>
-            </section>
+            <div class="process-groups">
+              <section class="process-group">
+                <h3 class="process-group__title">Сайты</h3>
+                <div class="route process-route" data-stagger>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>01 — Разговор</strong>
+                      <span>15–30 минут: задача, аудитория, что должно произойти после визита.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>02 — Структура</strong>
+                      <span>Карта страниц, блоки, прототип ключевых экранов до дизайна.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>03 — Дизайн и код</strong>
+                      <span>Макет, адаптив, формы, проверка на телефоне по ходу сборки.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>04 — Наполнение</strong>
+                      <span>Контент, аналитика, тестовые заявки — всё работает до публикации.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>05 — Запуск</strong>
+                      <span>Домен, SSL, публикация и короткая передача: что где менять.</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-            <section class="process-group">
-              <h3 class="process-group__title">Telegram</h3>
-              <div class="process-steps" data-stagger>
-                <article class="process-step">
-                  <span class="process-step__num">01</span>
-                  <h4>Сценарий</h4>
-                  <p>Кто пишет боту, какой результат нужен — заявка, запись, каталог.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">02</span>
-                  <h4>Флоу</h4>
-                  <p>Диалоги, кнопки, ветки и уведомления менеджеру.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">03</span>
-                  <h4>Сборка</h4>
-                  <p>Код бота, база, админ-команды, тест в реальном чате.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">04</span>
-                  <h4>Панель</h4>
-                  <p>Если нужна — web-интерфейс, роли, статусы и отчёты.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">05</span>
-                  <h4>Запуск</h4>
-                  <p>Передача доступов, инструкция для команды, первые дни на связи.</p>
-                </article>
-              </div>
-            </section>
+              <section class="process-group">
+                <h3 class="process-group__title">Telegram</h3>
+                <div class="route process-route" data-stagger>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>01 — Сценарий</strong>
+                      <span>Кто пишет боту, какой результат нужен — заявка, запись, каталог.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>02 — Флоу</strong>
+                      <span>Диалоги, кнопки, ветки и уведомления менеджеру.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>03 — Сборка</strong>
+                      <span>Код бота, база, админ-команды, тест в реальном чате.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>04 — Панель</strong>
+                      <span>Если нужна — web-интерфейс, роли, статусы и отчёты.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>05 — Запуск</strong>
+                      <span>Передача доступов, инструкция для команды, первые дни на связи.</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-            <section class="process-group">
-              <h3 class="process-group__title">Автоматизация</h3>
-              <div class="process-steps" data-stagger>
-                <article class="process-step">
-                  <span class="process-step__num">01</span>
-                  <h4>Аудит</h4>
-                  <p>Что сейчас делается руками, где теряется время и данные.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">02</span>
-                  <h4>Архитектура</h4>
-                  <p>Роли, интеграции, сущности — схема до начала разработки.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">03</span>
-                  <h4>Разработка</h4>
-                  <p>Интерфейс, API, связки с CRM и внешними сервисами.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">04</span>
-                  <h4>Миграция</h4>
-                  <p>Перенос данных, обучение команды, тест на реальных кейсах.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">05</span>
-                  <h4>Запуск</h4>
-                  <p>Мониторинг первых недель, правки по обратной связи.</p>
-                </article>
-              </div>
-            </section>
+              <section class="process-group">
+                <h3 class="process-group__title">Автоматизация</h3>
+                <div class="route process-route" data-stagger>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>01 — Аудит</strong>
+                      <span>Что сейчас делается руками, где теряется время и данные.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>02 — Архитектура</strong>
+                      <span>Роли, интеграции, сущности — схема до начала разработки.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>03 — Разработка</strong>
+                      <span>Интерфейс, API, связки с CRM и внешними сервисами.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>04 — Миграция</strong>
+                      <span>Перенос данных, обучение команды, тест на реальных кейсах.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>05 — Запуск</strong>
+                      <span>Мониторинг первых недель, правки по обратной связи.</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-            <section class="process-group">
-              <h3 class="process-group__title">Поддержка</h3>
-              <div class="process-steps process-steps--quad" data-stagger>
-                <article class="process-step">
-                  <span class="process-step__num">01</span>
-                  <h4>Подключение</h4>
-                  <p>Доступы, мониторинг, бэкапы и канал для задач.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">02</span>
-                  <h4>Правки</h4>
-                  <p>Мелкие изменения в рамках тарифа — тексты, блоки, баги.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">03</span>
-                  <h4>Консультации</h4>
-                  <p>Вопросы по развитию: что добавить и в каком порядке.</p>
-                </article>
-                <article class="process-step">
-                  <span class="process-step__num">04</span>
-                  <h4>Развитие</h4>
-                  <p>Новые фичи — отдельным этапом, с оценкой и сроками.</p>
-                </article>
-              </div>
-            </section>
+              <section class="process-group">
+                <h3 class="process-group__title">Поддержка</h3>
+                <div class="route process-route" data-stagger>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>01 — Подключение</strong>
+                      <span>Доступы, мониторинг, бэкапы и канал для задач.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>02 — Правки</strong>
+                      <span>Мелкие изменения в рамках тарифа — тексты, блоки, баги.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>03 — Консультации</strong>
+                      <span>Вопросы по развитию: что добавить и в каком порядке.</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <span class="route-step__dot" aria-hidden="true"></span>
+                    <div>
+                      <strong>04 — Развитие</strong>
+                      <span>Новые фичи — отдельным этапом, с оценкой и сроками.</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
       </section>
@@ -504,7 +553,7 @@
         </div>
       </section>
 
-      <section class="blog section section--right" id="blog" data-screen-label="Блог" data-shape="5" data-side="right">
+      <section class="blog section section--right" id="blog" data-screen-label="Блог" data-shape="5" data-side="left">
         <div class="section__content section__content--wide">
           <div class="spotlight-intro reveal">
             <h2 class="spotlight__title">Блог</h2>

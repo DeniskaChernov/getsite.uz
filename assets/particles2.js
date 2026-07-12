@@ -3,7 +3,7 @@
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
    API: el.setShape(id 0..7), el.startIntro()
-   Shapes: 0 rocket, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 book, 6 logo, 7 cloud.
+   Shapes: 0 rocket, 1 website, 2 telegram, 3 lifebuoy, 4 automation chain, 5 open book, 6 logo, 7 cloud.
    API also: el.setSide('left'|'right') — positions figure opposite section text.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
@@ -120,15 +120,15 @@
       else radialDust(a, i, 1.2, 8.5);
     });
 
-    // 3 CRM — volumetric funnel: rings narrowing + fill discs + wall streams + drip + deal sphere
-    const FW = [1.25, 0.95, 0.66, 0.40];
+    // 3 LIFEBUOY — ring for support and care
     shapes[3] = gen((a, i, f) => {
-      if (f < 0.46) { const k = Math.floor(R() * 4), w = FW[k] + G() * 0.02, an = R() * 6.2832, y = 0.80 - k * 0.44; put(a, i, Math.cos(an) * w, y + G() * 0.025, Math.sin(an) * w); }
-      else if (f < 0.58) { const k = Math.floor(R() * 4), w = FW[k] * Math.sqrt(R()), an = R() * 6.2832, y = 0.80 - k * 0.44; put(a, i, Math.cos(an) * w, y + G() * 0.015, Math.sin(an) * w); }
-      else if (f < 0.74) { const k = Math.floor(R() * 3), an = Math.floor(R() * 10) / 10 * 6.2832, t = R(); const w = FW[k] + t * (FW[k + 1] - FW[k]), y = 0.80 - k * 0.44 - t * 0.44; put(a, i, Math.cos(an) * w + G() * 0.012, y, Math.sin(an) * w + G() * 0.012); }
-      else if (f < 0.82) { const t = R(); put(a, i, G() * 0.03, -0.62 - t * 0.4, G() * 0.03); }
-      else if (f < 0.92) sphere(a, i, 0, -1.24, 0, 0.17 + G() * 0.012);
-      else radialDust(a, i, 1.3, 9);
+      if (f < 0.82) {
+        const an = R() * 6.2832, tube = 0.11 + G() * 0.012, ring = 0.72 + G() * 0.018;
+        put(a, i, Math.cos(an) * ring + G() * 0.01, (R() - 0.5) * tube * 2.2, Math.sin(an) * ring + G() * 0.01);
+      } else if (f < 0.90) {
+        const k = Math.floor(R() * 4), an = k / 4 * 6.2832 + R() * 0.4;
+        seg(a, i, Math.cos(an) * 0.35, 0.42, Math.cos(an) * 0.95, 0.42, 0, 0);
+      } else radialDust(a, i, 1.3, 9);
     });
 
     // 4 AUTOMATION — 3D chain: node spheres zigzagging in depth + links + pulse clusters
@@ -143,30 +143,23 @@
       else radialDust(a, i, 1.5, 9.5);
     });
 
-    // 5 BOOK — closed volume: covers, spine, page edge, title lines, bookmark
-    const BW = 0.68, BH = 0.92, BT = 0.17;
+    // 5 OPEN BOOK — spread pages, horizontal lines, no spine cross
     shapes[5] = gen((a, i, f) => {
-      if (f < 0.24) rectFill(a, i, -BW, -BH, BW, BH, BT, 0.02);
-      else if (f < 0.30) rectEdge(a, i, -BW, -BH, BW, BH, BT, 0.02);
-      else if (f < 0.50) rectFill(a, i, -BW, -BH, BW, BH, -BT, 0.02);
-      else if (f < 0.56) rectEdge(a, i, -BW, -BH, BW, BH, -BT, 0.02);
-      else if (f < 0.68) {
-        const t = R(), z = -BT + t * (BT * 2);
-        put(a, i, -BW + G() * 0.012, -BH + R() * (BH * 2), z + G() * 0.01);
-      } else if (f < 0.76) {
-        const t = R(), z = -BT * 0.9 + t * (BT * 1.8);
-        put(a, i, BW - R() * 0.05 + G() * 0.008, -BH + R() * (BH * 2), z + G() * 0.008);
-      } else if (f < 0.82) {
+      if (f < 0.36) {
+        const t = R(), u = R();
+        put(a, i, -0.1 - t * 1.05 - u * 0.12, -0.7 + u * 1.45, t * 0.32 + G() * 0.02);
+      } else if (f < 0.70) {
+        const t = R(), u = R();
+        put(a, i, 0.1 + t * 1.05 + u * 0.12, -0.7 + u * 1.45, t * 0.32 + G() * 0.02);
+      } else if (f < 0.86) {
+        const left = R() < 0.5;
+        const line = Math.floor(R() * 5), y = -0.42 + line * 0.2;
+        if (left) seg(a, i, -1.0, y, -0.22, y, 0.14, 0.14);
+        else seg(a, i, 0.22, y, 1.0, y, 0.14, 0.14);
+      } else if (f < 0.94) {
         const t = R();
-        if (R() < 0.5) put(a, i, -BW + t * (BW * 1.95), BH - R() * 0.03, G() * 0.055);
-        else put(a, i, -BW + t * (BW * 1.95), -BH + R() * 0.03, G() * 0.055);
-      } else if (f < 0.90) {
-        const line = Math.floor(R() * 3), y = 0.38 - line * 0.24;
-        seg(a, i, -0.44, y, 0.44, y, BT + 0.01, BT + 0.01);
-      } else if (f < 0.95) {
-        const t = R();
-        put(a, i, 0.1 + G() * 0.014, 0.58 - t * 1.2, BT * 0.45 + G() * 0.01);
-      } else radialDust(a, i, 1.4, 9);
+        put(a, i, -0.12 + t * 0.24, -0.78 + G() * 0.04, G() * 0.05);
+      } else radialDust(a, i, 1.3, 9);
     });
 
     // 6 LOGO — extruded glyphs
