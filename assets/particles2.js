@@ -228,7 +228,7 @@ void main(){
   // camera z distance per shape; horizontal shift comes from setSide()
   const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.1, 3.9, 3.8, 4.2];
   const CAM_RX = [0.08, 0.10, 0.10, 0.28, 0.10, 0.12, 0.08, 0.04];
-  const SIDE_X = 0.82;
+  const SIDE_X = 1.25;
 
   class PFScene extends HTMLElement {
     connectedCallback() {
@@ -349,7 +349,7 @@ void main(){
         const tRx = CAM_RX[id] - this._my * 0.05;
         this._ry += (tRy - this._ry) * 0.022;
         this._rx += (tRx - this._rx) * 0.022;
-        const targetCx = MOBILE ? 0 : this._side * SIDE_X;
+        const targetCx = MOBILE ? 0 : -this._side * SIDE_X;
         const targetCz = CAM_Z[id];
         this._side += (this._targetSide - this._side) * 0.022;
         this._cx += (targetCx - this._cx) * 0.022;

@@ -383,11 +383,17 @@ main,
 }
 
 .section__content {
-  width: min(46%, 560px);
+  width: min(40%, 500px);
+}
+
+.hero .section__content {
+  width: min(36%, 440px);
+  max-width: 38vw;
 }
 
 .section--left .section__content {
   margin-right: auto;
+  padding-right: 2vw;
 }
 
 .section--right .section__content {
@@ -424,7 +430,7 @@ main,
 }
 
 .hero__title {
-  max-width: 14ch;
+  max-width: 12ch;
   margin: 0;
   font-family: "Unbounded", Arial, sans-serif;
   font-size: clamp(2.8rem, 7.2vw, 6.8rem);
