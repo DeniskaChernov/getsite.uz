@@ -201,10 +201,11 @@
     let sectionTops = [];
 
     const measure = () => {
+      const scrollY = window.scrollY || doc.documentElement.scrollTop;
       sectionTops = sections.map((section) => ({
         shape: Number(section.dataset.shape),
         side: section.dataset.side || "left",
-        top: section.offsetTop,
+        top: section.getBoundingClientRect().top + scrollY,
       }));
     };
 
@@ -220,13 +221,27 @@
       }
     };
 
-    const shapeForScroll = (scrollY) => {
-      const pivot = scrollY + (window.innerHeight || 1) * 0.42;
-      let current = sectionTops[0] || { shape: 0, side: "left" };
-      sectionTops.forEach((entry) => {
-        if (pivot >= entry.top) current = entry;
+    let activeIndex = 0;
+
+    const shapeForScroll = (scrollY, viewport) => {
+      const pivot = scrollY + viewport * 0.45;
+      let nextIndex = 0;
+
+      sectionTops.forEach((entry, index) => {
+        if (pivot >= entry.top) nextIndex = index;
       });
-      return current;
+
+      const hysteresis = viewport * 0.14;
+      if (nextIndex > activeIndex) {
+        const boundary = sectionTops[nextIndex]?.top ?? 0;
+        if (pivot < boundary + hysteresis) nextIndex = activeIndex;
+      } else if (nextIndex < activeIndex) {
+        const hold = sectionTops[activeIndex]?.top ?? 0;
+        if (pivot > hold - hysteresis) nextIndex = activeIndex;
+      }
+
+      activeIndex = nextIndex;
+      return sectionTops[activeIndex] || { shape: 0, side: "left" };
     };
 
     const update = () => {
@@ -236,7 +251,7 @@
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
 
       if (sectionTops.length) {
-        const { shape, side } = shapeForScroll(scrollY);
+        const { shape, side } = shapeForScroll(scrollY, viewport);
         applyScene(shape, side);
       }
 
