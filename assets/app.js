@@ -143,7 +143,7 @@
     }, { passive: true });
 
     window.addEventListener("pointerover", (event) => {
-      active = Boolean(event.target.closest("a, button, input, textarea, .service-row"));
+      active = Boolean(event.target.closest("a, button, input, textarea, .service-row, .expertise-card"));
     }, { passive: true });
 
     const loop = () => {

@@ -9,7 +9,7 @@
 
   const MOBILE = Math.min(window.innerWidth, window.innerHeight) < 700;
   const CORES = navigator.hardwareConcurrency || 4;
-  const N = MOBILE ? 50000 : (CORES >= 8 ? 220000 : 130000);
+  const N = MOBILE ? 52000 : (CORES >= 8 ? 260000 : 160000);
   const R = Math.random;
   const G = () => (R() + R() + R() - 1.5) * 0.66;
 
@@ -160,9 +160,9 @@ void main(){
   pos.xy += (dir * 0.13 + vec2(-dir.y, dir.x) * 0.07) * f * pos.w;
   gl_Position = pos;
   float dist = max(0.7, -mv.z);
-  float ps = uSize * (0.6 + aSeed.z * 1.1) * (2.3 / dist);
-  gl_PointSize = max(1.0, min(ps, uSize * 3.2));
-  vA = 0.32 + 0.30 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0);
+  float ps = uSize * (0.8 + aSeed.z * 1.35) * (2.35 / dist);
+  gl_PointSize = max(1.0, min(ps, uSize * 3.6));
+  vA = 0.42 + 0.34 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0);
   vSeed = aSeed.z;
 }`;
   const FS = `
@@ -257,7 +257,7 @@ void main(){
         canvas.height = Math.max(2, window.innerHeight * dpr);
         gl.viewport(0, 0, canvas.width, canvas.height);
         this._proj = persp(0.9, canvas.width / canvas.height, 0.1, 30);
-        gl.uniform1f(this._u.uSize, dpr * (MOBILE ? 2.1 : 1.55));
+        gl.uniform1f(this._u.uSize, dpr * (MOBILE ? 2.0 : 1.9));
       };
       resize();
       this._onResize = resize;
@@ -290,7 +290,7 @@ void main(){
         const time = (now - t0) / 1000;
 
         this._ema = this._ema * 0.94 + Math.min(dtMs, 100) * 0.06;
-        if ((++this._fc % 90) === 0 && this._ema > 30 && this._drawN > 20000) this._drawN = Math.floor(this._drawN * 0.68);
+        if ((++this._fc % 90) === 0 && this._ema > 30 && this._drawN > 35000) this._drawN = Math.floor(this._drawN * 0.72);
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
