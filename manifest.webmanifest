@@ -1,0 +1,19 @@
+{
+  "name": "getsite",
+  "short_name": "getsite",
+  "description": "Сайты, боты, CRM и автоматизации для бизнеса.",
+  "lang": "ru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070809",
+  "theme_color": "#070809",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

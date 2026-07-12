@@ -8,6 +8,9 @@
 - `assets/styles.css` - стили интерфейса и адаптива.
 - `assets/app.js` - меню, прелоадер, reveal-анимации, форма и управление particle-сценой.
 - `assets/particles2.js` - WebGL particle-сцена, перенесенная из Claude Design-макета.
+- `assets/og-image.png` и `assets/favicon.svg` - изображения для предпросмотра и иконки.
+- `manifest.webmanifest`, `robots.txt`, `sitemap.xml` - файлы для публикации и индексации.
+- `_headers` - рекомендуемые security headers для статических хостингов, которые поддерживают этот формат.
 - `project/` - исходный handoff-архив с `.dc.html` прототипами.
 
 Главный исходный макет: `project/getsite v4.dc.html`.

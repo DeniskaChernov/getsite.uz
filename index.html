@@ -3,18 +3,40 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'"
+    >
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>getsite - сайты, боты, CRM и автоматизация</title>
     <meta
       name="description"
       content="getsite создает сайты, Telegram-боты, CRM, веб-сервисы и автоматизации для бизнеса в Узбекистане и СНГ."
     >
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="getsite">
     <meta name="theme-color" content="#070809">
+    <link rel="canonical" href="https://getsite.uz/">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.webmanifest">
     <meta property="og:title" content="getsite - цифровые продукты для бизнеса">
     <meta
       property="og:description"
       content="Сайты, боты, CRM и автоматизации, которые двигают бизнес вперед."
     >
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://getsite.uz/">
+    <meta property="og:site_name" content="getsite">
+    <meta property="og:image" content="https://getsite.uz/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="getsite - цифровые продукты для бизнеса">
+    <meta
+      name="twitter:description"
+      content="Сайты, боты, CRM и автоматизации, которые двигают бизнес вперед."
+    >
+    <meta name="twitter:image" content="https://getsite.uz/assets/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,16 +44,23 @@
       rel="stylesheet"
     >
     <link rel="stylesheet" href="assets/styles.css">
+    <noscript>
+      <style>
+        .preloader { display: none !important; }
+        .line-reveal > span, .reveal { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
     <script src="assets/particles2.js" defer></script>
     <script src="assets/app.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Перейти к содержанию</a>
     <pf-scene class="particle-root" aria-hidden="true"></pf-scene>
 
     <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
     <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
 
-    <div class="preloader" data-preloader>
+    <div class="preloader" data-preloader role="status" aria-live="polite" aria-label="Загрузка сайта">
       <span class="brand preloader__brand">getsite<span>*</span></span>
       <div class="preloader__bar" aria-hidden="true">
         <div data-loader-bar></div>
@@ -42,7 +71,8 @@
       </div>
     </div>
 
-    <div class="menu-panel" data-menu aria-hidden="true">
+    <div class="menu-panel" id="site-menu" data-menu role="dialog" aria-modal="true" aria-labelledby="site-menu-title" aria-hidden="true">
+      <h2 class="sr-only" id="site-menu-title">Меню сайта</h2>
       <button class="menu-panel__close" type="button" data-menu-close aria-label="Закрыть меню">
         Закрыть
       </button>
@@ -64,20 +94,20 @@
       </nav>
       <div class="site-header__actions">
         <div class="language-switcher" aria-label="Выбор языка">
-          <button class="is-active" type="button" data-lang="ru">RU</button>
-          <button type="button" data-lang="uz">UZ</button>
-          <button type="button" data-lang="en">EN</button>
+          <button class="is-active" type="button" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" data-lang="uz" aria-pressed="false">UZ</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
         </div>
         <a class="button button--primary button--header" href="#contacts">Обсудить проект</a>
-        <button class="menu-button" type="button" data-menu-open aria-label="Открыть меню" aria-expanded="false">
+        <button class="menu-button" type="button" data-menu-open aria-label="Открыть меню" aria-expanded="false" aria-controls="site-menu">
           <span></span>
           <span></span>
         </button>
       </div>
     </header>
 
-    <main id="top">
-      <section class="hero section" data-screen-label="Hero" data-shape="0">
+    <main id="main-content" tabindex="-1">
+      <section class="hero section" id="top" data-screen-label="Hero" data-shape="0">
         <div class="hero__content">
           <p class="eyebrow line-reveal"><span>Digital-система для бизнеса</span></p>
           <h1 class="hero__title" aria-label="getsite создает цифровые продукты">
@@ -302,7 +332,7 @@
           <h2>Есть задача? Давайте соберем <span>решение</span></h2>
           <p>Расскажите, что мешает бизнесу расти. Предложим формат продукта и понятный первый шаг.</p>
           <div class="contacts__buttons">
-            <a class="button button--ghost" href="https://t.me/getsite">Написать в Telegram</a>
+            <a class="button button--ghost" href="https://t.me/getsite" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
             <a class="button button--ghost" href="tel:+998000000000">Позвонить</a>
           </div>
           <address class="contacts__address">
@@ -312,8 +342,9 @@
           </address>
         </div>
 
-        <form class="lead-form reveal" data-form>
-          <div class="lead-form__success" data-form-success hidden>
+        <form class="lead-form reveal" data-form method="post" action="#" autocomplete="on" aria-describedby="form-note">
+          <p class="sr-only" id="form-note">Заполните имя и телефон, затем выберите тип задачи.</p>
+          <div class="lead-form__success" data-form-success role="status" aria-live="polite" hidden tabindex="-1">
             <strong>Заявка отправлена</strong>
             <span>Спасибо! Менеджер свяжется с вами в течение рабочего дня.</span>
           </div>
@@ -321,27 +352,32 @@
             <div class="lead-form__grid">
               <label>
                 <span>Имя</span>
-                <input name="name" autocomplete="name" placeholder="Ваше имя" required>
+                <input name="name" autocomplete="name" placeholder="Ваше имя" minlength="2" maxlength="80" required>
               </label>
               <label>
                 <span>Телефон</span>
-                <input name="phone" autocomplete="tel" placeholder="+998" required>
+                <input name="phone" autocomplete="tel" inputmode="tel" placeholder="+998" minlength="7" maxlength="32" required>
               </label>
             </div>
             <fieldset class="task-types">
               <legend>Тип задачи</legend>
-              <button class="is-active" type="button" data-task-type>Сайт</button>
-              <button type="button" data-task-type>Интернет-магазин</button>
-              <button type="button" data-task-type>Telegram-бот</button>
-              <button type="button" data-task-type>CRM</button>
-              <button type="button" data-task-type>Веб-сервис</button>
-              <button type="button" data-task-type>Автоматизация</button>
-              <button type="button" data-task-type>Интеграция</button>
-              <button type="button" data-task-type>Консультация</button>
+              <input type="hidden" name="task" value="Сайт" data-task-input>
+              <button class="is-active" type="button" data-task-type aria-pressed="true">Сайт</button>
+              <button type="button" data-task-type aria-pressed="false">Интернет-магазин</button>
+              <button type="button" data-task-type aria-pressed="false">Telegram-бот</button>
+              <button type="button" data-task-type aria-pressed="false">CRM</button>
+              <button type="button" data-task-type aria-pressed="false">Веб-сервис</button>
+              <button type="button" data-task-type aria-pressed="false">Автоматизация</button>
+              <button type="button" data-task-type aria-pressed="false">Интеграция</button>
+              <button type="button" data-task-type aria-pressed="false">Консультация</button>
             </fieldset>
             <label>
               <span>Описание</span>
-              <textarea name="message" rows="4" placeholder="Кратко о задаче"></textarea>
+              <textarea name="message" rows="4" maxlength="1200" placeholder="Кратко о задаче"></textarea>
+            </label>
+            <label class="form-hp" aria-hidden="true">
+              <span>Сайт</span>
+              <input name="website" autocomplete="off" tabindex="-1">
             </label>
             <button class="button button--primary lead-form__submit" type="submit">Обсудить проект</button>
           </div>

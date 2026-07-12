@@ -85,18 +85,43 @@
     const links = doc.querySelectorAll("[data-menu-link]");
     if (!menu || !open || !close) return;
 
+    const focusableSelector = "a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])";
+    let previousFocus = null;
+
     const setOpen = (state) => {
       menu.classList.toggle("is-open", state);
       menu.setAttribute("aria-hidden", String(!state));
       open.setAttribute("aria-expanded", String(state));
       body.classList.toggle("menu-open", state);
+      if (state) {
+        previousFocus = doc.activeElement;
+        window.setTimeout(() => close.focus(), 0);
+      } else if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
     };
 
     open.addEventListener("click", () => setOpen(true));
     close.addEventListener("click", () => setOpen(false));
     links.forEach((link) => link.addEventListener("click", () => setOpen(false)));
     doc.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") setOpen(false);
+      if (!menu.classList.contains("is-open")) return;
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = [...menu.querySelectorAll(focusableSelector)];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && doc.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && doc.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
   }
 
@@ -235,21 +260,34 @@
     const success = form.querySelector("[data-form-success]");
     const bodyEl = form.querySelector("[data-form-body]");
     const taskButtons = [...form.querySelectorAll("[data-task-type]")];
+    const taskInput = form.querySelector("[data-task-input]");
+    const honeypot = form.querySelector("input[name='website']");
+    const submit = form.querySelector(".lead-form__submit");
 
     taskButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        taskButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+        taskButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
+        if (taskInput) taskInput.value = button.textContent.trim();
       });
     });
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (honeypot && honeypot.value.trim()) return;
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
+      if (submit) submit.disabled = true;
       if (bodyEl) bodyEl.hidden = true;
-      if (success) success.hidden = false;
+      if (success) {
+        success.hidden = false;
+        success.focus();
+      }
     });
   }
 
@@ -257,7 +295,11 @@
     const buttons = doc.querySelectorAll("[data-lang]");
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        buttons.forEach((item) => item.classList.toggle("is-active", item === button));
+        buttons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
       });
     });
   }
