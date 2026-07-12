@@ -342,7 +342,10 @@ void main(){
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
-        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.04) * (reduced ? 2 : 0.42));
+        if (this._playing && this._t < 1) {
+          const morphSpeed = this._toId === 7 ? 0.72 : 0.42;
+          this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.04) * (reduced ? 2 : morphSpeed));
+        }
 
         const id = this._toId;
         const morphing = this._t < 0.92;
@@ -394,6 +397,7 @@ void main(){
       if (id === 7) this._scT = 1; else { this._wT[id] = 1; this._scT = 0; }
       this._toId = id;
       this._t = 0;
+      this._playing = true;
     }
 
     setSide(side) {

@@ -228,21 +228,21 @@
 
     let activeIndex = 0;
 
-    const shapeForScroll = (scrollY, viewport) => {
-      const pivot = scrollY + viewport * 0.45;
+    const shapeForScroll = (viewport) => {
+      const switchLine = viewport * 0.58;
       let nextIndex = 0;
 
-      sectionTops.forEach((entry, index) => {
-        if (pivot >= entry.top) nextIndex = index;
+      sections.forEach((section, index) => {
+        if (section.getBoundingClientRect().top < switchLine) nextIndex = index;
       });
 
-      const hysteresis = viewport * 0.14;
+      const hysteresis = viewport * 0.05;
       if (nextIndex > activeIndex) {
-        const boundary = sectionTops[nextIndex]?.top ?? 0;
-        if (pivot < boundary + hysteresis) nextIndex = activeIndex;
+        const boundary = sections[nextIndex].getBoundingClientRect().top;
+        if (boundary > switchLine - hysteresis) nextIndex = activeIndex;
       } else if (nextIndex < activeIndex) {
-        const hold = sectionTops[activeIndex]?.top ?? 0;
-        if (pivot > hold - hysteresis) nextIndex = activeIndex;
+        const boundary = sections[activeIndex].getBoundingClientRect().top;
+        if (boundary < switchLine + hysteresis) nextIndex = activeIndex;
       }
 
       activeIndex = nextIndex;
@@ -256,7 +256,7 @@
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
 
       if (sectionTops.length) {
-        const { shape, side } = shapeForScroll(scrollY, viewport);
+        const { shape, side } = shapeForScroll(viewport);
         applyScene(shape, side);
       }
 

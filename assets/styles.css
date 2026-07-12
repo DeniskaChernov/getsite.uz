@@ -497,6 +497,7 @@ main,
   position: relative;
   gap: 0;
   justify-content: center;
+  min-height: 92svh;
   padding-top: 12vh;
   padding-bottom: 10vh;
 }
