@@ -669,6 +669,7 @@ body.skip-intro .line-reveal > span {
 }
 
 .contact {
+  min-height: 78vh;
   justify-content: flex-end;
   padding-bottom: 12vh;
 }
@@ -684,7 +685,7 @@ body.skip-intro .line-reveal > span {
   width: fit-content;
   max-width: 100%;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(1.8rem, 5.5vw, 4.5rem);
+  font-size: clamp(2.1rem, 7vw, 7.6rem);
   font-weight: 900;
   line-height: 1;
   overflow-wrap: anywhere;
@@ -812,7 +813,7 @@ body.skip-intro .line-reveal > span {
   }
 
   .contact__mail {
-    font-size: clamp(1.5rem, 8vw, 2.4rem);
+    font-size: clamp(2rem, 10vw, 3.8rem);
   }
 }
 
