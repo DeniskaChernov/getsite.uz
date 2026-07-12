@@ -716,6 +716,74 @@ main,
   min-height: auto;
 }
 
+.process {
+  min-height: auto;
+}
+
+.section__content--process {
+  width: min(62%, 720px);
+  max-width: 100%;
+}
+
+.process-panel {
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid rgba(245, 242, 235, 0.1);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(2, 3, 3, 0.94) 0%, rgba(2, 3, 3, 0.88) 72%, rgba(2, 3, 3, 0.55) 100%);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.section--process .spotlight-intro {
+  margin-bottom: clamp(28px, 5vh, 48px);
+  text-align: left;
+}
+
+.section--process .spotlight__text {
+  max-width: 36ch;
+}
+
+.process .route {
+  padding-left: 0;
+  padding-right: 32px;
+  max-width: 100%;
+}
+
+.process .route::before,
+.process .route__fill {
+  left: auto;
+  right: 6px;
+}
+
+.process .route-step {
+  text-align: left;
+  padding-bottom: 28px;
+}
+
+.process .route-step__dot {
+  left: auto;
+  right: -26px;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+}
+
+.process .route-step strong {
+  color: var(--text);
+}
+
+.process .route-step.is-active .route-step__dot {
+  background: var(--accent);
+  transform: scale(1.45);
+  box-shadow: 0 0 16px rgba(216, 255, 61, 0.5);
+}
+
+.process .route-step span {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .hero {
   position: relative;
   gap: 0;
@@ -1543,8 +1611,8 @@ body.page-blog {
 
 .route-step.is-done .route-step__dot {
   background: var(--accent);
-  transform: scale(1.35);
-  box-shadow: 0 0 14px rgba(216, 255, 61, 0.45);
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(216, 255, 61, 0.35);
 }
 
 .route-step strong {
@@ -1553,11 +1621,8 @@ body.page-blog {
   font-family: "Unbounded", Arial, sans-serif;
   font-size: clamp(0.95rem, 1.4vw, 1.15rem);
   font-weight: 700;
+  color: var(--text);
   transition: color 0.3s ease;
-}
-
-.route-step.is-done strong {
-  color: var(--accent);
 }
 
 .route-step span {
@@ -1720,7 +1785,8 @@ body.page-blog {
 }
 
 @media (max-width: 1120px) {
-  .section__content--pricing {
+  .section__content--pricing,
+  .section__content--process {
     width: 100%;
   }
 
@@ -1834,6 +1900,15 @@ body.page-blog {
   .pricing-catalog {
     padding: 16px;
     border-radius: 16px;
+  }
+
+  .process-panel {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .process .route {
+    padding-right: 28px;
   }
 
   .pricing-mains,

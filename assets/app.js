@@ -385,9 +385,11 @@
         const rect = route.getBoundingClientRect();
         const progress = clamp((viewport * 0.72 - rect.top) / Math.max(1, rect.height));
         routeFill.style.height = `${Math.round(progress * 100)}%`;
-        const done = Math.floor(progress * routeSteps.length + 0.5);
+        const done = Math.floor(progress * routeSteps.length);
+        const active = Math.min(routeSteps.length - 1, done);
         routeSteps.forEach((step, index) => {
           step.classList.toggle("is-done", index < done);
+          step.classList.toggle("is-active", index === active && rect.top < viewport * 0.9 && rect.bottom > viewport * 0.1);
         });
       }
     };
