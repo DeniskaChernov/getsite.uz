@@ -153,8 +153,8 @@ uniform float uWF[7]; uniform float uWT[7]; uniform float uScF; uniform float uS
 uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA;
 varying float vA; varying float vCloud; varying vec3 vColor;
 void main(){
-  float tl = clamp(uT * 1.55 - aSeed.x * 0.55, 0.0, 1.0);
-  float tt = tl * tl * tl * (tl * (tl * 6.0 - 15.0) + 10.0);
+  float tl = clamp(uT * 1.35 - aSeed.x * 0.35, 0.0, 1.0);
+  float tt = tl * tl * (3.0 - 2.0 * tl);
   vec3 sc = vec3((aSeed.x * 2.0 - 1.0) * 5.0, (aSeed.y * 2.0 - 1.0) * 3.2, (aSeed.z * 2.0 - 1.0) * 3.0 - 0.8);
   vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6];
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6];
@@ -314,7 +314,7 @@ void main(){
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
-        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.05) * (reduced ? 3 : 0.3));
+        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.04) * (reduced ? 3 : 0.82));
 
         const id = this._toId;
         const cont = id === 0 || id === 3 || id === 5 || id === 7;
@@ -325,8 +325,8 @@ void main(){
         this._ry += (tRy - this._ry) * 0.05;
         this._rx += (tRx - this._rx) * 0.05;
         const cam = CAM[id];
-        this._cx += ((MOBILE ? 0 : cam.x) - this._cx) * 0.026;
-        this._cz += (cam.z - this._cz) * 0.026;
+        this._cx += ((MOBILE ? 0 : cam.x) - this._cx) * 0.044;
+        this._cz += (cam.z - this._cz) * 0.044;
 
         const cy = Math.cos(this._ry), sy = Math.sin(this._ry), cx = Math.cos(this._rx), sx = Math.sin(this._rx);
         const m = this._mv;

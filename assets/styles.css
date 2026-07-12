@@ -372,6 +372,10 @@ main,
   scroll-margin-top: 96px;
 }
 
+.section + .section {
+  margin-top: clamp(120px, 24vh, 320px);
+}
+
 .hero {
   min-height: 100svh;
   display: flex;
@@ -752,6 +756,10 @@ body.skip-intro .line-reveal > span {
   .section {
     padding-top: 12vh;
     padding-bottom: 12vh;
+  }
+
+  .section + .section {
+    margin-top: clamp(76px, 14vh, 140px);
   }
 
   .intro-strip__text,
