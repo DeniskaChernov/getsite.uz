@@ -1,18 +1,24 @@
 {
   "name": "getsite",
   "short_name": "getsite",
-  "description": "getsite — разработка для бизнеса.",
+  "description": "getsite — сайты, боты и цифровые решения для бизнеса.",
   "lang": "ru",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#070809",
-  "theme_color": "#070809",
+  "background_color": "#020303",
+  "theme_color": "#020303",
   "icons": [
     {
       "src": "assets/favicon.svg",
       "sizes": "64x64",
       "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/brand/logo-mark-circle-accent.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

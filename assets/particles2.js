@@ -50,19 +50,27 @@
   };
 
   function buildLogoPts() {
-    const cv = document.createElement('canvas'); cv.width = 640; cv.height = 160;
+    const cv = document.createElement('canvas'); cv.width = 720; cv.height = 180;
     const c = cv.getContext('2d');
-    c.font = '900 112px Unbounded, Arial, sans-serif';
-    c.textBaseline = 'middle'; c.fillStyle = '#fff';
-    const w = Math.min(600, c.measureText('getsite').width);
-    c.fillText('getsite', (640 - w) / 2, 86);
-    const d = c.getImageData(0, 0, 640, 160).data; const pts = [];
-    for (let y = 0; y < 160; y += 2) for (let x = 0; x < 640; x += 2) if (d[(y * 640 + x) * 4 + 3] > 110) pts.push([x, y]);
+    const text = 'getsite';
+    c.font = '900 108px Unbounded, Arial, sans-serif';
+    c.textBaseline = 'middle';
+    const w = c.measureText(text).width;
+    const x0 = (720 - w - 44) / 2;
+    c.fillStyle = '#fff';
+    c.fillText(text, x0, 92);
+    c.fillStyle = '#d8ff3d';
+    c.font = '900 64px Unbounded, Arial, sans-serif';
+    c.fillText('*', x0 + w + 2, 64);
+    const d = c.getImageData(0, 0, 720, 180).data; const pts = [];
+    for (let y = 0; y < 180; y += 2) for (let x = 0; x < 720; x += 2) if (d[(y * 720 + x) * 4 + 3] > 110) pts.push([x, y]);
     return pts;
   }
   const buildLogoRaw = (pts) => gen((a, i, f) => {
-    if (pts.length && f < 0.90) { const p = pts[Math.floor(R() * pts.length)]; put(a, i, (p[0] / 640 - 0.5) * 3.4 + G() * 0.01, (0.5 - p[1] / 160) * 0.85 + G() * 0.01, (R() - 0.5) * 0.2); }
-    else radialDust(a, i, 0.4, 4);
+    if (pts.length && f < 0.90) {
+      const p = pts[Math.floor(R() * pts.length)];
+      put(a, i, (p[0] / 720 - 0.5) * 3.2 + G() * 0.01, (0.5 - p[1] / 180) * 0.82 + G() * 0.01, (R() - 0.5) * 0.18);
+    } else radialDust(a, i, 0.35, 3.5);
   });
 
   function makeShapes() {

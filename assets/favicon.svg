@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="getsite">
-  <rect width="64" height="64" rx="14" fill="#070809"/>
-  <circle cx="45" cy="19" r="7" fill="#d8ff3d"/>
-  <path fill="#f2f0ea" d="M15 34c0-8 6-14 15-14 4 0 8 1 11 4l-5 6c-2-2-4-3-7-3-4 0-7 3-7 7s3 7 7 7c3 0 5-1 7-3l5 6c-3 3-7 5-12 5-8 0-14-6-14-15z"/>
+  <rect width="64" height="64" rx="14" fill="#020303"/>
+  <circle cx="32" cy="32" r="27" fill="none" stroke="#d8ff3d" stroke-width="1.5"/>
+  <path fill="#f2f0ea" d="M22 38c0-7.5 5.5-13.5 13.5-13.5 3.5 0 6.5 1 9 3l-4.5 5.5c-1.8-1.6-3.6-2.4-6-2.4-4.2 0-7.3 3.1-7.3 7.4s3.1 7.4 7.3 7.4c2.4 0 4.5-0.9 6.2-2.5l4.5 5.5c-2.8 2.5-6.2 3.9-10.7 3.9-7.8 0-13.5-5.8-13.5-13.3z"/>
+  <g fill="#d8ff3d" transform="translate(44 18)">
+    <rect x="-2" y="-10" width="4" height="20" rx="2"/>
+    <rect x="-2" y="-10" width="4" height="20" rx="2" transform="rotate(60)"/>
+    <rect x="-2" y="-10" width="4" height="20" rx="2" transform="rotate(120)"/>
+  </g>
 </svg>

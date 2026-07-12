@@ -831,7 +831,7 @@ main,
 
 .hero__tagline {
   margin: 0 0 14px;
-  max-width: 16ch;
+  max-width: 22ch;
   font-family: "Unbounded", Arial, sans-serif;
   font-size: clamp(1.15rem, 2.4vw, 1.85rem);
   font-weight: 700;
