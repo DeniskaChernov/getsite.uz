@@ -3,7 +3,7 @@
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
    API: el.setShape(id 0..7), el.startIntro()
-   Shapes: 0 rocket, 1 website, 2 telegram, 3 lifebuoy, 4 workflow, 5 open book, 6 logo, 7 cloud.
+   Shapes: 0 rocket, 1 website, 2 briefcase, 3 lifebuoy, 4 workflow, 5 open book, 6 logo, 7 cloud.
    API also: el.setSide('left'|'right') — positions figure opposite section text.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
@@ -107,17 +107,38 @@
       else radialDust(a, i, 1.2, 8);
     });
 
-    // 2 TELEGRAM — paper plane in two depth planes + 3D spiral trail
-    const A = [-1.35, 0.66], T = [1.4, 0.06], C = [-0.5, -0.22], D = [-0.12, -0.74];
+    // 2 BRIEFCASE — portfolio bag with dashboard widgets on front
+    const BBW = 0.86, BBH = 0.7;
     shapes[2] = gen((a, i, f) => {
-      if (f < 0.28) tri(a, i, A, T, C, 0.13);
-      else if (f < 0.42) tri(a, i, C, T, D, -0.15);
-      else if (f < 0.48) seg(a, i, A[0], A[1], T[0], T[1], 0.13, 0.13);
-      else if (f < 0.53) seg(a, i, A[0], A[1], C[0], C[1], 0.13, 0.13);
-      else if (f < 0.58) seg(a, i, C[0], C[1], T[0], T[1], 0.0, 0.0);
-      else if (f < 0.63) seg(a, i, D[0], D[1], T[0], T[1], -0.15, 0.05);
-      else if (f < 0.85) { const t = R(); put(a, i, -2.2 + t * 1.1, -0.5 + t * 0.6 + Math.sin(t * 7) * 0.1, Math.cos(t * 7) * 0.2 + G() * 0.02); }
-      else radialDust(a, i, 1.2, 8.5);
+      if (f < 0.20) rectFill(a, i, -BBW, -BBH, BBW, BBH, 0.1 + G() * 0.02, 0.03);
+      else if (f < 0.26) rectEdge(a, i, -BBW, -BBH, BBW, BBH, 0.12, 0.03);
+      else if (f < 0.30) {
+        const t = R();
+        put(a, i, BBW - R() * 0.05, -BBH + t * (BBH * 2), -0.08 + G() * 0.02);
+      } else if (f < 0.36) {
+        const t = R();
+        put(a, i, -0.32 + t * 0.64, 0.76 + Math.sin(t * Math.PI) * 0.2, 0.14 + G() * 0.02);
+      } else if (f < 0.40) seg(a, i, -BBW * 0.82, 0.3, BBW * 0.82, 0.3, 0.13, 0.13);
+      else if (f < 0.46) rectEdge(a, i, -0.76, -0.46, -0.16, 0.26, 0.15, 0.02);
+      else if (f < 0.52) {
+        if (R() < 0.55) tri(a, i, [-0.66, -0.34], [-0.4, 0.06], [-0.54, -0.34], 0.16, 0.02);
+        else tri(a, i, [-0.52, -0.34], [-0.26, -0.02], [-0.36, -0.34], 0.16, 0.02);
+      } else if (f < 0.56) sphere(a, i, -0.32, 0.08, 0.17, 0.038);
+      else if (f < 0.60) {
+        rectEdge(a, i, -0.04, 0.04, 0.26, 0.26, 0.16, 0.02);
+        seg(a, i, -0.04, 0.26, 0.12, 0.36, 0.16, 0.24);
+        seg(a, i, 0.26, 0.04, 0.12, 0.14, 0.16, 0.24);
+      } else if (f < 0.66) {
+        const k = Math.floor(R() * 3), h = [0.38, 0.5, 0.62][k];
+        rectFill(a, i, 0.36 + k * 0.12, -0.04, 0.44 + k * 0.12, h, 0.16, 0.01);
+      } else if (f < 0.74) {
+        const t = R(), x = -0.7 + t * 1.3;
+        put(a, i, x, -0.56 + Math.sin(t * 5.2) * 0.1 + t * 0.06, 0.16 + G() * 0.01);
+      } else if (f < 0.78) {
+        const k = Math.floor(R() * 3);
+        sphere(a, i, -0.1 + k * 0.1, -0.6, 0.17, k === 1 ? 0.042 : 0.028);
+      } else if (f < 0.82) rectFill(a, i, -0.1, 0.26, 0.1, 0.4, 0.17, 0.02);
+      else radialDust(a, i, 1.5, 9.5);
     });
 
     // 3 LIFEBUOY — ring for support and care
