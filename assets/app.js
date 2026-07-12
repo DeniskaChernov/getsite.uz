@@ -27,6 +27,7 @@
       setParticlesReady();
       if (pf && typeof pf.setShape === "function") pf.setShape(0);
       if (pf && typeof pf.setSide === "function") pf.setSide("left");
+      if (pf && typeof pf.startIntro === "function") pf.startIntro();
     }, { once: true });
 
     if (doc.fonts && doc.fonts.ready) {

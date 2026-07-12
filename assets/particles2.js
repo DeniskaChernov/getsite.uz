@@ -11,7 +11,7 @@
 
   // "mobile" = coarse pointer (real touch device) or genuinely narrow viewport —
   // never a short desktop/preview window (that used to silently degrade the scene)
-  const MOBILE = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth < 700;
+  const MOBILE = window.innerWidth < 700;
   const CORES = navigator.hardwareConcurrency || 4;
   const N = MOBILE ? 64000 : (CORES >= 8 ? 180000 : 120000);
   // Keep the v5 GPU morphing look, but cap particles for fast first paint.
@@ -228,7 +228,7 @@ void main(){
   // camera z distance per shape; horizontal shift comes from setSide()
   const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.1, 3.9, 3.8, 4.2];
   const CAM_RX = [0.08, 0.10, 0.10, 0.28, 0.10, 0.12, 0.08, 0.04];
-  const SIDE_X = 1.05;
+  const SIDE_X = 1.15;
 
   class PFScene extends HTMLElement {
     connectedCallback() {
@@ -321,6 +321,10 @@ void main(){
 
       this._cx = 0; this._cz = CAM_Z[0];
       this._side = 0; this._targetSide = -1;
+      if (!MOBILE) {
+        this._side = -1;
+        this._cx = -this._side * SIDE_X;
+      }
       this._ry = 0; this._rx = CAM_RX[0];
       this._mv = new Float32Array(16);
       this._drawN = N; this._ema = 16; this._fc = 0;
@@ -349,7 +353,7 @@ void main(){
         const tRx = CAM_RX[id] - this._my * 0.04;
         this._ry += (tRy - this._ry) * 0.028;
         this._rx += (tRx - this._rx) * 0.028;
-        const targetCx = MOBILE ? 0 : this._side * SIDE_X;
+        const targetCx = MOBILE ? 0 : -this._side * SIDE_X;
         const targetCz = CAM_Z[id];
         this._side += (this._targetSide - this._side) * 0.05;
         this._cx += (targetCx - this._cx) * 0.05;
