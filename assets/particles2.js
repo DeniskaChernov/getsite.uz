@@ -3,7 +3,7 @@
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
    API: el.setShape(id 0..7), el.startIntro()
-   Shapes: 0 rocket, 1 website, 2 briefcase, 3 lifebuoy, 4 workflow, 5 open book, 6 logo, 7 cloud.
+   Shapes: 0 rocket, 1 website, 2 briefcase, 3 lifebuoy, 4 workflow, 5 closed book, 6 logo, 7 cloud.
    API also: el.setSide('left'|'right') — positions figure opposite section text.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
@@ -199,23 +199,54 @@
       } else radialDust(a, i, 2.1, 10);
     });
 
-    // 5 OPEN BOOK — spread pages, horizontal lines, no spine cross
+    // 5 CLOSED BOOK — 3/4 view: cover, spine ribs, page stack, bookmark
+    const FCX0 = -0.35, FCX1 = 0.85, FCY0 = -0.72, FCY1 = 0.78;
+    const fcZ = (x) => 0.08 + ((x - FCX0) / (FCX1 - FCX0)) * 0.12;
     shapes[5] = gen((a, i, f) => {
-      if (f < 0.36) {
-        const t = R(), u = R();
-        put(a, i, -0.1 - t * 1.05 - u * 0.12, -0.7 + u * 1.45, t * 0.32 + G() * 0.02);
-      } else if (f < 0.70) {
-        const t = R(), u = R();
-        put(a, i, 0.1 + t * 1.05 + u * 0.12, -0.7 + u * 1.45, t * 0.32 + G() * 0.02);
-      } else if (f < 0.86) {
-        const left = R() < 0.5;
-        const line = Math.floor(R() * 5), y = -0.42 + line * 0.2;
-        if (left) seg(a, i, -1.0, y, -0.22, y, 0.14, 0.14);
-        else seg(a, i, 0.22, y, 1.0, y, 0.14, 0.14);
-      } else if (f < 0.94) {
+      if (f < 0.30) {
+        const x = FCX0 + R() * (FCX1 - FCX0), y = FCY0 + R() * (FCY1 - FCY0);
+        put(a, i, x + G() * 0.01, y + G() * 0.01, fcZ(x) + G() * 0.02);
+      } else if (f < 0.36) {
+        rectEdge(a, i, FCX0, FCY0, FCX1, FCY1, 0.18, 0.03);
+      } else if (f < 0.44) {
+        const t = R(), y = FCY0 + t * (FCY1 - FCY0);
+        const an = Math.PI * 0.5 + R() * Math.PI;
+        put(a, i, -0.35 + Math.cos(an) * 0.1 + G() * 0.01, y, 0.04 + Math.sin(an) * 0.1 + G() * 0.015);
+      } else if (f < 0.48) {
+        const band = Math.floor(R() * 2), y = band === 0 ? -0.1 : 0.32;
+        const an = Math.PI * 0.35 + R() * Math.PI * 0.65;
+        put(a, i, -0.36 + Math.cos(an) * 0.12, y + G() * 0.02, 0.05 + Math.sin(an) * 0.11);
+      } else if (f < 0.54) {
+        const t = R(), x = -0.22 + t * 0.98;
+        put(a, i, x, -0.78 + G() * 0.02, 0.04 + R() * 0.08);
+      } else if (f < 0.60) {
+        const line = Math.floor(R() * 8), y = -0.76 + line * 0.01;
         const t = R();
-        put(a, i, -0.12 + t * 0.24, -0.78 + G() * 0.04, G() * 0.05);
-      } else radialDust(a, i, 1.3, 9);
+        put(a, i, -0.18 + t * 0.94, y, 0.08 + G() * 0.01);
+      } else if (f < 0.64) {
+        const t = R();
+        put(a, i, FCX0 + t * (FCX1 - FCX0), FCY1 - R() * 0.04, 0.1 + G() * 0.02);
+      } else if (f < 0.68) {
+        const t = R();
+        put(a, i, FCX1 - R() * 0.04, FCY0 + t * (FCY1 - FCY0), 0.06 + G() * 0.03);
+      } else if (f < 0.74) {
+        const t = R();
+        put(a, i, 0.15 + G() * 0.05, 0.28 + t * 0.48, 0.22 + G() * 0.015);
+      } else if (f < 0.78) {
+        const t = R();
+        put(a, i, 0.08 + t * 0.2, 0.8 + G() * 0.02, 0.2 + G() * 0.015);
+      } else if (f < 0.82) {
+        if (R() < 0.5) seg(a, i, 0.08, 0.42, 0.2, 0.26, 0.22, 0.22);
+        else seg(a, i, 0.32, 0.42, 0.2, 0.26, 0.22, 0.22);
+      } else if (f < 0.86) {
+        const t = R();
+        put(a, i, 0.2 + G() * 0.02, -0.78 + t * 0.05, 0.07 + G() * 0.01);
+      } else if (f < 0.90) {
+        const cr = Math.floor(R() * 4), r = 0.07;
+        const cx = cr < 2 ? FCX1 : FCX0, cy = cr % 2 === 0 ? FCY1 : FCY0;
+        const an = R() * 1.57;
+        put(a, i, cx + (cr < 2 ? -1 : 1) * Math.cos(an) * r, cy + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, fcZ(cx) + 0.02);
+      } else radialDust(a, i, 1.4, 9);
     });
 
     // 6 LOGO — extruded glyphs
@@ -293,7 +324,7 @@ void main(){
 
   // camera z distance per shape; horizontal shift comes from setSide()
   const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.4, 3.9, 3.8, 4.2];
-  const CAM_RX = [0.08, 0.10, 0.10, 0.28, 0.06, 0.12, 0.08, 0.04];
+  const CAM_RX = [0.08, 0.10, 0.10, 0.28, 0.06, 0.14, 0.08, 0.04];
   const SIDE_X = 1.15;
 
   class PFScene extends HTMLElement {
