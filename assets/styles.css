@@ -1073,9 +1073,10 @@ body.skip-intro .line-reveal > span {
 
 .price-card__top {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px 10px;
 }
 
 .price-card h3,
@@ -1085,23 +1086,35 @@ body.skip-intro .line-reveal > span {
   font-size: clamp(0.95rem, 1.5vw, 1.12rem);
   font-weight: 700;
   line-height: 1.2;
-  padding-right: 8px;
+  flex: 1 1 10rem;
+  min-width: 0;
 }
 
 .price-card__sum {
   margin: 0;
-  flex-shrink: 0;
+  flex: 0 1 auto;
+  max-width: 100%;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--accent);
   border: 1px solid rgba(216, 255, 61, 0.45);
   border-radius: 999px;
-  padding: 7px 11px;
+  padding: 7px 10px;
   white-space: nowrap;
   background: rgba(2, 3, 3, 0.55);
-  text-align: right;
+}
+
+.pricing-mains--solo .price-card__top {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pricing-mains--solo .price-card__sum {
+  white-space: normal;
+  text-align: left;
 }
 
 .price-card--accent .price-card__sum {
@@ -1927,7 +1940,9 @@ body.page-blog {
   }
 
   .price-card__sum {
-    align-self: flex-start;
+    max-width: 100%;
+    white-space: normal;
+    text-align: left;
   }
 
   .brand-switch__item {
