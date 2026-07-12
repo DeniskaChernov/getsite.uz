@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&amp;family=Golos+Text:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #070809; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Golos Text', sans-serif; color: #F2F0EA; overflow-x: hidden; }
+    a { color: #F2F0EA; text-decoration: none; }
+    a:hover { color: #D8FF3D; }
+    ::selection { background: #D8FF3D; color: #070809; }
+    input::placeholder, textarea::placeholder { color: #6E7075; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes menuBg { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+    @keyframes menuItem { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: translateY(0); } }
+    @media (pointer: fine) {
+      body, a, button { cursor: none; }
+      input, textarea, select { cursor: auto; }
+    }
+    #svcs:hover [data-svc] { opacity: 0.32; }
+    #svcs:hover [data-svc]:hover { opacity: 1; }
+    [data-svc] { transition: opacity 0.25s ease, background 0.25s ease; }
+    [data-svc]:hover { background: rgba(17,19,21,0.85); }
+    [data-svc] [data-desc] { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.35s ease; }
+    [data-svc]:hover [data-desc] { max-height: 90px; opacity: 1; }
+    [data-svc] [data-num] { transition: color 0.25s ease, transform 0.25s ease; }
+    [data-svc]:hover [data-num] { color: #D8FF3D; transform: scale(1.35); }
+    [data-mi] { transition: transform 0.25s ease; }
+    [data-mi]:hover { transform: translateX(10px); }
+    [data-thesis]:hover [data-tnum] { color: #D8FF3D; }
+  </style>
+</helmet>
+
+<div style="background:transparent; min-height:100vh">
+
+  <x-import component-from-global-scope="pf-scene" from="./particles2.js" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:0; pointer-events:none" hint-size="100%,100%"></x-import>
+
+  <!-- CURSOR -->
+  <div ref="{{ curDotRef }}" style="position:fixed; top:0; left:0; width:8px; height:8px; margin:-4px 0 0 -4px; border-radius:50%; background:#D8FF3D; z-index:200; pointer-events:none"></div>
+  <div ref="{{ curRingRef }}" style="position:fixed; top:0; left:0; width:36px; height:36px; margin:-18px 0 0 -18px; border-radius:50%; border:1px solid rgba(242,240,234,0.5); z-index:200; pointer-events:none; transition:width 0.25s, height 0.25s, margin 0.25s, border-color 0.25s"></div>
+
+  <!-- PRELOADER -->
+  <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed; inset:0; z-index:100; background:#070809; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; transition:clip-path 0.9s cubic-bezier(0.7,0,0.2,1); clip-path:{{ loaderClip }}">
+      <span style="font-family:'Unbounded',sans-serif; font-weight:900; font-size:26px">getsite<span style="color:#D8FF3D">*</span></span>
+      <div style="width:min(360px,70vw); height:1px; background:#1E2023; position:relative">
+        <div style="position:absolute; top:0; left:0; height:1px; background:#D8FF3D; transition:width 0.3s ease; width:{{ loadPctW }}"></div>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:16px">
+        <span style="font-size:14px; color:#92969C">Собираем цифровую систему</span>
+        <span style="font-family:'Unbounded',sans-serif; font-size:14px; color:#F2F0EA">{{ loadPct }}%</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- MENU -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:90; background:rgba(7,8,9,0.86); backdrop-filter:blur(12px); display:flex; flex-direction:column; justify-content:center; padding:0 6vw; animation:menuBg 0.55s cubic-bezier(0.7,0,0.2,1)">
+      <button onClick="{{ closeMenu }}" style="position:fixed; top:22px; right:6vw; background:none; border:1px solid #2A2C2F; border-radius:100px; color:#F2F0EA; font-family:'Golos Text',sans-serif; font-size:13px; padding:12px 22px; cursor:pointer" style-hover="border-color:#D8FF3D; color:#D8FF3D">Закрыть ✕</button>
+      <nav style="display:flex; flex-direction:column; gap:4px">
+        <a data-mi="1" href="#svcs" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:20px; padding:10px 0; border-bottom:1px solid #1E2023; animation:menuItem 0.5s 0.1s backwards"><span style="font-size:13px; color:#92969C">01</span><span style="font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(28px,4.6vw,54px)">Услуги</span></a>
+        <a data-mi="1" href="#cases" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:20px; padding:10px 0; border-bottom:1px solid #1E2023; animation:menuItem 0.5s 0.17s backwards"><span style="font-size:13px; color:#92969C">02</span><span style="font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(28px,4.6vw,54px)">Проекты</span></a>
+        <a data-mi="1" href="#process" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:20px; padding:10px 0; border-bottom:1px solid #1E2023; animation:menuItem 0.5s 0.24s backwards"><span style="font-size:13px; color:#92969C">03</span><span style="font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(28px,4.6vw,54px)">Процесс</span></a>
+        <a data-mi="1" href="#why" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:20px; padding:10px 0; border-bottom:1px solid #1E2023; animation:menuItem 0.5s 0.31s backwards"><span style="font-size:13px; color:#92969C">04</span><span style="font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(28px,4.6vw,54px)">О компании</span></a>
+        <a data-mi="1" href="#contacts" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:20px; padding:10px 0; animation:menuItem 0.5s 0.38s backwards"><span style="font-size:13px; color:#92969C">05</span><span style="font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(28px,4.6vw,54px); color:#D8FF3D">Контакты</span></a>
+      </nav>
+    </div>
+  </sc-if>
+
+  <!-- HEADER -->
+  <header ref="{{ headerRef }}" style="position:fixed; top:0; left:0; right:0; z-index:50; box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; padding:22px 6vw; transition:padding 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease">
+    <a href="#top" style="font-family:'Unbounded',sans-serif; font-weight:900; font-size:17px">getsite<span style="color:#D8FF3D">*</span></a>
+    <nav style="display:flex; gap:28px; font-size:14px; color:#92969C">
+      <a href="#svcs" style="color:#92969C" style-hover="color:#D8FF3D">Услуги</a>
+      <a href="#cases" style="color:#92969C" style-hover="color:#D8FF3D">Проекты</a>
+      <a href="#process" style="color:#92969C" style-hover="color:#D8FF3D">Процесс</a>
+      <a href="#contacts" style="color:#92969C" style-hover="color:#D8FF3D">Контакты</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:14px">
+      <div style="display:flex; gap:2px; font-size:12px; letter-spacing:0.04em">
+        <span style="padding:6px 8px; color:#F2F0EA; border-bottom:1px solid #D8FF3D">RU</span>
+        <span style="padding:6px 8px; color:#6E7075">UZ</span>
+        <span style="padding:6px 8px; color:#6E7075">EN</span>
+      </div>
+      <a href="#contacts" style="background:#D8FF3D; color:#070809; font-weight:600; font-size:13px; padding:11px 20px; border-radius:100px" style-hover="background:#F2F0EA; color:#070809">Обсудить проект</a>
+      <button onClick="{{ openMenu }}" style="display:flex; flex-direction:column; gap:5px; background:none; border:1px solid #2A2C2F; border-radius:100px; padding:14px 16px; cursor:pointer" style-hover="border-color:#D8FF3D">
+        <span style="display:block; width:20px; height:2px; background:#F2F0EA"></span>
+        <span style="display:block; width:20px; height:2px; background:#F2F0EA"></span>
+      </button>
+    </div>
+  </header>
+
+  <div ref="{{ wrapRef }}" id="top" style="position:relative; z-index:1">
+
+  <!-- HERO -->
+  <section data-screen-label="Hero" style="box-sizing:border-box; min-height:100vh; padding:150px 6vw 60px; display:flex; flex-direction:column; justify-content:space-between; gap:56px">
+    <div style="display:flex; flex-direction:column; gap:32px; max-width:880px">
+      <div style="overflow:hidden"><span data-line="1" style="display:block; transform:translateY(115%); font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#92969C">Digital-система для бизнеса</span></div>
+      <h1 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(38px,5.6vw,96px); line-height:1.06; letter-spacing:-0.01em">
+        <div style="overflow:hidden"><span data-line="1" style="display:block; transform:translateY(115%)">Создаём цифровые</span></div>
+        <div style="overflow:hidden"><span data-line="1" style="display:block; transform:translateY(115%)">продукты, которые</span></div>
+        <div style="overflow:hidden"><span data-line="1" style="display:block; transform:translateY(115%)">двигают бизнес <span style="color:#D8FF3D">вперёд</span></span></div>
+      </h1>
+      <div style="overflow:hidden; max-width:560px"><p data-line="1" style="margin:0; font-size:18px; line-height:1.6; color:#92969C; transform:translateY(115%)">Сайты, боты, CRM и автоматизации, которые помогают получать заявки, сокращать ручную работу и управлять процессами.</p></div>
+      <div style="overflow:hidden"><div data-line="1" style="display:flex; flex-wrap:wrap; gap:14px; transform:translateY(115%)">
+        <a href="#contacts" style="background:#D8FF3D; color:#070809; font-weight:600; font-size:15px; padding:16px 30px; border-radius:100px" style-hover="background:#F2F0EA; color:#070809">Обсудить проект</a>
+        <a href="#cases" style="border:1px solid #2A2C2F; color:#F2F0EA; font-weight:500; font-size:15px; padding:16px 30px; border-radius:100px" style-hover="border-color:#D8FF3D; color:#D8FF3D">Смотреть проекты</a>
+      </div></div>
+    </div>
+    <div style="display:flex; justify-content:space-between; gap:24px; font-size:13px; color:#6E7075; border-top:1px solid #1E2023; padding-top:20px">
+      <span>Ташкент, Узбекистан</span>
+      <span>Работаем с бизнесом по всему СНГ</span>
+    </div>
+  </section>
+
+  <!-- RUNNER (единственный на странице) -->
+  <div style="overflow:hidden; padding:18px 0; border-top:1px solid #1E2023; border-bottom:1px solid #1E2023; white-space:nowrap">
+    <div style="display:inline-flex; animation:marquee 26s linear infinite">
+      <span style="font-family:'Unbounded',sans-serif; font-weight:600; font-size:20px; letter-spacing:0.08em; color:#6E7075; padding-right:28px">Сайты • Боты • CRM • Автоматизации • Веб-сервисы •&nbsp;</span>
+      <span style="font-family:'Unbounded',sans-serif; font-weight:600; font-size:20px; letter-spacing:0.08em; color:#6E7075; padding-right:28px">Сайты • Боты • CRM • Автоматизации • Веб-сервисы •&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="svcs" data-screen-label="Услуги" style="padding:130px 6vw 90px">
+    <div data-reveal="1" style="display:flex; flex-direction:column; gap:14px; max-width:820px; margin-bottom:64px">
+      <span style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#D8FF3D">Что создаёт getsite</span>
+      <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(26px,3.4vw,52px); line-height:1.15">Один партнёр для разработки всей цифровой системы бизнеса</h2>
+    </div>
+    <div data-reveal="1" style="display:flex; flex-direction:column">
+      <div data-svc="1" onMouseEnter="{{ svc0 }}" onMouseLeave="{{ svcLeave }}" style="display:grid; grid-template-columns:70px 1fr; gap:20px; align-items:start; border-top:1px solid #1E2023; padding:26px 10px">
+        <span data-num="1" style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E7075; transform-origin:left top">01</span>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,34px)">Сайты</span>
+          <p data-desc="1" style="margin:0; font-size:15px; line-height:1.55; color:#92969C; max-width:560px">Лендинги, корпоративные сайты и каталоги — структура, дизайн, адаптив, SEO-база и аналитика.</p>
+        </div>
+      </div>
+      <div data-svc="1" onMouseEnter="{{ svc1 }}" onMouseLeave="{{ svcLeave }}" style="display:grid; grid-template-columns:70px 1fr; gap:20px; align-items:start; border-top:1px solid #1E2023; padding:26px 10px">
+        <span data-num="1" style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E7075; transform-origin:left top">02</span>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,34px)">Telegram-боты</span>
+          <p data-desc="1" style="margin:0; font-size:15px; line-height:1.55; color:#92969C; max-width:560px">Ответы на вопросы, каталог, сбор заявок, уведомления и передача данных менеджеру или в CRM.</p>
+        </div>
+      </div>
+      <div data-svc="1" onMouseEnter="{{ svc2 }}" onMouseLeave="{{ svcLeave }}" style="display:grid; grid-template-columns:70px 1fr; gap:20px; align-items:start; border-top:1px solid #1E2023; padding:26px 10px">
+        <span data-num="1" style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E7075; transform-origin:left top">03</span>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,34px)">CRM-системы</span>
+          <p data-desc="1" style="margin:0; font-size:15px; line-height:1.55; color:#92969C; max-width:560px">Воронки, статусы, сделки, роли и отчётность — система, в которой видно каждую заявку.</p>
+        </div>
+      </div>
+      <div data-svc="1" onMouseEnter="{{ svc3 }}" onMouseLeave="{{ svcLeave }}" style="display:grid; grid-template-columns:70px 1fr; gap:20px; align-items:start; border-top:1px solid #1E2023; padding:26px 10px">
+        <span data-num="1" style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E7075; transform-origin:left top">04</span>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,34px)">Веб-сервисы</span>
+          <p data-desc="1" style="margin:0; font-size:15px; line-height:1.55; color:#92969C; max-width:560px">Личные кабинеты, панели, таблицы и графики — внутренние инструменты под ваши процессы.</p>
+        </div>
+      </div>
+      <div data-svc="1" onMouseEnter="{{ svc4 }}" onMouseLeave="{{ svcLeave }}" style="display:grid; grid-template-columns:70px 1fr; gap:20px; align-items:start; border-top:1px solid #1E2023; padding:26px 10px">
+        <span data-num="1" style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E7075; transform-origin:left top">05</span>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,34px)">Автоматизации</span>
+          <p data-desc="1" style="margin:0; font-size:15px; line-height:1.55; color:#92969C; max-width:560px">Заявка → CRM → менеджер → оплата → уведомление → отчёт: процессы работают без ручных действий.</p>
+        </div>
+      </div>
+      <div data-svc="1" onMouseEnter="{{ svc5 }}" onMouseLeave="{{ svcLeave }}" style="display:grid; grid-template-columns:70px 1fr; gap:20px; align-items:start; border-top:1px solid #1E2023; border-bottom:1px solid #1E2023; padding:26px 10px">
+        <span data-num="1" style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E7075; transform-origin:left top">06</span>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,34px)">Интеграции</span>
+          <p data-desc="1" style="margin:0; font-size:15px; line-height:1.55; color:#92969C; max-width:560px">Соединяем сайт, бота, CRM, оплату и аналитику в одну связанную систему.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TASKS -->
+  <section data-screen-label="Бизнес-задачи" style="padding:110px 6vw">
+    <div data-reveal="1" style="display:flex; flex-direction:column; gap:14px; max-width:820px; margin-bottom:56px">
+      <span style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#D8FF3D">Бизнес-задачи</span>
+      <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(26px,3.4vw,52px); line-height:1.15">Не просто разрабатываем. Решаем конкретную задачу бизнеса</h2>
+    </div>
+    <div data-reveal="1" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:0 40px">
+      <div style="border-top:1px solid #1E2023; padding:22px 0; display:flex; gap:16px; align-items:baseline"><span style="font-family:'Unbounded',sans-serif; font-size:13px; color:#D8FF3D">01</span><span style="font-size:17px; font-weight:500">Больше заявок</span></div>
+      <div style="border-top:1px solid #1E2023; padding:22px 0; display:flex; gap:16px; align-items:baseline"><span style="font-family:'Unbounded',sans-serif; font-size:13px; color:#D8FF3D">02</span><span style="font-size:17px; font-weight:500">Меньше ручной работы</span></div>
+      <div style="border-top:1px solid #1E2023; padding:22px 0; display:flex; gap:16px; align-items:baseline"><span style="font-family:'Unbounded',sans-serif; font-size:13px; color:#D8FF3D">03</span><span style="font-size:17px; font-weight:500">Быстрее обработка клиентов</span></div>
+      <div style="border-top:1px solid #1E2023; padding:22px 0; display:flex; gap:16px; align-items:baseline"><span style="font-family:'Unbounded',sans-serif; font-size:13px; color:#D8FF3D">04</span><span style="font-size:17px; font-weight:500">Единая база данных</span></div>
+      <div style="border-top:1px solid #1E2023; padding:22px 0; display:flex; gap:16px; align-items:baseline"><span style="font-family:'Unbounded',sans-serif; font-size:13px; color:#D8FF3D">05</span><span style="font-size:17px; font-weight:500">Контроль продаж</span></div>
+      <div style="border-top:1px solid #1E2023; padding:22px 0; display:flex; gap:16px; align-items:baseline"><span style="font-family:'Unbounded',sans-serif; font-size:13px; color:#D8FF3D">06</span><span style="font-size:17px; font-weight:500">Удобный сервис для клиентов</span></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" data-screen-label="Процесс" style="padding:110px 6vw">
+    <div data-reveal="1" style="display:flex; flex-direction:column; gap:14px; max-width:820px; margin-bottom:64px">
+      <span style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#D8FF3D">Процесс</span>
+      <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(26px,3.4vw,52px); line-height:1.15">Как проходит работа</h2>
+    </div>
+    <div ref="{{ routeRef }}" style="position:relative; padding-left:40px">
+      <div style="position:absolute; left:8px; top:0; bottom:0; width:1px; background:#1E2023"></div>
+      <div ref="{{ routeFillRef }}" style="position:absolute; left:8px; top:0; width:1px; height:0%; background:#D8FF3D"></div>
+      <div data-reveal="1" style="position:relative; padding:0 0 44px">
+        <span style="position:absolute; left:-37px; top:6px; width:9px; height:9px; border-radius:50%; background:#D8FF3D"></span>
+        <div style="display:flex; flex-direction:column; gap:6px"><span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,1.9vw,26px)">01 — Погружаемся в бизнес</span><p style="margin:0; font-size:15px; color:#92969C; max-width:560px; line-height:1.55">Интервью, процессы, роли, сценарии — понимаем, что должно измениться.</p></div>
+      </div>
+      <div data-reveal="1" style="position:relative; padding:0 0 44px">
+        <span style="position:absolute; left:-37px; top:6px; width:9px; height:9px; border-radius:50%; background:#2A2C2F"></span>
+        <div style="display:flex; flex-direction:column; gap:6px"><span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,1.9vw,26px)">02 — Проектируем решение</span><p style="margin:0; font-size:15px; color:#92969C; max-width:560px; line-height:1.55">Структура, прототип, состав MVP, архитектура и оценка этапов.</p></div>
+      </div>
+      <div data-reveal="1" style="position:relative; padding:0 0 44px">
+        <span style="position:absolute; left:-37px; top:6px; width:9px; height:9px; border-radius:50%; background:#2A2C2F"></span>
+        <div style="display:flex; flex-direction:column; gap:6px"><span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,1.9vw,26px)">03 — Создаём дизайн</span><p style="margin:0; font-size:15px; color:#92969C; max-width:560px; line-height:1.55">Индивидуальный интерфейс в системе бренда, адаптив под все экраны.</p></div>
+      </div>
+      <div data-reveal="1" style="position:relative; padding:0 0 44px">
+        <span style="position:absolute; left:-37px; top:6px; width:9px; height:9px; border-radius:50%; background:#2A2C2F"></span>
+        <div style="display:flex; flex-direction:column; gap:6px"><span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,1.9vw,26px)">04 — Разрабатываем продукт</span><p style="margin:0; font-size:15px; color:#92969C; max-width:560px; line-height:1.55">Фронтенд, бэкенд, интеграции — с промежуточными демо.</p></div>
+      </div>
+      <div data-reveal="1" style="position:relative; padding:0 0 44px">
+        <span style="position:absolute; left:-37px; top:6px; width:9px; height:9px; border-radius:50%; background:#2A2C2F"></span>
+        <div style="display:flex; flex-direction:column; gap:6px"><span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,1.9vw,26px)">05 — Тестируем и запускаем</span><p style="margin:0; font-size:15px; color:#92969C; max-width:560px; line-height:1.55">Проверка сценариев, аналитика, домен, публикация.</p></div>
+      </div>
+      <div data-reveal="1" style="position:relative">
+        <span style="position:absolute; left:-37px; top:6px; width:9px; height:9px; border-radius:50%; background:#2A2C2F"></span>
+        <div style="display:flex; flex-direction:column; gap:6px"><span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,1.9vw,26px)">06 — Поддерживаем и развиваем</span><p style="margin:0; font-size:15px; color:#92969C; max-width:560px; line-height:1.55">Сопровождение, доработки и рост системы вместе с бизнесом.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section id="cases" data-screen-label="Кейсы" style="padding:110px 6vw">
+    <div data-reveal="1" style="display:flex; flex-direction:column; gap:14px; max-width:820px; margin-bottom:64px">
+      <span style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#D8FF3D">Проекты</span>
+      <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(26px,3.4vw,52px); line-height:1.15">Кейсы</h2>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:80px">
+      <article data-reveal="1" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:48px; align-items:center">
+        <div style="display:flex; flex-direction:column; gap:18px">
+          <span style="font-size:13px; color:#6E7075">Кейс 01 · Отрасль клиента</span>
+          <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.6vw,36px)">Название клиента</h3>
+          <p style="margin:0; font-size:15px; line-height:1.6; color:#92969C"><strong style="color:#F2F0EA">Задача:</strong> опишите, что мешало бизнесу. <strong style="color:#F2F0EA">Решение:</strong> что построил getsite. <strong style="color:#F2F0EA">Результат:</strong> измеримый эффект.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:8px">
+            <span style="font-size:12px; color:#92969C; border:1px solid #2A2C2F; border-radius:100px; padding:6px 12px">Сайт</span>
+            <span style="font-size:12px; color:#92969C; border:1px solid #2A2C2F; border-radius:100px; padding:6px 12px">CRM</span>
+            <span style="font-size:12px; color:#92969C; border:1px solid #2A2C2F; border-radius:100px; padding:6px 12px">Telegram-бот</span>
+          </div>
+          <a href="#contacts" style="font-size:14px; font-weight:600; color:#D8FF3D; margin-top:6px">Открыть кейс →</a>
+        </div>
+        <div style="height:min(46vw,420px)">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="case-1" shape="rounded" radius="14" placeholder="Скриншот интерфейса проекта 1" hint-size="100%,100%"></x-import>
+        </div>
+      </article>
+      <article data-reveal="1" style="display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:48px; align-items:center">
+        <div style="height:min(46vw,420px)">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="case-2" shape="rounded" radius="14" placeholder="Скриншот интерфейса проекта 2" hint-size="100%,100%"></x-import>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:18px">
+          <span style="font-size:13px; color:#6E7075">Кейс 02 · Отрасль клиента</span>
+          <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.6vw,36px)">Название клиента</h3>
+          <p style="margin:0; font-size:15px; line-height:1.6; color:#92969C"><strong style="color:#F2F0EA">Задача:</strong> опишите, что мешало бизнесу. <strong style="color:#F2F0EA">Решение:</strong> что построил getsite. <strong style="color:#F2F0EA">Результат:</strong> измеримый эффект.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:8px">
+            <span style="font-size:12px; color:#92969C; border:1px solid #2A2C2F; border-radius:100px; padding:6px 12px">Каталог</span>
+            <span style="font-size:12px; color:#92969C; border:1px solid #2A2C2F; border-radius:100px; padding:6px 12px">Интеграции</span>
+          </div>
+          <a href="#contacts" style="font-size:14px; font-weight:600; color:#D8FF3D; margin-top:6px">Открыть кейс →</a>
+        </div>
+      </article>
+      <article data-reveal="1" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:48px; align-items:center">
+        <div style="display:flex; flex-direction:column; gap:18px">
+          <span style="font-size:13px; color:#6E7075">Кейс 03 · Отрасль клиента</span>
+          <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(22px,2.6vw,36px)">Название клиента</h3>
+          <p style="margin:0; font-size:15px; line-height:1.6; color:#92969C"><strong style="color:#F2F0EA">Задача:</strong> опишите, что мешало бизнесу. <strong style="color:#F2F0EA">Решение:</strong> что построил getsite. <strong style="color:#F2F0EA">Результат:</strong> измеримый эффект.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:8px">
+            <span style="font-size:12px; color:#92969C; border:1px solid #2A2C2F; border-radius:100px; padding:6px 12px">Веб-сервис</span>
+            <span style="font-size:12px; color:#92969C; border:1px solid #2A2C2F; border-radius:100px; padding:6px 12px">Автоматизация</span>
+          </div>
+          <a href="#contacts" style="font-size:14px; font-weight:600; color:#D8FF3D; margin-top:6px">Открыть кейс →</a>
+        </div>
+        <div style="height:min(46vw,420px)">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="case-3" shape="rounded" radius="14" placeholder="Скриншот интерфейса проекта 3" hint-size="100%,100%"></x-import>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" data-screen-label="Почему getsite" style="padding:110px 6vw">
+    <div data-reveal="1" style="display:flex; flex-direction:column; gap:14px; max-width:820px; margin-bottom:56px">
+      <span style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#D8FF3D">О компании</span>
+      <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(26px,3.4vw,52px); line-height:1.15">Почему getsite</h2>
+    </div>
+    <div style="display:flex; flex-direction:column">
+      <div data-thesis="1" data-reveal="1" style="display:flex; gap:24px; align-items:baseline; border-top:1px solid #1E2023; padding:24px 0"><span data-tnum="1" style="font-family:'Unbounded',sans-serif; font-size:14px; color:#6E7075; transition:color 0.25s">01</span><span style="font-size:clamp(17px,1.7vw,22px); font-weight:500">Понимаем бизнес-задачу, а не только техническое задание</span></div>
+      <div data-thesis="1" data-reveal="1" style="display:flex; gap:24px; align-items:baseline; border-top:1px solid #1E2023; padding:24px 0"><span data-tnum="1" style="font-family:'Unbounded',sans-serif; font-size:14px; color:#6E7075; transition:color 0.25s">02</span><span style="font-size:clamp(17px,1.7vw,22px); font-weight:500">Проектируем продукт до начала разработки</span></div>
+      <div data-thesis="1" data-reveal="1" style="display:flex; gap:24px; align-items:baseline; border-top:1px solid #1E2023; padding:24px 0"><span data-tnum="1" style="font-family:'Unbounded',sans-serif; font-size:14px; color:#6E7075; transition:color 0.25s">03</span><span style="font-size:clamp(17px,1.7vw,22px); font-weight:500">Собираем сайты, боты и CRM в единую систему</span></div>
+      <div data-thesis="1" data-reveal="1" style="display:flex; gap:24px; align-items:baseline; border-top:1px solid #1E2023; padding:24px 0"><span data-tnum="1" style="font-family:'Unbounded',sans-serif; font-size:14px; color:#6E7075; transition:color 0.25s">04</span><span style="font-size:clamp(17px,1.7vw,22px); font-weight:500">Не бросаем после запуска</span></div>
+      <div data-thesis="1" data-reveal="1" style="display:flex; gap:24px; align-items:baseline; border-top:1px solid #1E2023; padding:24px 0"><span data-tnum="1" style="font-family:'Unbounded',sans-serif; font-size:14px; color:#6E7075; transition:color 0.25s">05</span><span style="font-size:clamp(17px,1.7vw,22px); font-weight:500">Создаём основу для дальнейшего роста</span></div>
+      <div data-thesis="1" data-reveal="1" style="display:flex; gap:24px; align-items:baseline; border-top:1px solid #1E2023; border-bottom:1px solid #1E2023; padding:24px 0"><span data-tnum="1" style="font-family:'Unbounded',sans-serif; font-size:14px; color:#6E7075; transition:color 0.25s">06</span><span style="font-size:clamp(17px,1.7vw,22px); font-weight:500">Объясняем решения понятным языком</span></div>
+    </div>
+  </section>
+
+  <!-- CTA + FORM -->
+  <section id="contacts" data-screen-label="Контакты" style="box-sizing:border-box; min-height:100vh; padding:130px 6vw 60px; display:flex; flex-direction:column; gap:72px; justify-content:center">
+    <div data-reveal="1" style="display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:64px">
+      <div style="display:flex; flex-direction:column; gap:24px">
+        <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(32px,4.4vw,68px); line-height:1.08">Есть задача? Давайте соберём <span style="color:#D8FF3D">решение</span></h2>
+        <p style="margin:0; max-width:520px; font-size:17px; line-height:1.6; color:#92969C">Расскажите, что сейчас мешает вашему бизнесу расти или работать эффективнее. Мы предложим подходящий формат продукта.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px">
+          <a href="https://t.me/getsite" style="border:1px solid #2A2C2F; color:#F2F0EA; font-weight:500; font-size:14px; padding:13px 24px; border-radius:100px" style-hover="border-color:#D8FF3D; color:#D8FF3D">Написать в Telegram</a>
+          <a href="tel:+998000000000" style="border:1px solid #2A2C2F; color:#F2F0EA; font-weight:500; font-size:14px; padding:13px 24px; border-radius:100px" style-hover="border-color:#D8FF3D; color:#D8FF3D">Позвонить</a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px; font-size:15px; color:#92969C; margin-top:14px">
+          <a href="tel:+998000000000" style="color:#F2F0EA">+998 00 000-00-00</a>
+          <a href="mailto:hello@getsite.uz" style="color:#F2F0EA">hello@getsite.uz</a>
+          <span>Ташкент, Узбекистан</span>
+        </div>
+      </div>
+      <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; gap:12px; justify-content:center; border:1px solid #2A2C2F; padding:48px; background:rgba(17,19,21,0.7)">
+          <span style="font-family:'Unbounded',sans-serif; font-size:24px; font-weight:800; color:#D8FF3D">Заявка отправлена</span>
+          <span style="font-size:15px; color:#92969C">Спасибо! Менеджер свяжется с вами в течение рабочего дня.</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ formNotSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; flex-direction:column; gap:12px">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+            <input placeholder="Имя" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+            <input placeholder="Телефон" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+            <input placeholder="Telegram" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+            <input placeholder="Компания" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+          </div>
+          <span style="font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#6E7075; margin-top:6px">Тип задачи</span>
+          <div style="display:flex; flex-wrap:wrap; gap:8px">
+            <sc-for list="{{ taskTypes }}" as="tt" hint-placeholder-count="8">
+              <button onClick="{{ tt.pick }}" style="background:{{ tt.bg }}; color:{{ tt.fg }}; border:1px solid #2A2C2F; border-radius:100px; padding:9px 16px; font-size:13px; font-family:'Golos Text',sans-serif; cursor:pointer">{{ tt.label }}</button>
+            </sc-for>
+          </div>
+          <textarea placeholder="Краткое описание задачи" rows="3" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none; resize:vertical" style-focus="border-color:#D8FF3D"></textarea>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px">
+            <input placeholder="Бюджет" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+            <input placeholder="Срок" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+            <input placeholder="Способ связи" style="background:rgba(17,19,21,0.8); border:1px solid #2A2C2F; padding:15px 16px; font-size:14px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+          </div>
+          <button onClick="{{ sendForm }}" style="background:#D8FF3D; color:#070809; border:none; border-radius:100px; padding:17px; font-family:'Unbounded',sans-serif; font-size:14px; font-weight:700; cursor:pointer; margin-top:6px" style-hover="background:#F2F0EA">Обсудить проект</button>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; padding:26px 6vw; border-top:1px solid #1E2023; font-size:13px; color:#6E7075">
+    <span style="font-family:'Unbounded',sans-serif; font-weight:900; color:#F2F0EA">getsite<span style="color:#D8FF3D">*</span></span>
+    <span>Сайты · Боты · CRM · Веб-сервисы · Автоматизации · Интеграции</span>
+    <span>© getsite, 2026</span>
+  </footer>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sent: false, loading: true, pct: 0, revealed: false, menuOpen: false, taskType: -1 };
+  wrapRef = React.createRef();
+  headerRef = React.createRef();
+  routeRef = React.createRef();
+  routeFillRef = React.createRef();
+  curDotRef = React.createRef();
+  curRingRef = React.createRef();
+
+  componentDidMount() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fine = window.matchMedia('(pointer: fine)').matches;
+
+    // --- real preloader: fonts + first WebGL frame ---
+    let done = 0, targetPct = 8;
+    const step = () => { done++; targetPct = 8 + done * 46; if (done >= 2) targetPct = 100; };
+    document.fonts.ready.then(step);
+    let pfReadySeen = false;
+    this._onPfReady = () => { if (!pfReadySeen) { pfReadySeen = true; step(); } };
+    document.addEventListener('pf-ready', this._onPfReady);
+    setTimeout(() => { if (!pfReadySeen) this._onPfReady(); }, 4000); // fallback if WebGL unavailable
+    this._iv = setInterval(() => {
+      const p = Math.min(targetPct, this.state.pct + 3);
+      if (p !== this.state.pct) this.setState({ pct: p });
+      if (p >= 100) {
+        clearInterval(this._iv);
+        const pf = document.querySelector('pf-scene');
+        if (pf && pf.startIntro) pf.startIntro();
+        setTimeout(() => {
+          this.setState({ revealed: true });
+          this._revealLines();
+          setTimeout(() => this.setState({ loading: false }), 950);
+        }, 250);
+      }
+    }, 40);
+
+    // --- reveal on scroll ---
+    const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
+    revealEls.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = reduced ? 'none' : 'translateY(50px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,0.7,0.2,1)';
+    });
+    this._io = new IntersectionObserver((entries) => {
+      for (const en of entries) {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'translateY(0)';
+          this._io.unobserve(en.target);
+        }
+      }
+    }, { threshold: 0.1 });
+    revealEls.forEach((el) => this._io.observe(el));
+
+    // --- custom cursor ---
+    if (fine && !reduced) {
+      let cx = -100, cy = -100, rx = -100, ry = -100, hoverInt = false;
+      this._onCurMove = (e) => { cx = e.clientX; cy = e.clientY; };
+      this._onCurOver = (e) => { hoverInt = !!(e.target.closest && e.target.closest('a, button')); };
+      window.addEventListener('mousemove', this._onCurMove, { passive: true });
+      window.addEventListener('mouseover', this._onCurOver, { passive: true });
+      this._cursorTick = () => {
+        rx += (cx - rx) * 0.16; ry += (cy - ry) * 0.16;
+        const dot = this.curDotRef.current, ring = this.curRingRef.current;
+        if (dot) dot.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+        if (ring) {
+          ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+          const s = hoverInt ? 56 : 36;
+          ring.style.width = s + 'px'; ring.style.height = s + 'px';
+          ring.style.margin = (-s / 2) + 'px 0 0 ' + (-s / 2) + 'px';
+          ring.style.borderColor = hoverInt ? '#D8FF3D' : 'rgba(242,240,234,0.5)';
+        }
+      };
+    } else {
+      const dot = this.curDotRef.current, ring = this.curRingRef.current;
+      if (dot) dot.style.display = 'none';
+      if (ring) ring.style.display = 'none';
+    }
+
+    // --- scroll: shape per section + process route + header (all writes change-gated) ---
+    this._override = false;
+    this._lastShape = -1;
+    this._hdrOn = null;
+    this._lastFill = -1;
+    this._dotState = -1;
+    const SEC_SHAPES = [['Hero', 0], ['Услуги', 1], ['Бизнес-задачи', 5], ['Процесс', 4], ['Кейсы', 3], ['Почему getsite', 5], ['Контакты', 6]];
+    const measure = () => {
+      this._secs = SEC_SHAPES.map(([lab, shape]) => {
+        const el = document.querySelector('[data-screen-label="' + lab + '"]');
+        return el ? { top: el.offsetTop, shape } : null;
+      }).filter(Boolean);
+      const route = this.routeRef.current;
+      if (route) { this._routeTop = route.offsetTop; this._routeH = route.offsetHeight; }
+      const wrap = this.wrapRef.current;
+      this._maxScroll = Math.max(1, (wrap ? wrap.scrollHeight : document.body.scrollHeight) - window.innerHeight);
+    };
+    measure();
+    this._measure = measure;
+    window.addEventListener('resize', measure);
+    if (this.wrapRef.current) { this._ro = new ResizeObserver(measure); this._ro.observe(this.wrapRef.current); }
+
+    const loop = () => {
+      this._raf = requestAnimationFrame(loop);
+      if (this._cursorTick) this._cursorTick();
+      const scY = window.scrollY;
+      const vh = window.innerHeight;
+      const pf = this._pf || (this._pf = document.querySelector('pf-scene'));
+      if (pf && pf.setScroll) {
+        pf.setScroll(Math.max(0, Math.min(1, scY / this._maxScroll)));
+        if (!this._override && pf.setShape && this._secs) {
+          const pivot = scY + vh * 0.5;
+          let sh = 0;
+          for (const s of this._secs) if (pivot >= s.top) sh = s.shape;
+          if (sh !== this._lastShape) { this._lastShape = sh; pf.setShape(sh); }
+        }
+      }
+      const on = scY > 40;
+      if (on !== this._hdrOn) {
+        this._hdrOn = on;
+        const h = this.headerRef.current;
+        if (h) {
+          h.style.padding = on ? '12px 6vw' : '22px 6vw';
+          h.style.background = on ? 'rgba(7,8,9,0.72)' : 'transparent';
+          h.style.backdropFilter = on ? 'blur(12px)' : 'none';
+          h.style.borderBottom = on ? '1px solid #1E2023' : '1px solid transparent';
+        }
+      }
+      const fill = this.routeFillRef.current;
+      if (fill && this._routeH) {
+        const prog = Math.max(0, Math.min(1, (scY + vh * 0.72 - this._routeTop) / this._routeH));
+        const pct = Math.round(prog * 100);
+        if (pct !== this._lastFill) {
+          this._lastFill = pct;
+          fill.style.height = pct + '%';
+          if (!this._dots) { const route = this.routeRef.current; this._dots = route ? Array.from(route.querySelectorAll('[data-reveal] > span')) : null; }
+          if (this._dots) {
+            const idx = Math.floor(prog * this._dots.length + 0.5);
+            if (idx !== this._dotState) {
+              this._dotState = idx;
+              this._dots.forEach((d, i) => { d.style.background = i < idx ? '#D8FF3D' : '#2A2C2F'; });
+            }
+          }
+        }
+      }
+    };
+    this._raf = requestAnimationFrame(loop);
+  }
+
+  _revealLines() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Array.from(document.querySelectorAll('[data-line]')).forEach((el, i) => {
+      el.style.transition = reduced ? 'transform 0.2s' : 'transform 0.9s cubic-bezier(0.16,0.7,0.2,1) ' + (0.15 + i * 0.08) + 's';
+      el.style.transform = 'translateY(0)';
+    });
+  }
+
+  _setSvcShape(id) {
+    this._override = true;
+    const pf = document.querySelector('pf-scene');
+    if (pf && pf.setShape) pf.setShape(id);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._iv);
+    cancelAnimationFrame(this._raf);
+    if (this._io) this._io.disconnect();
+    if (this._ro) this._ro.disconnect();
+    if (this._measure) window.removeEventListener('resize', this._measure);
+    document.removeEventListener('pf-ready', this._onPfReady);
+    if (this._onCurMove) window.removeEventListener('mousemove', this._onCurMove);
+    if (this._onCurOver) window.removeEventListener('mouseover', this._onCurOver);
+  }
+
+  renderVals() {
+    const types = ['Сайт', 'Интернет-магазин', 'Telegram-бот', 'CRM', 'Веб-сервис', 'Автоматизация', 'Интеграция', 'Пока не знаю — нужна консультация'];
+    return {
+      loading: this.state.loading,
+      loaderClip: this.state.revealed ? 'inset(0 0 100% 0)' : 'inset(0 0 0% 0)',
+      loadPct: this.state.pct,
+      loadPctW: this.state.pct + '%',
+      menuOpen: this.state.menuOpen,
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      svc0: () => this._setSvcShape(1),
+      svc1: () => this._setSvcShape(2),
+      svc2: () => this._setSvcShape(3),
+      svc3: () => this._setSvcShape(1),
+      svc4: () => this._setSvcShape(4),
+      svc5: () => this._setSvcShape(5),
+      svcLeave: () => { this._override = false; this._lastShape = -1; },
+      taskTypes: types.map((label, i) => ({
+        label,
+        bg: this.state.taskType === i ? '#D8FF3D' : 'rgba(17,19,21,0.8)',
+        fg: this.state.taskType === i ? '#070809' : '#92969C',
+        pick: () => this.setState({ taskType: i })
+      })),
+      formSent: this.state.sent,
+      formNotSent: !this.state.sent,
+      sendForm: () => this.setState({ sent: true }),
+      wrapRef: this.wrapRef,
+      headerRef: this.headerRef,
+      routeRef: this.routeRef,
+      routeFillRef: this.routeFillRef,
+      curDotRef: this.curDotRef,
+      curRingRef: this.curRingRef
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&amp;family=Golos+Text:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #0B0B0C; }
+    body { font-family: 'Golos Text', sans-serif; color: #F2F0EA; }
+    a { color: #F2F0EA; text-decoration: none; }
+    a:hover { color: #D8FF3D; }
+    ::selection { background: #D8FF3D; color: #0B0B0C; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    input::placeholder, textarea::placeholder { color: #6E6C66; }
+  </style>
+</helmet>
+
+<div style="background:#0B0B0C; min-height:100vh; overflow-x:hidden">
+
+  <!-- HEADER -->
+  <header style="position:fixed; top:0; left:0; right:0; z-index:50; box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; padding:20px 40px; background:rgba(11,11,12,0.85); backdrop-filter:blur(12px); border-bottom:1px solid #1E1E20">
+    <a href="#home" style="font-family:'Unbounded',sans-serif; font-weight:900; font-size:18px; letter-spacing:0.05em">SAYTLAB<span style="color:#D8FF3D">*</span></a>
+    <nav style="display:flex; gap:32px; font-size:14px; font-weight:500; letter-spacing:0.04em; text-transform:uppercase">
+      <a href="#agency">Агентство</a>
+      <a href="#services">Услуги</a>
+      <a href="#custom">Автоматизация</a>
+    </nav>
+    <a href="#contacts" style="display:inline-flex; align-items:center; gap:8px; background:#D8FF3D; color:#0B0B0C; font-weight:600; font-size:14px; padding:12px 22px; border-radius:100px; text-transform:uppercase; letter-spacing:0.04em" style-hover="background:#F2F0EA; color:#0B0B0C">Обсудить проект</a>
+  </header>
+
+  <div ref="{{ wrapRef }}" style="position:fixed; top:0; left:0; width:100%; background:#0B0B0C; will-change:transform">
+
+  <!-- HERO -->
+  <section id="home" data-screen-label="Hero" style="padding:170px 40px 90px; display:flex; flex-direction:column; gap:48px; perspective:1100px">
+    <h1 ref="{{ heroRef }}" style="margin:0; font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(56px, 9.5vw, 168px); line-height:0.98; letter-spacing:-0.02em; text-transform:uppercase; transform-origin:50% 100%; will-change:transform,opacity">
+      <span style="display:block">Сайты,</span>
+      <span style="display:block">которые</span>
+      <span style="display:block; color:#D8FF3D">приносят заявки</span>
+    </h1>
+    <div style="display:flex; flex-wrap:wrap; gap:40px; align-items:flex-end; justify-content:space-between">
+      <p style="margin:0; max-width:520px; font-size:19px; line-height:1.55; color:#B8B6AF">Проектируем и запускаем <strong style="color:#F2F0EA">лендинги, корпоративные сайты, каталоги и Telegram-ботов</strong> — от структуры и прототипа до аналитики и публикации.</p>
+      <a href="#services" style="font-family:'Unbounded',sans-serif; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; border-bottom:2px solid #D8FF3D; padding-bottom:6px">Смотреть услуги ↓</a>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <sc-if value="{{ showMarquee }}" hint-placeholder-val="{{ true }}">
+    <div style="border-top:1px solid #1E1E20; border-bottom:1px solid #1E1E20; overflow:hidden; padding:18px 0; white-space:nowrap">
+      <div style="display:inline-flex; gap:0; animation:marquee 28s linear infinite; will-change:transform">
+        <span style="font-family:'Unbounded',sans-serif; font-size:22px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#6E6C66; padding-right:24px">Лендинги · Корпоративные сайты · Каталоги · Telegram-боты · Автоматизация&nbsp;·&nbsp;</span>
+        <span style="font-family:'Unbounded',sans-serif; font-size:22px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#6E6C66; padding-right:24px">Лендинги · Корпоративные сайты · Каталоги · Telegram-боты · Автоматизация&nbsp;·&nbsp;</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- AGENCY -->
+  <section id="agency" data-screen-label="Агентство" data-reveal="1" style="padding:120px 40px; display:grid; grid-template-columns:minmax(160px, 1fr) minmax(0, 2fr); gap:40px">
+    <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-size:15px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:#D8FF3D">Агентство</h2>
+    <div style="display:flex; flex-direction:column; gap:28px">
+      <p style="margin:0; font-family:'Unbounded',sans-serif; font-size:clamp(26px, 3.2vw, 44px); font-weight:600; line-height:1.25">Мы не продаём «страницы». Мы строим инструменты, которые превращают посетителей в клиентов.</p>
+      <p style="margin:0; max-width:640px; font-size:18px; line-height:1.6; color:#B8B6AF">Каждый проект начинается с анализа вашего предложения и заканчивается публикацией с подключённой аналитикой. Фиксированный состав работ — вы заранее знаете, что входит в цену.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" data-screen-label="Услуги" style="padding:0 40px 60px">
+    <h2 style="margin:0 0 56px; font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(40px, 6vw, 96px); text-transform:uppercase; letter-spacing:-0.01em">Услуги</h2>
+
+    <!-- 01 Лендинг -->
+    <article data-reveal="1" style="border-top:1px solid #2A2A2D; padding:48px 0; display:grid; grid-template-columns:80px minmax(0,1.1fr) minmax(0,1.4fr); gap:32px" style-hover="background:#111113">
+      <span style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E6C66">01</span>
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.6vw,36px); font-weight:800; text-transform:uppercase; line-height:1.1">Лендинг</h3>
+        <p style="margin:0; font-size:16px; line-height:1.55; color:#B8B6AF">Одностраничный сайт для получения заявок — под ключ, от анализа до публикации.</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start; font-family:'Unbounded',sans-serif; font-size:14px; font-weight:600; color:#D8FF3D; border:1px solid #3A3D22; border-radius:100px; padding:8px 16px">Цена по запросу</span></sc-if>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-content:flex-start">
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Анализ предложения</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Структура страницы</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Прототип</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Индивидуальный дизайн</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Адаптивная версия</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Формы</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Аналитика</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Базовое SEO</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Подключение домена</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Публикация</span>
+      </div>
+    </article>
+
+    <!-- 02 Корпоративный сайт -->
+    <article data-reveal="1" style="border-top:1px solid #2A2A2D; padding:48px 0; display:grid; grid-template-columns:80px minmax(0,1.1fr) minmax(0,1.4fr); gap:32px" style-hover="background:#111113">
+      <span style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E6C66">02</span>
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.6vw,36px); font-weight:800; text-transform:uppercase; line-height:1.1">Корпоративный сайт</h3>
+        <p style="margin:0; font-size:16px; line-height:1.55; color:#B8B6AF">До 8–12 основных страниц о компании, услугах и проектах — с формами и управлением контентом.</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start; font-family:'Unbounded',sans-serif; font-size:14px; font-weight:600; color:#D8FF3D; border:1px solid #3A3D22; border-radius:100px; padding:8px 16px">Цена по запросу</span></sc-if>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-content:flex-start">
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">8–12 страниц</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Структура</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Прототип</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Дизайн</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Адаптивность</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Формы заявок</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Аналитика</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Базовое SEO</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Управление контентом</span>
+      </div>
+    </article>
+
+    <!-- 03 Сайт-каталог -->
+    <article data-reveal="1" style="border-top:1px solid #2A2A2D; padding:48px 0; display:grid; grid-template-columns:80px minmax(0,1.1fr) minmax(0,1.4fr); gap:32px" style-hover="background:#111113">
+      <span style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E6C66">03</span>
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.6vw,36px); font-weight:800; text-transform:uppercase; line-height:1.1">Сайт-каталог</h3>
+        <p style="margin:0; font-size:16px; line-height:1.55; color:#B8B6AF">Каталог товаров с фильтрацией, поиском и передачей заявок менеджеру.</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start; font-family:'Unbounded',sans-serif; font-size:14px; font-weight:600; color:#D8FF3D; border:1px solid #3A3D22; border-radius:100px; padding:8px 16px">Цена по запросу</span></sc-if>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-content:flex-start">
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Категории</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Карточки товаров</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Фильтрация</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Поиск</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Форма заказа / запрос цены</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Передача заявки менеджеру</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Управление товарами</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Интеграция с Telegram / CRM</span>
+      </div>
+    </article>
+
+    <!-- 04 Telegram-бот базовый -->
+    <article data-reveal="1" style="border-top:1px solid #2A2A2D; padding:48px 0; display:grid; grid-template-columns:80px minmax(0,1.1fr) minmax(0,1.4fr); gap:32px" style-hover="background:#111113">
+      <span style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E6C66">04</span>
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.6vw,36px); font-weight:800; text-transform:uppercase; line-height:1.1">Telegram-бот для бизнеса</h3>
+        <p style="margin:0; font-size:16px; line-height:1.55; color:#B8B6AF">Базовый бот: отвечает на вопросы, показывает каталог и собирает заявки.</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start; font-family:'Unbounded',sans-serif; font-size:14px; font-weight:600; color:#0B0B0C; background:#D8FF3D; border-radius:100px; padding:8px 16px">7–10 млн сум</span></sc-if>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-content:flex-start">
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Ответы на вопросы</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Каталог</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Сбор заявок</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Уведомления</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Передача данных менеджеру</span>
+      </div>
+    </article>
+
+    <!-- 05 Бот с админ-панелью -->
+    <article data-reveal="1" style="border-top:1px solid #2A2A2D; border-bottom:1px solid #2A2A2D; padding:48px 0; display:grid; grid-template-columns:80px minmax(0,1.1fr) minmax(0,1.4fr); gap:32px" style-hover="background:#111113">
+      <span style="font-family:'Unbounded',sans-serif; font-size:15px; color:#6E6C66">05</span>
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <h3 style="margin:0; font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.6vw,36px); font-weight:800; text-transform:uppercase; line-height:1.1">Бот с админ-панелью и интеграциями</h3>
+        <p style="margin:0; font-size:16px; line-height:1.55; color:#B8B6AF">Для процессов посложнее: пользователи, заказы, роли, отчётность и внешние системы.</p>
+        <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start; font-family:'Unbounded',sans-serif; font-size:14px; font-weight:600; color:#0B0B0C; background:#D8FF3D; border-radius:100px; padding:8px 16px">14–25 млн сум</span></sc-if>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-content:flex-start">
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Личные данные пользователей</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Статусы</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Заказы</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Уведомления</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">CRM или база данных</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Роли</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Отчётность</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #2A2A2D; border-radius:100px; padding:8px 14px">Внешние API</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- CUSTOM / АВТОМАТИЗАЦИЯ -->
+  <section id="custom" data-screen-label="Автоматизация" style="padding:100px 40px">
+    <div data-reveal="1" style="border:1px solid #3A3D22; border-radius:24px; padding:64px 56px; background:#101106; display:flex; flex-direction:column; gap:48px">
+      <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:space-between; align-items:flex-start">
+        <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(32px,4.5vw,64px); text-transform:uppercase; line-height:1.05; max-width:720px">Автоматизация и внутренние <span style="color:#D8FF3D">системы</span></h2>
+        <p style="margin:0; max-width:420px; font-size:17px; line-height:1.6; color:#B8B6AF">CRM, личные кабинеты, внутренние сервисы и сложные Mini Apps не продаются по фиксированному прайсу. Сначала — платная аналитика.</p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px">
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Интервью</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Описание процессов</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Роли</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Пользовательские сценарии</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Состав MVP</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Архитектура</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Риски</span>
+        <span style="font-size:14px; color:#DAD8D1; border:1px solid #3A3D22; border-radius:100px; padding:8px 14px">Оценка этапов</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px; border-top:1px solid #3A3D22; padding-top:40px">
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.4vw,34px); font-weight:800; color:#D8FF3D">1,5–4 млн сум</span>
+          <span style="font-size:15px; color:#B8B6AF">Стоимость аналитики</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.4vw,34px); font-weight:800; color:#D8FF3D">от 25 млн сум</span>
+          <span style="font-size:15px; color:#B8B6AF">Минимальная стоимость разработки</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'Unbounded',sans-serif; font-size:clamp(24px,2.4vw,34px); font-weight:800; color:#D8FF3D">100%</span>
+          <span style="font-size:15px; color:#B8B6AF">Аналитика включается в стоимость при заказе разработки</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section id="contacts" data-screen-label="Контакты" data-reveal="1" style="padding:80px 40px 60px; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:64px">
+    <div style="display:flex; flex-direction:column; gap:24px">
+      <h2 style="margin:0; font-family:'Unbounded',sans-serif; font-weight:900; font-size:clamp(44px,6vw,96px); text-transform:uppercase; line-height:1">Обсудим <span style="color:#D8FF3D">проект?</span></h2>
+      <p style="margin:0; max-width:480px; font-size:18px; line-height:1.6; color:#B8B6AF">Расскажите о задаче — вернёмся с оценкой и планом в течение рабочего дня.</p>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:16px">
+        <a href="https://t.me/your_studio" style="font-family:'Unbounded',sans-serif; font-size:20px; font-weight:600">@your_studio</a>
+        <a href="mailto:hello@saytlab.uz" style="font-family:'Unbounded',sans-serif; font-size:20px; font-weight:600">hello@saytlab.uz</a>
+      </div>
+    </div>
+    <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; gap:12px; justify-content:center; border:1px solid #3A3D22; border-radius:20px; padding:48px; background:#101106">
+        <span style="font-family:'Unbounded',sans-serif; font-size:28px; font-weight:800; color:#D8FF3D">Заявка отправлена</span>
+        <span style="font-size:16px; color:#B8B6AF">Спасибо! Свяжемся с вами в течение рабочего дня.</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ formNotSent }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <input placeholder="Ваше имя" style="background:#141416; border:1px solid #2A2A2D; border-radius:12px; padding:18px 20px; font-size:16px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+        <input placeholder="Телефон или Telegram" style="background:#141416; border:1px solid #2A2A2D; border-radius:12px; padding:18px 20px; font-size:16px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none" style-focus="border-color:#D8FF3D">
+        <textarea placeholder="Коротко о задаче" rows="4" style="background:#141416; border:1px solid #2A2A2D; border-radius:12px; padding:18px 20px; font-size:16px; color:#F2F0EA; font-family:'Golos Text',sans-serif; outline:none; resize:vertical" style-focus="border-color:#D8FF3D"></textarea>
+        <button onClick="{{ sendForm }}" style="background:#D8FF3D; color:#0B0B0C; border:none; border-radius:100px; padding:20px; font-family:'Unbounded',sans-serif; font-size:15px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; cursor:pointer" style-hover="background:#F2F0EA">Отправить заявку</button>
+      </div>
+    </sc-if>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; padding:28px 40px; border-top:1px solid #1E1E20; font-size:14px; color:#6E6C66">
+    <span style="font-family:'Unbounded',sans-serif; font-weight:900; color:#F2F0EA">SAYTLAB<span style="color:#D8FF3D">*</span></span>
+    <span>Лендинги · Корпоративные сайты · Каталоги · Telegram-боты · Автоматизация</span>
+    <span>© 2026</span>
+  </footer>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Контент&quot;},&quot;showMarquee&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Контент&quot;}}">
+class Component extends DCLogic {
+  state = { sent: false };
+  wrapRef = React.createRef();
+  heroRef = React.createRef();
+
+  componentDidMount() {
+    const wrap = this.wrapRef.current;
+    if (!wrap) return;
+    let vh = window.innerHeight;
+    let target = window.scrollY;
+    let cur = target;
+    let reveals = [];
+
+    const absTop = (el) => {
+      let y = 0, n = el;
+      while (n && n !== wrap) { y += n.offsetTop; n = n.offsetParent; }
+      return y;
+    };
+    const measure = () => {
+      vh = window.innerHeight;
+      document.body.style.height = wrap.scrollHeight + 'px';
+      reveals = Array.from(wrap.querySelectorAll('[data-reveal]')).map((el) => {
+        el.style.willChange = 'transform,opacity';
+        return { el, top: absTop(el) };
+      });
+    };
+    measure();
+    this._ro = new ResizeObserver(measure);
+    this._ro.observe(wrap);
+    this._onResize = measure;
+    window.addEventListener('resize', this._onResize);
+
+    this._onScroll = () => { target = window.scrollY; };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    this._onClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const el = document.getElementById(a.getAttribute('href').slice(1));
+      if (!el) return;
+      e.preventDefault();
+      window.scrollTo(0, Math.max(0, absTop(el) - 90));
+    };
+    document.addEventListener('click', this._onClick);
+
+    const clamp = (v) => Math.min(Math.max(v, 0), 1);
+    const loop = () => {
+      target = window.scrollY;
+      cur += (target - cur) * 0.08;
+      if (Math.abs(target - cur) < 0.05) cur = target;
+      wrap.style.transform = 'translate3d(0,' + (-cur) + 'px,0)';
+
+      const hero = this.heroRef.current;
+      if (hero) {
+        const p = clamp(cur / (vh * 0.9));
+        hero.style.transform = 'rotateX(' + (p * 40) + 'deg) translateY(' + (p * -50) + 'px) scale(' + (1 - p * 0.18) + ')';
+        hero.style.opacity = String(1 - p * 0.7);
+      }
+      for (const r of reveals) {
+        const viewTop = r.top - cur;
+        const prog = clamp((vh * 0.95 - viewTop) / (vh * 0.38));
+        r.el.style.opacity = String(0.05 + prog * 0.95);
+        r.el.style.transform = 'translateY(' + ((1 - prog) * 80) + 'px)';
+      }
+      this._raf = requestAnimationFrame(loop);
+    };
+    this._raf = requestAnimationFrame(loop);
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    if (this._ro) this._ro.disconnect();
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+    document.removeEventListener('click', this._onClick);
+    document.body.style.height = '';
+  }
+
+  renderVals() {
+    const showPrices = this.props.showPrices ?? true;
+    const showMarquee = this.props.showMarquee ?? true;
+    return {
+      showPrices,
+      showMarquee,
+      formSent: this.state.sent,
+      formNotSent: !this.state.sent,
+      sendForm: () => this.setState({ sent: true }),
+      wrapRef: this.wrapRef,
+      heroRef: this.heroRef
+    };
+  }
+}
+</script>
+</body>
+</html>
