@@ -3,7 +3,7 @@
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
    API: el.setShape(id 0..7), el.startIntro()
-   Shapes: 0 rocket, 1 website, 2 briefcase, 3 lifebuoy, 4 workflow, 5 closed book, 6 logo, 7 cloud.
+   Shapes: 0 rocket, 1 website, 2 briefcase, 3 support headset, 4 workflow, 5 closed book, 6 logo, 7 cloud.
    API also: el.setSide('left'|'right') — positions figure opposite section text.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
@@ -141,14 +141,40 @@
       else radialDust(a, i, 1.5, 9.5);
     });
 
-    // 3 LIFEBUOY — ring for support and care
+    // 3 SUPPORT — headset + chat bubble with typing dots
+    const BX0 = -0.38, BX1 = 0.38, BY0 = -0.28, BY1 = 0.38;
     shapes[3] = gen((a, i, f) => {
-      if (f < 0.82) {
-        const an = R() * 6.2832, tube = 0.11 + G() * 0.012, ring = 0.72 + G() * 0.018;
-        put(a, i, Math.cos(an) * ring + G() * 0.01, (R() - 0.5) * tube * 2.2, Math.sin(an) * ring + G() * 0.01);
-      } else if (f < 0.90) {
-        const k = Math.floor(R() * 4), an = k / 4 * 6.2832 + R() * 0.4;
-        seg(a, i, Math.cos(an) * 0.35, 0.42, Math.cos(an) * 0.95, 0.42, 0, 0);
+      if (f < 0.22) {
+        rectFill(a, i, BX0, BY0, BX1, BY1, 0.08 + G() * 0.02, 0.025);
+      } else if (f < 0.28) {
+        rectEdge(a, i, BX0, BY0, BX1, BY1, 0.1, 0.02);
+      } else if (f < 0.32) {
+        tri(a, i, [BX0 + 0.02, BY0], [BX0 - 0.18, BY0 - 0.22], [BX0 + 0.14, BY0 - 0.02], 0.08, 0.02);
+      } else if (f < 0.36) {
+        const k = Math.floor(R() * 3);
+        sphere(a, i, [-0.14, 0, 0.14][k], 0.02, 0.12 + G() * 0.01, 0.028 + G() * 0.008);
+      } else if (f < 0.44) {
+        const an = 0.35 + R() * 2.45, r = 0.82 + G() * 0.05;
+        put(a, i, Math.cos(an) * r * 0.95, Math.sin(an) * r * 0.62 + 0.05, 0.05 + G() * 0.02);
+      } else if (f < 0.52) {
+        rectFill(a, i, -0.82, -0.2, -0.42, 0.42, 0.06 + G() * 0.02, 0.03);
+      } else if (f < 0.56) {
+        rectEdge(a, i, -0.82, -0.2, -0.42, 0.42, 0.08, 0.025);
+      } else if (f < 0.64) {
+        rectFill(a, i, 0.42, -0.2, 0.82, 0.42, 0.06 + G() * 0.02, 0.03);
+      } else if (f < 0.68) {
+        rectEdge(a, i, 0.42, -0.2, 0.82, 0.42, 0.08, 0.025);
+      } else if (f < 0.72) {
+        const t = R();
+        put(a, i, 0.84 + G() * 0.02, -0.02 + t * 0.22, 0.1 + G() * 0.01);
+      } else if (f < 0.78) {
+        const t = R(), u = 1 - t;
+        put(a, i, u * u * 0.62 + 2 * u * t * 0.48 + t * t * 0.2 + G() * 0.01, u * u * -0.18 + 2 * u * t * -0.42 + t * t * -0.6 + G() * 0.01, 0.07 + G() * 0.015);
+      } else if (f < 0.82) {
+        rectFill(a, i, 0.12, -0.62, 0.32, -0.48, 0.08, 0.015);
+      } else if (f < 0.86) {
+        const t = R();
+        put(a, i, 0.18 + t * 0.08, -0.52 + G() * 0.01, 0.1);
       } else radialDust(a, i, 1.3, 9);
     });
 
@@ -324,7 +350,7 @@ void main(){
 
   // camera z distance per shape; horizontal shift comes from setSide()
   const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.4, 3.9, 3.8, 4.2];
-  const CAM_RX = [0.08, 0.10, 0.10, 0.28, 0.06, 0.14, 0.08, 0.04];
+  const CAM_RX = [0.08, 0.10, 0.10, 0.10, 0.06, 0.14, 0.08, 0.04];
   const SIDE_X = 1.15;
 
   class PFScene extends HTMLElement {
