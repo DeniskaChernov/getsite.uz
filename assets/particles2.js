@@ -2,8 +2,8 @@
    GPU-resident morphing: all 7 shapes live as vertex attributes; shape changes are
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
-   API: el.setShape(id 0..6), el.setScroll(p 0..1), el.startIntro()
-   Shapes: 0 core, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 network, 6 logo.
+   API: el.setShape(id 0..7), el.setScroll(p 0..1), el.startIntro()
+   Shapes: 0 core, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 network, 6 logo, 7 cloud.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
   if (customElements.get('pf-scene')) return;
@@ -12,7 +12,7 @@
   // never a short desktop/preview window (that used to silently degrade the scene)
   const MOBILE = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth < 700;
   const CORES = navigator.hardwareConcurrency || 4;
-  const N = MOBILE ? 52000 : (CORES >= 8 ? 140000 : 90000);
+  const N = MOBILE ? 64000 : (CORES >= 8 ? 180000 : 120000);
   // Keep the v5 GPU morphing look, but cap particles for fast first paint.
   // Per-particle alpha is scaled so additive glow doesn't blow out.
   const ALPHA = Math.max(0.8, Math.min(1.35, Math.sqrt(700000 / N)));
@@ -151,14 +151,21 @@ attribute vec3 aP4; attribute vec3 aP5; attribute vec3 aP6; attribute vec3 aSeed
 uniform mat4 uMV; uniform mat4 uP;
 uniform float uWF[7]; uniform float uWT[7]; uniform float uScF; uniform float uScT;
 uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA;
-varying float vA; varying vec3 vColor;
+varying float vA; varying float vCloud; varying vec3 vColor;
 void main(){
-  float tl = clamp(uT * 1.3 - aSeed.x * 0.3, 0.0, 1.0);
-  float tt = tl * tl * (3.0 - 2.0 * tl);
+  float tl = clamp(uT * 1.55 - aSeed.x * 0.55, 0.0, 1.0);
+  float tt = tl * tl * tl * (tl * (tl * 6.0 - 15.0) + 10.0);
   vec3 sc = vec3((aSeed.x * 2.0 - 1.0) * 5.0, (aSeed.y * 2.0 - 1.0) * 3.2, (aSeed.z * 2.0 - 1.0) * 3.0 - 0.8);
   vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6];
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6];
-  vec3 p = mix(F, T, tt);
+  vec3 form = mix(F, T, tt);
+  float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
+  float cloud = step(0.48, cloudSeed);
+  vec3 bg = vec3(
+    (fract(aSeed.x * 17.13 + aSeed.y * 3.11) * 2.0 - 1.0) * 6.4,
+    (fract(aSeed.y * 19.17 + aSeed.z * 5.07) * 2.0 - 1.0) * 3.7,
+    (fract(aSeed.z * 23.07 + aSeed.x * 7.19) * 2.0 - 1.0) * 3.3 - 1.55);
+  vec3 p = mix(form, bg, cloud);
   float w = 0.014 + 0.020 * aSeed.x;
   p += w * vec3(
     sin(uTime * (0.5 + aSeed.y) + aSeed.x * 19.0),
@@ -177,18 +184,19 @@ void main(){
   float lime = step(0.93, aSeed.y);
   float ps = uSize * (0.7 + aSeed.z * 1.2) * (2.4 / dist) * (1.0 + lime * 0.5);
   gl_PointSize = max(1.0, min(ps, uSize * 4.2));
-  vA = (0.40 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA;
+  vCloud = cloud;
+  vA = (0.40 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA * mix(0.9, 0.62, cloud);
   float fog = clamp((dist - 1.6) / 3.4, 0.0, 1.0);
   vec3 base = mix(vec3(0.949, 0.941, 0.918), vec3(0.337, 0.784, 1.0), smoothstep(0.5, 0.93, aSeed.y) * 0.85);
   vec3 col = mix(base, vec3(0.847, 1.0, 0.239) * 1.35, lime);
-  vColor = col * (1.3 - fog * 0.45);
+  vColor = col * (1.3 - fog * 0.45) * mix(1.0, 0.74, cloud);
 }`;
   const FS = `
 precision mediump float;
-varying float vA; varying vec3 vColor;
+varying float vA; varying float vCloud; varying vec3 vColor;
 void main(){
   float d = length(gl_PointCoord - vec2(0.5));
-  float a = smoothstep(0.5, 0.1, d) * vA;
+  float a = smoothstep(0.5, 0.1, d) * vA * mix(1.0, 0.82, vCloud);
   gl_FragColor = vec4(vColor, a);
 }`;
 
@@ -231,9 +239,9 @@ void main(){
       this._t = 0;
       this._playing = false;
       // morph weights: scatter scalar + 7 shape weights, "from" and "to"
-      this._scF = 1; this._scT = 0;
+      this._scF = 1; this._scT = 0.18;
       this._wF = new Float32Array(7);
-      this._wT = new Float32Array(7); this._wT[0] = 1;
+      this._wT = new Float32Array(7); this._wT[0] = 0.82;
 
       const seeds = new Float32Array(N * 3);
       for (let i = 0; i < N * 3; i++) seeds[i] = R();
@@ -306,7 +314,7 @@ void main(){
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
-        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.05) * (reduced ? 3 : 0.75));
+        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.05) * (reduced ? 3 : 0.3));
 
         const id = this._toId;
         const cont = id === 0 || id === 3 || id === 5 || id === 7;
@@ -317,8 +325,8 @@ void main(){
         this._ry += (tRy - this._ry) * 0.05;
         this._rx += (tRx - this._rx) * 0.05;
         const cam = CAM[id];
-        this._cx += ((MOBILE ? 0 : cam.x) - this._cx) * 0.04;
-        this._cz += (cam.z - this._cz) * 0.04;
+        this._cx += ((MOBILE ? 0 : cam.x) - this._cx) * 0.026;
+        this._cz += (cam.z - this._cz) * 0.026;
 
         const cy = Math.cos(this._ry), sy = Math.sin(this._ry), cx = Math.cos(this._rx), sx = Math.sin(this._rx);
         const m = this._mv;
@@ -352,7 +360,7 @@ void main(){
       this._scF = this._scF * (1 - e) + this._scT * e;
       for (let i = 0; i < 7; i++) this._wF[i] = this._wF[i] * (1 - e) + this._wT[i] * e;
       this._wT.fill(0);
-      if (id === 7) this._scT = 1; else { this._wT[id] = 1; this._scT = 0; }
+      if (id === 7) this._scT = 1; else { this._wT[id] = 0.82; this._scT = 0.18; }
       this._toId = id;
       this._t = 0;
     }

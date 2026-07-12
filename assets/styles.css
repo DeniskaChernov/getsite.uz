@@ -369,6 +369,7 @@ main,
   width: min(100%, var(--max));
   margin: 0 auto;
   padding: 16vh var(--side);
+  scroll-margin-top: 96px;
 }
 
 .hero {

@@ -199,9 +199,6 @@
     let overrideShape = false;
     let lastShape = -1;
     let ticking = false;
-    let smoothTarget = null;
-    let smoothCurrent = 0;
-    let smoothRaf = 0;
 
     const setShape = (shape) => {
       if (!pf || typeof pf.setShape !== "function" || shape === lastShape) return;
@@ -248,35 +245,6 @@
       window.requestAnimationFrame(update);
     };
 
-    const maxScroll = () => Math.max(1, doc.documentElement.scrollHeight - (window.innerHeight || 1));
-
-    const smoothStep = () => {
-      smoothRaf = 0;
-      if (smoothTarget === null) return;
-      smoothCurrent += (smoothTarget - smoothCurrent) * 0.09;
-      if (Math.abs(smoothTarget - smoothCurrent) < 0.4) {
-        smoothCurrent = smoothTarget;
-        window.scrollTo(0, smoothCurrent);
-        smoothTarget = null;
-        return;
-      }
-      window.scrollTo(0, smoothCurrent);
-      smoothRaf = window.requestAnimationFrame(smoothStep);
-    };
-
-    if (finePointer && !reduced) {
-      window.addEventListener("wheel", (event) => {
-        if (event.ctrlKey || event.metaKey || body.classList.contains("menu-open")) return;
-        event.preventDefault();
-        if (smoothTarget === null) {
-          smoothTarget = window.scrollY || doc.documentElement.scrollTop;
-          smoothCurrent = smoothTarget;
-        }
-        smoothTarget = clamp(smoothTarget + event.deltaY, 0, maxScroll());
-        if (!smoothRaf) smoothRaf = window.requestAnimationFrame(smoothStep);
-      }, { passive: false });
-    }
-
     doc.querySelectorAll("[data-service]").forEach((item) => {
       item.addEventListener("mouseenter", () => {
         overrideShape = true;
@@ -292,6 +260,20 @@
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
     update();
+  }
+
+  function initAnchorScroll() {
+    doc.querySelectorAll("a[href^='#']").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const hash = link.getAttribute("href");
+        if (!hash || hash === "#") return;
+        const target = doc.querySelector(hash);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+        if (history.pushState) history.pushState(null, "", hash);
+      });
+    });
   }
 
   function initForm() {
@@ -351,6 +333,7 @@
   initReveal();
   initLineReveal();
   initScrollState();
+  initAnchorScroll();
   initForm();
   initLanguageSwitcher();
 })();
