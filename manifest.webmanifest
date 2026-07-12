@@ -1,7 +1,7 @@
 {
   "name": "getsite",
   "short_name": "getsite",
-  "description": "Сайты, боты, CRM и автоматизации для бизнеса.",
+  "description": "getsite — разработка для бизнеса.",
   "lang": "ru",
   "start_url": "/",
   "scope": "/",

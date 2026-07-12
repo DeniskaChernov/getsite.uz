@@ -3,6 +3,7 @@
   const body = doc.body;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = window.matchMedia("(pointer: fine)").matches;
+  const mobileMq = window.matchMedia("(max-width: 700px)");
 
   const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
 
@@ -182,15 +183,131 @@
         entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
 
     items.forEach((item) => observer.observe(item));
+  }
+
+  function initStaggerReveal() {
+    const groups = doc.querySelectorAll("[data-stagger]");
+    if (!groups.length) return;
+
+    groups.forEach((group) => {
+      const children = [...group.children];
+      children.forEach((child, index) => {
+        child.classList.add("reveal", "reveal--stagger");
+        child.style.setProperty("--reveal-delay", `${index * 0.09}s`);
+      });
+    });
   }
 
   function initLineReveal() {
     const lines = doc.querySelectorAll(".line-reveal > span");
     lines.forEach((line, index) => {
       line.style.setProperty("--line-delay", `${0.15 + index * 0.08}s`);
+    });
+  }
+
+  function initServiceRows() {
+    const rows = [...doc.querySelectorAll(".service-row")];
+    if (!rows.length) return;
+
+    const syncMode = () => {
+      const touchMode = mobileMq.matches || !finePointer;
+      rows.forEach((row) => {
+        row.classList.toggle("is-touch", touchMode);
+        if (!touchMode) row.classList.remove("is-open");
+      });
+    };
+
+    rows.forEach((row) => {
+      row.addEventListener("click", () => {
+        if (!row.classList.contains("is-touch")) return;
+        const open = row.classList.contains("is-open");
+        rows.forEach((item) => item.classList.remove("is-open"));
+        if (!open) row.classList.add("is-open");
+      });
+    });
+
+    syncMode();
+    if (typeof mobileMq.addEventListener === "function") {
+      mobileMq.addEventListener("change", syncMode);
+    } else if (typeof mobileMq.addListener === "function") {
+      mobileMq.addListener(syncMode);
+    }
+  }
+
+  function initMobileCta() {
+    const cta = doc.querySelector("[data-mobile-cta]");
+    const hero = doc.querySelector(".hero");
+    if (!cta || !hero) return;
+
+    const show = () => {
+      const rect = hero.getBoundingClientRect();
+      const visible = rect.bottom < window.innerHeight * 0.35;
+      cta.classList.toggle("is-visible", visible);
+    };
+
+    show();
+    window.addEventListener("scroll", () => window.requestAnimationFrame(show), { passive: true });
+    window.addEventListener("resize", show);
+  }
+
+  function initLangSwitch() {
+    const groups = doc.querySelectorAll("[data-lang-switch]");
+    if (!groups.length) return;
+
+    groups.forEach((group) => {
+      const buttons = [...group.querySelectorAll("[data-lang]")];
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const lang = button.dataset.lang;
+          buttons.forEach((item) => {
+            const active = item === button;
+            item.classList.toggle("is-active", active);
+            item.setAttribute("aria-pressed", String(active));
+          });
+          doc.documentElement.lang = lang === "uz" ? "uz" : lang === "en" ? "en" : "ru";
+          try {
+            localStorage.setItem("getsite-lang", lang);
+          } catch (_) {
+            /* ignore */
+          }
+        });
+      });
+
+      try {
+        const saved = localStorage.getItem("getsite-lang");
+        if (saved) {
+          const savedBtn = buttons.find((item) => item.dataset.lang === saved);
+          if (savedBtn) savedBtn.click();
+        }
+      } catch (_) {
+        /* ignore */
+      }
+    });
+  }
+
+  function initBlogPage() {
+    if (!doc.body.classList.contains("page-blog")) return;
+    doc.body.classList.add("is-ready");
+  }
+
+  function initMagneticButtons() {
+    if (reduced || !finePointer) return;
+    const buttons = doc.querySelectorAll(".btn, .contact__actions a");
+    buttons.forEach((button) => {
+      button.addEventListener("mousemove", (event) => {
+        const rect = button.getBoundingClientRect();
+        const x = (event.clientX - rect.left - rect.width / 2) * 0.14;
+        const y = (event.clientY - rect.top - rect.height / 2) * 0.14;
+        button.style.setProperty("--magnet-x", `${x}px`);
+        button.style.setProperty("--magnet-y", `${y}px`);
+      });
+      button.addEventListener("mouseleave", () => {
+        button.style.setProperty("--magnet-x", "0px");
+        button.style.setProperty("--magnet-y", "0px");
+      });
     });
   }
 
@@ -229,14 +346,14 @@
     let activeIndex = 0;
 
     const shapeForScroll = (viewport) => {
-      const switchLine = viewport * 0.58;
+      const switchLine = viewport * (mobileMq.matches ? 0.48 : 0.58);
       let nextIndex = 0;
 
       sections.forEach((section, index) => {
         if (section.getBoundingClientRect().top < switchLine) nextIndex = index;
       });
 
-      const hysteresis = viewport * 0.05;
+      const hysteresis = viewport * (mobileMq.matches ? 0.03 : 0.05);
       if (nextIndex > activeIndex) {
         const boundary = sections[nextIndex].getBoundingClientRect().top;
         if (boundary > switchLine - hysteresis) nextIndex = activeIndex;
@@ -252,6 +369,10 @@
     const update = () => {
       const scrollY = window.scrollY || doc.documentElement.scrollTop;
       const viewport = window.innerHeight || 1;
+      const docHeight = doc.documentElement.scrollHeight - viewport;
+      const progress = docHeight > 0 ? clamp(scrollY / docHeight) : 0;
+
+      doc.documentElement.style.setProperty("--scroll-progress", String(progress));
 
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
 
@@ -342,10 +463,16 @@
   }
 
   initPreloader();
+  initBlogPage();
   initMenu();
   initCursor();
+  initStaggerReveal();
   initReveal();
   initLineReveal();
+  initServiceRows();
+  initMobileCta();
+  initLangSwitch();
+  initMagneticButtons();
   initScrollState();
   initAnchorScroll();
   initForm();

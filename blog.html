@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'"
+    >
+    <title>Блог — getsite</title>
+    <meta name="description" content="Статьи getsite про запуск сайтов, ботов и продуктов для бизнеса.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="assets/styles.css?v=7">
+    <script src="assets/app.js?v=7" defer></script>
+  </head>
+  <body class="page-blog">
+    <header class="site-header is-scrolled" data-header>
+      <div class="brand-switch" data-brand-switch>
+        <a class="brand-switch__item is-active" href="index.html">getsite<span>*</span></a>
+        <a class="brand-switch__item" href="https://getdesign.uz/" target="_blank" rel="noopener noreferrer">getdesign<span>*</span></a>
+      </div>
+      <div class="site-header__actions">
+        <a class="btn btn--ghost btn--header" href="index.html#contact">Обсудить проект</a>
+        <div class="lang-switch" data-lang-switch role="group" aria-label="Язык сайта">
+          <button class="lang-switch__btn is-active" type="button" data-lang="ru" aria-pressed="true">RU</button>
+          <button class="lang-switch__btn" type="button" data-lang="uz" aria-pressed="false">UZ</button>
+          <button class="lang-switch__btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="menu-button menu-button--link" href="index.html" aria-label="На главную">←</a>
+      </div>
+    </header>
+
+    <main class="blog-page" id="main-content">
+      <div class="blog-page__head">
+        <a class="blog-page__back" href="index.html">← getsite</a>
+        <h1>Блог</h1>
+        <p>Короткие заметки без воды — про запуск, ботов и продукт.</p>
+      </div>
+
+      <div class="blog-page__list">
+        <article class="blog-article" id="launch-checklist">
+          <time datetime="2026-03-10">10 марта 2026</time>
+          <h2>Чеклист перед запуском сайта</h2>
+          <p>Перед публикацией пройдитесь по списку: формы отправляют заявки, аналитика считает визиты, страница открывается на телефоне, домен и SSL на месте. В 80% случаев забывают проверить письма с формы — тестовая заявка занимает две минуты.</p>
+          <p>Второй частый пропуск — скорость на мобильном. Если hero грузится дольше трёх секунд, часть трафика уйдёт до того, как человек увидит оффер.</p>
+        </article>
+
+        <article class="blog-article" id="telegram-leads">
+          <time datetime="2026-02-18">18 февраля 2026</time>
+          <h2>Заявки из Telegram без хаоса</h2>
+          <p>Бот должен не только принять номер, но и передать контекст: что человек смотрел, откуда пришёл, какой вопрос задал. Менеджеру так проще ответить за один заход, а не переспрашивать базовое.</p>
+          <p>Добавьте статус «новая / в работе / закрыта» хотя бы в простой таблице или панели — иначе заявки снова разъедутся по чатам.</p>
+        </article>
+
+        <article class="blog-article" id="mvp-scope">
+          <time datetime="2026-01-22">22 января 2026</time>
+          <h2>Сколько реально нужно для MVP</h2>
+          <p>MVP — это не «половина продукта», а минимум, за который клиент готов платить или которым реально пользуется команда. Обычно хватает одного сценария: оставить заявку, оформить заказ или увидеть статус.</p>
+          <p>Всё остальное — в бэклог после первых двух недель живых данных. Так запуск укладывается в 4–6 недель вместо бесконечного «ещё чуть-чуть доработаем».</p>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <strong>getsite<span class="accent">*</span></strong>
+      <span>© getsite, 2026</span>
+    </footer>
+  </body>
+</html>

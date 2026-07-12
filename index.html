@@ -2,16 +2,16 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'"
     >
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>getsite — digital-системы для бизнеса</title>
+    <title>getsite</title>
     <meta
       name="description"
-      content="getsite создаёт сайты, Telegram-боты, CRM и автоматизации для бизнеса в Узбекистане."
+      content="getsite — разработка сайтов, ботов и внутренних систем. Цены открыты, кейсы и блог на сайте."
     >
     <meta name="robots" content="index, follow">
     <meta name="author" content="getsite">
@@ -19,10 +19,10 @@
     <link rel="canonical" href="https://getsite.uz/">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="manifest.webmanifest">
-    <meta property="og:title" content="getsite — digital-системы для бизнеса">
+    <meta property="og:title" content="getsite">
     <meta
       property="og:description"
-      content="Сайты, боты, CRM и автоматизации, которые двигают бизнес вперёд."
+      content="Собираем цифровые продукты для бизнеса. Смотрите цены, кейсы и статьи."
     >
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://getsite.uz/">
@@ -34,15 +34,15 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=4">
+    <link rel="stylesheet" href="assets/styles.css?v=8">
     <noscript>
       <style>
         .preloader { display: none !important; }
         .line-reveal > span, .reveal { opacity: 1 !important; transform: none !important; }
       </style>
     </noscript>
-    <script src="assets/particles2.js?v=4" defer></script>
-    <script src="assets/app.js?v=4" defer></script>
+    <script src="assets/particles2.js?v=8" defer></script>
+    <script src="assets/app.js?v=8" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Перейти к содержанию</a>
@@ -57,7 +57,7 @@
         <div data-loader-bar></div>
       </div>
       <div class="preloader__foot">
-        <p class="preloader__note">Собираем цифровую систему</p>
+        <p class="preloader__note">Загружаем getsite</p>
         <span class="preloader__pct"><span data-loader-value>0</span>%</span>
       </div>
     </div>
@@ -67,21 +67,25 @@
       <button class="menu-panel__close" type="button" data-menu-close aria-label="Закрыть меню">закрыть</button>
       <nav class="menu-panel__nav" aria-label="Основное меню">
         <a href="#top" data-menu-link><span>01</span>Главная</a>
-        <a href="#services" data-menu-link><span>02</span>Услуги</a>
-        <a href="#process" data-menu-link><span>03</span>Процесс</a>
-        <a href="#contact" data-menu-link><span>04</span>Контакты</a>
+        <a href="#pricing" data-menu-link><span>02</span>Цены</a>
+        <a href="#cases" data-menu-link><span>03</span>Кейсы</a>
+        <a href="blog.html" data-menu-link><span>04</span>Блог</a>
+        <a href="#contact" data-menu-link><span>05</span>Контакты</a>
       </nav>
     </div>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="getsite на главную">getsite<span>*</span></a>
-      <nav class="site-header__nav" aria-label="Навигация по странице">
-        <a href="#services">Услуги</a>
-        <a href="#process">Процесс</a>
-        <a href="#contact">Контакты</a>
-      </nav>
+      <div class="brand-switch" data-brand-switch>
+        <a class="brand-switch__item is-active" href="#top" aria-current="page">getsite<span>*</span></a>
+        <a class="brand-switch__item" href="https://getdesign.uz/" target="_blank" rel="noopener noreferrer">getdesign<span>*</span></a>
+      </div>
       <div class="site-header__actions">
-        <a class="btn btn--accent" href="#contact">Обсудить проект</a>
+        <a class="btn btn--ghost btn--header" href="#contact">Обсудить проект</a>
+        <div class="lang-switch" data-lang-switch role="group" aria-label="Язык сайта">
+          <button class="lang-switch__btn is-active" type="button" data-lang="ru" aria-pressed="true">RU</button>
+          <button class="lang-switch__btn" type="button" data-lang="uz" aria-pressed="false">UZ</button>
+          <button class="lang-switch__btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
         <button class="menu-button" type="button" data-menu-open aria-label="Открыть меню" aria-expanded="false" aria-controls="site-menu">
           <span></span>
           <span></span>
@@ -92,94 +96,214 @@
     <main id="main-content" tabindex="-1">
       <section class="hero section section--left" id="top" data-screen-label="Hero" data-shape="0" data-side="left">
         <div class="section__content">
-          <p class="section-kicker line-reveal"><span>Digital-система для бизнеса</span></p>
           <h1 class="hero__title">
-            <span class="line-reveal"><span>Создаём</span></span>
-            <span class="line-reveal"><span>цифровые</span></span>
-            <span class="line-reveal"><span>продукты<span class="accent">.</span></span></span>
+            <span class="line-reveal"><span>getsite<span class="accent">*</span></span></span>
           </h1>
-          <div class="hero__copy line-reveal">
-            <span>Сайты, боты, CRM и автоматизации, которые двигают бизнес вперёд.</span>
-          </div>
-          <div class="hero__actions line-reveal">
-            <a class="btn btn--accent" href="#contact">Обсудить проект</a>
-            <a class="btn btn--ghost" href="#services">Смотреть услуги</a>
-          </div>
         </div>
         <div class="hero__meta line-reveal">
-          <span>Ташкент, Узбекистан</span>
-          <span>Работаем с бизнесом по всему СНГ</span>
+          <span>Ташкент</span>
+          <span>СНГ</span>
         </div>
       </section>
-
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker__track">
-          <span>Сайты · Боты · CRM · Автоматизации · Веб-сервисы ·&nbsp;</span>
-          <span>Сайты · Боты · CRM · Автоматизации · Веб-сервисы ·&nbsp;</span>
-        </div>
-      </div>
 
       <section class="moment section section--center" data-screen-label="Момент" data-shape="7" data-side="center">
         <div class="section__content">
           <p class="moment__text reveal">
-            Собираем сайт, бота и CRM<br>
-            в одну цифровую систему.
+            Берём задачу —<br>
+            возвращаемся с планом и сроками.
           </p>
         </div>
       </section>
 
-      <section class="services section section--left" id="services" data-screen-label="Услуги" data-shape="1" data-side="left">
-        <div class="section__content">
+      <section class="pricing section section--left" id="pricing" data-screen-label="Цены" data-shape="1" data-side="left">
+        <div class="section__content section__content--wide">
           <div class="spotlight-intro reveal">
-            <h2 class="spotlight__title">Услуги</h2>
+            <h2 class="spotlight__title">Цены</h2>
             <p class="spotlight__text">
-              Создаём <strong>цифровые решения</strong>, которые улучшают <strong>опыт клиента</strong>,
-              усиливают <strong>присутствие бренда</strong> и помогают <strong>бизнесу расти</strong>.
+              Цена «от» — при стандартном составе и готовых материалах. Точная сумма зависит от объёма, функций и интеграций.
             </p>
           </div>
-          <div class="service-list reveal">
-            <article class="service-row">
-              <span class="service-row__num">01</span>
-              <div>
-                <h3>Сайты</h3>
-                <p>Лендинги, корпоративные сайты, каталоги — с дизайном и SEO-базой.</p>
+
+          <div class="pricing-catalog reveal">
+            <section class="pricing-group">
+              <h3 class="pricing-group__title">Сайты</h3>
+              <div class="pricing-mains" data-stagger>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Лендинг</h4>
+                    <p class="price-card__sum">от 4,9 млн</p>
+                  </div>
+                  <p class="price-card__desc">Одностраничный сайт для рекламы и заявок.</p>
+                  <p class="price-card__included">Структура, до 10 блоков, дизайн, адаптив, формы, Telegram-уведомления, базовое SEO, аналитика, запуск.</p>
+                </article>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Корпоративный сайт</h4>
+                    <p class="price-card__sum">от 8,9 млн</p>
+                  </div>
+                  <p class="price-card__desc">Многостраничный сайт компании.</p>
+                  <p class="price-card__included">До 8 страниц, структура, дизайн, CMS, формы, аналитика, базовое SEO и запуск.</p>
+                </article>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Сайт-каталог</h4>
+                    <p class="price-card__sum">от 11,9 млн</p>
+                  </div>
+                  <p class="price-card__desc">Каталог товаров без обязательной онлайн-оплаты.</p>
+                  <p class="price-card__included">Категории, карточки, CMS, заявки с товара, базовый поиск, аналитика и запуск.</p>
+                </article>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Интернет-магазин</h4>
+                    <p class="price-card__sum">от 14,9 млн</p>
+                  </div>
+                  <p class="price-card__desc">Каталог, корзина, заказ и онлайн-продажи.</p>
+                  <p class="price-card__included">Каталог, корзина, checkout, CMS, адаптив, статусы, аналитика и запуск.</p>
+                </article>
               </div>
-            </article>
-            <article class="service-row">
-              <span class="service-row__num">02</span>
-              <div>
-                <h3>Telegram-боты</h3>
-                <p>Каталог, заявки, уведомления, передача менеджеру.</p>
+              <details class="pricing-subs">
+                <summary>Подуслуги · Сайты</summary>
+                <ul class="pricing-subs__list">
+                  <li><span class="pricing-subs__name">Анализ и структура сайта</span><span class="pricing-subs__meta">от 700 тыс · проект</span><span class="pricing-subs__desc">Карта сайта и логика страниц.</span></li>
+                  <li><span class="pricing-subs__name">Прототип страницы</span><span class="pricing-subs__meta">от 800 тыс · страница</span><span class="pricing-subs__desc">Wireframe до дизайна.</span></li>
+                  <li><span class="pricing-subs__name">Индивидуальный дизайн</span><span class="pricing-subs__meta">от 1,5 млн · страница</span><span class="pricing-subs__desc">Дизайн ключевой страницы без разработки.</span></li>
+                  <li><span class="pricing-subs__name">Дополнительная страница</span><span class="pricing-subs__meta">от 350 тыс · страница</span><span class="pricing-subs__desc">Новая типовая страница в существующем стиле.</span></li>
+                  <li><span class="pricing-subs__name">Дополнительный язык</span><span class="pricing-subs__meta">от 1,2 млн · язык</span><span class="pricing-subs__desc">Языковая версия без стоимости перевода.</span></li>
+                  <li><span class="pricing-subs__name">Текст / редактура блока</span><span class="pricing-subs__meta">от 180 тыс · блок</span><span class="pricing-subs__desc">Текст одного смыслового блока.</span></li>
+                  <li><span class="pricing-subs__name">CMS / управление контентом</span><span class="pricing-subs__meta">от 1,5 млн · модуль</span><span class="pricing-subs__desc">Самостоятельное изменение контента.</span></li>
+                  <li><span class="pricing-subs__name">Блог / новости</span><span class="pricing-subs__meta">от 1,2 млн · модуль</span><span class="pricing-subs__desc">Раздел публикаций.</span></li>
+                  <li><span class="pricing-subs__name">Форма + Telegram-уведомление</span><span class="pricing-subs__meta">от 500 тыс · форма</span><span class="pricing-subs__desc">Форма заявки с отправкой менеджеру.</span></li>
+                  <li><span class="pricing-subs__name">Подключение аналитики</span><span class="pricing-subs__meta">от 350 тыс · система</span><span class="pricing-subs__desc">Счётчик и базовые события.</span></li>
+                  <li><span class="pricing-subs__name">Базовая SEO-настройка</span><span class="pricing-subs__meta">от 700 тыс · сайт</span><span class="pricing-subs__desc">Техническая подготовка к индексации.</span></li>
+                  <li><span class="pricing-subs__name">Заполнение карточки товара</span><span class="pricing-subs__meta">от 30 тыс · товар</span><span class="pricing-subs__desc">Одна карточка из готовых материалов.</span></li>
+                  <li><span class="pricing-subs__name">Фильтры каталога</span><span class="pricing-subs__meta">от 1,2 млн · набор</span><span class="pricing-subs__desc">Фильтрация по характеристикам.</span></li>
+                  <li><span class="pricing-subs__name">Поиск по каталогу</span><span class="pricing-subs__meta">от 900 тыс · модуль</span><span class="pricing-subs__desc">Поиск товаров.</span></li>
+                  <li><span class="pricing-subs__name">Корзина и оформление заказа</span><span class="pricing-subs__meta">от 1,5 млн · модуль</span><span class="pricing-subs__desc">Корзина и checkout.</span></li>
+                  <li><span class="pricing-subs__name">Онлайн-оплата</span><span class="pricing-subs__meta">от 2 млн · провайдер</span><span class="pricing-subs__desc">Одна платёжная система.</span></li>
+                  <li><span class="pricing-subs__name">Интеграция доставки</span><span class="pricing-subs__meta">от 1,5 млн · служба</span><span class="pricing-subs__desc">Одна служба доставки.</span></li>
+                  <li><span class="pricing-subs__name">Личный кабинет</span><span class="pricing-subs__meta">от 3 млн · модуль</span><span class="pricing-subs__desc">Авторизация, профиль и один рабочий раздел.</span></li>
+                </ul>
+              </details>
+            </section>
+
+            <section class="pricing-group">
+              <h3 class="pricing-group__title">Telegram</h3>
+              <div class="pricing-mains" data-stagger>
+                <article class="price-card price-card--accent">
+                  <div class="price-card__top">
+                    <h4>Telegram-бот</h4>
+                    <p class="price-card__sum">от 4,5 млн</p>
+                  </div>
+                  <p class="price-card__desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
+                  <p class="price-card__included">Сценарий, меню, база, уведомления, админ-команды, тестирование и размещение.</p>
+                </article>
+                <article class="price-card price-card--accent">
+                  <div class="price-card__top">
+                    <h4>Бот + админ-панель</h4>
+                    <p class="price-card__sum">от 9,9 млн</p>
+                  </div>
+                  <p class="price-card__desc">Бот с web-панелью, статусами и пользователями.</p>
+                  <p class="price-card__included">Бот, панель, роли, база данных, статусы, уведомления и базовые отчёты.</p>
+                </article>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Telegram Mini App</h4>
+                    <p class="price-card__sum">от 18 млн</p>
+                  </div>
+                  <p class="price-card__desc">Веб-приложение внутри Telegram.</p>
+                  <p class="price-card__included">MVP, Telegram-авторизация, интерфейс, база и до 3 ключевых сценариев.</p>
+                </article>
               </div>
-            </article>
-            <article class="service-row">
-              <span class="service-row__num">03</span>
-              <div>
-                <h3>CRM-системы</h3>
-                <p>Воронки, статусы, роли, отчётность.</p>
+              <details class="pricing-subs">
+                <summary>Подуслуги · Telegram</summary>
+                <ul class="pricing-subs__list">
+                  <li><span class="pricing-subs__name">Web-админ-панель</span><span class="pricing-subs__meta">от 4 млн · панель</span><span class="pricing-subs__desc">Управление данными бота.</span></li>
+                  <li><span class="pricing-subs__name">Оплата в Telegram</span><span class="pricing-subs__meta">от 1,5 млн · провайдер</span><span class="pricing-subs__desc">Платёж в боте или Mini App.</span></li>
+                  <li><span class="pricing-subs__name">Интеграция бота с CRM</span><span class="pricing-subs__meta">от 2,5 млн · CRM</span><span class="pricing-subs__desc">Лиды, заказы или статусы в CRM.</span></li>
+                  <li><span class="pricing-subs__name">Модуль рассылок</span><span class="pricing-subs__meta">от 1,2 млн · модуль</span><span class="pricing-subs__desc">Уведомления пользователям.</span></li>
+                  <li><span class="pricing-subs__name">Роли пользователей</span><span class="pricing-subs__meta">от 1,5 млн · модель</span><span class="pricing-subs__desc">Разные права и сценарии.</span></li>
+                  <li><span class="pricing-subs__name">AI-модуль</span><span class="pricing-subs__meta">от 3 млн · сценарий</span><span class="pricing-subs__desc">Один управляемый AI-сценарий.</span></li>
+                </ul>
+              </details>
+            </section>
+
+            <section class="pricing-group">
+              <h3 class="pricing-group__title">Автоматизация</h3>
+              <div class="pricing-mains" data-stagger>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Аналитика и проектирование</h4>
+                    <p class="price-card__sum">от 1,9 млн</p>
+                  </div>
+                  <p class="price-card__desc">Разбор процессов перед CRM, Mini App или внутренней системой.</p>
+                  <p class="price-card__included">Интервью, процессы, роли, MVP, функции, риски, этапы и предварительная смета.</p>
+                </article>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Автоматизация процесса</h4>
+                    <p class="price-card__sum">от 3 млн</p>
+                  </div>
+                  <p class="price-card__desc">Автоматизация одного ручного процесса.</p>
+                  <p class="price-card__included">Логика, интеграция сервисов, уведомления, тестирование и инструкция.</p>
+                </article>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Интеграция систем</h4>
+                    <p class="price-card__sum">от 2,5 млн</p>
+                  </div>
+                  <p class="price-card__desc">Связка сайта, бота, CRM, платежей или API.</p>
+                  <p class="price-card__included">Схема обмена, реализация, ошибки, тестирование и документация.</p>
+                </article>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Внутренняя бизнес-система</h4>
+                    <p class="price-card__sum">от 20 млн</p>
+                  </div>
+                  <p class="price-card__desc">Сервис для сотрудников и внутренних процессов.</p>
+                  <p class="price-card__included">После аналитики: MVP, роли, сущности, базовые отчёты, уведомления и размещение.</p>
+                </article>
+                <article class="price-card price-card--custom">
+                  <div class="price-card__top">
+                    <h4>CRM-система с нуля</h4>
+                    <p class="price-card__sum">от 25 млн</p>
+                  </div>
+                  <p class="price-card__desc">Индивидуальная CRM под процесс компании.</p>
+                  <p class="price-card__included">После аналитики: воронка, клиенты, задачи, роли, статусы, отчёты и уведомления.</p>
+                </article>
               </div>
-            </article>
-            <article class="service-row">
-              <span class="service-row__num">04</span>
-              <div>
-                <h3>Веб-сервисы</h3>
-                <p>Личные кабинеты, панели, внутренние инструменты.</p>
+              <details class="pricing-subs">
+                <summary>Подуслуги · Автоматизация</summary>
+                <ul class="pricing-subs__list">
+                  <li><span class="pricing-subs__name">Внешний API</span><span class="pricing-subs__meta">от 2 млн · API</span><span class="pricing-subs__desc">Один документированный API.</span></li>
+                  <li><span class="pricing-subs__name">Роли и права доступа</span><span class="pricing-subs__meta">от 1,5 млн · модель</span><span class="pricing-subs__desc">Разделение функций и данных.</span></li>
+                  <li><span class="pricing-subs__name">Отчёт / аналитическая таблица</span><span class="pricing-subs__meta">от 1,2 млн · отчёт</span><span class="pricing-subs__desc">Один управленческий отчёт.</span></li>
+                  <li><span class="pricing-subs__name">Миграция данных</span><span class="pricing-subs__meta">от 1,5 млн · источник</span><span class="pricing-subs__desc">Перенос из одной базы или файла.</span></li>
+                  <li><span class="pricing-subs__name">Журнал действий</span><span class="pricing-subs__meta">от 1,5 млн · модуль</span><span class="pricing-subs__desc">История изменений пользователей.</span></li>
+                  <li><span class="pricing-subs__name">Управленческий дашборд</span><span class="pricing-subs__meta">от 2,5 млн · дашборд</span><span class="pricing-subs__desc">KPI и контрольные показатели.</span></li>
+                </ul>
+              </details>
+            </section>
+
+            <section class="pricing-group">
+              <h3 class="pricing-group__title">Поддержка</h3>
+              <div class="pricing-mains" data-stagger>
+                <article class="price-card">
+                  <div class="price-card__top">
+                    <h4>Техническое сопровождение</h4>
+                    <p class="price-card__sum">от 700 тыс / мес</p>
+                  </div>
+                  <p class="price-card__desc">Мониторинг и регулярные небольшие изменения.</p>
+                  <p class="price-card__included">Мониторинг, backups, мелкие исправления, консультации и лимит работ.</p>
+                </article>
               </div>
-            </article>
-            <article class="service-row">
-              <span class="service-row__num">05</span>
-              <div>
-                <h3>Автоматизации</h3>
-                <p>Заявка → CRM → оплата → отчёт без ручной работы.</p>
-              </div>
-            </article>
-            <article class="service-row">
-              <span class="service-row__num">06</span>
-              <div>
-                <h3>Интеграции</h3>
-                <p>Сайт, бот, CRM и оплата в одной системе.</p>
-              </div>
-            </article>
+              <details class="pricing-subs">
+                <summary>Подуслуги · Поддержка</summary>
+                <ul class="pricing-subs__list">
+                  <li><span class="pricing-subs__name">Разовая техническая работа</span><span class="pricing-subs__meta">от 250 тыс · час</span><span class="pricing-subs__desc">Небольшое изменение вне тарифа.</span></li>
+                  <li><span class="pricing-subs__name">Пакет контентных изменений</span><span class="pricing-subs__meta">от 500 тыс · пакет</span><span class="pricing-subs__desc">До 10 изменений текста или фото.</span></li>
+                </ul>
+              </details>
+            </section>
           </div>
         </div>
       </section>
@@ -187,56 +311,97 @@
       <section class="process section section--right" id="process" data-screen-label="Процесс" data-shape="4" data-side="right">
         <div class="section__content">
           <div class="spotlight-intro reveal">
-            <h2 class="spotlight__title">Процесс</h2>
+            <h2 class="spotlight__title">Как идём</h2>
             <p class="spotlight__text">
-              Работаем прозрачно — от <strong>анализа задачи</strong> и <strong>прототипа</strong>
-              до <strong>запуска</strong> и <strong>поддержки продукта</strong>.
+              Короткий цикл: понять → показать → запустить. Без бесконечных согласований.
             </p>
           </div>
-          <div class="route reveal" data-route>
+          <div class="route" data-route data-stagger>
             <div class="route__fill" data-route-fill aria-hidden="true"></div>
             <div class="route-step">
               <span class="route-step__dot" aria-hidden="true"></span>
               <div>
-                <strong>01 — Погружаемся в бизнес</strong>
-                <span>Интервью, процессы, сценарии</span>
+                <strong>01 — Разговор</strong>
+                <span>15–30 минут, чтобы понять контекст</span>
               </div>
             </div>
             <div class="route-step">
               <span class="route-step__dot" aria-hidden="true"></span>
               <div>
-                <strong>02 — Проектируем решение</strong>
-                <span>Структура, прототип, MVP</span>
+                <strong>02 — План</strong>
+                <span>Структура, сроки и что войдёт в первую версию</span>
               </div>
             </div>
             <div class="route-step">
               <span class="route-step__dot" aria-hidden="true"></span>
               <div>
-                <strong>03 — Создаём дизайн</strong>
-                <span>Интерфейс и адаптив</span>
+                <strong>03 — Сборка</strong>
+                <span>Дизайн, код, проверка на телефоне</span>
               </div>
             </div>
             <div class="route-step">
               <span class="route-step__dot" aria-hidden="true"></span>
               <div>
-                <strong>04 — Разрабатываем продукт</strong>
-                <span>Фронтенд, бэкенд, интеграции</span>
+                <strong>04 — Запуск</strong>
+                <span>Публикация, домен, аналитика</span>
               </div>
             </div>
             <div class="route-step">
               <span class="route-step__dot" aria-hidden="true"></span>
               <div>
-                <strong>05 — Тестируем и запускаем</strong>
-                <span>Аналитика, домен, публикация</span>
+                <strong>05 — Поддержка</strong>
+                <span>Правки и развитие, если нужно</span>
               </div>
             </div>
-            <div class="route-step">
-              <span class="route-step__dot" aria-hidden="true"></span>
-              <div>
-                <strong>06 — Поддерживаем и развиваем</strong>
-                <span>Сопровождение и рост</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="cases section section--left" id="cases" data-screen-label="Кейсы" data-shape="2" data-side="left">
+        <div class="section__content section__content--wide">
+          <div class="spotlight-intro reveal">
+            <h2 class="spotlight__title">Кейсы</h2>
+            <p class="spotlight__text">
+              Несколько недавних проектов. Подробности — по запросу, часть под NDA.
+            </p>
+          </div>
+          <div class="cases-grid" data-stagger>
+            <article class="case-card">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
+                <span class="case-card__meta">ритейл · 2025</span>
+                <h3>Каталог + заявки в Telegram</h3>
+                <p>Клиент искал товары на сайте, менеджер получал заявку в боте за 30 секунд вместо переписки в Direct.</p>
+                <ul class="case-card__tags">
+                  <li>каталог</li>
+                  <li>бот</li>
+                </ul>
               </div>
-            </div>
+            </article>
+            <article class="case-card case-card--reverse">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
+                <span class="case-card__meta">услуги · 2025</span>
+                <h3>Лендинг и учёт лидов</h3>
+                <p>Одна страница, форма и простая панель: видно, откуда пришла заявка и на каком она этапе.</p>
+                <ul class="case-card__tags">
+                  <li>лендинг</li>
+                  <li>панель</li>
+                </ul>
+              </div>
+            </article>
+            <article class="case-card">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
+                <span class="case-card__meta">логистика · 2024</span>
+                <h3>Внутренний сервис для команды</h3>
+                <p>Заменили таблицы и чаты одним интерфейсом: статусы заказов и роли для трёх отделов.</p>
+                <ul class="case-card__tags">
+                  <li>сервис</li>
+                  <li>роли</li>
+                </ul>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -244,15 +409,45 @@
       <section class="moment section section--center" data-screen-label="Момент" data-shape="7" data-side="center">
         <div class="section__content">
           <p class="moment__text reveal">
-            Проектируем до кода —<br>
-            запускаем с аналитикой и поддержкой.
+            После запуска на связи —<br>
+            не исчезаем в «поддержку по почте».
           </p>
+        </div>
+      </section>
+
+      <section class="blog section section--right" id="blog" data-screen-label="Блог" data-shape="5" data-side="right">
+        <div class="section__content section__content--wide">
+          <div class="spotlight-intro reveal">
+            <h2 class="spotlight__title">Блог</h2>
+            <p class="spotlight__text">
+              Заметки про запуск, ботов и то, что обычно ломается в первый месяц после релиза.
+            </p>
+          </div>
+          <div class="blog-grid" data-stagger>
+            <article class="blog-card">
+              <time datetime="2026-03-10">10 мар 2026</time>
+              <h3><a href="blog.html#launch-checklist">Чеклист перед запуском сайта</a></h3>
+              <p>Домен, формы, аналитика и то, что чаще всего забывают проверить в последний день.</p>
+            </article>
+            <article class="blog-card">
+              <time datetime="2026-02-18">18 фев 2026</time>
+              <h3><a href="blog.html#telegram-leads">Заявки из Telegram без хаоса</a></h3>
+              <p>Как настроить бота так, чтобы менеджер видел контекст, а не просто номер телефона.</p>
+            </article>
+            <article class="blog-card">
+              <time datetime="2026-01-22">22 янв 2026</time>
+              <h3><a href="blog.html#mvp-scope">Сколько реально нужно для MVP</a></h3>
+              <p>Где резать scope, чтобы запуститься за 4–6 недель, а не за полгода.</p>
+            </article>
+          </div>
+          <a class="blog-more reveal" href="blog.html">Все статьи →</a>
         </div>
       </section>
 
       <section class="contact section section--left" id="contact" data-screen-label="Контакты" data-shape="6" data-side="left">
         <div class="section__content">
-          <p class="contact__eyebrow reveal">Связаться с нами</p>
+          <p class="contact__eyebrow reveal">Обсудить проект</p>
+          <p class="contact__lead reveal">Напишите в пару строк, что нужно — ответим в рабочий день.</p>
           <a class="contact__mail reveal" href="mailto:hello@getsite.uz">hello@getsite.uz</a>
           <div class="contact__actions reveal">
             <a href="https://t.me/getsite" target="_blank" rel="noopener noreferrer">Telegram</a>
@@ -263,9 +458,10 @@
       </section>
     </main>
 
+    <a class="mobile-cta" href="#contact" data-mobile-cta>Обсудить проект</a>
+
     <footer class="site-footer">
       <strong>getsite<span class="accent">*</span></strong>
-      <span>Сайты · Боты · CRM · Веб-сервисы · Автоматизации</span>
       <span>© getsite, 2026</span>
     </footer>
   </body>
