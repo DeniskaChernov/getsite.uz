@@ -2135,14 +2135,14 @@ body.page-blog {
 
 .reveal {
   opacity: 0;
-  transform: translateY(42px);
+  transform: translateY(36px);
   transition:
-    opacity 0.72s ease var(--reveal-delay, 0s),
-    transform 0.72s cubic-bezier(0.16, 0.7, 0.2, 1) var(--reveal-delay, 0s);
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
 }
 
 .reveal--stagger {
-  transform: translateY(28px);
+  transform: translateY(22px);
 }
 
 .reveal.is-visible {
@@ -2203,6 +2203,24 @@ body.page-blog {
 
   .btn--header {
     display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .section__content--wide {
+    width: min(88%, 680px);
+  }
+
+  .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cases-grid {
+    gap: 20px;
+  }
+
+  .hero .section__content {
+    width: min(52%, 560px);
   }
 }
 

@@ -58,7 +58,6 @@
       finished = true;
       window.clearTimeout(fallback);
       window.clearTimeout(hardFinish);
-      if (pf && typeof pf.startIntro === "function") pf.startIntro();
       body.classList.toggle("skip-intro", Boolean(options.immediate));
       body.classList.add("is-ready");
       if (options.immediate) {
@@ -253,6 +252,39 @@
     window.addEventListener("resize", show);
   }
 
+  function applyLang(lang) {
+    const dict = window.GETSITE_I18N?.[lang] || window.GETSITE_I18N?.ru;
+    if (!dict) return;
+
+    doc.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      const value = dict[key];
+      if (value == null) return;
+      if (el.dataset.i18nHtml === "true") el.innerHTML = value;
+      else el.textContent = value;
+    });
+
+    doc.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+      const key = el.dataset.i18nAria;
+      const value = dict[key];
+      if (value != null) el.setAttribute("aria-label", value);
+    });
+
+    const title = dict["meta.title"];
+    if (title) doc.title = title;
+
+    const metaDesc = doc.querySelector('meta[name="description"]');
+    if (metaDesc && dict["meta.description"]) metaDesc.setAttribute("content", dict["meta.description"]);
+
+    const ogTitle = doc.querySelector('meta[property="og:title"]');
+    if (ogTitle && title) ogTitle.setAttribute("content", title);
+
+    const ogDesc = doc.querySelector('meta[property="og:description"]');
+    if (ogDesc && dict["meta.description"]) ogDesc.setAttribute("content", dict["meta.description"]);
+
+    doc.documentElement.lang = lang === "uz" ? "uz" : lang === "en" ? "en" : "ru";
+  }
+
   function initLangSwitch() {
     const groups = doc.querySelectorAll("[data-lang-switch]");
     if (!groups.length) return;
@@ -267,7 +299,7 @@
             item.classList.toggle("is-active", active);
             item.setAttribute("aria-pressed", String(active));
           });
-          doc.documentElement.lang = lang === "uz" ? "uz" : lang === "en" ? "en" : "ru";
+          applyLang(lang);
           try {
             localStorage.setItem("getsite-lang", lang);
           } catch (_) {

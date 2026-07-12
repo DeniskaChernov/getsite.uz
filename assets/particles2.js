@@ -391,8 +391,8 @@ uniform float uWF[9]; uniform float uWT[9]; uniform float uScF; uniform float uS
 uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA;
 varying float vA; varying float vCloud; varying vec3 vColor;
 void main(){
-  float tl = clamp(uT * 1.35 - aSeed.x * 0.35, 0.0, 1.0);
-  float tt = tl * tl * (3.0 - 2.0 * tl);
+  float tl = clamp(uT * 1.15 - aSeed.x * 0.28, 0.0, 1.0);
+  float tt = tl * tl * tl * (tl * (tl * 6.0 - 15.0) + 10.0);
   vec3 sc = vec3((aSeed.x * 2.0 - 1.0) * 5.0, (aSeed.y * 2.0 - 1.0) * 3.2, (aSeed.z * 2.0 - 1.0) * 3.0 - 0.8);
   vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6] + aP7 * uWF[7] + aP8 * uWF[8];
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6] + aP7 * uWT[7] + aP8 * uWT[8];
@@ -568,24 +568,25 @@ void main(){
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
         if (this._playing && this._t < 1) {
-          const morphSpeed = this._toId === 9 ? 0.72 : 0.42;
-          this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.04) * (reduced ? 2 : morphSpeed));
+          const morphSpeed = this._toId === 9 ? 0.55 : 0.28;
+          this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.03) * (reduced ? 1.6 : morphSpeed));
         }
 
         const id = this._toId;
         const morphing = this._t < 0.92;
         const morphEase = morphing ? (1 - this._t * this._t) : 0;
-        const spinMul = morphing ? 0.15 + morphEase * 0.85 : 1;
-        const sway = id === 0 ? 0.05 : id === 6 ? 0.04 : id === 9 ? 0.02 : 0.09;
-        const tRy = Math.sin(time * 0.11) * sway * spinMul + this._mx * 0.05;
-        const tRx = CAM_RX[id] - this._my * 0.04;
-        this._ry += (tRy - this._ry) * 0.028;
-        this._rx += (tRx - this._rx) * 0.028;
-        const targetCx = -this._side * (MOBILE ? SIDE_X_M : SIDE_X);
+        const spinMul = morphing ? 0.12 + morphEase * 0.88 : 1;
+        const sway = id === 0 ? 0.04 : id === 6 ? 0.035 : id === 9 ? 0.015 : 0.07;
+        const tRy = Math.sin(time * 0.09) * sway * spinMul + this._mx * 0.04;
+        const tRx = CAM_RX[id] - this._my * 0.03;
+        this._ry += (tRy - this._ry) * 0.022;
+        this._rx += (tRx - this._rx) * 0.022;
+        const mob = window.innerWidth < 700;
+        const targetCx = -this._side * (mob ? SIDE_X_M : SIDE_X);
         const targetCz = CAM_Z[id];
-        this._side += (this._targetSide - this._side) * 0.05;
-        this._cx += (targetCx - this._cx) * 0.05;
-        this._cz += (targetCz - this._cz) * 0.05;
+        this._side += (this._targetSide - this._side) * 0.035;
+        this._cx += (targetCx - this._cx) * 0.035;
+        this._cz += (targetCz - this._cz) * 0.035;
 
         const cy = Math.cos(this._ry), sy = Math.sin(this._ry), cx = Math.cos(this._rx), sx = Math.sin(this._rx);
         const scl = CAM_SCL[id] ?? 1;
