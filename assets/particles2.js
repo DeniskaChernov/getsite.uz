@@ -160,7 +160,7 @@ void main(){
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6];
   vec3 form = mix(F, T, tt);
   float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
-  float cloud = step(0.48, cloudSeed);
+  float cloud = step(0.78, cloudSeed);
   vec3 bg = vec3(
     (fract(aSeed.x * 17.13 + aSeed.y * 3.11) * 2.0 - 1.0) * 6.4,
     (fract(aSeed.y * 19.17 + aSeed.z * 5.07) * 2.0 - 1.0) * 3.7,
@@ -239,9 +239,9 @@ void main(){
       this._t = 0;
       this._playing = false;
       // morph weights: scatter scalar + 7 shape weights, "from" and "to"
-      this._scF = 1; this._scT = 0.18;
+      this._scF = 1; this._scT = 0;
       this._wF = new Float32Array(7);
-      this._wT = new Float32Array(7); this._wT[0] = 0.82;
+      this._wT = new Float32Array(7); this._wT[0] = 1;
 
       const seeds = new Float32Array(N * 3);
       for (let i = 0; i < N * 3; i++) seeds[i] = R();
@@ -360,7 +360,7 @@ void main(){
       this._scF = this._scF * (1 - e) + this._scT * e;
       for (let i = 0; i < 7; i++) this._wF[i] = this._wF[i] * (1 - e) + this._wT[i] * e;
       this._wT.fill(0);
-      if (id === 7) this._scT = 1; else { this._wT[id] = 0.82; this._scT = 0.18; }
+      if (id === 7) this._scT = 1; else { this._wT[id] = 1; this._scT = 0; }
       this._toId = id;
       this._t = 0;
     }
