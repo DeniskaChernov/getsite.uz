@@ -191,20 +191,19 @@
 
   function initScrollState() {
     const header = doc.querySelector("[data-header]");
-    const route = doc.querySelector("[data-route]");
-    const routeFill = doc.querySelector("[data-route-fill]");
-    const routeSteps = route ? [...route.querySelectorAll(".route-step")] : [];
-    const zones = [...doc.querySelectorAll("[data-shape]")];
+    const sections = [...doc.querySelectorAll("section[data-shape]")];
     const pf = doc.querySelector("pf-scene");
+    const COSMOS = 7;
+    const ENTER = 0.14;
+    const HOLD = 0.28;
     let overrideShape = false;
+    let activeSection = sections[0] || null;
     let lastShape = -1;
     let lastSide = "";
     let ticking = false;
 
-    const applyZone = (zone) => {
+    const applyScene = (shape, side) => {
       if (!pf) return;
-      const shape = Number(zone.dataset.shape);
-      const side = zone.dataset.side || "left";
       if (shape !== lastShape && typeof pf.setShape === "function") {
         lastShape = shape;
         pf.setShape(shape);
@@ -215,39 +214,47 @@
       }
     };
 
+    const pickSection = () => {
+      const viewport = window.innerHeight || 1;
+      const pivot = viewport * 0.5;
+      let candidate = null;
+      let bestDist = Infinity;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.bottom < viewport * 0.15 || rect.top > viewport * 0.85) return;
+        if (rect.top > pivot || rect.bottom < pivot) return;
+
+        const center = rect.top + rect.height * 0.5;
+        const dist = Math.abs(center - pivot);
+        const limit = viewport * (section === activeSection ? HOLD : ENTER);
+        if (dist > limit) return;
+        if (dist < bestDist) {
+          bestDist = dist;
+          candidate = section;
+        }
+      });
+
+      return candidate;
+    };
+
     const update = () => {
       ticking = false;
       const scrollY = window.scrollY || doc.documentElement.scrollTop;
-      const viewport = window.innerHeight || 1;
 
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
 
-      if (!overrideShape && zones.length) {
-        const pivot = viewport * 0.5;
-        let best = null;
-        let bestDist = Infinity;
-        zones.forEach((zone) => {
-          const rect = zone.getBoundingClientRect();
-          if (rect.bottom < viewport * 0.12 || rect.top > viewport * 0.88) return;
-          const center = rect.top + rect.height * 0.5;
-          const dist = Math.abs(center - pivot);
-          if (dist < bestDist) {
-            bestDist = dist;
-            best = zone;
-          }
-        });
-        if (best) applyZone(best);
-      }
+      if (overrideShape) return;
 
-      if (route && routeFill) {
-        const rect = route.getBoundingClientRect();
-        const progress = clamp((viewport * 0.72 - rect.top) / Math.max(1, rect.height));
-        const pct = Math.round(progress * 100);
-        routeFill.style.height = `${pct}%`;
-        const done = Math.floor(progress * routeSteps.length + 0.5);
-        routeSteps.forEach((step, index) => {
-          step.classList.toggle("is-done", index < done);
-        });
+      const next = pickSection();
+      if (next) {
+        activeSection = next;
+        applyScene(
+          Number(next.dataset.shape),
+          next.dataset.side || "left"
+        );
+      } else {
+        applyScene(COSMOS, activeSection?.dataset.side || lastSide || "left");
       }
     };
 
@@ -270,6 +277,10 @@
         requestUpdate();
       });
     });
+
+    if (sections[0]) {
+      applyScene(Number(sections[0].dataset.shape), sections[0].dataset.side || "left");
+    }
 
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);

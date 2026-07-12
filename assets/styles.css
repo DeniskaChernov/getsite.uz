@@ -379,7 +379,7 @@ main,
 }
 
 .section-gap {
-  min-height: clamp(180px, 38vh, 420px);
+  min-height: clamp(220px, 46vh, 520px);
 }
 
 .section__content {
@@ -545,24 +545,10 @@ body.skip-intro .line-reveal > span {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
-  margin-top: 10vh;
+  margin-top: 8vh;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
-}
-
-.expertise__marquee {
-  grid-column: 1 / -1;
-  display: flex;
-  gap: 42px;
-  padding: 16px 0;
-  color: rgba(245, 242, 235, 0.1);
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(1.4rem, 4vw, 4.2rem);
-  font-weight: 900;
-  white-space: nowrap;
-  text-transform: uppercase;
-  animation: ticker 26s linear infinite;
 }
 
 .expertise-card {
