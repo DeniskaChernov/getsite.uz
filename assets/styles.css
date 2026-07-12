@@ -537,7 +537,50 @@ body.skip-intro .line-reveal > span {
 }
 
 .solutions {
-  padding-top: 8vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 10vh;
+  padding-bottom: 0;
+}
+
+.solutions__stage {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
+  align-items: center;
+  gap: 4vw;
+  min-height: 52vh;
+}
+
+.solutions__head {
+  max-width: 520px;
+}
+
+.solutions__visual {
+  min-height: clamp(280px, 42vh, 520px);
+  pointer-events: none;
+}
+
+.section--right .solutions__stage {
+  grid-template-columns: minmax(0, 0.56fr) minmax(0, 0.44fr);
+}
+
+.section--right .solutions__head {
+  grid-column: 2;
+  margin-left: auto;
+  text-align: right;
+}
+
+.section--right .solutions__visual {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.section--right .solutions__head .section-title {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
 }
 
 .expertise {
@@ -545,17 +588,19 @@ body.skip-intro .line-reveal > span {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
-  margin-top: 8vh;
+  margin-top: auto;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
+  background: rgba(2, 3, 3, 0.55);
+  backdrop-filter: blur(6px);
 }
 
 .expertise-card {
-  min-height: 260px;
-  border-top: 1px solid var(--line);
+  min-height: 200px;
+  border-top: none;
   border-right: 1px solid var(--line);
-  padding: 32px 26px;
+  padding: 26px 22px 28px;
   background: var(--panel);
   transition: background 0.25s ease, color 0.25s ease;
 }
@@ -565,9 +610,9 @@ body.skip-intro .line-reveal > span {
 }
 
 .expertise-card h3 {
-  margin: 0 0 28px;
+  margin: 0 0 22px;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.2rem);
   font-weight: 800;
 }
 
@@ -805,6 +850,20 @@ body.skip-intro .line-reveal > span {
   .intro-strip__text,
   .statement {
     font-size: clamp(1.3rem, 7vw, 2.2rem);
+  }
+
+  .solutions__stage {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .solutions__visual {
+    display: none;
+  }
+
+  .solutions {
+    min-height: auto;
+    padding-bottom: 10vh;
   }
 
   .expertise,
