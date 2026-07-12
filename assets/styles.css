@@ -708,23 +708,8 @@ main,
 }
 
 .section__content--process {
-  width: min(62%, 720px);
+  width: min(62%, 780px);
   max-width: 100%;
-}
-
-.process-panel {
-  padding: clamp(20px, 3vw, 32px);
-  border: 1px solid rgba(245, 242, 235, 0.1);
-  border-radius: 20px;
-  background:
-    linear-gradient(135deg, rgba(2, 3, 3, 0.94) 0%, rgba(2, 3, 3, 0.88) 72%, rgba(2, 3, 3, 0.55) 100%);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-  overflow: hidden;
-}
-
-.section--process.section--right .section__content {
-  padding-left: 2vw;
 }
 
 .section--process .spotlight-intro {
@@ -733,46 +718,91 @@ main,
 }
 
 .section--process .spotlight__text {
-  max-width: 36ch;
+  max-width: 42ch;
 }
 
-.process .route {
-  padding-left: 0;
-  padding-right: 24px;
-  max-width: 100%;
+.process-catalog {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 5vh, 56px);
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid rgba(245, 242, 235, 0.1);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(2, 3, 3, 0.94) 0%, rgba(2, 3, 3, 0.88) 72%, rgba(2, 3, 3, 0.55) 100%);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
 }
 
-.process .route::before,
-.process .route__fill {
-  left: auto;
-  right: 10px;
+.process-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.process .route-step {
-  text-align: left;
-  padding-bottom: 28px;
+.process-group__title {
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(216, 255, 61, 0.22);
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: clamp(1.35rem, 3.2vw, 2.2rem);
+  font-weight: 900;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
-.process .route-step__dot {
-  left: auto;
-  right: 6px;
-  top: 10px;
-  width: 8px;
-  height: 8px;
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
 }
 
-.process .route-step strong {
+.process-steps--quad {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  min-height: 100%;
+  padding: 16px 14px;
+  border: 1px solid rgba(245, 242, 235, 0.12);
+  border-radius: 14px;
+  background: rgba(245, 242, 235, 0.025);
+  transition: border-color 0.25s ease, transform 0.3s cubic-bezier(0.16, 0.7, 0.2, 1), background 0.25s ease;
+}
+
+.process-step:hover {
+  border-color: rgba(216, 255, 61, 0.35);
+  background: rgba(216, 255, 61, 0.04);
+  transform: translateY(-2px);
+}
+
+.process-step__num {
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+.process-step h4 {
+  margin: 0;
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: clamp(0.82rem, 1.2vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.2;
   color: var(--text);
 }
 
-.process .route-step.is-active .route-step__dot {
-  background: var(--accent);
-  transform: scale(1.45);
-  box-shadow: 0 0 16px rgba(216, 255, 61, 0.5);
-}
-
-.process .route-step span {
-  font-size: 0.9rem;
+.process-step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
   line-height: 1.5;
 }
 
@@ -2150,6 +2180,11 @@ body.page-blog {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .process-steps,
+  .process-steps--quad {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .btn--header {
     display: none;
   }
@@ -2258,25 +2293,18 @@ body.page-blog {
     border-radius: 16px;
   }
 
-  .process-panel {
+  .process-catalog {
     padding: 16px;
     border-radius: 16px;
   }
 
-  .section--process .route {
-    padding-left: 24px;
-    padding-right: 0;
+  .process-steps,
+  .process-steps--quad {
+    grid-template-columns: 1fr;
   }
 
-  .section--process .route::before,
-  .section--process .route__fill {
-    left: 10px;
-    right: auto;
-  }
-
-  .section--process .route-step__dot {
-    left: 6px;
-    right: auto;
+  .process-step p {
+    font-size: 0.84rem;
   }
 
   .pricing-mains,
