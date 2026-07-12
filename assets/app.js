@@ -17,6 +17,7 @@
     let particlesReady = false;
     let visualPct = 0;
     let finished = false;
+    const deepLinked = Boolean(window.location.hash);
 
     const setParticlesReady = () => {
       particlesReady = true;
@@ -37,14 +38,14 @@
     const fallback = window.setTimeout(() => {
       fontsReady = true;
       particlesReady = true;
-    }, 2600);
+    }, deepLinked ? 900 : 2200);
 
     const hardFinish = window.setTimeout(() => {
       visualPct = 100;
       bar.style.width = "100%";
       value.textContent = "100";
       finish({ immediate: true });
-    }, 4800);
+    }, deepLinked ? 1800 : 4200);
 
     const finish = (options = {}) => {
       if (finished) return;
@@ -181,6 +182,13 @@
     items.forEach((item) => observer.observe(item));
   }
 
+  function initLineReveal() {
+    const lines = doc.querySelectorAll(".line-reveal > span");
+    lines.forEach((line, index) => {
+      line.style.setProperty("--line-delay", `${0.15 + index * 0.08}s`);
+    });
+  }
+
   function initScrollState() {
     const header = doc.querySelector("[data-header]");
     const route = doc.querySelector("[data-route]");
@@ -191,6 +199,9 @@
     let overrideShape = false;
     let lastShape = -1;
     let ticking = false;
+    let smoothTarget = null;
+    let smoothCurrent = 0;
+    let smoothRaf = 0;
 
     const setShape = (shape) => {
       if (!pf || typeof pf.setShape !== "function" || shape === lastShape) return;
@@ -209,9 +220,10 @@
 
       if (!overrideShape && sections.length) {
         const pivot = viewport * 0.52;
-        let current = Number(sections[0].dataset.shape || 0);
+        let current = 7;
         sections.forEach((section) => {
-          if (section.getBoundingClientRect().top <= pivot) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= pivot && rect.bottom >= pivot) {
             current = Number(section.dataset.shape || current);
           }
         });
@@ -235,6 +247,35 @@
       ticking = true;
       window.requestAnimationFrame(update);
     };
+
+    const maxScroll = () => Math.max(1, doc.documentElement.scrollHeight - (window.innerHeight || 1));
+
+    const smoothStep = () => {
+      smoothRaf = 0;
+      if (smoothTarget === null) return;
+      smoothCurrent += (smoothTarget - smoothCurrent) * 0.09;
+      if (Math.abs(smoothTarget - smoothCurrent) < 0.4) {
+        smoothCurrent = smoothTarget;
+        window.scrollTo(0, smoothCurrent);
+        smoothTarget = null;
+        return;
+      }
+      window.scrollTo(0, smoothCurrent);
+      smoothRaf = window.requestAnimationFrame(smoothStep);
+    };
+
+    if (finePointer && !reduced) {
+      window.addEventListener("wheel", (event) => {
+        if (event.ctrlKey || event.metaKey || body.classList.contains("menu-open")) return;
+        event.preventDefault();
+        if (smoothTarget === null) {
+          smoothTarget = window.scrollY || doc.documentElement.scrollTop;
+          smoothCurrent = smoothTarget;
+        }
+        smoothTarget = clamp(smoothTarget + event.deltaY, 0, maxScroll());
+        if (!smoothRaf) smoothRaf = window.requestAnimationFrame(smoothStep);
+      }, { passive: false });
+    }
 
     doc.querySelectorAll("[data-service]").forEach((item) => {
       item.addEventListener("mouseenter", () => {
@@ -308,6 +349,7 @@
   initMenu();
   initCursor();
   initReveal();
+  initLineReveal();
   initScrollState();
   initForm();
   initLanguageSwitcher();
