@@ -421,70 +421,6 @@ main,
   color: var(--text);
 }
 
-.hero__actions {
-  width: min(780px, 100%);
-  margin-left: auto;
-  overflow: visible;
-}
-
-.hero__actions > span {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.button {
-  display: inline-flex;
-  min-height: 50px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  padding: 14px 22px;
-  background: var(--accent);
-  color: var(--bg);
-  font-weight: 800;
-  line-height: 1;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.button:hover {
-  transform: translateY(-2px);
-  background: var(--text);
-  border-color: var(--text);
-  color: var(--bg);
-}
-
-.button--ghost {
-  background: rgba(245, 242, 235, 0.035);
-  color: var(--text);
-  border-color: var(--line);
-}
-
-.button--ghost:hover {
-  background: rgba(86, 200, 255, 0.12);
-  border-color: rgba(86, 200, 255, 0.48);
-  color: var(--text);
-}
-
-.hero__proof {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  width: min(100%, 980px);
-  margin-left: auto;
-  border: 1px solid var(--line);
-  background: rgba(245, 242, 235, 0.055);
-}
-
-.hero__proof span {
-  min-height: 64px;
-  padding: 18px;
-  background: rgba(2, 3, 3, 0.72);
-  color: rgba(245, 242, 235, 0.76);
-  font-size: 0.92rem;
-}
-
 .line-reveal {
   display: block;
   overflow: hidden;
@@ -521,50 +457,6 @@ body.skip-intro .line-reveal > span {
   font-weight: 700;
   line-height: 1.05;
   text-transform: uppercase;
-}
-
-.funnel {
-  min-height: 100svh;
-  display: grid;
-  align-content: center;
-}
-
-.funnel-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: 10vh;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.funnel-card {
-  min-height: 300px;
-  border-right: 1px solid var(--line);
-  padding: 30px 26px;
-  background: rgba(245, 242, 235, 0.035);
-}
-
-.funnel-card > span {
-  display: inline-block;
-  margin-bottom: 42px;
-  color: var(--accent);
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-}
-
-.funnel-card h3 {
-  margin: 0 0 18px;
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(1.2rem, 1.8vw, 1.7rem);
-  text-transform: uppercase;
-}
-
-.funnel-card p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.55;
 }
 
 .statement--narrow {
@@ -710,121 +602,27 @@ body.skip-intro .line-reveal > span {
   line-height: 1.5;
 }
 
-.process {
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.75fr);
-  gap: 8vw;
-  align-items: start;
+.team-strip {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12vh;
 }
 
-.process__intro {
-  position: sticky;
-  top: 130px;
-}
-
-.route {
-  position: relative;
-  display: grid;
-  gap: 22px;
-  padding-left: 34px;
-}
-
-.route__line {
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  left: 8px;
-  width: 1px;
-  background: var(--line);
-}
-
-.route__line span {
-  display: block;
-  width: 1px;
-  height: 0;
-  background: linear-gradient(to bottom, var(--accent), var(--blue));
-  transition: height 0.22s ease;
-}
-
-.route-step {
-  position: relative;
+.team-strip span {
   border: 1px solid var(--line);
-  padding: 24px;
-  background: rgba(2, 3, 3, 0.72);
-  transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
-}
-
-.route-step::before {
-  content: "";
-  position: absolute;
-  top: 28px;
-  left: -31px;
-  width: 11px;
-  height: 11px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--bg);
-}
-
-.route-step.is-done {
-  border-color: rgba(216, 255, 61, 0.36);
-  background: rgba(216, 255, 61, 0.045);
-}
-
-.route-step.is-done::before {
-  border-color: var(--accent);
-  background: var(--accent);
-}
-
-.route-step > span {
-  display: block;
-  margin-bottom: 20px;
-  color: var(--accent);
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: 0.78rem;
-}
-
-.route-step h3,
-.offer-grid h3 {
-  margin: 0 0 14px;
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
-  text-transform: uppercase;
-}
-
-.route-step p,
-.offer-grid p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-.offer {
-  min-height: 78vh;
-}
-
-.offer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.offer-grid article {
-  min-height: 240px;
-  border-right: 1px solid var(--line);
-  padding: 28px 24px;
-  background: rgba(245, 242, 235, 0.035);
+  border-radius: 999px;
+  padding: 14px 22px;
+  color: rgba(245, 242, 235, 0.72);
+  background: rgba(245, 242, 235, 0.025);
 }
 
 .contact {
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.7fr);
-  gap: 7vw;
-  align-items: end;
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .contact__eyebrow {
@@ -838,7 +636,7 @@ body.skip-intro .line-reveal > span {
   width: fit-content;
   max-width: 100%;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2.1rem, 4.3vw, 4.5rem);
+  font-size: clamp(2.1rem, 7vw, 7.6rem);
   font-weight: 900;
   line-height: 1;
   overflow-wrap: anywhere;
@@ -857,102 +655,6 @@ body.skip-intro .line-reveal > span {
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 13px 20px;
-}
-
-.lead-form {
-  border: 1px solid var(--line);
-  padding: 28px;
-  background: rgba(2, 3, 3, 0.76);
-  backdrop-filter: blur(16px);
-}
-
-.lead-form__label {
-  margin: 0 0 16px;
-  color: var(--text);
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: 1rem;
-  text-transform: uppercase;
-}
-
-.task-options {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
-  margin-bottom: 22px;
-}
-
-.task-options button,
-.lead-form__submit {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(245, 242, 235, 0.04);
-  color: var(--text);
-  padding: 12px 14px;
-}
-
-.task-options button.is-active {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--bg);
-  font-weight: 800;
-}
-
-.lead-form label {
-  display: grid;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.lead-form label span {
-  color: var(--muted);
-  font-size: 0.86rem;
-}
-
-.lead-form input,
-.lead-form textarea {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  background: rgba(245, 242, 235, 0.035);
-  color: var(--text);
-  padding: 15px 14px;
-  outline: none;
-}
-
-.lead-form textarea {
-  resize: vertical;
-}
-
-.lead-form input:focus,
-.lead-form textarea:focus {
-  border-color: rgba(216, 255, 61, 0.72);
-}
-
-.form-hp {
-  position: absolute;
-  left: -9999px;
-}
-
-.lead-form__submit {
-  width: 100%;
-  margin-top: 20px;
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--bg);
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.lead-form__submit:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
-.form-success {
-  color: var(--text);
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(1.2rem, 2vw, 1.7rem);
-  line-height: 1.35;
 }
 
 .site-footer {
@@ -1002,20 +704,12 @@ body.skip-intro .line-reveal > span {
   }
 
   .expertise,
-  .team-grid,
-  .funnel-grid,
-  .offer-grid {
+  .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .team,
-  .process,
-  .contact {
+  .team {
     grid-template-columns: 1fr;
-  }
-
-  .process__intro {
-    position: static;
   }
 }
 
@@ -1055,22 +749,6 @@ body.skip-intro .line-reveal > span {
     font-size: 1.05rem;
   }
 
-  .hero__actions {
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .hero__actions > span,
-  .button {
-    width: 100%;
-  }
-
-  .hero__proof {
-    grid-template-columns: 1fr;
-    width: 100%;
-    margin-left: 0;
-  }
-
   .section {
     padding-top: 12vh;
     padding-bottom: 12vh;
@@ -1082,32 +760,12 @@ body.skip-intro .line-reveal > span {
   }
 
   .expertise,
-  .team-grid,
-  .funnel-grid,
-  .offer-grid {
+  .team-grid {
     grid-template-columns: 1fr;
   }
 
-  .expertise-card,
-  .funnel-card,
-  .offer-grid article {
+  .expertise-card {
     min-height: 240px;
-  }
-
-  .process {
-    gap: 54px;
-  }
-
-  .route {
-    padding-left: 28px;
-  }
-
-  .task-options {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .lead-form {
-    padding: 22px 18px;
   }
 
   .contact__mail {
