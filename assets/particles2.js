@@ -2,8 +2,9 @@
    GPU-resident morphing: all 7 shapes live as vertex attributes; shape changes are
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
-   API: el.setShape(id 0..7), el.setScroll(p 0..1), el.startIntro()
-   Shapes: 0 core, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 network, 6 logo, 7 cloud.
+   API: el.setShape(id 0..7), el.startIntro()
+   Shapes: 0 rocket, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 network, 6 logo, 7 cloud.
+   API also: el.setSide('left'|'right') — positions figure opposite section text.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
   if (customElements.get('pf-scene')) return;
@@ -42,6 +43,11 @@
     const u = R() * 2 - 1, ph = R() * 6.2832, s = Math.sqrt(1 - u * u);
     put(a, i, cx + s * Math.cos(ph) * r, cy + u * r, cz + s * Math.sin(ph) * r);
   };
+  const radialDust = (a, i, rMin, rMax) => {
+    const u = R() * 2 - 1, ph = R() * 6.2832, s = Math.sqrt(Math.max(0, 1 - u * u));
+    const r = rMin + R() * (rMax - rMin);
+    put(a, i, s * Math.cos(ph) * r, u * r * 0.55, s * Math.sin(ph) * r);
+  };
 
   function buildLogoPts() {
     const cv = document.createElement('canvas'); cv.width = 640; cv.height = 160;
@@ -56,7 +62,7 @@
   }
   const buildLogoRaw = (pts) => gen((a, i, f) => {
     if (pts.length && f < 0.90) { const p = pts[Math.floor(R() * pts.length)]; put(a, i, (p[0] / 640 - 0.5) * 3.4 + G() * 0.01, (0.5 - p[1] / 160) * 0.85 + G() * 0.01, (R() - 0.5) * 0.2); }
-    else put(a, i, (R() - 0.5) * 4.2, (R() - 0.5) * 1.8, (R() - 0.5) * 1.2);
+    else radialDust(a, i, 0.4, 6);
   });
 
   function makeShapes() {
@@ -67,15 +73,24 @@
 
     const shapes = [];
 
-    // 0 CORE — shell + two tilted orbit rings + dense heart + node clusters + dust
-    const NODE = []; for (let k = 0; k < 10; k++) { const u = R() * 2 - 1, ph = R() * 6.2832, s = Math.sqrt(1 - u * u); NODE.push([s * Math.cos(ph) * 1.32, u * 1.32, s * Math.sin(ph) * 1.32]); }
+    // 0 ROCKET — body, nose cone, fins, window, flame trail
     shapes[0] = gen((a, i, f) => {
-      if (f < 0.46) { const u = R() * 2 - 1, ph = R() * 6.2832, r = 1.15 + G() * 0.05, s = Math.sqrt(1 - u * u); put(a, i, s * Math.cos(ph) * r, u * r, s * Math.sin(ph) * r); }
-      else if (f < 0.58) { const an = R() * 6.2832, r = 1.62 + G() * 0.015; const x = Math.cos(an) * r, z = Math.sin(an) * r; put(a, i, x, -z * 0.44, z * 0.9); }
-      else if (f < 0.68) { const an = R() * 6.2832, r = 1.45 + G() * 0.015; const x = Math.cos(an) * r, z = Math.sin(an) * r; put(a, i, x * 0.77 - z * 0.35, z * 0.52, x * 0.5 + z * 0.72); }
-      else if (f < 0.80) put(a, i, G() * 0.35, G() * 0.35, G() * 0.35);
-      else if (f < 0.92) { const c = NODE[Math.floor(R() * 10)]; put(a, i, c[0] + G() * 0.07, c[1] + G() * 0.07, c[2] + G() * 0.07); }
-      else put(a, i, (R() - 0.5) * 6, (R() - 0.5) * 4, (R() - 0.5) * 4);
+      if (f < 0.34) {
+        const t = R(), an = R() * 6.2832, y = -0.85 + t * 1.45, r = 0.21 + G() * 0.018;
+        put(a, i, Math.cos(an) * r, y, Math.sin(an) * r * 0.48 + G() * 0.01);
+      } else if (f < 0.44) {
+        const t = R(), an = R() * 6.2832, y = 0.55 + t * 0.62, r = (1 - t) * 0.23;
+        put(a, i, Math.cos(an) * r, y, Math.sin(an) * r * 0.38);
+      } else if (f < 0.54) {
+        const fin = Math.floor(R() * 3), t = R(), an = fin / 3 * 6.2832;
+        const y = -0.65 - t * 0.42, spread = 0.28 + t * 0.55;
+        put(a, i, Math.cos(an) * spread + G() * 0.015, y, Math.sin(an) * spread * 0.55 + G() * 0.012);
+      } else if (f < 0.60) {
+        rectEdge(a, i, -0.08, 0.02, 0.08, 0.22, 0.22, 0.02);
+      } else if (f < 0.82) {
+        const t = R(), an = R() * 6.2832, y = -0.95 - t * 1.35, r = 0.16 * (1 - t * 0.75) * (0.35 + R() * 0.65);
+        put(a, i, Math.cos(an) * r + G() * 0.02, y, Math.sin(an) * r * 0.55);
+      } else radialDust(a, i, 1.2, 9);
     });
 
     // 1 WEBSITE — 3D browser: front frame, recessed image, floating cards, back grid plane
@@ -89,7 +104,7 @@
       else if (f < 0.49) seg(a, i, 0.15, 0.52, 1.15, -0.08, 0.05, 0.05);
       else if (f < 0.73) { const k = Math.floor(R() * 3), x0 = -1.15 + k * 0.82; if (R() < 0.7) rectEdge(a, i, x0, -0.78, x0 + 0.68, -0.30, -0.20); else rectFill(a, i, x0 + 0.06, -0.72, x0 + 0.62, -0.36, -0.20); }
       else if (f < 0.88) { if (R() < 0.5) { const y0 = -0.9 + Math.floor(R() * 7) * 0.3; seg(a, i, -1.55, y0, 1.55, y0, -0.5, -0.5); } else { const x0 = -1.5 + Math.floor(R() * 11) * 0.3; seg(a, i, x0, -0.95, x0, 1.0, -0.5, -0.5); } }
-      else put(a, i, (R() - 0.5) * 3.6, (R() - 0.5) * 2.4, (R() - 0.5) * 1.4);
+      else radialDust(a, i, 1.2, 8);
     });
 
     // 2 TELEGRAM — paper plane in two depth planes + 3D spiral trail
@@ -102,7 +117,7 @@
       else if (f < 0.58) seg(a, i, C[0], C[1], T[0], T[1], 0.0, 0.0);
       else if (f < 0.63) seg(a, i, D[0], D[1], T[0], T[1], -0.15, 0.05);
       else if (f < 0.85) { const t = R(); put(a, i, -2.2 + t * 1.1, -0.5 + t * 0.6 + Math.sin(t * 7) * 0.1, Math.cos(t * 7) * 0.2 + G() * 0.02); }
-      else put(a, i, (R() - 0.5) * 3.8, (R() - 0.5) * 2.4, (R() - 0.5) * 1.2);
+      else radialDust(a, i, 1.2, 8.5);
     });
 
     // 3 CRM — volumetric funnel: rings narrowing + fill discs + wall streams + drip + deal sphere
@@ -113,7 +128,7 @@
       else if (f < 0.74) { const k = Math.floor(R() * 3), an = Math.floor(R() * 10) / 10 * 6.2832, t = R(); const w = FW[k] + t * (FW[k + 1] - FW[k]), y = 0.80 - k * 0.44 - t * 0.44; put(a, i, Math.cos(an) * w + G() * 0.012, y, Math.sin(an) * w + G() * 0.012); }
       else if (f < 0.82) { const t = R(); put(a, i, G() * 0.03, -0.62 - t * 0.4, G() * 0.03); }
       else if (f < 0.92) sphere(a, i, 0, -1.24, 0, 0.17 + G() * 0.012);
-      else put(a, i, (R() - 0.5) * 3.6, (R() - 0.5) * 2.6, (R() - 0.5) * 1.6);
+      else radialDust(a, i, 1.3, 9);
     });
 
     // 4 AUTOMATION — 3D chain: node spheres zigzagging in depth + links + pulse clusters
@@ -125,7 +140,7 @@
       else if (f < 0.44) { const k = Math.floor(R() * 6); put(a, i, CX[k] + G() * 0.04, CYf(k) + G() * 0.04, CZf(k) + G() * 0.04); }
       else if (f < 0.78) { const k = Math.floor(R() * 5); seg(a, i, CX[k], CYf(k), CX[k + 1], CYf(k + 1), CZf(k), CZf(k + 1)); }
       else if (f < 0.86) { const k = Math.floor(R() * 5), t = R(); put(a, i, CX[k] + t * (CX[k + 1] - CX[k]) + G() * 0.03, CYf(k) + t * (CYf(k + 1) - CYf(k)) + G() * 0.03, CZf(k) + t * (CZf(k + 1) - CZf(k)) + G() * 0.03); }
-      else put(a, i, (R() - 0.5) * 4.6, (R() - 0.5) * 1.8, (R() - 0.5) * 1.4);
+      else radialDust(a, i, 1.5, 9.5);
     });
 
     // 5 NETWORK — hub + satellites + spokes
@@ -134,7 +149,7 @@
       if (f < 0.16) put(a, i, G() * 0.18, G() * 0.18, G() * 0.18);
       else if (f < 0.54) { const c = SAT[Math.floor(R() * 8)]; sphere(a, i, c[0], c[1], c[2], 0.09 + R() * 0.04); }
       else if (f < 0.88) { const c = SAT[Math.floor(R() * 8)], t = R(); put(a, i, c[0] * t + G() * 0.012, c[1] * t + G() * 0.012, c[2] * t + G() * 0.012); }
-      else put(a, i, (R() - 0.5) * 5.5, (R() - 0.5) * 3.4, (R() - 0.5) * 3.4);
+      else radialDust(a, i, 1.6, 11);
     });
 
     // 6 LOGO — extruded glyphs
@@ -160,12 +175,15 @@ void main(){
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6];
   vec3 form = mix(F, T, tt);
   float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
-  float cloud = step(0.78, cloudSeed);
-  vec3 bg = vec3(
-    (fract(aSeed.x * 17.13 + aSeed.y * 3.11) * 2.0 - 1.0) * 6.4,
-    (fract(aSeed.y * 19.17 + aSeed.z * 5.07) * 2.0 - 1.0) * 3.7,
-    (fract(aSeed.z * 23.07 + aSeed.x * 7.19) * 2.0 - 1.0) * 3.3 - 1.55);
-  vec3 p = mix(form, bg, cloud);
+  float cloud = step(0.70, cloudSeed);
+  vec3 cosmosDir = normalize(vec3(
+    sin(aSeed.x * 6.283 + aSeed.y * 3.11),
+    cos(aSeed.y * 6.283 + aSeed.z * 2.7) * 0.55,
+    sin(aSeed.z * 6.283 + aSeed.x * 4.3)));
+  float cosmosDist = pow(cloudSeed, 1.6) * 14.0 + 0.4;
+  vec3 cosmosPos = form + cosmosDir * cosmosDist;
+  float cosmosFade = exp(-cosmosDist * 0.22);
+  vec3 p = mix(form, cosmosPos, cloud);
   float w = 0.014 + 0.020 * aSeed.x;
   p += w * vec3(
     sin(uTime * (0.5 + aSeed.y) + aSeed.x * 19.0),
@@ -185,18 +203,20 @@ void main(){
   float ps = uSize * (0.7 + aSeed.z * 1.2) * (2.4 / dist) * (1.0 + lime * 0.5);
   gl_PointSize = max(1.0, min(ps, uSize * 4.2));
   vCloud = cloud;
-  vA = (0.40 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA * mix(0.9, 0.62, cloud);
+  float cosmosAlpha = mix(1.0, cosmosFade * 0.85, cloud);
+  vA = (0.40 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA * cosmosAlpha;
   float fog = clamp((dist - 1.6) / 3.4, 0.0, 1.0);
   vec3 base = mix(vec3(0.949, 0.941, 0.918), vec3(0.337, 0.784, 1.0), smoothstep(0.5, 0.93, aSeed.y) * 0.85);
   vec3 col = mix(base, vec3(0.847, 1.0, 0.239) * 1.35, lime);
-  vColor = col * (1.3 - fog * 0.45) * mix(1.0, 0.74, cloud);
+  vColor = col * (1.3 - fog * 0.45) * cosmosAlpha;
+  gl_PointSize *= mix(1.0, 0.35 + cosmosFade * 0.65, cloud);
 }`;
   const FS = `
 precision mediump float;
 varying float vA; varying float vCloud; varying vec3 vColor;
 void main(){
   float d = length(gl_PointCoord - vec2(0.5));
-  float a = smoothstep(0.5, 0.1, d) * vA * mix(1.0, 0.82, vCloud);
+  float a = smoothstep(0.5, 0.1, d) * vA;
   gl_FragColor = vec4(vColor, a);
 }`;
 
@@ -205,11 +225,10 @@ void main(){
     return new Float32Array([f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0]);
   };
 
-  // camera preset per shape: x shift (0 on mobile), z distance; [7] = starfield
-  const CAM = [
-    { x: 0.6, z: 3.5 }, { x: 0.6, z: 3.7 }, { x: 0.6, z: 3.7 }, { x: 0.0, z: 4.4 },
-    { x: -0.5, z: 4.3 }, { x: 0.6, z: 3.8 }, { x: -0.35, z: 3.7 }, { x: 0.0, z: 4.0 }
-  ];
+  // camera z distance per shape; horizontal shift comes from setSide()
+  const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.1, 3.9, 3.8, 4.2];
+  const CAM_RX = [0.08, 0.10, 0.10, 0.28, 0.10, 0.12, 0.08, 0.04];
+  const SIDE_X = 0.82;
 
   class PFScene extends HTMLElement {
     connectedCallback() {
@@ -230,7 +249,11 @@ void main(){
       const mk = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); gl.attachShader(prog, s); };
       mk(gl.VERTEX_SHADER, VS); mk(gl.FRAGMENT_SHADER, FS);
       gl.linkProgram(prog);
-      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn('pf-scene shader: ' + gl.getProgramInfoLog(prog)); return; }
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.warn('pf-scene shader: ' + gl.getProgramInfoLog(prog));
+        this.dispatchEvent(new CustomEvent('pf-ready', { bubbles: true }));
+        return;
+      }
       gl.useProgram(prog);
 
       const built = makeShapes();
@@ -266,7 +289,7 @@ void main(){
       gl.uniform1f(this._u.uMouseF, reduced || MOBILE ? 0 : 1);
       gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.disable(gl.DEPTH_TEST);
 
-      this._scroll = 0; this._mx = 0; this._my = 0; this._tmx = 0; this._tmy = 0;
+      this._mx = 0; this._my = 0; this._tmx = 0; this._tmy = 0;
       if (!reduced && !MOBILE) {
         this._onMove = (e) => { this._tmx = (e.clientX / window.innerWidth) * 2 - 1; this._tmy = -((e.clientY / window.innerHeight) * 2 - 1); };
         window.addEventListener('mousemove', this._onMove, { passive: true });
@@ -296,8 +319,9 @@ void main(){
         }).catch(() => {});
       }
 
-      this._cx = MOBILE ? 0 : CAM[0].x; this._cz = CAM[0].z;
-      this._ry = 0; this._rx = 0.14;
+      this._cx = 0; this._cz = CAM_Z[0];
+      this._side = -1; this._targetSide = -1;
+      this._ry = 0; this._rx = CAM_RX[0];
       this._mv = new Float32Array(16);
       this._drawN = N; this._ema = 16; this._fc = 0;
 
@@ -314,19 +338,22 @@ void main(){
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
-        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.04) * (reduced ? 3 : 0.82));
+        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.03) * (reduced ? 2.2 : 0.32));
 
         const id = this._toId;
-        const cont = id === 0 || id === 3 || id === 5 || id === 7;
-        const spin = id === 7 ? 0.045 : 0.14;
-        const amp = id === 6 ? 0.10 : 0.45;
-        const tRy = cont ? time * spin + this._mx * 0.18 : Math.sin(time * 0.2) * amp + this._mx * 0.15;
-        const tRx = (id === 3 ? 0.42 : cont ? (id === 7 ? 0.06 : 0.16) : 0.10) - this._my * 0.09;
-        this._ry += (tRy - this._ry) * 0.05;
-        this._rx += (tRx - this._rx) * 0.05;
-        const cam = CAM[id];
-        this._cx += ((MOBILE ? 0 : cam.x) - this._cx) * 0.044;
-        this._cz += (cam.z - this._cz) * 0.044;
+        const morphing = this._t < 0.98;
+        const morphEase = morphing ? (1 - this._t * this._t) : 0;
+        const spinMul = morphing ? 0.12 + morphEase * 0.88 : 1;
+        const sway = id === 0 ? 0.06 : id === 6 ? 0.05 : 0.12;
+        const tRy = Math.sin(time * 0.14) * sway * spinMul + this._mx * 0.08;
+        const tRx = CAM_RX[id] - this._my * 0.05;
+        this._ry += (tRy - this._ry) * 0.022;
+        this._rx += (tRx - this._rx) * 0.022;
+        const targetCx = MOBILE ? 0 : this._side * SIDE_X;
+        const targetCz = CAM_Z[id];
+        this._side += (this._targetSide - this._side) * 0.022;
+        this._cx += (targetCx - this._cx) * 0.022;
+        this._cz += (targetCz - this._cz) * 0.022;
 
         const cy = Math.cos(this._ry), sy = Math.sin(this._ry), cx = Math.cos(this._rx), sx = Math.sin(this._rx);
         const m = this._mv;
@@ -365,8 +392,11 @@ void main(){
       this._t = 0;
     }
 
+    setSide(side) {
+      this._targetSide = side === 'right' ? 1 : -1;
+    }
+
     startIntro() { this._playing = true; }
-    setScroll(p) { this._scroll = p; }
 
     disconnectedCallback() {
       cancelAnimationFrame(this._raf);

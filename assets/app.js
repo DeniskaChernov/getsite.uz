@@ -194,37 +194,49 @@
     const route = doc.querySelector("[data-route]");
     const routeFill = doc.querySelector("[data-route-fill]");
     const routeSteps = route ? [...route.querySelectorAll(".route-step")] : [];
-    const sections = [...doc.querySelectorAll("[data-shape]")];
+    const zones = [...doc.querySelectorAll("[data-shape]")];
     const pf = doc.querySelector("pf-scene");
     let overrideShape = false;
     let lastShape = -1;
+    let lastSide = "";
     let ticking = false;
 
-    const setShape = (shape) => {
-      if (!pf || typeof pf.setShape !== "function" || shape === lastShape) return;
-      lastShape = shape;
-      pf.setShape(shape);
+    const applyZone = (zone) => {
+      if (!pf) return;
+      const shape = Number(zone.dataset.shape);
+      const side = zone.dataset.side || "left";
+      if (shape !== lastShape && typeof pf.setShape === "function") {
+        lastShape = shape;
+        pf.setShape(shape);
+      }
+      if (side !== lastSide && typeof pf.setSide === "function") {
+        lastSide = side;
+        pf.setSide(side);
+      }
     };
 
     const update = () => {
       ticking = false;
       const scrollY = window.scrollY || doc.documentElement.scrollTop;
       const viewport = window.innerHeight || 1;
-      const maxScroll = Math.max(1, doc.documentElement.scrollHeight - viewport);
 
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
-      if (pf && typeof pf.setScroll === "function") pf.setScroll(clamp(scrollY / maxScroll));
 
-      if (!overrideShape && sections.length) {
-        const pivot = viewport * 0.52;
-        let current = 7;
-        sections.forEach((section) => {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= pivot && rect.bottom >= pivot) {
-            current = Number(section.dataset.shape || current);
+      if (!overrideShape && zones.length) {
+        const pivot = viewport * 0.5;
+        let best = null;
+        let bestDist = Infinity;
+        zones.forEach((zone) => {
+          const rect = zone.getBoundingClientRect();
+          if (rect.bottom < viewport * 0.12 || rect.top > viewport * 0.88) return;
+          const center = rect.top + rect.height * 0.5;
+          const dist = Math.abs(center - pivot);
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = zone;
           }
         });
-        setShape(current);
+        if (best) applyZone(best);
       }
 
       if (route && routeFill) {
@@ -248,7 +260,9 @@
     doc.querySelectorAll("[data-service]").forEach((item) => {
       item.addEventListener("mouseenter", () => {
         overrideShape = true;
-        setShape(Number(item.dataset.serviceShape || 1));
+        const shape = Number(item.dataset.serviceShape || 1);
+        if (pf && typeof pf.setShape === "function") pf.setShape(shape);
+        lastShape = shape;
       });
       item.addEventListener("mouseleave", () => {
         overrideShape = false;
@@ -314,19 +328,6 @@
     });
   }
 
-  function initLanguageSwitcher() {
-    const buttons = doc.querySelectorAll("[data-lang]");
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        buttons.forEach((item) => {
-          const active = item === button;
-          item.classList.toggle("is-active", active);
-          item.setAttribute("aria-pressed", String(active));
-        });
-      });
-    });
-  }
-
   initPreloader();
   initMenu();
   initCursor();
@@ -335,5 +336,4 @@
   initScrollState();
   initAnchorScroll();
   initForm();
-  initLanguageSwitcher();
 })();

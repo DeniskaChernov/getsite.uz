@@ -334,7 +334,7 @@ a:hover {
   border-bottom: 1px solid var(--line);
   padding: 14px 0;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2.2rem, 6vw, 6rem);
+  font-size: clamp(1.8rem, 4.5vw, 4.2rem);
   font-weight: 800;
   text-transform: uppercase;
   transform: translateY(28px);
@@ -368,22 +368,52 @@ main,
 .section {
   width: min(100%, var(--max));
   margin: 0 auto;
-  padding: 16vh var(--side);
+  padding: 14vh var(--side);
   scroll-margin-top: 96px;
 }
 
-.section + .section {
-  margin-top: clamp(120px, 24vh, 320px);
+.section + .section,
+.section-gap + .section,
+.section + .section-gap {
+  margin-top: 0;
+}
+
+.section-gap {
+  min-height: clamp(180px, 38vh, 420px);
+}
+
+.section__content {
+  width: min(46%, 560px);
+}
+
+.section--left .section__content {
+  margin-right: auto;
+}
+
+.section--right .section__content {
+  margin-left: auto;
+  text-align: right;
+}
+
+.section--right .section-title,
+.section--right .team__headline {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.section--right .hero__copy {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .hero {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 34px;
-  padding-top: 16vh;
-  padding-bottom: 11vh;
+  justify-content: center;
+  gap: 0;
+  padding-top: 12vh;
+  padding-bottom: 10vh;
 }
 
 .section-kicker {
@@ -394,12 +424,12 @@ main,
 }
 
 .hero__title {
-  max-width: 11ch;
+  max-width: 14ch;
   margin: 0;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(4.2rem, 10.6vw, 10.8rem);
+  font-size: clamp(2.8rem, 7.2vw, 6.8rem);
   font-weight: 900;
-  line-height: 0.88;
+  line-height: 0.92;
   text-transform: uppercase;
 }
 
@@ -408,12 +438,12 @@ main,
 }
 
 .hero__copy {
-  width: min(780px, 100%);
-  max-width: 780px;
-  margin-left: auto;
-  color: rgba(245, 242, 235, 0.82);
-  font-size: clamp(1.05rem, 2vw, 2rem);
-  line-height: 1.36;
+  width: min(100%, 420px);
+  max-width: 420px;
+  margin-left: 0;
+  color: rgba(245, 242, 235, 0.78);
+  font-size: clamp(0.92rem, 1.4vw, 1.15rem);
+  line-height: 1.45;
   overflow-wrap: break-word;
 }
 
@@ -457,16 +487,16 @@ body.skip-intro .line-reveal > span {
   margin: 0;
   color: var(--text);
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2rem, 4.6vw, 5.8rem);
+  font-size: clamp(1.4rem, 3.2vw, 3.4rem);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.1;
   text-transform: uppercase;
 }
 
 .statement--narrow {
-  max-width: 980px;
-  color: rgba(245, 242, 235, 0.82);
-  font-size: clamp(1.5rem, 3vw, 3.2rem);
+  max-width: 720px;
+  color: rgba(245, 242, 235, 0.78);
+  font-size: clamp(1.1rem, 2vw, 2rem);
 }
 
 .section-title {
@@ -487,14 +517,14 @@ body.skip-intro .line-reveal > span {
 .team__headline h2 {
   margin: 0;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2rem, 4.8vw, 5.8rem);
+  font-size: clamp(1.5rem, 3.2vw, 3.6rem);
   font-weight: 900;
   line-height: 0.95;
   text-transform: uppercase;
 }
 
 .agency {
-  min-height: 100svh;
+  min-height: 80svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -509,7 +539,7 @@ body.skip-intro .line-reveal > span {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
-  margin-top: 16vh;
+  margin-top: 10vh;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
@@ -519,10 +549,10 @@ body.skip-intro .line-reveal > span {
   grid-column: 1 / -1;
   display: flex;
   gap: 42px;
-  padding: 22px 0;
-  color: rgba(245, 242, 235, 0.12);
+  padding: 16px 0;
+  color: rgba(245, 242, 235, 0.1);
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2rem, 6vw, 7rem);
+  font-size: clamp(1.4rem, 4vw, 4.2rem);
   font-weight: 900;
   white-space: nowrap;
   text-transform: uppercase;
@@ -530,7 +560,7 @@ body.skip-intro .line-reveal > span {
 }
 
 .expertise-card {
-  min-height: 360px;
+  min-height: 260px;
   border-top: 1px solid var(--line);
   border-right: 1px solid var(--line);
   padding: 32px 26px;
@@ -543,9 +573,9 @@ body.skip-intro .line-reveal > span {
 }
 
 .expertise-card h3 {
-  margin: 0 0 44px;
+  margin: 0 0 28px;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(1.3rem, 2vw, 2rem);
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
   font-weight: 800;
 }
 
@@ -565,17 +595,17 @@ body.skip-intro .line-reveal > span {
 }
 
 .team {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
-  gap: 8vw;
-  align-items: start;
+  min-height: 72vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .team__copy {
   margin: 0;
-  color: rgba(245, 242, 235, 0.78);
-  font-size: clamp(1.2rem, 2.2vw, 2.2rem);
-  line-height: 1.35;
+  color: rgba(245, 242, 235, 0.72);
+  font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+  line-height: 1.4;
 }
 
 .team-grid {
@@ -606,12 +636,20 @@ body.skip-intro .line-reveal > span {
   line-height: 1.5;
 }
 
+.section--right .contact__mail,
+.section--right .contact__actions {
+  margin-left: auto;
+}
+
+.section--right .team-strip {
+  justify-content: flex-end;
+}
+
 .team-strip {
-  grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin-top: 12vh;
+  margin-top: 8vh;
 }
 
 .team-strip span {
@@ -623,10 +661,10 @@ body.skip-intro .line-reveal > span {
 }
 
 .contact {
-  min-height: 78vh;
+  min-height: 72vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .contact__eyebrow {
@@ -640,7 +678,7 @@ body.skip-intro .line-reveal > span {
   width: fit-content;
   max-width: 100%;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2.1rem, 7vw, 7.6rem);
+  font-size: clamp(1.6rem, 5vw, 4.8rem);
   font-weight: 900;
   line-height: 1;
   overflow-wrap: anywhere;
@@ -711,10 +749,6 @@ body.skip-intro .line-reveal > span {
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .team {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 700px) {
@@ -735,6 +769,24 @@ body.skip-intro .line-reveal > span {
     display: none;
   }
 
+  .section__content {
+    width: min(88%, 100%);
+  }
+
+  .section--right .section__content {
+    text-align: left;
+  }
+
+  .section--right .section-title,
+  .section--right .team__headline {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .section-gap {
+    min-height: clamp(120px, 24vh, 260px);
+  }
+
   .hero {
     padding-top: 130px;
     padding-bottom: 72px;
@@ -742,29 +794,25 @@ body.skip-intro .line-reveal > span {
 
   .hero__title {
     max-width: 100%;
-    font-size: clamp(2.75rem, 13vw, 3.65rem);
-    line-height: 0.92;
+    font-size: clamp(2.2rem, 11vw, 3rem);
+    line-height: 0.94;
   }
 
   .hero__copy {
-    width: min(100%, 330px);
-    max-width: 330px;
+    width: min(100%, 300px);
+    max-width: 300px;
     margin-left: 0;
-    font-size: 1.05rem;
+    font-size: 0.92rem;
   }
 
   .section {
-    padding-top: 12vh;
-    padding-bottom: 12vh;
-  }
-
-  .section + .section {
-    margin-top: clamp(76px, 14vh, 140px);
+    padding-top: 10vh;
+    padding-bottom: 10vh;
   }
 
   .intro-strip__text,
   .statement {
-    font-size: clamp(1.7rem, 9vw, 3.3rem);
+    font-size: clamp(1.3rem, 7vw, 2.2rem);
   }
 
   .expertise,
@@ -777,7 +825,7 @@ body.skip-intro .line-reveal > span {
   }
 
   .contact__mail {
-    font-size: clamp(2rem, 10vw, 3.8rem);
+    font-size: clamp(1.5rem, 8vw, 2.6rem);
   }
 }
 

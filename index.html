@@ -15,7 +15,7 @@
     >
     <meta name="robots" content="index, follow">
     <meta name="author" content="getsite">
-    <meta name="theme-color" content="#070809">
+    <meta name="theme-color" content="#020303">
     <link rel="canonical" href="https://getsite.uz/">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="manifest.webmanifest">
@@ -89,11 +89,6 @@
       </nav>
       <div class="site-header__actions">
         <a class="talk-link" href="#contact">Let's talk</a>
-        <div class="language-switcher" aria-label="Выбор языка">
-          <button class="is-active" type="button" data-lang="ru" aria-pressed="true">Ru</button>
-          <button type="button" data-lang="uz" aria-pressed="false">Uz</button>
-          <button type="button" data-lang="en" aria-pressed="false">En</button>
-        </div>
         <button class="menu-button" type="button" data-menu-open aria-label="Открыть меню" aria-expanded="false" aria-controls="site-menu">
           <span></span>
           <span></span>
@@ -102,73 +97,74 @@
     </header>
 
     <main id="main-content" tabindex="-1">
-      <section class="hero section" id="top" data-screen-label="Hero" data-shape="0">
-        <p class="section-kicker line-reveal"><span>Digital agency from Tashkent</span></p>
-        <h1 class="hero__title" aria-label="Boost your digital system">
-          <span class="line-reveal"><span>BOOST</span></span>
-          <span class="line-reveal"><span>YOUR</span></span>
-          <span class="line-reveal"><span>DIGITAL</span></span>
-          <span class="line-reveal"><span>SYSTEM<span class="accent">.</span></span></span>
-        </h1>
-        <div class="hero__copy line-reveal">
-          <span>
-            Создаем цифровой опыт на стыке <strong>дизайна</strong>, кода и автоматизации. Сайт ведет клиента в заявку, бот и CRM.
-          </span>
+      <section class="hero section section--left" id="top" data-screen-label="Hero" data-shape="0" data-side="left">
+        <div class="section__content">
+          <p class="section-kicker line-reveal"><span>Digital agency · Tashkent</span></p>
+          <h1 class="hero__title" aria-label="Boost your digital system">
+            <span class="line-reveal"><span>BOOST YOUR</span></span>
+            <span class="line-reveal"><span>DIGITAL<span class="accent">.</span></span></span>
+          </h1>
+          <div class="hero__copy line-reveal">
+            <span>Сайты, боты и CRM — одна система для заявок.</span>
+          </div>
         </div>
       </section>
 
-      <section class="intro-strip section" data-screen-label="Intro" data-shape="3">
-        <p class="intro-strip__text reveal">
-          Websites. Bots. CRM. One connected flow.
-        </p>
+      <div class="section-gap" data-shape="7" data-side="left" aria-hidden="true"></div>
+
+      <section class="intro-strip section section--right" data-screen-label="Intro" data-shape="3" data-side="right">
+        <div class="section__content">
+          <p class="intro-strip__text reveal">Сайт → бот → CRM</p>
+        </div>
       </section>
 
-      <section class="agency section" id="agency" data-screen-label="Agency" data-shape="6">
-        <div class="section-title reveal">
-          <span>01</span>
-          <h2>AGENCY</h2>
+      <div class="section-gap" data-shape="7" data-side="right" aria-hidden="true"></div>
+
+      <section class="agency section section--left" id="agency" data-screen-label="Agency" data-shape="5" data-side="left">
+        <div class="section__content">
+          <div class="section-title reveal">
+            <span>01</span>
+            <h2>AGENCY</h2>
+          </div>
+          <p class="statement reveal">Digital-система от интереса до сделки.</p>
         </div>
-        <p class="statement reveal">
-          Делаем не просто красивый экран, а digital-систему, которая ведет клиента от интереса до сделки.
-        </p>
       </section>
 
-      <section class="solutions section" id="solutions" data-screen-label="Solutions" data-shape="1">
-        <div class="section-title reveal">
-          <span>02</span>
-          <h2>SOLUTIONS</h2>
+      <div class="section-gap" data-shape="7" data-side="left" aria-hidden="true"></div>
+
+      <section class="solutions section section--right" id="solutions" data-screen-label="Solutions" data-shape="1" data-side="right">
+        <div class="section__content">
+          <div class="section-title reveal">
+            <span>02</span>
+            <h2>SOLUTIONS</h2>
+          </div>
+          <p class="statement statement--narrow reveal">Стратегия, дизайн, код и автоматизация.</p>
         </div>
-        <p class="statement statement--narrow reveal">
-          Strategy, creative, tech and automation built as one system.
-        </p>
 
         <div class="expertise reveal" aria-label="Area of expertise">
           <div class="expertise__marquee" aria-hidden="true">
-            <span>Area of expertise</span>
-            <span>Area of expertise</span>
+            <span>Expertise</span>
+            <span>Expertise</span>
           </div>
           <article class="expertise-card" data-service data-service-shape="3">
             <h3>Strategy</h3>
             <ul>
               <li>Offer logic</li>
               <li>Client path</li>
-              <li>Launch roadmap</li>
             </ul>
           </article>
           <article class="expertise-card" data-service data-service-shape="1">
             <h3>Creative</h3>
             <ul>
               <li>UX/UI design</li>
-              <li>Motion direction</li>
-              <li>Landing structure</li>
+              <li>Motion</li>
             </ul>
           </article>
           <article class="expertise-card" data-service data-service-shape="2">
             <h3>Tech</h3>
             <ul>
-              <li>Web development</li>
-              <li>Telegram bots</li>
-              <li>CRM integration</li>
+              <li>Web & bots</li>
+              <li>CRM</li>
             </ul>
           </article>
           <article class="expertise-card" data-service data-service-shape="4">
@@ -176,45 +172,48 @@
             <ul>
               <li>Lead routing</li>
               <li>Reports</li>
-              <li>Alerts</li>
             </ul>
           </article>
         </div>
       </section>
 
-      <section class="team section" id="team" data-screen-label="Team" data-shape="5">
-        <div class="team__headline reveal">
-          <span>03</span>
-          <h2>OUR<br>SMART<br>STACK</h2>
-        </div>
-        <p class="team__copy reveal">
-          Small senior team. Fast execution. Design, code and systems in one workflow.
-        </p>
-        <div class="team-strip reveal" aria-label="Команда и стек">
-          <span>Product</span>
-          <span>Design</span>
-          <span>Frontend</span>
-          <span>Backend</span>
-          <span>CRM</span>
-          <span>Bots</span>
+      <div class="section-gap" data-shape="7" data-side="right" aria-hidden="true"></div>
+
+      <section class="team section section--left" id="team" data-screen-label="Team" data-shape="4" data-side="left">
+        <div class="section__content">
+          <div class="team__headline reveal">
+            <span>03</span>
+            <h2>TEAM</h2>
+          </div>
+          <p class="team__copy reveal">Senior-команда. Дизайн, код и системы в одном потоке.</p>
+          <div class="team-strip reveal" aria-label="Команда и стек">
+            <span>Product</span>
+            <span>Design</span>
+            <span>Dev</span>
+            <span>CRM</span>
+          </div>
         </div>
       </section>
 
-      <section class="contact section" id="contact" data-screen-label="Contact" data-shape="6">
-        <p class="contact__eyebrow reveal">work with us:</p>
-        <a class="contact__mail reveal" href="mailto:hello@getsite.uz">hello@getsite.uz</a>
-        <div class="contact__actions reveal">
-          <a href="https://t.me/getsite" target="_blank" rel="noopener noreferrer">Telegram</a>
-          <a href="tel:+998000000000">+998 00 000-00-00</a>
-          <span>Tashkent, Uzbekistan</span>
+      <div class="section-gap" data-shape="7" data-side="left" aria-hidden="true"></div>
+
+      <section class="contact section section--right" id="contact" data-screen-label="Contact" data-shape="6" data-side="right">
+        <div class="section__content">
+          <p class="contact__eyebrow reveal">work with us:</p>
+          <a class="contact__mail reveal" href="mailto:hello@getsite.uz">hello@getsite.uz</a>
+          <div class="contact__actions reveal">
+            <a href="https://t.me/getsite" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a href="tel:+998000000000">+998 00 000-00-00</a>
+            <span>Tashkent, Uzbekistan</span>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>© Copyright 2026 getsite - Tashkent</span>
+      <span>© 2026 getsite</span>
       <strong>GETSITE</strong>
-      <span>Digital systems for business</span>
+      <span>Tashkent</span>
     </footer>
   </body>
 </html>
