@@ -733,6 +733,11 @@ main,
     linear-gradient(135deg, rgba(2, 3, 3, 0.94) 0%, rgba(2, 3, 3, 0.88) 72%, rgba(2, 3, 3, 0.55) 100%);
   backdrop-filter: blur(14px);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.section--process.section--right .section__content {
+  padding-left: 2vw;
 }
 
 .section--process .spotlight-intro {
@@ -746,14 +751,14 @@ main,
 
 .process .route {
   padding-left: 0;
-  padding-right: 32px;
+  padding-right: 24px;
   max-width: 100%;
 }
 
 .process .route::before,
 .process .route__fill {
   left: auto;
-  right: 6px;
+  right: 10px;
 }
 
 .process .route-step {
@@ -763,7 +768,7 @@ main,
 
 .process .route-step__dot {
   left: auto;
-  right: -26px;
+  right: 6px;
   top: 10px;
   width: 8px;
   height: 8px;
@@ -1922,8 +1927,20 @@ body.page-blog {
     border-radius: 16px;
   }
 
-  .process .route {
-    padding-right: 28px;
+  .section--process .route {
+    padding-left: 24px;
+    padding-right: 0;
+  }
+
+  .section--process .route::before,
+  .section--process .route__fill {
+    left: 10px;
+    right: auto;
+  }
+
+  .section--process .route-step__dot {
+    left: 6px;
+    right: auto;
   }
 
   .pricing-mains,
