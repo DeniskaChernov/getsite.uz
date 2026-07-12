@@ -62,7 +62,7 @@
   }
   const buildLogoRaw = (pts) => gen((a, i, f) => {
     if (pts.length && f < 0.90) { const p = pts[Math.floor(R() * pts.length)]; put(a, i, (p[0] / 640 - 0.5) * 3.4 + G() * 0.01, (0.5 - p[1] / 160) * 0.85 + G() * 0.01, (R() - 0.5) * 0.2); }
-    else radialDust(a, i, 0.4, 6);
+    else radialDust(a, i, 0.4, 4);
   });
 
   function makeShapes() {
@@ -90,53 +90,53 @@
       } else if (f < 0.82) {
         const t = R(), an = R() * 6.2832, y = -0.95 - t * 1.35, r = 0.16 * (1 - t * 0.75) * (0.35 + R() * 0.65);
         put(a, i, Math.cos(an) * r + G() * 0.02, y, Math.sin(an) * r * 0.55);
-      } else radialDust(a, i, 1.2, 9);
+      } else radialDust(a, i, 0.9, 5);
     });
 
-    // 1 WEBSITE — browser UI card: header, image block, text lines, 3 widgets
-    const WX0 = -1.05, WX1 = 1.05, WY0 = -0.9, WY1 = 0.92, HDR = 0.55;
+    // 1 WEBSITE — browser UI card (reference layout)
+    const WX0 = -0.82, WX1 = 0.82, WY0 = -0.7, WY1 = 0.74, HDR = 0.44;
     shapes[1] = gen((a, i, f) => {
-      if (f < 0.14) {
-        rectFill(a, i, WX0, WY0, WX1, WY1, 0.1 + G() * 0.02, 0.025);
-      } else if (f < 0.20) {
-        rectEdge(a, i, WX0, WY0, WX1, WY1, 0.12, 0.025);
-      } else if (f < 0.24) {
-        seg(a, i, WX0 + 0.08, HDR, WX1 - 0.08, HDR, 0.11, 0.11);
-      } else if (f < 0.28) {
+      if (f < 0.13) {
+        rectFill(a, i, WX0, WY0, WX1, WY1, 0.1 + G() * 0.02, 0.02);
+      } else if (f < 0.18) {
+        rectEdge(a, i, WX0, WY0, WX1, WY1, 0.11, 0.02);
+      } else if (f < 0.22) {
+        seg(a, i, WX0 + 0.06, HDR, WX1 - 0.06, HDR, 0.1, 0.1);
+      } else if (f < 0.26) {
         const k = Math.floor(R() * 3);
-        sphere(a, i, [-0.82, -0.72, -0.62][k], 0.74, 0.11 + G() * 0.01, 0.022);
-      } else if (f < 0.32) {
-        rectFill(a, i, 0.05, 0.62, 0.88, 0.76, 0.11, 0.015);
-      } else if (f < 0.40) {
-        rectFill(a, i, WX0 + 0.08, 0.08, -0.18, 0.48, 0.12, 0.02);
-      } else if (f < 0.44) {
-        if (R() < 0.55) tri(a, i, [-0.85, 0.12], [-0.55, 0.38], [-0.25, 0.12], 0.13, 0.015);
-        else tri(a, i, [-0.55, 0.12], [-0.22, 0.32], [0.02, 0.12], 0.13, 0.015);
-      } else if (f < 0.46) {
-        sphere(a, i, -0.28, 0.4, 0.13, 0.055);
+        sphere(a, i, [-0.64, -0.56, -0.48][k], 0.58, 0.1 + G() * 0.01, 0.02);
+      } else if (f < 0.30) {
+        rectFill(a, i, 0.06, 0.5, 0.7, 0.58, 0.1, 0.012);
+      } else if (f < 0.38) {
+        rectFill(a, i, WX0 + 0.06, 0.08, -0.14, 0.4, 0.11, 0.018);
+      } else if (f < 0.41) {
+        if (R() < 0.55) tri(a, i, [-0.66, 0.12], [-0.44, 0.32], [-0.28, 0.12], 0.12, 0.012);
+        else tri(a, i, [-0.44, 0.12], [-0.22, 0.28], [-0.1, 0.12], 0.12, 0.012);
+      } else if (f < 0.43) {
+        sphere(a, i, -0.2, 0.32, 0.12, 0.048);
       } else if (f < 0.52) {
-        const k = Math.floor(R() * 3), ys = [0.42, 0.32, 0.22];
-        seg(a, i, 0.3, ys[k], 0.88, ys[k], 0.12, 0.12);
+        const k = Math.floor(R() * 3), ys = [0.3, 0.24, 0.18];
+        seg(a, i, 0.24, ys[k], 0.72, ys[k], 0.11, 0.11);
       } else if (f < 0.56) {
-        seg(a, i, 0.3, 0.12, 0.82, 0.12, 0.12, 0.12);
+        seg(a, i, 0.24, 0.36, 0.68, 0.36, 0.11, 0.11);
       } else if (f < 0.58) {
-        seg(a, i, 0.3, 0.46, 0.9, 0.46, 0.12, 0.12);
+        seg(a, i, 0.24, 0.1, 0.7, 0.1, 0.11, 0.11);
       } else if (f < 0.66) {
-        const k = Math.floor(R() * 3), x0 = [-0.97, -0.29, 0.39][k];
-        rectFill(a, i, x0, -0.78, x0 + 0.58, -0.32, 0.12, 0.02);
+        const k = Math.floor(R() * 3), x0 = [-0.74, -0.18, 0.38][k];
+        rectFill(a, i, x0, -0.64, x0 + 0.48, -0.3, 0.11, 0.018);
       } else if (f < 0.72) {
-        const k = Math.floor(R() * 3), x0 = [-0.97, -0.29, 0.39][k];
-        rectEdge(a, i, x0, -0.78, x0 + 0.58, -0.32, 0.13, 0.015);
+        const k = Math.floor(R() * 3), x0 = [-0.74, -0.18, 0.38][k];
+        rectEdge(a, i, x0, -0.64, x0 + 0.48, -0.3, 0.12, 0.015);
       } else if (f < 0.80) {
-        const k = Math.floor(R() * 3), x0 = [-0.93, -0.25, 0.43][k];
-        const line = Math.floor(R() * 3), ys = [-0.42, -0.54, -0.66], w = [0.36, 0.28, 0.22][line];
-        seg(a, i, x0, ys[line], x0 + w[line], ys[line], 0.13, 0.13);
+        const k = Math.floor(R() * 3), x0 = [-0.7, -0.14, 0.42][k];
+        const line = Math.floor(R() * 3), ys = [-0.38, -0.48, -0.56], w = [0.34, 0.26, 0.2][line];
+        seg(a, i, x0, ys[line], x0 + w[line], ys[line], 0.12, 0.12);
       } else if (f < 0.86) {
-        const cr = Math.floor(R() * 4), r = 0.09;
+        const cr = Math.floor(R() * 4), r = 0.07;
         const cx = cr < 2 ? WX1 : WX0, cy = cr % 2 === 0 ? WY1 : WY0;
         const an = R() * 1.57;
-        put(a, i, cx + (cr < 2 ? -1 : 1) * Math.cos(an) * r, cy + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, 0.12);
-      } else radialDust(a, i, 1.2, 8);
+        put(a, i, cx + (cr < 2 ? -1 : 1) * Math.cos(an) * r, cy + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, 0.11);
+      } else radialDust(a, i, 0.9, 5);
     });
 
     // 2 BRIEFCASE — portfolio bag with dashboard widgets on front
@@ -170,48 +170,48 @@
         const k = Math.floor(R() * 3);
         sphere(a, i, -0.1 + k * 0.1, -0.6, 0.17, k === 1 ? 0.042 : 0.028);
       } else if (f < 0.82) rectFill(a, i, -0.1, 0.26, 0.1, 0.4, 0.17, 0.02);
-      else radialDust(a, i, 1.5, 9.5);
+      else radialDust(a, i, 1.0, 5.5);
     });
 
-    // 3 SUPPORT — headset + chat bubble with typing dots
-    const BX0 = -0.38, BX1 = 0.38, BY0 = -0.28, BY1 = 0.38;
+    // 3 SUPPORT — headset wrapping chat bubble (reference layout)
+    const BX0 = -0.42, BX1 = 0.42, BY0 = -0.32, BY1 = 0.42;
     shapes[3] = gen((a, i, f) => {
-      if (f < 0.22) {
-        rectFill(a, i, BX0, BY0, BX1, BY1, 0.08 + G() * 0.02, 0.025);
-      } else if (f < 0.28) {
+      if (f < 0.20) {
+        rectFill(a, i, BX0, BY0, BX1, BY1, 0.08 + G() * 0.02, 0.02);
+      } else if (f < 0.26) {
         rectEdge(a, i, BX0, BY0, BX1, BY1, 0.1, 0.02);
-      } else if (f < 0.32) {
-        tri(a, i, [BX0 + 0.02, BY0], [BX0 - 0.18, BY0 - 0.22], [BX0 + 0.14, BY0 - 0.02], 0.08, 0.02);
-      } else if (f < 0.36) {
+      } else if (f < 0.30) {
+        tri(a, i, [BX0 + 0.02, BY0], [BX0 - 0.16, BY0 - 0.18], [BX0 + 0.12, BY0 - 0.02], 0.08, 0.015);
+      } else if (f < 0.34) {
         const k = Math.floor(R() * 3);
-        sphere(a, i, [-0.14, 0, 0.14][k], 0.02, 0.12 + G() * 0.01, 0.028 + G() * 0.008);
-      } else if (f < 0.44) {
-        const an = 0.35 + R() * 2.45, r = 0.82 + G() * 0.05;
-        put(a, i, Math.cos(an) * r * 0.95, Math.sin(an) * r * 0.62 + 0.05, 0.05 + G() * 0.02);
-      } else if (f < 0.52) {
-        rectFill(a, i, -0.82, -0.2, -0.42, 0.42, 0.06 + G() * 0.02, 0.03);
-      } else if (f < 0.56) {
-        rectEdge(a, i, -0.82, -0.2, -0.42, 0.42, 0.08, 0.025);
-      } else if (f < 0.64) {
-        rectFill(a, i, 0.42, -0.2, 0.82, 0.42, 0.06 + G() * 0.02, 0.03);
-      } else if (f < 0.68) {
-        rectEdge(a, i, 0.42, -0.2, 0.82, 0.42, 0.08, 0.025);
-      } else if (f < 0.72) {
+        sphere(a, i, [-0.16, 0, 0.16][k], 0.04, 0.11 + G() * 0.01, 0.026);
+      } else if (f < 0.42) {
+        const an = 0.42 + R() * 2.35, r = 0.76 + G() * 0.04;
+        put(a, i, Math.cos(an) * r, Math.sin(an) * r * 0.58 + 0.08, 0.05 + G() * 0.018);
+      } else if (f < 0.50) {
+        rectFill(a, i, -0.78, -0.16, -0.38, 0.48, 0.06 + G() * 0.02, 0.025);
+      } else if (f < 0.54) {
+        rectEdge(a, i, -0.78, -0.16, -0.38, 0.48, 0.08, 0.02);
+      } else if (f < 0.62) {
+        rectFill(a, i, 0.38, -0.16, 0.78, 0.48, 0.06 + G() * 0.02, 0.025);
+      } else if (f < 0.66) {
+        rectEdge(a, i, 0.38, -0.16, 0.78, 0.48, 0.08, 0.02);
+      } else if (f < 0.70) {
         const t = R();
-        put(a, i, 0.84 + G() * 0.02, -0.02 + t * 0.22, 0.1 + G() * 0.01);
-      } else if (f < 0.78) {
+        put(a, i, 0.8 + G() * 0.015, 0.02 + t * 0.18, 0.09 + G() * 0.01);
+      } else if (f < 0.76) {
         const t = R(), u = 1 - t;
-        put(a, i, u * u * 0.62 + 2 * u * t * 0.48 + t * t * 0.2 + G() * 0.01, u * u * -0.18 + 2 * u * t * -0.42 + t * t * -0.6 + G() * 0.01, 0.07 + G() * 0.015);
-      } else if (f < 0.82) {
-        rectFill(a, i, 0.12, -0.62, 0.32, -0.48, 0.08, 0.015);
-      } else if (f < 0.86) {
+        put(a, i, u * u * 0.58 + 2 * u * t * 0.44 + t * t * 0.18 + G() * 0.01, u * u * -0.14 + 2 * u * t * -0.36 + t * t * -0.52 + G() * 0.01, 0.07 + G() * 0.012);
+      } else if (f < 0.80) {
+        rectFill(a, i, 0.1, -0.54, 0.28, -0.42, 0.08, 0.012);
+      } else if (f < 0.84) {
         const t = R();
-        put(a, i, 0.18 + t * 0.08, -0.52 + G() * 0.01, 0.1);
-      } else radialDust(a, i, 1.3, 9);
+        put(a, i, 0.16 + t * 0.07, -0.46 + G() * 0.01, 0.09);
+      } else radialDust(a, i, 0.9, 5);
     });
 
-    // 4 WORKFLOW — 4-step rail: research, idea, design, launch
-    const PLQ = [-1.32, -0.44, 0.44, 1.32];
+    // 4 WORKFLOW — 4-step rail (compact)
+    const PLQ = [-1.0, -0.33, 0.33, 1.0];
     const PW = 0.3, PH = 0.34;
     shapes[4] = gen((a, i, f) => {
       if (f < 0.24) {
@@ -254,11 +254,11 @@
           const t = R();
           put(a, i, cx + G() * 0.03, cy - 0.2 - t * 0.22, G() * 0.025);
         }
-      } else radialDust(a, i, 2.1, 10);
+      } else radialDust(a, i, 1.2, 5.5);
     });
 
-    // 5 CLOSED BOOK — 3/4 view: cover, spine ribs, page stack, bookmark
-    const FCX0 = -0.35, FCX1 = 0.85, FCY0 = -0.72, FCY1 = 0.78;
+    // 5 CLOSED BOOK — 3/4 view (reference proportions)
+    const FCX0 = -0.28, FCX1 = 0.68, FCY0 = -0.58, FCY1 = 0.62;
     const fcZ = (x) => 0.08 + ((x - FCX0) / (FCX1 - FCX0)) * 0.12;
     shapes[5] = gen((a, i, f) => {
       if (f < 0.30) {
@@ -304,14 +304,14 @@
         const cx = cr < 2 ? FCX1 : FCX0, cy = cr % 2 === 0 ? FCY1 : FCY0;
         const an = R() * 1.57;
         put(a, i, cx + (cr < 2 ? -1 : 1) * Math.cos(an) * r, cy + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, fcZ(cx) + 0.02);
-      } else radialDust(a, i, 1.4, 9);
+      } else radialDust(a, i, 0.9, 5);
     });
 
     // 6 LOGO — extruded glyphs
     shapes[6] = buildLogoRaw(buildLogoPts());
 
-    // 7 TELEGRAM — 3D paper plane with center crease glow
-    const TN = [1.25, 0.58], TBL = [-1.05, 0.38], TBR = [0.35, -0.28], TC = [0.02, 0.08], TKF = [-0.35, -0.72];
+    // 7 TELEGRAM — paper plane (reference silhouette)
+    const TN = [0.96, 0.44], TBL = [-0.82, 0.3], TBR = [0.28, -0.22], TC = [0.02, 0.06], TKF = [-0.28, -0.58];
     shapes[7] = gen((a, i, f) => {
       if (f < 0.26) tri(a, i, TN, TBL, TC, 0.14, 0.02);
       else if (f < 0.42) tri(a, i, TN, TC, TBR, 0.08, 0.02);
@@ -327,12 +327,12 @@
         put(a, i, TN[0] + G() * 0.015, TN[1] + G() * 0.015, 0.16 + G() * 0.01);
       } else if (f < 0.88) {
         put(a, i, TBL[0] + G() * 0.02, TBL[1] + G() * 0.02, 0.12);
-      } else radialDust(a, i, 1.3, 9);
+      } else radialDust(a, i, 0.9, 5);
     });
 
-    // 8 AUTOMATION — hub gear + 4 modules + pipes
-    const AC = [[-0.92, 0.82], [0.92, 0.82], [-0.92, -0.82], [0.92, -0.82]];
-    const ASQ = 0.24;
+    // 8 AUTOMATION — hub gear + 4 modules + pipes (reference layout)
+    const AC = [[-0.72, 0.64], [0.72, 0.64], [-0.72, -0.64], [0.72, -0.64]];
+    const ASQ = 0.2;
     shapes[8] = gen((a, i, f) => {
       if (f < 0.18) {
         const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
@@ -352,30 +352,30 @@
         put(a, i, AC[k][0] * 0.72 * t + G() * 0.02, AC[k][1] * 0.72 * t + G() * 0.02, 0.05 + G() * 0.015);
       } else if (f < 0.48) {
         const t = R();
-        put(a, i, -0.5 + t * 1.0, 0.45 + G() * 0.025, 0.05);
+        put(a, i, -0.4 + t * 0.8, 0.36 + G() * 0.02, 0.05);
       } else if (f < 0.54) {
-        if (R() < 0.45) seg(a, i, -1.02, 0.72, -0.82, 0.98, 0.1, 0.1);
-        else if (R() < 0.75) seg(a, i, -0.82, 0.98, -0.98, 0.78, 0.1, 0.1);
-        else seg(a, i, -0.82, 0.98, -0.68, 0.72, 0.1, 0.1);
+        if (R() < 0.45) seg(a, i, -0.8, 0.56, -0.64, 0.76, 0.1, 0.1);
+        else if (R() < 0.75) seg(a, i, -0.64, 0.76, -0.76, 0.6, 0.1, 0.1);
+        else seg(a, i, -0.64, 0.76, -0.52, 0.56, 0.1, 0.1);
       } else if (f < 0.60) {
-        const line = Math.floor(R() * 3), y = 0.92 - line * 0.1;
-        seg(a, i, 0.72, y, 1.08, y, 0.1, 0.1);
-        sphere(a, i, [0.82, 0.98, 0.94][line], y, 0.11, 0.028);
+        const line = Math.floor(R() * 3), y = 0.72 - line * 0.08;
+        seg(a, i, 0.56, y, 0.84, y, 0.1, 0.1);
+        sphere(a, i, [0.64, 0.76, 0.72][line], y, 0.1, 0.024);
       } else if (f < 0.66) {
-        const cyl = Math.floor(R() * 3), y = -0.68 - cyl * 0.14, an = R() * 6.2832;
-        put(a, i, -0.92 + Math.cos(an) * 0.1, y, 0.08 + Math.sin(an) * 0.04);
+        const cyl = Math.floor(R() * 3), y = -0.54 - cyl * 0.11, an = R() * 6.2832;
+        put(a, i, -0.72 + Math.cos(an) * 0.08, y, 0.07 + Math.sin(an) * 0.03);
       } else if (f < 0.72) {
-        rectEdge(a, i, 0.7, -0.95, 1.12, -0.62, 0.1, 0.02);
+        rectEdge(a, i, 0.56, -0.74, 0.86, -0.5, 0.09, 0.015);
         const dot = Math.floor(R() * 3);
-        sphere(a, i, 0.76 + dot * 0.06, -0.68, 0.12, 0.018);
-        rectFill(a, i, 0.82, -0.88, 1.05, -0.72, 0.11, 0.01);
+        sphere(a, i, 0.6 + dot * 0.05, -0.52, 0.1, 0.016);
+        rectFill(a, i, 0.64, -0.66, 0.8, -0.56, 0.1, 0.01);
       } else if (f < 0.80) {
         const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
         const cr = Math.floor(R() * 4), r = 0.06;
         const ex = cr < 2 ? cx + ASQ : cx - ASQ, ey = cr % 2 === 0 ? cy + ASQ : cy - ASQ;
         const an = R() * 1.57;
         put(a, i, ex + (cr < 2 ? -1 : 1) * Math.cos(an) * r, ey + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, 0.1);
-      } else radialDust(a, i, 1.5, 9);
+      } else radialDust(a, i, 0.9, 5);
     });
 
     return { shapes: shapes.map(shuffle), shuffle };
@@ -412,7 +412,7 @@ void main(){
     sin(uTime * (0.5 + aSeed.y) + aSeed.x * 19.0),
     cos(uTime * (0.45 + aSeed.y * 0.7) + aSeed.x * 29.0),
     sin(uTime * (0.6 + aSeed.y * 0.5) + aSeed.x * 37.0));
-  p *= 1.0 + 0.022 * sin(uTime * 0.5);
+  p *= 1.0 + 0.012 * sin(uTime * 0.5);
   vec4 mv = uMV * vec4(p, 1.0);
   vec4 pos = uP * mv;
   vec2 ndc = pos.xy / pos.w;
@@ -449,9 +449,11 @@ void main(){
   };
 
   // camera z distance per shape; horizontal shift comes from setSide()
-  const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.4, 3.9, 3.8, 3.7, 4.0, 4.2];
+  const CAM_Z = [4.0, 4.8, 4.3, 4.9, 5.4, 4.5, 4.3, 4.7, 4.8, 4.8];
   const CAM_RX = [0.08, 0.10, 0.10, 0.10, 0.06, 0.14, 0.08, 0.12, 0.08, 0.04];
-  const SIDE_X = 1.15;
+  const CAM_SCL = [0.86, 0.74, 0.82, 0.76, 0.66, 0.76, 0.88, 0.74, 0.72, 1.0];
+  const SIDE_X = 1.55;
+  const SIDE_X_M = 0.95;
 
   class PFScene extends HTMLElement {
     connectedCallback() {
@@ -579,17 +581,18 @@ void main(){
         const tRx = CAM_RX[id] - this._my * 0.04;
         this._ry += (tRy - this._ry) * 0.028;
         this._rx += (tRx - this._rx) * 0.028;
-        const targetCx = MOBILE ? 0 : -this._side * SIDE_X;
+        const targetCx = -this._side * (MOBILE ? SIDE_X_M : SIDE_X);
         const targetCz = CAM_Z[id];
         this._side += (this._targetSide - this._side) * 0.05;
         this._cx += (targetCx - this._cx) * 0.05;
         this._cz += (targetCz - this._cz) * 0.05;
 
         const cy = Math.cos(this._ry), sy = Math.sin(this._ry), cx = Math.cos(this._rx), sx = Math.sin(this._rx);
+        const scl = CAM_SCL[id] ?? 1;
         const m = this._mv;
-        m[0] = cy; m[1] = sx * sy; m[2] = -cx * sy; m[3] = 0;
-        m[4] = 0; m[5] = cx; m[6] = sx; m[7] = 0;
-        m[8] = sy; m[9] = -sx * cy; m[10] = cx * cy; m[11] = 0;
+        m[0] = cy * scl; m[1] = sx * sy * scl; m[2] = -cx * sy * scl; m[3] = 0;
+        m[4] = 0; m[5] = cx * scl; m[6] = sx * scl; m[7] = 0;
+        m[8] = sy * scl; m[9] = -sx * cy * scl; m[10] = cx * cy * scl; m[11] = 0;
         m[12] = this._cx; m[13] = -0.02; m[14] = -this._cz; m[15] = 1;
 
         gl.uniformMatrix4fv(this._u.uMV, false, m);
