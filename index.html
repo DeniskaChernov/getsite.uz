@@ -34,15 +34,15 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=8">
+    <link rel="stylesheet" href="assets/styles.css?v=9">
     <noscript>
       <style>
         .preloader { display: none !important; }
         .line-reveal > span, .reveal { opacity: 1 !important; transform: none !important; }
       </style>
     </noscript>
-    <script src="assets/particles2.js?v=8" defer></script>
-    <script src="assets/app.js?v=8" defer></script>
+    <script src="assets/particles2.js?v=9" defer></script>
+    <script src="assets/app.js?v=9" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Перейти к содержанию</a>
@@ -99,10 +99,20 @@
           <h1 class="hero__title">
             <span class="line-reveal"><span>getsite<span class="accent">*</span></span></span>
           </h1>
+          <p class="hero__tagline line-reveal">
+            <span>Собираем и запускаем.</span>
+          </p>
+          <p class="hero__lead line-reveal">
+            <span>Опишите задачу — вернёмся с планом, сроками и сметой. Без презентаций на 40 слайдов.</span>
+          </p>
+          <div class="hero__actions line-reveal">
+            <a class="btn btn--accent" href="#contact">Обсудить проект</a>
+            <a class="btn btn--ghost" href="#pricing">Смотреть цены</a>
+          </div>
         </div>
         <div class="hero__meta line-reveal">
           <span>Ташкент</span>
-          <span>СНГ</span>
+          <span>по всему СНГ</span>
         </div>
       </section>
 
@@ -115,23 +125,23 @@
         </div>
       </section>
 
-      <section class="pricing section section--left" id="pricing" data-screen-label="Цены" data-shape="1" data-side="left">
-        <div class="section__content section__content--wide">
+      <section class="pricing section section--left section--pricing" id="pricing" data-screen-label="Цены" data-shape="1" data-side="left">
+        <div class="section__content section__content--pricing">
           <div class="spotlight-intro reveal">
             <h2 class="spotlight__title">Цены</h2>
             <p class="spotlight__text">
-              Цена «от» — при стандартном составе и готовых материалах. Точная сумма зависит от объёма, функций и интеграций.
+              Цена «от» — при стандартном составе. Точная сумма зависит от объёма, функций и интеграций. Сложный проект начинаем с аналитики.
             </p>
           </div>
 
           <div class="pricing-catalog reveal">
             <section class="pricing-group">
               <h3 class="pricing-group__title">Сайты</h3>
-              <div class="pricing-mains" data-stagger>
+              <div class="pricing-mains pricing-mains--duo" data-stagger>
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Лендинг</h4>
-                    <p class="price-card__sum">от 4,9 млн</p>
+                    <p class="price-card__sum">от 4,9 млн сум</p>
                   </div>
                   <p class="price-card__desc">Одностраничный сайт для рекламы и заявок.</p>
                   <p class="price-card__included">Структура, до 10 блоков, дизайн, адаптив, формы, Telegram-уведомления, базовое SEO, аналитика, запуск.</p>
@@ -139,7 +149,7 @@
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Корпоративный сайт</h4>
-                    <p class="price-card__sum">от 8,9 млн</p>
+                    <p class="price-card__sum">от 8,9 млн сум</p>
                   </div>
                   <p class="price-card__desc">Многостраничный сайт компании.</p>
                   <p class="price-card__included">До 8 страниц, структура, дизайн, CMS, формы, аналитика, базовое SEO и запуск.</p>
@@ -147,7 +157,7 @@
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Сайт-каталог</h4>
-                    <p class="price-card__sum">от 11,9 млн</p>
+                    <p class="price-card__sum">от 11,9 млн сум</p>
                   </div>
                   <p class="price-card__desc">Каталог товаров без обязательной онлайн-оплаты.</p>
                   <p class="price-card__included">Категории, карточки, CMS, заявки с товара, базовый поиск, аналитика и запуск.</p>
@@ -155,7 +165,7 @@
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Интернет-магазин</h4>
-                    <p class="price-card__sum">от 14,9 млн</p>
+                    <p class="price-card__sum">от 14,9 млн сум</p>
                   </div>
                   <p class="price-card__desc">Каталог, корзина, заказ и онлайн-продажи.</p>
                   <p class="price-card__included">Каталог, корзина, checkout, CMS, адаптив, статусы, аналитика и запуск.</p>
@@ -192,7 +202,7 @@
                 <article class="price-card price-card--accent">
                   <div class="price-card__top">
                     <h4>Telegram-бот</h4>
-                    <p class="price-card__sum">от 4,5 млн</p>
+                    <p class="price-card__sum">от 4,5 млн сум</p>
                   </div>
                   <p class="price-card__desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
                   <p class="price-card__included">Сценарий, меню, база, уведомления, админ-команды, тестирование и размещение.</p>
@@ -200,7 +210,7 @@
                 <article class="price-card price-card--accent">
                   <div class="price-card__top">
                     <h4>Бот + админ-панель</h4>
-                    <p class="price-card__sum">от 9,9 млн</p>
+                    <p class="price-card__sum">от 9,9 млн сум</p>
                   </div>
                   <p class="price-card__desc">Бот с web-панелью, статусами и пользователями.</p>
                   <p class="price-card__included">Бот, панель, роли, база данных, статусы, уведомления и базовые отчёты.</p>
@@ -208,7 +218,7 @@
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Telegram Mini App</h4>
-                    <p class="price-card__sum">от 18 млн</p>
+                    <p class="price-card__sum">от 18 млн сум</p>
                   </div>
                   <p class="price-card__desc">Веб-приложение внутри Telegram.</p>
                   <p class="price-card__included">MVP, Telegram-авторизация, интерфейс, база и до 3 ключевых сценариев.</p>
@@ -229,11 +239,11 @@
 
             <section class="pricing-group">
               <h3 class="pricing-group__title">Автоматизация</h3>
-              <div class="pricing-mains" data-stagger>
+              <div class="pricing-mains pricing-mains--duo" data-stagger>
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Аналитика и проектирование</h4>
-                    <p class="price-card__sum">от 1,9 млн</p>
+                    <p class="price-card__sum">от 1,9 млн сум</p>
                   </div>
                   <p class="price-card__desc">Разбор процессов перед CRM, Mini App или внутренней системой.</p>
                   <p class="price-card__included">Интервью, процессы, роли, MVP, функции, риски, этапы и предварительная смета.</p>
@@ -241,7 +251,7 @@
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Автоматизация процесса</h4>
-                    <p class="price-card__sum">от 3 млн</p>
+                    <p class="price-card__sum">от 3 млн сум</p>
                   </div>
                   <p class="price-card__desc">Автоматизация одного ручного процесса.</p>
                   <p class="price-card__included">Логика, интеграция сервисов, уведомления, тестирование и инструкция.</p>
@@ -249,7 +259,7 @@
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Интеграция систем</h4>
-                    <p class="price-card__sum">от 2,5 млн</p>
+                    <p class="price-card__sum">от 2,5 млн сум</p>
                   </div>
                   <p class="price-card__desc">Связка сайта, бота, CRM, платежей или API.</p>
                   <p class="price-card__included">Схема обмена, реализация, ошибки, тестирование и документация.</p>
@@ -257,7 +267,7 @@
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Внутренняя бизнес-система</h4>
-                    <p class="price-card__sum">от 20 млн</p>
+                    <p class="price-card__sum">от 20 млн сум</p>
                   </div>
                   <p class="price-card__desc">Сервис для сотрудников и внутренних процессов.</p>
                   <p class="price-card__included">После аналитики: MVP, роли, сущности, базовые отчёты, уведомления и размещение.</p>
@@ -265,7 +275,7 @@
                 <article class="price-card price-card--custom">
                   <div class="price-card__top">
                     <h4>CRM-система с нуля</h4>
-                    <p class="price-card__sum">от 25 млн</p>
+                    <p class="price-card__sum">от 25 млн сум</p>
                   </div>
                   <p class="price-card__desc">Индивидуальная CRM под процесс компании.</p>
                   <p class="price-card__included">После аналитики: воронка, клиенты, задачи, роли, статусы, отчёты и уведомления.</p>
@@ -286,7 +296,7 @@
 
             <section class="pricing-group">
               <h3 class="pricing-group__title">Поддержка</h3>
-              <div class="pricing-mains" data-stagger>
+              <div class="pricing-mains pricing-mains--solo" data-stagger>
                 <article class="price-card">
                   <div class="price-card__top">
                     <h4>Техническое сопровождение</h4>
