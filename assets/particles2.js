@@ -93,18 +93,50 @@
       } else radialDust(a, i, 1.2, 9);
     });
 
-    // 1 WEBSITE — 3D browser: front frame, recessed image, floating cards, back grid plane
+    // 1 WEBSITE — browser UI card: header, image block, text lines, 3 widgets
+    const WX0 = -1.05, WX1 = 1.05, WY0 = -0.9, WY1 = 0.92, HDR = 0.55;
     shapes[1] = gen((a, i, f) => {
-      if (f < 0.16) rectEdge(a, i, -1.4, -0.95, 1.4, 0.95, 0.30);
-      else if (f < 0.21) seg(a, i, -1.4, 0.70, 1.4, 0.70, 0.30, 0.30);
-      else if (f < 0.23) { const cx = -1.25 + Math.floor(R() * 3) * 0.1; put(a, i, cx + G() * 0.012, 0.82 + G() * 0.012, 0.30 + G() * 0.015); }
-      else if (f < 0.31) { if (R() < 0.55) seg(a, i, -1.15, 0.40, -0.15, 0.40, 0.30, 0.30); else seg(a, i, -1.15, 0.25, -0.4, 0.25, 0.30, 0.30); }
-      else if (f < 0.36) rectEdge(a, i, -1.15, -0.10, -0.75, 0.05, 0.32);
-      else if (f < 0.46) rectEdge(a, i, 0.15, -0.08, 1.15, 0.52, 0.05);
-      else if (f < 0.49) seg(a, i, 0.15, 0.52, 1.15, -0.08, 0.05, 0.05);
-      else if (f < 0.73) { const k = Math.floor(R() * 3), x0 = -1.15 + k * 0.82; if (R() < 0.7) rectEdge(a, i, x0, -0.78, x0 + 0.68, -0.30, -0.20); else rectFill(a, i, x0 + 0.06, -0.72, x0 + 0.62, -0.36, -0.20); }
-      else if (f < 0.88) { if (R() < 0.5) { const y0 = -0.9 + Math.floor(R() * 7) * 0.3; seg(a, i, -1.55, y0, 1.55, y0, -0.5, -0.5); } else { const x0 = -1.5 + Math.floor(R() * 11) * 0.3; seg(a, i, x0, -0.95, x0, 1.0, -0.5, -0.5); } }
-      else radialDust(a, i, 1.2, 8);
+      if (f < 0.14) {
+        rectFill(a, i, WX0, WY0, WX1, WY1, 0.1 + G() * 0.02, 0.025);
+      } else if (f < 0.20) {
+        rectEdge(a, i, WX0, WY0, WX1, WY1, 0.12, 0.025);
+      } else if (f < 0.24) {
+        seg(a, i, WX0 + 0.08, HDR, WX1 - 0.08, HDR, 0.11, 0.11);
+      } else if (f < 0.28) {
+        const k = Math.floor(R() * 3);
+        sphere(a, i, [-0.82, -0.72, -0.62][k], 0.74, 0.11 + G() * 0.01, 0.022);
+      } else if (f < 0.32) {
+        rectFill(a, i, 0.05, 0.62, 0.88, 0.76, 0.11, 0.015);
+      } else if (f < 0.40) {
+        rectFill(a, i, WX0 + 0.08, 0.08, -0.18, 0.48, 0.12, 0.02);
+      } else if (f < 0.44) {
+        if (R() < 0.55) tri(a, i, [-0.85, 0.12], [-0.55, 0.38], [-0.25, 0.12], 0.13, 0.015);
+        else tri(a, i, [-0.55, 0.12], [-0.22, 0.32], [0.02, 0.12], 0.13, 0.015);
+      } else if (f < 0.46) {
+        sphere(a, i, -0.28, 0.4, 0.13, 0.055);
+      } else if (f < 0.52) {
+        const k = Math.floor(R() * 3), ys = [0.42, 0.32, 0.22];
+        seg(a, i, 0.3, ys[k], 0.88, ys[k], 0.12, 0.12);
+      } else if (f < 0.56) {
+        seg(a, i, 0.3, 0.12, 0.82, 0.12, 0.12, 0.12);
+      } else if (f < 0.58) {
+        seg(a, i, 0.3, 0.46, 0.9, 0.46, 0.12, 0.12);
+      } else if (f < 0.66) {
+        const k = Math.floor(R() * 3), x0 = [-0.97, -0.29, 0.39][k];
+        rectFill(a, i, x0, -0.78, x0 + 0.58, -0.32, 0.12, 0.02);
+      } else if (f < 0.72) {
+        const k = Math.floor(R() * 3), x0 = [-0.97, -0.29, 0.39][k];
+        rectEdge(a, i, x0, -0.78, x0 + 0.58, -0.32, 0.13, 0.015);
+      } else if (f < 0.80) {
+        const k = Math.floor(R() * 3), x0 = [-0.93, -0.25, 0.43][k];
+        const line = Math.floor(R() * 3), ys = [-0.42, -0.54, -0.66], w = [0.36, 0.28, 0.22][line];
+        seg(a, i, x0, ys[line], x0 + w[line], ys[line], 0.13, 0.13);
+      } else if (f < 0.86) {
+        const cr = Math.floor(R() * 4), r = 0.09;
+        const cx = cr < 2 ? WX1 : WX0, cy = cr % 2 === 0 ? WY1 : WY0;
+        const an = R() * 1.57;
+        put(a, i, cx + (cr < 2 ? -1 : 1) * Math.cos(an) * r, cy + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, 0.12);
+      } else radialDust(a, i, 1.2, 8);
     });
 
     // 2 BRIEFCASE — portfolio bag with dashboard widgets on front
