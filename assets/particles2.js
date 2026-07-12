@@ -104,30 +104,33 @@
     // 1 WEBSITE — browser UI card (reference layout)
     const WX0 = -0.82, WX1 = 0.82, WY0 = -0.7, WY1 = 0.74, HDR = 0.44;
     shapes[1] = gen((a, i, f) => {
-      if (f < 0.13) {
+      if (f < 0.12) {
         rectFill(a, i, WX0, WY0, WX1, WY1, 0.1 + G() * 0.02, 0.02);
-      } else if (f < 0.18) {
+      } else if (f < 0.16) {
         rectEdge(a, i, WX0, WY0, WX1, WY1, 0.11, 0.02);
+      } else if (f < 0.19) {
+        rectFill(a, i, WX0 + 0.04, WY1 - 0.08, WX1 - 0.04, WY1, 0.1, 0.015);
       } else if (f < 0.22) {
         seg(a, i, WX0 + 0.06, HDR, WX1 - 0.06, HDR, 0.1, 0.1);
       } else if (f < 0.26) {
         const k = Math.floor(R() * 3);
-        sphere(a, i, [-0.64, -0.56, -0.48][k], 0.58, 0.1 + G() * 0.01, 0.02);
-      } else if (f < 0.30) {
-        rectFill(a, i, 0.06, 0.5, 0.7, 0.58, 0.1, 0.012);
-      } else if (f < 0.38) {
-        rectFill(a, i, WX0 + 0.06, 0.08, -0.14, 0.4, 0.11, 0.018);
-      } else if (f < 0.41) {
+        sphere(a, i, [-0.66, -0.56, -0.46][k], 0.58, 0.11 + G() * 0.012, 0.022);
+      } else if (f < 0.32) {
+        rectFill(a, i, -0.22, 0.5, 0.62, 0.6, 0.1, 0.014);
+        rectEdge(a, i, -0.22, 0.5, 0.62, 0.6, 0.11, 0.012);
+      } else if (f < 0.40) {
+        rectFill(a, i, WX0 + 0.06, 0.08, -0.16, 0.42, 0.11, 0.018);
+        rectEdge(a, i, WX0 + 0.06, 0.08, -0.16, 0.42, 0.12, 0.014);
+      } else if (f < 0.44) {
         if (R() < 0.55) tri(a, i, [-0.66, 0.12], [-0.44, 0.32], [-0.28, 0.12], 0.12, 0.012);
         else tri(a, i, [-0.44, 0.12], [-0.22, 0.28], [-0.1, 0.12], 0.12, 0.012);
-      } else if (f < 0.43) {
-        sphere(a, i, -0.2, 0.32, 0.12, 0.048);
-      } else if (f < 0.52) {
+      } else if (f < 0.46) {
+        sphere(a, i, -0.2, 0.32, 0.12, 0.052);
+      } else if (f < 0.54) {
         const k = Math.floor(R() * 3), ys = [0.3, 0.24, 0.18];
         seg(a, i, 0.24, ys[k], 0.72, ys[k], 0.11, 0.11);
-      } else if (f < 0.56) {
-        seg(a, i, 0.24, 0.36, 0.68, 0.36, 0.11, 0.11);
       } else if (f < 0.58) {
+        seg(a, i, 0.24, 0.36, 0.68, 0.36, 0.11, 0.11);
         seg(a, i, 0.24, 0.1, 0.7, 0.1, 0.11, 0.11);
       } else if (f < 0.66) {
         const k = Math.floor(R() * 3), x0 = [-0.74, -0.18, 0.38][k];
@@ -182,39 +185,42 @@
     });
 
     // 3 SUPPORT — headset wrapping chat bubble (reference layout)
-    const BX0 = -0.42, BX1 = 0.42, BY0 = -0.32, BY1 = 0.42;
+    const BX0 = -0.38, BX1 = 0.38, BY0 = -0.28, BY1 = 0.38;
     shapes[3] = gen((a, i, f) => {
-      if (f < 0.20) {
+      if (f < 0.18) {
         rectFill(a, i, BX0, BY0, BX1, BY1, 0.08 + G() * 0.02, 0.02);
-      } else if (f < 0.26) {
+      } else if (f < 0.22) {
         rectEdge(a, i, BX0, BY0, BX1, BY1, 0.1, 0.02);
-      } else if (f < 0.30) {
-        tri(a, i, [BX0 + 0.02, BY0], [BX0 - 0.16, BY0 - 0.18], [BX0 + 0.12, BY0 - 0.02], 0.08, 0.015);
-      } else if (f < 0.34) {
+      } else if (f < 0.26) {
+        tri(a, i, [BX0 + 0.04, BY0], [BX0 - 0.14, BY0 - 0.16], [BX0 + 0.1, BY0 - 0.02], 0.08, 0.015);
+      } else if (f < 0.32) {
+        const k = Math.floor(R() * 3), ys = [0.06, 0.0, -0.06];
+        seg(a, i, -0.22, ys[k], 0.22, ys[k], 0.1, 0.1);
+      } else if (f < 0.36) {
         const k = Math.floor(R() * 3);
-        sphere(a, i, [-0.16, 0, 0.16][k], 0.04, 0.11 + G() * 0.01, 0.026);
-      } else if (f < 0.42) {
-        const an = 0.42 + R() * 2.35, r = 0.76 + G() * 0.04;
-        put(a, i, Math.cos(an) * r, Math.sin(an) * r * 0.58 + 0.08, 0.05 + G() * 0.018);
+        sphere(a, i, [-0.18, 0, 0.18][k], 0.02, 0.11 + G() * 0.01, 0.028);
+      } else if (f < 0.44) {
+        const an = 0.55 + R() * 2.05, r = 0.82 + G() * 0.03;
+        put(a, i, Math.cos(an) * r, Math.sin(an) * r * 0.62 + 0.12, 0.05 + G() * 0.016);
       } else if (f < 0.50) {
-        rectFill(a, i, -0.78, -0.16, -0.38, 0.48, 0.06 + G() * 0.02, 0.025);
+        rectFill(a, i, -0.82, -0.12, -0.42, 0.52, 0.06 + G() * 0.02, 0.026);
       } else if (f < 0.54) {
-        rectEdge(a, i, -0.78, -0.16, -0.38, 0.48, 0.08, 0.02);
-      } else if (f < 0.62) {
-        rectFill(a, i, 0.38, -0.16, 0.78, 0.48, 0.06 + G() * 0.02, 0.025);
-      } else if (f < 0.66) {
-        rectEdge(a, i, 0.38, -0.16, 0.78, 0.48, 0.08, 0.02);
-      } else if (f < 0.70) {
+        rectEdge(a, i, -0.82, -0.12, -0.42, 0.52, 0.08, 0.02);
+      } else if (f < 0.60) {
+        rectFill(a, i, 0.42, -0.12, 0.82, 0.52, 0.06 + G() * 0.02, 0.026);
+      } else if (f < 0.64) {
+        rectEdge(a, i, 0.42, -0.12, 0.82, 0.52, 0.08, 0.02);
+      } else if (f < 0.68) {
         const t = R();
-        put(a, i, 0.8 + G() * 0.015, 0.02 + t * 0.18, 0.09 + G() * 0.01);
-      } else if (f < 0.76) {
+        put(a, i, 0.84 + G() * 0.012, 0.04 + t * 0.16, 0.09 + G() * 0.01);
+      } else if (f < 0.74) {
         const t = R(), u = 1 - t;
-        put(a, i, u * u * 0.58 + 2 * u * t * 0.44 + t * t * 0.18 + G() * 0.01, u * u * -0.14 + 2 * u * t * -0.36 + t * t * -0.52 + G() * 0.01, 0.07 + G() * 0.012);
-      } else if (f < 0.80) {
-        rectFill(a, i, 0.1, -0.54, 0.28, -0.42, 0.08, 0.012);
-      } else if (f < 0.84) {
+        put(a, i, u * u * 0.56 + 2 * u * t * 0.42 + t * t * 0.16 + G() * 0.01, u * u * -0.1 + 2 * u * t * -0.34 + t * t * -0.48 + G() * 0.01, 0.07 + G() * 0.012);
+      } else if (f < 0.78) {
+        rectFill(a, i, 0.12, -0.5, 0.3, -0.38, 0.08, 0.012);
+      } else if (f < 0.82) {
         const t = R();
-        put(a, i, 0.16 + t * 0.07, -0.46 + G() * 0.01, 0.09);
+        put(a, i, 0.18 + t * 0.06, -0.42 + G() * 0.01, 0.09);
       } else radialDust(a, i, 0.9, 5);
     });
 
@@ -319,65 +325,74 @@
     shapes[6] = buildLogoRaw(buildLogoPts());
 
     // 7 TELEGRAM — paper plane (reference silhouette)
-    const TN = [0.96, 0.44], TBL = [-0.82, 0.3], TBR = [0.28, -0.22], TC = [0.02, 0.06], TKF = [-0.28, -0.58];
+    const TN = [0.92, 0.52], TBL = [-0.78, 0.18], TBR = [0.22, -0.28], TC = [-0.02, 0.02], TKF = [-0.32, -0.62];
     shapes[7] = gen((a, i, f) => {
-      if (f < 0.26) tri(a, i, TN, TBL, TC, 0.14, 0.02);
-      else if (f < 0.42) tri(a, i, TN, TC, TBR, 0.08, 0.02);
-      else if (f < 0.52) tri(a, i, TBL, TBR, TKF, -0.14, 0.025);
-      else if (f < 0.56) tri(a, i, TC, TBR, TKF, -0.1, 0.02);
-      else if (f < 0.62) seg(a, i, TN[0], TN[1], TBL[0], TBL[1], 0.14, 0.1);
-      else if (f < 0.66) seg(a, i, TN[0], TN[1], TBR[0], TBR[1], 0.1, 0.05);
-      else if (f < 0.70) seg(a, i, TBL[0], TBL[1], TKF[0], TKF[1], 0.02, -0.12);
-      else if (f < 0.76) {
+      if (f < 0.28) tri(a, i, TN, TBL, TC, 0.14, 0.022);
+      else if (f < 0.44) tri(a, i, TN, TC, TBR, 0.08, 0.02);
+      else if (f < 0.54) tri(a, i, TBL, TBR, TKF, -0.14, 0.026);
+      else if (f < 0.58) tri(a, i, TC, TBR, TKF, -0.1, 0.02);
+      else if (f < 0.64) seg(a, i, TN[0], TN[1], TBL[0], TBL[1], 0.14, 0.1);
+      else if (f < 0.68) seg(a, i, TN[0], TN[1], TBR[0], TBR[1], 0.1, 0.05);
+      else if (f < 0.72) seg(a, i, TBL[0], TBL[1], TKF[0], TKF[1], 0.02, -0.12);
+      else if (f < 0.76) seg(a, i, TC[0], TC[1], TBR[0], TBR[1], 0.06, 0.04);
+      else if (f < 0.82) {
         const t = R();
-        seg(a, i, TN[0] - t * 1.1, TN[1] - t * 0.95, TN[0] - t * 1.1 + G() * 0.02, TN[1] - t * 0.95 + G() * 0.02, 0.12 - t * 0.18, 0.06 - t * 0.14);
-      } else if (f < 0.82) {
-        put(a, i, TN[0] + G() * 0.015, TN[1] + G() * 0.015, 0.16 + G() * 0.01);
-      } else if (f < 0.88) {
-        put(a, i, TBL[0] + G() * 0.02, TBL[1] + G() * 0.02, 0.12);
+        seg(a, i, TN[0] - t * 1.05, TN[1] - t * 0.88, TN[0] - t * 1.05 + G() * 0.02, TN[1] - t * 0.88 + G() * 0.02, 0.12 - t * 0.18, 0.06 - t * 0.14);
+      } else if (f < 0.86) {
+        put(a, i, TN[0] + G() * 0.012, TN[1] + G() * 0.012, 0.16 + G() * 0.01);
+      } else if (f < 0.90) {
+        put(a, i, TBL[0] + G() * 0.018, TBL[1] + G() * 0.018, 0.12);
       } else radialDust(a, i, 0.9, 5);
     });
 
     // 8 AUTOMATION — hub gear + 4 modules + pipes (reference layout)
-    const AC = [[-0.72, 0.64], [0.72, 0.64], [-0.72, -0.64], [0.72, -0.64]];
-    const ASQ = 0.2;
+    const AC = [[-0.74, 0.66], [0.74, 0.66], [-0.74, -0.66], [0.74, -0.66]];
+    const ASQ = 0.22;
     shapes[8] = gen((a, i, f) => {
-      if (f < 0.18) {
+      if (f < 0.16) {
         const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
-        rectFill(a, i, cx - ASQ, cy - ASQ, cx + ASQ, cy + ASQ, 0.08 + G() * 0.02, 0.025);
-      } else if (f < 0.24) {
+        rectFill(a, i, cx - ASQ, cy - ASQ, cx + ASQ, cy + ASQ, 0.08 + G() * 0.02, 0.026);
+      } else if (f < 0.22) {
         const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
         rectEdge(a, i, cx - ASQ, cy - ASQ, cx + ASQ, cy + ASQ, 0.1, 0.02);
-      } else if (f < 0.32) {
-        const tooth = Math.floor(R() * 8), ban = tooth / 8 * 6.2832 + R() * 0.12;
-        const r = 0.2 + Math.abs(Math.sin(ban * 4)) * 0.08;
-        put(a, i, Math.cos(ban) * r, Math.sin(ban) * r, 0.06 + G() * 0.02);
-      } else if (f < 0.36) {
-        if (R() < 0.5) seg(a, i, -0.08, -0.02, 0.02, 0.14, 0.08, 0.08);
-        else seg(a, i, 0.02, 0.14, 0.16, -0.1, 0.08, 0.08);
-      } else if (f < 0.44) {
-        const k = Math.floor(R() * 4), t = R();
-        put(a, i, AC[k][0] * 0.72 * t + G() * 0.02, AC[k][1] * 0.72 * t + G() * 0.02, 0.05 + G() * 0.015);
-      } else if (f < 0.48) {
-        const t = R();
-        put(a, i, -0.4 + t * 0.8, 0.36 + G() * 0.02, 0.05);
-      } else if (f < 0.54) {
-        if (R() < 0.45) seg(a, i, -0.8, 0.56, -0.64, 0.76, 0.1, 0.1);
-        else if (R() < 0.75) seg(a, i, -0.64, 0.76, -0.76, 0.6, 0.1, 0.1);
-        else seg(a, i, -0.64, 0.76, -0.52, 0.56, 0.1, 0.1);
-      } else if (f < 0.60) {
-        const line = Math.floor(R() * 3), y = 0.72 - line * 0.08;
-        seg(a, i, 0.56, y, 0.84, y, 0.1, 0.1);
-        sphere(a, i, [0.64, 0.76, 0.72][line], y, 0.1, 0.024);
-      } else if (f < 0.66) {
-        const cyl = Math.floor(R() * 3), y = -0.54 - cyl * 0.11, an = R() * 6.2832;
-        put(a, i, -0.72 + Math.cos(an) * 0.08, y, 0.07 + Math.sin(an) * 0.03);
-      } else if (f < 0.72) {
-        rectEdge(a, i, 0.56, -0.74, 0.86, -0.5, 0.09, 0.015);
+      } else if (f < 0.28) {
+        const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
         const dot = Math.floor(R() * 3);
-        sphere(a, i, 0.6 + dot * 0.05, -0.52, 0.1, 0.016);
-        rectFill(a, i, 0.64, -0.66, 0.8, -0.56, 0.1, 0.01);
-      } else if (f < 0.80) {
+        sphere(a, i, cx + [-0.06, 0, 0.06][dot], cy + [0.06, 0, -0.06][dot], 0.1, 0.02);
+      } else if (f < 0.36) {
+        const tooth = Math.floor(R() * 10), ban = tooth / 10 * 6.2832 + R() * 0.1;
+        const r = 0.22 + Math.abs(Math.sin(ban * 4)) * 0.09;
+        put(a, i, Math.cos(ban) * r, Math.sin(ban) * r, 0.06 + G() * 0.02);
+      } else if (f < 0.40) {
+        sphere(a, i, 0, 0, 0.06, 0.1);
+      } else if (f < 0.48) {
+        const k = Math.floor(R() * 4), t = R();
+        const mx = AC[k][0] * t * 0.78, my = AC[k][1] * t * 0.78;
+        put(a, i, mx + G() * 0.015, my + G() * 0.015, 0.05 + G() * 0.014);
+      } else if (f < 0.54) {
+        const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
+        if (Math.abs(cx) > Math.abs(cy)) {
+          seg(a, i, cx > 0 ? 0.14 : -0.14, cy * 0.35, cx > 0 ? cx - ASQ : cx + ASQ, cy, 0.08, 0.08);
+        } else {
+          seg(a, i, cx * 0.35, cy > 0 ? 0.14 : -0.14, cx, cy > 0 ? cy - ASQ : cy + ASQ, 0.08, 0.08);
+        }
+      } else if (f < 0.60) {
+        if (R() < 0.45) seg(a, i, -0.8, 0.58, -0.64, 0.78, 0.1, 0.1);
+        else if (R() < 0.75) seg(a, i, -0.64, 0.78, -0.76, 0.62, 0.1, 0.1);
+        else seg(a, i, -0.64, 0.78, -0.52, 0.58, 0.1, 0.1);
+      } else if (f < 0.66) {
+        const line = Math.floor(R() * 3), y = 0.74 - line * 0.08;
+        seg(a, i, 0.58, y, 0.86, y, 0.1, 0.1);
+        sphere(a, i, [0.66, 0.78, 0.74][line], y, 0.1, 0.024);
+      } else if (f < 0.72) {
+        const cyl = Math.floor(R() * 3), y = -0.56 - cyl * 0.11, an = R() * 6.2832;
+        put(a, i, -0.74 + Math.cos(an) * 0.08, y, 0.07 + Math.sin(an) * 0.03);
+      } else if (f < 0.78) {
+        rectEdge(a, i, 0.58, -0.76, 0.88, -0.52, 0.09, 0.015);
+        const dot = Math.floor(R() * 3);
+        sphere(a, i, 0.62 + dot * 0.05, -0.54, 0.1, 0.016);
+        rectFill(a, i, 0.66, -0.68, 0.82, -0.58, 0.1, 0.01);
+      } else if (f < 0.84) {
         const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
         const cr = Math.floor(R() * 4), r = 0.06;
         const ex = cr < 2 ? cx + ASQ : cx - ASQ, ey = cr % 2 === 0 ? cy + ASQ : cy - ASQ;
@@ -399,8 +414,8 @@ uniform float uWF[9]; uniform float uWT[9]; uniform float uScF; uniform float uS
 uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA;
 varying float vA; varying float vCloud; varying vec3 vColor;
 void main(){
-  float tl = clamp(uT * 1.15 - aSeed.x * 0.28, 0.0, 1.0);
-  float tt = tl * tl * tl * (tl * (tl * 6.0 - 15.0) + 10.0);
+  float tl = clamp(uT * 2.55 - aSeed.x * 0.04, 0.0, 1.0);
+  float tt = tl * tl * (3.0 - 2.0 * tl);
   vec3 sc = vec3((aSeed.x * 2.0 - 1.0) * 5.0, (aSeed.y * 2.0 - 1.0) * 3.2, (aSeed.z * 2.0 - 1.0) * 3.0 - 0.8);
   vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6] + aP7 * uWF[7] + aP8 * uWF[8];
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6] + aP7 * uWT[7] + aP8 * uWT[8];
@@ -576,25 +591,25 @@ void main(){
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
         if (this._playing && this._t < 1) {
-          const morphSpeed = this._toId === 9 ? 0.55 : 0.28;
-          this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.03) * (reduced ? 1.6 : morphSpeed));
+          const morphSpeed = this._toId === 9 ? 1.05 : 1.45;
+          this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.08) * (reduced ? 2.8 : morphSpeed));
         }
 
         const id = this._toId;
-        const morphing = this._t < 0.92;
+        const morphing = this._t < 0.88;
         const morphEase = morphing ? (1 - this._t * this._t) : 0;
-        const spinMul = morphing ? 0.12 + morphEase * 0.88 : 1;
+        const spinMul = morphing ? 0.18 + morphEase * 0.82 : 1;
         const sway = id === 0 ? 0.04 : id === 6 ? 0.035 : id === 9 ? 0.015 : 0.07;
         const tRy = Math.sin(time * 0.09) * sway * spinMul + this._mx * 0.04;
         const tRx = CAM_RX[id] - this._my * 0.03;
-        this._ry += (tRy - this._ry) * 0.022;
-        this._rx += (tRx - this._rx) * 0.022;
+        this._ry += (tRy - this._ry) * 0.045;
+        this._rx += (tRx - this._rx) * 0.045;
         const mob = window.innerWidth < 700;
         const targetCx = -this._side * (mob ? SIDE_X_M : SIDE_X);
         const targetCz = CAM_Z[id];
-        this._side += (this._targetSide - this._side) * 0.035;
-        this._cx += (targetCx - this._cx) * 0.035;
-        this._cz += (targetCz - this._cz) * 0.035;
+        this._side += (this._targetSide - this._side) * 0.09;
+        this._cx += (targetCx - this._cx) * 0.09;
+        this._cz += (targetCz - this._cz) * 0.09;
 
         const cy = Math.cos(this._ry), sy = Math.sin(this._ry), cx = Math.cos(this._rx), sx = Math.sin(this._rx);
         const scl = CAM_SCL[id] ?? 1;
@@ -625,7 +640,8 @@ void main(){
        id 0..8 = shapes; id 9 = starfield (seed-derived scatter). */
     setShape(id) {
       if (!this._gl || id === this._toId) return;
-      const e = this._t * this._t * (3 - 2 * this._t);
+      const snapT = this._t < 0.72 ? this._t : 1;
+      const e = snapT * snapT * (3 - 2 * snapT);
       this._scF = this._scF * (1 - e) + this._scT * e;
       for (let i = 0; i < 9; i++) this._wF[i] = this._wF[i] * (1 - e) + this._wT[i] * e;
       this._wT.fill(0);
