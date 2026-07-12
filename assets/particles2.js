@@ -3,7 +3,7 @@
    pure uniform updates (zero buffer uploads) → no hitches ever.
    Dense volumetric shapes, staggered morph, breathing scale, depth-fog color grading.
    API: el.setShape(id 0..7), el.startIntro()
-   Shapes: 0 rocket, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 network, 6 logo, 7 cloud.
+   Shapes: 0 rocket, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 book, 6 logo, 7 cloud.
    API also: el.setSide('left'|'right') — positions figure opposite section text.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
@@ -143,13 +143,30 @@
       else radialDust(a, i, 1.5, 9.5);
     });
 
-    // 5 NETWORK — hub + satellites + spokes
-    const SAT = []; for (let k = 0; k < 8; k++) { const an = k / 8 * 6.2832; SAT.push([Math.cos(an) * 1.5, Math.sin(an * 2) * 0.4, Math.sin(an) * 1.5]); }
+    // 5 BOOK — closed volume: covers, spine, page edge, title lines, bookmark
+    const BW = 0.68, BH = 0.92, BT = 0.17;
     shapes[5] = gen((a, i, f) => {
-      if (f < 0.16) put(a, i, G() * 0.18, G() * 0.18, G() * 0.18);
-      else if (f < 0.54) { const c = SAT[Math.floor(R() * 8)]; sphere(a, i, c[0], c[1], c[2], 0.09 + R() * 0.04); }
-      else if (f < 0.88) { const c = SAT[Math.floor(R() * 8)], t = R(); put(a, i, c[0] * t + G() * 0.012, c[1] * t + G() * 0.012, c[2] * t + G() * 0.012); }
-      else radialDust(a, i, 1.6, 11);
+      if (f < 0.24) rectFill(a, i, -BW, -BH, BW, BH, BT, 0.02);
+      else if (f < 0.30) rectEdge(a, i, -BW, -BH, BW, BH, BT, 0.02);
+      else if (f < 0.50) rectFill(a, i, -BW, -BH, BW, BH, -BT, 0.02);
+      else if (f < 0.56) rectEdge(a, i, -BW, -BH, BW, BH, -BT, 0.02);
+      else if (f < 0.68) {
+        const t = R(), z = -BT + t * (BT * 2);
+        put(a, i, -BW + G() * 0.012, -BH + R() * (BH * 2), z + G() * 0.01);
+      } else if (f < 0.76) {
+        const t = R(), z = -BT * 0.9 + t * (BT * 1.8);
+        put(a, i, BW - R() * 0.05 + G() * 0.008, -BH + R() * (BH * 2), z + G() * 0.008);
+      } else if (f < 0.82) {
+        const t = R();
+        if (R() < 0.5) put(a, i, -BW + t * (BW * 1.95), BH - R() * 0.03, G() * 0.055);
+        else put(a, i, -BW + t * (BW * 1.95), -BH + R() * 0.03, G() * 0.055);
+      } else if (f < 0.90) {
+        const line = Math.floor(R() * 3), y = 0.38 - line * 0.24;
+        seg(a, i, -0.44, y, 0.44, y, BT + 0.01, BT + 0.01);
+      } else if (f < 0.95) {
+        const t = R();
+        put(a, i, 0.1 + G() * 0.014, 0.58 - t * 1.2, BT * 0.45 + G() * 0.01);
+      } else radialDust(a, i, 1.4, 9);
     });
 
     // 6 LOGO — extruded glyphs

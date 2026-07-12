@@ -293,6 +293,18 @@
     doc.body.classList.add("is-ready");
   }
 
+  function initGetdesignPage() {
+    if (!doc.body.classList.contains("page-getdesign")) return;
+    doc.body.classList.add("is-ready");
+    const pf = doc.querySelector("pf-scene");
+    const boot = () => {
+      if (pf && typeof pf.setShape === "function") pf.setShape(1);
+      if (pf && typeof pf.setSide === "function") pf.setSide("left");
+      if (pf && typeof pf.startIntro === "function") pf.startIntro();
+    };
+    doc.addEventListener("pf-ready", boot, { once: true });
+  }
+
   function initMagneticButtons() {
     if (reduced || !finePointer) return;
     const buttons = doc.querySelectorAll(".btn, .contact__actions a");
@@ -369,10 +381,6 @@
     const update = () => {
       const scrollY = window.scrollY || doc.documentElement.scrollTop;
       const viewport = window.innerHeight || 1;
-      const docHeight = doc.documentElement.scrollHeight - viewport;
-      const progress = docHeight > 0 ? clamp(scrollY / docHeight) : 0;
-
-      doc.documentElement.style.setProperty("--scroll-progress", String(progress));
 
       if (header) header.classList.toggle("is-scrolled", scrollY > 40);
 
@@ -466,6 +474,7 @@
 
   initPreloader();
   initBlogPage();
+  initGetdesignPage();
   initMenu();
   initCursor();
   initStaggerReveal();
