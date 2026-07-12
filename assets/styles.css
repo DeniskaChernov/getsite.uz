@@ -160,9 +160,12 @@ a:hover {
   position: fixed;
   inset: 0;
   z-index: 180;
-  display: grid;
-  place-items: center;
-  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: var(--bg);
   transition: clip-path 0.9s cubic-bezier(0.7, 0, 0.2, 1), visibility 0.9s;
   clip-path: inset(0);
 }
@@ -172,29 +175,43 @@ a:hover {
   visibility: hidden;
 }
 
-.preloader__word {
-  color: rgba(245, 242, 235, 0.82);
+.preloader__brand {
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
+  font-size: 1.65rem;
+  font-weight: 900;
+  line-height: 1.2;
 }
 
 .preloader__bar {
-  position: fixed;
-  left: 50%;
-  bottom: 18vh;
-  width: min(320px, 60vw);
+  position: relative;
+  width: min(360px, 70vw);
   height: 1px;
   background: rgba(245, 242, 235, 0.12);
-  transform: translateX(-50%);
 }
 
 .preloader__bar div {
   width: 0%;
   height: 100%;
   background: var(--accent);
-  transition: width 0.25s ease;
+}
+
+.preloader__foot {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.preloader__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.preloader__pct {
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
 }
 
 .site-header {
@@ -276,12 +293,6 @@ a:hover {
 .btn--ghost:hover {
   border-color: var(--accent);
   color: var(--accent);
-}
-
-.preloader__note {
-  margin: 0 0 18px;
-  color: var(--muted);
-  font-size: 0.88rem;
 }
 
 .menu-button {
@@ -395,7 +406,7 @@ main,
 }
 
 .hero .section__content {
-  width: min(40%, 520px);
+  width: min(46%, 600px);
 }
 
 .section--left .section__content {
@@ -413,6 +424,64 @@ main,
   justify-content: flex-end;
 }
 
+.section--center {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.section--center .section__content {
+  width: min(94%, 900px);
+  margin: 0 auto;
+}
+
+.moment__text {
+  margin: 0;
+  color: var(--text);
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: clamp(1.45rem, 3.6vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.14;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.spotlight .section__content {
+  width: min(46%, 580px);
+}
+
+.spotlight__title {
+  margin: 0 0 32px;
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: clamp(2.8rem, 9vw, 7.2rem);
+  font-weight: 900;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.spotlight__text {
+  margin: 0;
+  max-width: 440px;
+  color: rgba(245, 242, 235, 0.72);
+  font-size: clamp(0.95rem, 1.45vw, 1.1rem);
+  line-height: 1.65;
+}
+
+.spotlight__text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.section--right .spotlight__text {
+  margin-left: auto;
+}
+
+.section--compact {
+  min-height: auto;
+  padding-top: 8vh;
+  padding-bottom: 12vh;
+}
+
 .hero {
   position: relative;
   gap: 0;
@@ -428,17 +497,22 @@ main,
 }
 
 .hero__title {
-  max-width: 12ch;
+  max-width: 100%;
   margin: 0;
   font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2.8rem, 7.2vw, 6.8rem);
-  font-weight: 900;
-  line-height: 0.92;
+  font-size: clamp(2.4rem, 6vw, 5.8rem);
+  font-weight: 800;
+  line-height: 1.04;
   text-transform: uppercase;
 }
 
 .hero__title > span {
   display: block;
+}
+
+.hero__title .line-reveal {
+  width: fit-content;
+  max-width: 100%;
 }
 
 .hero__copy {
@@ -478,15 +552,6 @@ body.is-ready .line-reveal > span {
 body.skip-intro .line-reveal > span {
   transform: translateY(0);
   transition: none;
-}
-
-.hero__title {
-  max-width: 11ch;
-  margin: 0;
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: clamp(2.4rem, 6vw, 5.8rem);
-  font-weight: 800;
-  line-height: 1.04;
 }
 
 .hero__actions {
@@ -776,7 +841,8 @@ body.skip-intro .line-reveal > span {
   }
 
   .section__content,
-  .hero .section__content {
+  .hero .section__content,
+  .spotlight .section__content {
     width: min(100%, 100%);
   }
 
@@ -797,6 +863,20 @@ body.skip-intro .line-reveal > span {
   .hero__title {
     max-width: 100%;
     font-size: clamp(2rem, 10vw, 2.6rem);
+  }
+
+  .moment__text {
+    font-size: clamp(1.2rem, 6.5vw, 2rem);
+    line-height: 1.18;
+  }
+
+  .spotlight__title {
+    font-size: clamp(2.4rem, 14vw, 3.6rem);
+    margin-bottom: 24px;
+  }
+
+  .section--right .spotlight__text {
+    margin-left: 0;
   }
 
   .hero__meta {

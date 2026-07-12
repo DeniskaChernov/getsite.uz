@@ -52,10 +52,13 @@
     <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
 
     <div class="preloader" data-preloader role="status" aria-live="polite" aria-label="Загрузка сайта">
-      <span class="preloader__word">GETSITE <span data-loader-value>0</span>%</span>
-      <p class="preloader__note">Собираем цифровую систему</p>
+      <span class="preloader__brand">getsite<span class="accent">*</span></span>
       <div class="preloader__bar" aria-hidden="true">
         <div data-loader-bar></div>
+      </div>
+      <div class="preloader__foot">
+        <p class="preloader__note">Собираем цифровую систему</p>
+        <span class="preloader__pct"><span data-loader-value>0</span>%</span>
       </div>
     </div>
 
@@ -116,12 +119,27 @@
         </div>
       </div>
 
-      <section class="services section section--left" id="services" data-screen-label="Услуги" data-shape="1" data-side="left">
+      <section class="moment section section--center" data-screen-label="Момент 1" data-shape="7" data-side="left">
         <div class="section__content">
-          <div class="section-title reveal">
-            <span>01</span>
-            <h2>Один партнёр для всей цифровой системы</h2>
-          </div>
+          <p class="moment__text reveal">
+            Собираем сайт, бота и CRM<br>
+            в одну цифровую систему.
+          </p>
+        </div>
+      </section>
+
+      <section class="spotlight section section--left" data-screen-label="Услуги — вступление" data-shape="1" data-side="left">
+        <div class="section__content">
+          <h2 class="spotlight__title reveal">Услуги</h2>
+          <p class="spotlight__text reveal">
+            Создаём <strong>цифровые решения</strong>, которые улучшают <strong>опыт клиента</strong>,
+            усиливают <strong>присутствие бренда</strong> и помогают <strong>бизнесу расти</strong>.
+          </p>
+        </div>
+      </section>
+
+      <section class="services section section--left section--compact" id="services" data-screen-label="Услуги" data-shape="1" data-side="left">
+        <div class="section__content">
           <div class="service-list reveal">
             <article class="service-row">
               <span class="service-row__num">01</span>
@@ -169,12 +187,18 @@
         </div>
       </section>
 
-      <section class="process section section--right" id="process" data-screen-label="Процесс" data-shape="4" data-side="right">
+      <section class="spotlight section section--right" data-screen-label="Процесс — вступление" data-shape="4" data-side="right">
         <div class="section__content">
-          <div class="section-title reveal">
-            <span>02</span>
-            <h2>Как проходит работа</h2>
-          </div>
+          <h2 class="spotlight__title reveal">Процесс</h2>
+          <p class="spotlight__text reveal">
+            Работаем прозрачно — от <strong>анализа задачи</strong> и <strong>прототипа</strong>
+            до <strong>запуска</strong> и <strong>поддержки продукта</strong>.
+          </p>
+        </div>
+      </section>
+
+      <section class="process section section--right section--compact" id="process" data-screen-label="Процесс" data-shape="4" data-side="right">
+        <div class="section__content">
           <div class="route reveal" data-route>
             <div class="route__fill" data-route-fill aria-hidden="true"></div>
             <div class="route-step">
@@ -220,6 +244,15 @@
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="moment section section--center" data-screen-label="Момент 2" data-shape="7" data-side="right">
+        <div class="section__content">
+          <p class="moment__text reveal">
+            Проектируем до кода —<br>
+            запускаем с аналитикой и поддержкой.
+          </p>
         </div>
       </section>
 
