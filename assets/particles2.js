@@ -1,8 +1,8 @@
 /* <pf-scene> — getsite particle engine v4.
    Dense volumetric scene: body-level fixed canvas behind all content.
-   Shapes are true 3D (depth layers, rings, extrusion) and slowly rotate/swing.
+   Shapes are abstract 3D dust fields that slowly rotate/swing.
    API: el.setShape(id), el.setScroll(p 0..1), el.startIntro()
-   Shapes: 0 core, 1 website, 2 telegram, 3 crm funnel, 4 automation chain, 5 network, 6 logo.
+   Shapes: 0 cloud, 1 ribbon, 2 bands, 3 clusters, 4 ribbon, 5 vortex, 6 cloud.
    Fires 'pf-ready' (bubbles) after first rendered frame. */
 (function () {
   if (customElements.get('pf-scene')) return;
@@ -15,43 +15,6 @@
 
   const put = (a, i, x, y, z) => { a[i * 3] = x; a[i * 3 + 1] = y; a[i * 3 + 2] = z; };
   const gen = (fill) => { const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) fill(a, i, i / N); return a; };
-  const rectFill = (a, i, x0, y0, x1, y1, z, zj) => put(a, i, x0 + R() * (x1 - x0), y0 + R() * (y1 - y0), (z || 0) + G() * (zj || 0.02));
-  const rectEdge = (a, i, x0, y0, x1, y1, z, zj) => {
-    const t = R(), s = Math.floor(R() * 4), zz = (z || 0) + G() * (zj || 0.02);
-    if (s === 0) put(a, i, x0 + t * (x1 - x0), y0 + G() * 0.008, zz);
-    else if (s === 1) put(a, i, x0 + t * (x1 - x0), y1 + G() * 0.008, zz);
-    else if (s === 2) put(a, i, x0 + G() * 0.008, y0 + t * (y1 - y0), zz);
-    else put(a, i, x1 + G() * 0.008, y0 + t * (y1 - y0), zz);
-  };
-  const seg = (a, i, x0, y0, x1, y1, z0, z1) => {
-    const t = R();
-    put(a, i, x0 + t * (x1 - x0) + G() * 0.01, y0 + t * (y1 - y0) + G() * 0.01, (z0 || 0) + t * ((z1 || 0) - (z0 || 0)) + G() * 0.012);
-  };
-  const tri = (a, i, A, B, C, z, zj) => {
-    let r1 = R(), r2 = R();
-    if (r1 + r2 > 1) { r1 = 1 - r1; r2 = 1 - r2; }
-    put(a, i, A[0] + r1 * (B[0] - A[0]) + r2 * (C[0] - A[0]) + G() * 0.01, A[1] + r1 * (B[1] - A[1]) + r2 * (C[1] - A[1]) + G() * 0.01, (z || 0) + G() * (zj || 0.03));
-  };
-  const sphere = (a, i, cx, cy, cz, r) => {
-    const u = R() * 2 - 1, ph = R() * 6.2832, s = Math.sqrt(1 - u * u);
-    put(a, i, cx + s * Math.cos(ph) * r, cy + u * r, cz + s * Math.sin(ph) * r);
-  };
-
-  function buildLogoPts() {
-    const cv = document.createElement('canvas'); cv.width = 640; cv.height = 160;
-    const c = cv.getContext('2d');
-    c.font = '900 112px Unbounded, Arial, sans-serif';
-    c.textBaseline = 'middle'; c.fillStyle = '#fff';
-    const w = Math.min(600, c.measureText('getsite').width);
-    c.fillText('getsite', (640 - w) / 2, 86);
-    const d = c.getImageData(0, 0, 640, 160).data; const pts = [];
-    for (let y = 0; y < 160; y += 2) for (let x = 0; x < 640; x += 2) if (d[(y * 640 + x) * 4 + 3] > 110) pts.push([x, y]);
-    return pts;
-  }
-  const buildLogoRaw = (pts) => gen((a, i, f) => {
-    if (pts.length && f < 0.90) { const p = pts[Math.floor(R() * pts.length)]; put(a, i, (p[0] / 640 - 0.5) * 4.1 + G() * 0.01, (0.5 - p[1] / 160) * 1.025 + G() * 0.01, (R() - 0.5) * 0.22); }
-    else put(a, i, (R() - 0.5) * 4.8, (R() - 0.5) * 2.0, (R() - 0.5) * 1.2);
-  });
 
   function makeShapes() {
     const perm = new Uint32Array(N);
@@ -59,81 +22,50 @@
     for (let i = N - 1; i > 0; i--) { const j = (R() * (i + 1)) | 0; const t = perm[i]; perm[i] = perm[j]; perm[j] = t; }
     const shuffle = (src) => { const o = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const s = perm[i] * 3; o[i * 3] = src[s]; o[i * 3 + 1] = src[s + 1]; o[i * 3 + 2] = src[s + 2]; } return o; };
 
-    const scatter = gen((a, i) => put(a, i, (R() - 0.5) * 10, (R() - 0.5) * 6, (R() - 0.5) * 6 - 1));
+    const scatter = gen((a, i) => put(a, i, (R() - 0.5) * 3.6, (R() - 0.5) * 2.1, (R() - 0.5) * 2.2 - 0.15));
     const shapes = [];
 
-    // 0 CORE — shell + two tilted orbit rings + dense heart + node clusters + dust
-    const NODE = []; for (let k = 0; k < 10; k++) { const u = R() * 2 - 1, ph = R() * 6.2832, s = Math.sqrt(1 - u * u); NODE.push([s * Math.cos(ph) * 1.32, u * 1.32, s * Math.sin(ph) * 1.32]); }
-    shapes[0] = gen((a, i, f) => {
-      if (f < 0.46) { const u = R() * 2 - 1, ph = R() * 6.2832, r = 1.15 + G() * 0.05, s = Math.sqrt(1 - u * u); put(a, i, s * Math.cos(ph) * r, u * r, s * Math.sin(ph) * r); }
-      else if (f < 0.58) { const an = R() * 6.2832, r = 1.62 + G() * 0.015; const x = Math.cos(an) * r, z = Math.sin(an) * r; put(a, i, x, -z * 0.44, z * 0.9); }
-      else if (f < 0.68) { const an = R() * 6.2832, r = 1.45 + G() * 0.015; const x = Math.cos(an) * r, z = Math.sin(an) * r; put(a, i, x * 0.77 - z * 0.35, z * 0.52, x * 0.5 + z * 0.72); }
-      else if (f < 0.80) put(a, i, G() * 0.35, G() * 0.35, G() * 0.35);
-      else if (f < 0.92) { const c = NODE[Math.floor(R() * 10)]; put(a, i, c[0] + G() * 0.07, c[1] + G() * 0.07, c[2] + G() * 0.07); }
-      else put(a, i, (R() - 0.5) * 6, (R() - 0.5) * 4, (R() - 0.5) * 4);
+    // Reference-style abstract dust fields. These intentionally replace
+    // object-like silhouettes with soft clouds, ribbons and constellations.
+    const dust = (mode) => gen((a, i, f) => {
+      const t = R(), ph = R() * 6.2832;
+      if (mode === 0) {
+        if (f < 0.68) {
+          const r = Math.pow(R(), 0.74) * 0.82;
+          put(a, i, 0.44 + Math.cos(ph) * r * 1.08 + G() * 0.045, 0.25 + Math.sin(ph * 1.65) * r * 0.38 + G() * 0.045, Math.sin(ph) * r * 0.58 + G() * 0.055);
+        } else if (f < 0.92) {
+          const k = Math.floor(R() * 4);
+          put(a, i, -0.55 + t * 1.88 + G() * 0.04, -0.22 + k * 0.19 + Math.sin(t * 8.6 + k) * 0.12 + G() * 0.035, Math.cos(t * 6.4 + k) * 0.54 + G() * 0.055);
+        } else {
+          const r = Math.pow(R(), 0.58) * 0.58;
+          put(a, i, 0.98 + Math.cos(ph) * r * 0.82 + G() * 0.035, 0.08 + Math.sin(ph * 1.8) * r * 0.3 + G() * 0.035, Math.sin(ph) * r * 0.44 + G() * 0.04);
+        }
+      } else if (mode === 1) {
+        const k = Math.floor(R() * 6);
+        put(a, i, -1.12 + t * 2.38 + G() * 0.045, -0.32 + k * 0.13 + Math.sin(t * 9.8 + k * 0.8) * 0.24 + G() * 0.045, Math.cos(t * 8.0 + k) * 0.62 + G() * 0.06);
+      } else if (mode === 2) {
+        const band = Math.floor(R() * 5);
+        put(a, i, -1.05 + t * 2.1 + G() * 0.05, -0.55 + band * 0.26 + Math.sin(t * 7.0 + band) * 0.09 + G() * 0.035, (R() - 0.5) * 1.05);
+      } else if (mode === 3) {
+        const c = Math.floor(R() * 8);
+        const an = c / 8 * 6.2832;
+        const cx = Math.cos(an) * 0.9;
+        const cy = Math.sin(an * 1.3) * 0.44;
+        const cz = Math.sin(an) * 0.78;
+        put(a, i, cx + G() * 0.16, cy + G() * 0.13, cz + G() * 0.17);
+      } else {
+        const r = Math.pow(R(), 0.56) * 0.98;
+        put(a, i, Math.cos(ph + t * 2.4) * r + G() * 0.045, Math.sin(ph * 2.0) * 0.54 + G() * 0.045, Math.sin(ph + t) * r * 0.72 + G() * 0.055);
+      }
     });
 
-    // 1 WEBSITE — 3D browser: front frame, recessed image, floating cards, back grid plane
-    shapes[1] = gen((a, i, f) => {
-      if (f < 0.16) rectEdge(a, i, -1.4, -0.95, 1.4, 0.95, 0.30);
-      else if (f < 0.21) seg(a, i, -1.4, 0.70, 1.4, 0.70, 0.30, 0.30);
-      else if (f < 0.23) { const cx = -1.25 + Math.floor(R() * 3) * 0.1; put(a, i, cx + G() * 0.012, 0.82 + G() * 0.012, 0.30 + G() * 0.015); }
-      else if (f < 0.31) { if (R() < 0.55) seg(a, i, -1.15, 0.40, -0.15, 0.40, 0.30, 0.30); else seg(a, i, -1.15, 0.25, -0.4, 0.25, 0.30, 0.30); }
-      else if (f < 0.36) rectEdge(a, i, -1.15, -0.10, -0.75, 0.05, 0.32);
-      else if (f < 0.46) rectEdge(a, i, 0.15, -0.08, 1.15, 0.52, 0.05);
-      else if (f < 0.49) seg(a, i, 0.15, 0.52, 1.15, -0.08, 0.05, 0.05);
-      else if (f < 0.73) { const k = Math.floor(R() * 3), x0 = -1.15 + k * 0.82; if (R() < 0.7) rectEdge(a, i, x0, -0.78, x0 + 0.68, -0.30, -0.20); else rectFill(a, i, x0 + 0.06, -0.72, x0 + 0.62, -0.36, -0.20); }
-      else if (f < 0.88) { if (R() < 0.5) { const y0 = -0.9 + Math.floor(R() * 7) * 0.3; seg(a, i, -1.55, y0, 1.55, y0, -0.5, -0.5); } else { const x0 = -1.5 + Math.floor(R() * 11) * 0.3; seg(a, i, x0, -0.95, x0, 1.0, -0.5, -0.5); } }
-      else put(a, i, (R() - 0.5) * 3.6, (R() - 0.5) * 2.4, (R() - 0.5) * 1.4);
-    });
-
-    // 2 TELEGRAM — paper plane in two depth planes + 3D spiral trail
-    const A = [-1.35, 0.66], T = [1.4, 0.06], C = [-0.5, -0.22], D = [-0.12, -0.74];
-    shapes[2] = gen((a, i, f) => {
-      if (f < 0.28) tri(a, i, A, T, C, 0.13);
-      else if (f < 0.42) tri(a, i, C, T, D, -0.15);
-      else if (f < 0.48) seg(a, i, A[0], A[1], T[0], T[1], 0.13, 0.13);
-      else if (f < 0.53) seg(a, i, A[0], A[1], C[0], C[1], 0.13, 0.13);
-      else if (f < 0.58) seg(a, i, C[0], C[1], T[0], T[1], 0.0, 0.0);
-      else if (f < 0.63) seg(a, i, D[0], D[1], T[0], T[1], -0.15, 0.05);
-      else if (f < 0.85) { const t = R(); put(a, i, -2.6 + t * 1.35, -0.5 + t * 0.6 + Math.sin(t * 7) * 0.1, Math.cos(t * 7) * 0.2 + G() * 0.02); }
-      else put(a, i, (R() - 0.5) * 3.8, (R() - 0.5) * 2.4, (R() - 0.5) * 1.2);
-    });
-
-    // 3 CRM — volumetric funnel: 4 stacked rings narrowing + side streams + drip + deal sphere
-    const FW = [1.25, 0.95, 0.66, 0.40];
-    shapes[3] = gen((a, i, f) => {
-      if (f < 0.46) { const k = Math.floor(R() * 4), w = FW[k] + G() * 0.02, an = R() * 6.2832, y = 0.80 - k * 0.44; put(a, i, Math.cos(an) * w, y + G() * 0.025, Math.sin(an) * w); }
-      else if (f < 0.58) { const k = Math.floor(R() * 4), w = FW[k] * Math.sqrt(R()), an = R() * 6.2832, y = 0.80 - k * 0.44; put(a, i, Math.cos(an) * w, y + G() * 0.015, Math.sin(an) * w); }
-      else if (f < 0.74) { const k = Math.floor(R() * 3), an = Math.floor(R() * 10) / 10 * 6.2832, t = R(); const w = FW[k] + t * (FW[k + 1] - FW[k]), y = 0.80 - k * 0.44 - t * 0.44; put(a, i, Math.cos(an) * w + G() * 0.012, y, Math.sin(an) * w + G() * 0.012); }
-      else if (f < 0.82) { const t = R(); put(a, i, G() * 0.03, -0.62 - t * 0.4, G() * 0.03); }
-      else if (f < 0.92) sphere(a, i, 0, -1.24, 0, 0.17 + G() * 0.012);
-      else put(a, i, (R() - 0.5) * 3.6, (R() - 0.5) * 2.6, (R() - 0.5) * 1.6);
-    });
-
-    // 4 AUTOMATION — 3D chain: node spheres zigzagging in depth + links + pulse clusters
-    const CX = [-1.8, -1.08, -0.36, 0.36, 1.08, 1.8];
-    const CYf = (k) => (k % 2 ? 0.24 : -0.24);
-    const CZf = (k) => (k % 2 ? 0.30 : -0.30);
-    shapes[4] = gen((a, i, f) => {
-      if (f < 0.36) { const k = Math.floor(R() * 6); sphere(a, i, CX[k], CYf(k), CZf(k), 0.16 + G() * 0.012); }
-      else if (f < 0.44) { const k = Math.floor(R() * 6); put(a, i, CX[k] + G() * 0.04, CYf(k) + G() * 0.04, CZf(k) + G() * 0.04); }
-      else if (f < 0.78) { const k = Math.floor(R() * 5); seg(a, i, CX[k], CYf(k), CX[k + 1], CYf(k + 1), CZf(k), CZf(k + 1)); }
-      else if (f < 0.86) { const k = Math.floor(R() * 5), t = R(); put(a, i, CX[k] + t * (CX[k + 1] - CX[k]) + G() * 0.03, CYf(k) + t * (CYf(k + 1) - CYf(k)) + G() * 0.03, CZf(k) + t * (CZf(k + 1) - CZf(k)) + G() * 0.03); }
-      else put(a, i, (R() - 0.5) * 4.6, (R() - 0.5) * 1.8, (R() - 0.5) * 1.4);
-    });
-
-    // 5 NETWORK — hub + satellites + spokes (already volumetric)
-    const SAT = []; for (let k = 0; k < 8; k++) { const an = k / 8 * 6.2832; SAT.push([Math.cos(an) * 1.5, Math.sin(an * 2) * 0.4, Math.sin(an) * 1.5]); }
-    shapes[5] = gen((a, i, f) => {
-      if (f < 0.16) put(a, i, G() * 0.18, G() * 0.18, G() * 0.18);
-      else if (f < 0.54) { const c = SAT[Math.floor(R() * 8)]; sphere(a, i, c[0], c[1], c[2], 0.09 + R() * 0.04); }
-      else if (f < 0.88) { const c = SAT[Math.floor(R() * 8)], t = R(); put(a, i, c[0] * t + G() * 0.012, c[1] * t + G() * 0.012, c[2] * t + G() * 0.012); }
-      else put(a, i, (R() - 0.5) * 5.5, (R() - 0.5) * 3.4, (R() - 0.5) * 3.4);
-    });
-
-    // 6 LOGO — extruded glyphs
-    shapes[6] = buildLogoRaw(buildLogoPts());
+    shapes[0] = dust(0);
+    shapes[1] = dust(1);
+    shapes[2] = dust(2);
+    shapes[3] = dust(3);
+    shapes[4] = dust(1);
+    shapes[5] = dust(4);
+    shapes[6] = dust(0);
 
     return { scatter: shuffle(scatter), shapes: shapes.map(shuffle), shuffle };
   }
@@ -161,8 +93,8 @@ void main(){
   gl_Position = pos;
   float dist = max(0.7, -mv.z);
   float ps = uSize * (0.8 + aSeed.z * 1.35) * (2.35 / dist);
-  gl_PointSize = max(1.0, min(ps, uSize * 3.6));
-  vA = 0.42 + 0.34 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0);
+  gl_PointSize = max(1.2, min(ps, uSize * 4.2));
+  vA = 0.55 + 0.35 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0);
   vSeed = aSeed.z;
 }`;
   const FS = `
@@ -173,7 +105,7 @@ void main(){
   float d = length(gl_PointCoord - vec2(0.5));
   float a = smoothstep(0.5, 0.12, d) * vA;
   vec3 col = vSeed > 0.88 ? uC1 : (vSeed > 0.80 ? uC3 : uC2);
-  gl_FragColor = vec4(col * 0.95, a);
+  gl_FragColor = vec4(col, a);
 }`;
 
   const hex = (c) => [((c >> 16) & 255) / 255, ((c >> 8) & 255) / 255, (c & 255) / 255];
@@ -184,8 +116,8 @@ void main(){
 
   // camera preset per shape: x shift (0 on mobile), z distance — bigger shapes, side varies per section
   const CAM = [
-    { x: 0.72, z: 2.7 }, { x: 0.72, z: 2.9 }, { x: 0.72, z: 2.9 }, { x: 0.0, z: 3.5 },
-    { x: -0.55, z: 3.4 }, { x: 0.72, z: 3.0 }, { x: -0.4, z: 2.9 }
+    { x: 1.08, z: 4.2 }, { x: 0.86, z: 3.8 }, { x: 0.82, z: 3.9 }, { x: 0.1, z: 4.0 },
+    { x: -0.44, z: 3.95 }, { x: 0.86, z: 3.85 }, { x: -0.34, z: 3.9 }
   ];
 
   class PFScene extends HTMLElement {
@@ -257,24 +189,14 @@ void main(){
         canvas.height = Math.max(2, window.innerHeight * dpr);
         gl.viewport(0, 0, canvas.width, canvas.height);
         this._proj = persp(0.9, canvas.width / canvas.height, 0.1, 30);
-        gl.uniform1f(this._u.uSize, dpr * (MOBILE ? 2.0 : 1.9));
+        gl.uniform1f(this._u.uSize, dpr * (MOBILE ? 2.35 : 2.18));
       };
       resize();
       this._onResize = resize;
       window.addEventListener('resize', resize);
 
-      if (document.fonts && document.fonts.load) {
-        document.fonts.load('900 112px "Unbounded"').then(() => {
-          const pts = buildLogoPts();
-          if (!pts.length || !this._gl) return;
-          this._shapes[6] = this._shuffle(buildLogoRaw(pts));
-          if (this._toId === 6) {
-            gl.bindBuffer(gl.ARRAY_BUFFER, this._bTo);
-            gl.bufferData(gl.ARRAY_BUFFER, this._shapes[6], gl.DYNAMIC_DRAW);
-            gl.vertexAttribPointer(this._locTo, 3, gl.FLOAT, false, 0, 0);
-          }
-        }).catch(() => {});
-      }
+      // Keep all states abstract; the reference-like direction is dust, not
+      // readable logos or product pictograms.
 
       this._cx = MOBILE ? 0 : CAM[0].x; this._cz = CAM[0].z;
       this._ry = 0; this._rx = 0.14;
@@ -294,7 +216,7 @@ void main(){
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
-        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.05) * (reduced ? 3 : 0.8));
+        if (this._playing && this._t < 1) this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.05) * (reduced ? 3 : 2.45));
 
         const id = this._toId;
         const cont = id === 0 || id === 3 || id === 5;      // radially symmetric — rotate continuously
