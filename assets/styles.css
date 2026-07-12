@@ -754,7 +754,7 @@ main,
 }
 
 .hero__lead {
-  margin: 0 0 28px;
+  margin: 0;
   max-width: 38ch;
   color: rgba(245, 242, 235, 0.72);
   font-size: clamp(0.95rem, 1.35vw, 1.08rem);
@@ -762,10 +762,7 @@ main,
 }
 
 .hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 0;
+  display: none;
 }
 
 .hero__title > span {
@@ -1832,17 +1829,6 @@ body.page-blog {
   .hero__lead {
     max-width: 100%;
     font-size: 0.95rem;
-    margin-bottom: 22px;
-  }
-
-  .hero__actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .hero__actions .btn {
-    width: 100%;
-    justify-content: center;
   }
 
   .pricing-catalog {
