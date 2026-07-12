@@ -228,7 +228,7 @@ void main(){
   // camera z distance per shape; horizontal shift comes from setSide()
   const CAM_Z = [3.6, 3.8, 3.8, 4.2, 4.1, 3.9, 3.8, 4.2];
   const CAM_RX = [0.08, 0.10, 0.10, 0.28, 0.10, 0.12, 0.08, 0.04];
-  const SIDE_X = 1.25;
+  const SIDE_X = 1.05;
 
   class PFScene extends HTMLElement {
     connectedCallback() {
@@ -236,7 +236,7 @@ void main(){
       this.style.display = 'block';
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const holder = document.createElement('div');
-      holder.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none';
+      holder.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none';
       const canvas = document.createElement('canvas');
       canvas.style.cssText = 'width:100%;height:100%;display:block';
       holder.appendChild(canvas);
@@ -320,7 +320,7 @@ void main(){
       }
 
       this._cx = 0; this._cz = CAM_Z[0];
-      this._side = -1; this._targetSide = -1;
+      this._side = 0; this._targetSide = -1;
       this._ry = 0; this._rx = CAM_RX[0];
       this._mv = new Float32Array(16);
       this._drawN = N; this._ema = 16; this._fc = 0;
@@ -349,7 +349,7 @@ void main(){
         const tRx = CAM_RX[id] - this._my * 0.04;
         this._ry += (tRy - this._ry) * 0.028;
         this._rx += (tRx - this._rx) * 0.028;
-        const targetCx = MOBILE ? 0 : -this._side * SIDE_X;
+        const targetCx = MOBILE ? 0 : this._side * SIDE_X;
         const targetCz = CAM_Z[id];
         this._side += (this._targetSide - this._side) * 0.05;
         this._cx += (targetCx - this._cx) * 0.05;
@@ -393,7 +393,8 @@ void main(){
     }
 
     setSide(side) {
-      this._targetSide = side === 'right' ? 1 : -1;
+      if (side === 'center') this._targetSide = 0;
+      else this._targetSide = side === 'right' ? 1 : -1;
     }
 
     startIntro() { this._playing = true; }

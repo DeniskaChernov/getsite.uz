@@ -23,7 +23,11 @@
       particlesReady = true;
     };
 
-    doc.addEventListener("pf-ready", setParticlesReady, { once: true });
+    doc.addEventListener("pf-ready", () => {
+      setParticlesReady();
+      if (pf && typeof pf.setShape === "function") pf.setShape(0);
+      if (pf && typeof pf.setSide === "function") pf.setSide("left");
+    }, { once: true });
 
     if (doc.fonts && doc.fonts.ready) {
       doc.fonts.ready.then(() => {
