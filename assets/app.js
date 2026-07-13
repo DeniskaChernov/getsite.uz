@@ -416,6 +416,7 @@
 
     const applyScene = (shape, side) => {
       if (!pf) return;
+      body.classList.toggle("cosmos-mode", shape === 9);
       if (!siteIntroDone && (shape !== 0 || side !== "left")) return;
       if (shape !== lastShape && typeof pf.setShape === "function") {
         lastShape = shape;

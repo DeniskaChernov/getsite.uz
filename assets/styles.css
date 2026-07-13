@@ -39,11 +39,13 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(245, 242, 235, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(245, 242, 235, 0.028) 1px, transparent 1px);
-  background-size: 8.333vw 8.333vw;
+  background: linear-gradient(180deg, rgba(245, 242, 235, 0.028) 1px, transparent 1px);
+  background-size: 100% 8.333vw;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 86%);
+}
+
+body.cosmos-mode::before {
+  opacity: 0;
 }
 
 body.menu-open {
