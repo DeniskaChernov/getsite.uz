@@ -313,7 +313,9 @@ void main(){
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6] + aP7 * uWT[7] + aP8 * uWT[8];
   vec3 form = mix(F, T, tt);
   float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
-  float cloud = step(0.56, cloudSeed);
+  // Shapes keep classic density (0.56); pure cosmos sends more stars outward
+  // so the seed-box scatter doesn't read as a square cloud behind the copy.
+  float cloud = mix(step(0.56, cloudSeed), step(0.18, cloudSeed), uScT);
   vec3 cosmosDir = normalize(vec3(
     sin(aSeed.x * 6.283 + aSeed.y * 3.11),
     cos(aSeed.y * 6.283 + aSeed.z * 2.7) * 0.55,
@@ -340,7 +342,9 @@ void main(){
   float lime = step(0.86, aSeed.y);
   float ps = uSize * (0.7 + aSeed.z * 1.2) * (2.4 / dist) * (1.0 + lime * 0.65);
   float zSize = clamp(0.82 + form.z * 2.4, 0.62, 1.38);
-  gl_PointSize = max(1.0, min(ps * zSize, uSize * 4.6));
+  // Keep cloud/star points tiny so they read as dots, not square sprites.
+  float sizeCap = mix(uSize * 4.2, uSize * 2.4, max(cloud, uScT * 0.85));
+  gl_PointSize = max(1.0, min(ps * zSize, sizeCap));
   vCloud = cloud;
   vFormZ = form.z;
   float cosmosAlpha = mix(1.0, max(0.42, cosmosFade * 0.95), cloud);
@@ -351,16 +355,18 @@ void main(){
   vec3 base = mix(vec3(0.949, 0.941, 0.918), vec3(0.42, 0.88, 1.0), smoothstep(0.32, 0.86, aSeed.y) * 1.0);
   vec3 col = mix(base, vec3(0.847, 1.0, 0.239) * 1.45, lime);
   vColor = col * (1.38 - fog * 0.42) * cosmosAlpha * zLift * sideShade;
-  gl_PointSize *= mix(1.0, 0.52 + cosmosFade * 0.62, cloud);
+  gl_PointSize *= mix(1.0, 0.48 + cosmosFade * 0.42, cloud);
 }`;
   const FS = `
 precision mediump float;
 varying float vA; varying float vCloud; varying vec3 vColor; varying float vFormZ;
 void main(){
   float d = length(gl_PointCoord - vec2(0.5));
-  float core = smoothstep(0.5, 0.06, d);
+  if (d > 0.5) discard;
+  float core = 1.0 - smoothstep(0.18, 0.5, d);
   float depthBoost = clamp(0.72 + vFormZ * 2.8 + 0.5, 0.55, 1.65);
   float a = core * vA;
+  if (a < 0.004) discard;
   vec3 col = vColor * (0.88 + core * 0.28) * depthBoost;
   gl_FragColor = vec4(col, a);
 }`;
