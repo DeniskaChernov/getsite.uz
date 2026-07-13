@@ -68,22 +68,36 @@
     c.translate(cx + size * 0.17, cy - size * 0.17);
     for (let i = 0; i < 3; i++) {
       c.rotate(1.0472);
-      c.beginPath();
-      c.roundRect(-size * 0.018, -size * 0.09, size * 0.036, size * 0.18, size * 0.018);
-      c.fill();
+      c.fillRect(-size * 0.018, -size * 0.09, size * 0.036, size * 0.18);
     }
     c.restore();
     const d = c.getImageData(0, 0, size, size).data; const pts = [];
     for (let y = 0; y < size; y += 2) {
       for (let x = 0; x < size; x += 2) {
-        if (d[(y * size + x) * 4 + 3] > 100) pts.push([x, y]);
+        const i = (y * size + x) * 4;
+        const alpha = d[i + 3];
+        if (alpha < 100) continue;
+        const lum = d[i] + d[i + 1] + d[i + 2];
+        if (lum < 200) continue;
+        pts.push([x, y]);
       }
     }
     return { pts, size };
   }
   const buildLogoRaw = (sample) => gen((a, i, f) => {
     const { pts, size } = sample;
-    if (pts.length && f < 0.92) {
+    if (!pts.length) {
+      if (f < 0.72) {
+        const t = R(), an = R() * 6.2832, r = 0.78 + G() * 0.02;
+        put(a, i, Math.cos(an) * r, Math.sin(an) * r, G() * 0.05);
+      } else if (f < 0.88) {
+        const p = pts.length ? pts[Math.floor(R() * pts.length)] : null;
+        if (p) put(a, i, (p[0] / size - 0.5) * 2.4, (0.5 - p[1] / size) * 2.4, G() * 0.04);
+        else put(a, i, -0.12 + G() * 0.24, G() * 0.2, G() * 0.06);
+      } else radialDust(a, i, 0.55, 5.2);
+      return;
+    }
+    if (f < 0.92) {
       const p = pts[Math.floor(R() * pts.length)];
       const layer = R();
       const nz = layer < 0.42 ? 0.16 + R() * 0.05 : layer < 0.72 ? R() * 0.14 : -0.08 - R() * 0.06;
@@ -91,7 +105,7 @@
     } else if (f < 0.978) {
       const p = pts[Math.floor(R() * pts.length)];
       put(a, i, (p[0] / size - 0.5) * 2.4 + G() * 0.01, (0.5 - p[1] / size) * 2.4 + G() * 0.01, G() * 0.02);
-    } else radialDust(a, i, 0.35, 3.2);
+    } else radialDust(a, i, 0.55, 5.2);
   });
 
   function boxVol(a, i, x0, y0, x1, y1, z0, z1) {
@@ -260,47 +274,69 @@
       } else radialDust(a, i, 0.55, 5.2);
     });
 
-    // 4 WORKFLOW — 4-step rail
-    const PLQ = [-1.0, -0.33, 0.33, 1.0];
-    const PW = 0.3, PH = 0.34;
+    // 4 WORKFLOW — vertical 5-step process (matches route timeline in section)
+    const WN = [-0.68, -0.34, 0, 0.34, 0.68];
+    const WB = 0.34, WH = 0.2;
     shapes[4] = gen((a, i, f) => {
-      if (f < 0.22) {
-        const k = Math.floor(R() * 4);
-        boxVol(a, i, PLQ[k] - PW, 0.02, PLQ[k] + PW, PH, 0.04, 0.14);
-      } else if (f < 0.30) {
-        const t = R();
-        put(a, i, -1.5 + t * 3.45, -0.38 + G() * 0.025, G() * 0.04);
+      if (f < 0.28) {
+        const k = Math.floor(R() * 5);
+        const cy = WN[k];
+        boxVol(a, i, -WB * 0.5, cy - WH * 0.5, WB * 0.5, cy + WH * 0.5, 0.05, 0.15);
       } else if (f < 0.36) {
-        const k = Math.floor(R() * 3), t = R();
-        put(a, i, PLQ[k] + PW + t * (PLQ[k + 1] - PW - PLQ[k] - PW), -0.05 + G() * 0.02, 0.09 + G() * 0.02);
+        const k = Math.floor(R() * 4);
+        const y0 = WN[k] + WH * 0.5;
+        const y1 = WN[k + 1] - WH * 0.5;
+        const t = R();
+        seg(a, i, 0, y0, 0, y1, 0.1, 0.1);
+        put(a, i, G() * 0.02, y0 + t * (y1 - y0), 0.1 + G() * 0.015);
       } else if (f < 0.42) {
-        const an = Math.PI * 0.55 + R() * Math.PI * 0.9;
-        put(a, i, -1.52 + Math.cos(an) * 0.22, -0.38 + Math.sin(an) * 0.22, G() * 0.03);
-      } else if (f < 0.48) {
-        if (R() < 0.55) seg(a, i, 1.72, -0.38, 2.02, -0.38, 0, 0);
-        else tri(a, i, [1.92, -0.38], [2.18, -0.5], [2.18, -0.26], 0, 0.02);
-      } else if (f < 0.58) {
-        const cx = PLQ[0], cy = 0.42;
-        if (R() < 0.65) sphere(a, i, cx, cy, 0.1, 0.085);
-        else seg(a, i, cx + 0.05, cy - 0.05, cx + 0.17, cy - 0.17, 0.12, 0.12);
-      } else if (f < 0.66) {
-        const cx = PLQ[1], cy = 0.45;
-        sphere(a, i, cx, cy, 0.09, 0.095);
-        if (R() < 0.4) {
-          const an = R() * 6.2832;
-          put(a, i, cx + Math.cos(an) * 0.17, cy + 0.14 + Math.sin(an) * 0.06, 0.13 + G() * 0.01);
-        }
-      } else if (f < 0.74) {
-        seg(a, i, PLQ[2] - 0.1, 0.28, PLQ[2] + 0.16, 0.52, 0.12, 0.12);
-      } else if (f < 0.84) {
-        const cx = PLQ[3], cy = 0.38;
-        if (R() < 0.55) {
-          const t = R(), an = R() * 6.2832, y = cy - 0.05 + t * 0.35, r = 0.07 * (1 - t * 0.35);
-          put(a, i, cx + Math.cos(an) * r * 0.45, y, 0.11 + G() * 0.01);
+        const k = Math.floor(R() * 4);
+        const ay = WN[k + 1] - WH * 0.58;
+        tri(a, i, [-0.05, ay + 0.07], [0.05, ay + 0.07], [0, ay - 0.01], 0.1, 0.014);
+      } else if (f < 0.50) {
+        const k = Math.floor(R() * 5);
+        sphere(a, i, 0, WN[k], 0.12, 0.042);
+      } else if (f < 0.56) {
+        const k = Math.floor(R() * 5);
+        const cy = WN[k];
+        seg(a, i, -0.1, cy + 0.05, 0.1, cy + 0.05, 0.12, 0.12);
+      } else if (f < 0.62) {
+        const k = Math.floor(R() * 5);
+        const cy = WN[k];
+        if (k === 2) {
+          sphere(a, i, 0, cy - 0.02, 0.14, 0.038);
         } else {
           const t = R();
-          put(a, i, cx + G() * 0.03, cy - 0.2 - t * 0.22, G() * 0.025);
+          put(a, i, -0.08 + t * 0.16, cy - 0.02, 0.12 + G() * 0.01);
         }
+      } else if (f < 0.70) {
+        const t = R();
+        put(a, i, -WB * 0.5 - 0.1 + G() * 0.012, -0.82 + t * 1.64, 0.08 + G() * 0.02);
+      } else if (f < 0.76) {
+        const k = Math.floor(R() * 5);
+        sphere(a, i, -WB * 0.5 - 0.1, WN[k], 0.1, 0.028);
+      } else if (f < 0.82) {
+        const k = Math.floor(R() * 5);
+        const cy = WN[k];
+        if (k === 0) {
+          const an = R() * 6.2832;
+          put(a, i, Math.cos(an) * 0.055, cy + Math.sin(an) * 0.055, 0.13);
+          if (R() < 0.35) seg(a, i, 0.04, cy + 0.04, 0.1, cy + 0.1, 0.13, 0.13);
+        } else if (k === 1) {
+          sphere(a, i, 0, cy - 0.04, 0.13, 0.03);
+          seg(a, i, 0, cy + 0.02, 0, cy + 0.1, 0.13, 0.13);
+          seg(a, i, -0.04, cy + 0.1, 0.04, cy + 0.1, 0.13, 0.13);
+        } else if (k === 2) {
+          seg(a, i, -0.05, cy + 0.04, 0.05, cy - 0.04, 0.13, 0.13);
+          seg(a, i, -0.05, cy - 0.04, 0.05, cy + 0.04, 0.13, 0.13);
+        } else if (k === 3) {
+          boxVol(a, i, -0.06, cy - 0.08, 0.06, cy + 0.02, 0.1, 0.14);
+        } else {
+          tri(a, i, [0, cy + 0.08], [-0.06, cy - 0.06], [0.06, cy - 0.06], 0.12, 0.016);
+        }
+      } else if (f < 0.84) {
+        const t = R();
+        put(a, i, WB * 0.5 + 0.06 + G() * 0.01, -0.7 + t * 1.4, 0.09 + G() * 0.02);
       } else radialDust(a, i, 0.55, 5.2);
     });
 
@@ -431,25 +467,36 @@ attribute vec3 aP0; attribute vec3 aP1; attribute vec3 aP2; attribute vec3 aP3;
 attribute vec3 aP4; attribute vec3 aP5; attribute vec3 aP6; attribute vec3 aP7; attribute vec3 aP8; attribute vec3 aSeed;
 uniform mat4 uMV; uniform mat4 uP;
 uniform float uWF[9]; uniform float uWT[9]; uniform float uScF; uniform float uScT;
-uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA;
+uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA; uniform float uPureCosmos;
 varying float vA; varying float vCloud; varying vec3 vColor; varying float vFormZ;
 void main(){
-  float tl = clamp(uT * 2.55 - aSeed.x * 0.04, 0.0, 1.0);
+  float tl = mix(clamp(uT * 2.55 - aSeed.x * 0.04, 0.0, 1.0), uT, uPureCosmos);
   float tt = tl * tl * (3.0 - 2.0 * tl);
   vec3 sc = vec3((aSeed.x * 2.0 - 1.0) * 5.0, (aSeed.y * 2.0 - 1.0) * 3.2, (aSeed.z * 2.0 - 1.0) * 3.0 - 0.8);
   vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6] + aP7 * uWF[7] + aP8 * uWF[8];
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6] + aP7 * uWT[7] + aP8 * uWT[8];
   vec3 form = mix(F, T, tt);
   float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
-  float cloud = step(0.56, cloudSeed);
+  float cloudFrac = smoothstep(0.48, 0.70, cloudSeed);
+  float cloud = mix(cloudFrac, 1.0, uPureCosmos);
+  float h1 = fract(aSeed.x * 127.1 + aSeed.y * 311.7);
+  float h2 = fract(aSeed.z * 269.5 + aSeed.x * 183.3);
+  float h3 = fract(aSeed.y * 419.2 + aSeed.z * 97.1);
+  vec3 hashDir = normalize(vec3(
+    sin(h1 * 6.2831853) * 0.92 + sin(h2 * 12.56637) * 0.08,
+    cos(h2 * 6.2831853) * 0.68 + sin(h3 * 9.42477) * 0.06,
+    sin(h3 * 6.2831853) * 0.92 + cos(h1 * 7.85398) * 0.08));
+  float hashDist = pow(h3, 1.28) * 22.0 + 0.35;
+  vec3 purePos = hashDir * hashDist;
   vec3 cosmosDir = normalize(vec3(
     sin(aSeed.x * 6.283 + aSeed.y * 3.11),
     cos(aSeed.y * 6.283 + aSeed.z * 2.7) * 0.55,
     sin(aSeed.z * 6.283 + aSeed.x * 4.3)));
   float cosmosDist = pow(cloudSeed, 1.45) * 16.0 + 0.35;
   vec3 cosmosPos = form + cosmosDir * cosmosDist;
-  float cosmosFade = exp(-cosmosDist * 0.14);
-  vec3 p = mix(form, cosmosPos, cloud);
+  vec3 starPos = mix(cosmosPos, purePos, uPureCosmos);
+  float cosmosFade = exp(-mix(cosmosDist, hashDist, uPureCosmos) * 0.14);
+  vec3 p = mix(form, starPos, cloud);
   float w = 0.014 + 0.020 * aSeed.x;
   p += w * vec3(
     sin(uTime * (0.5 + aSeed.y) + aSeed.x * 19.0),
@@ -471,8 +518,12 @@ void main(){
   gl_PointSize = max(1.0, min(ps * zSize, uSize * 4.6));
   vCloud = cloud;
   vFormZ = form.z;
+  float twinkle = mix(
+    0.46 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0),
+    0.48 + 0.24 * sin(uTime * (0.85 + aSeed.z * 2.6) + h1 * 47.0 + h3 * 29.0),
+    uPureCosmos);
   float cosmosAlpha = mix(1.0, max(0.42, cosmosFade * 0.95), cloud);
-  vA = (0.46 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA * cosmosAlpha;
+  vA = twinkle * uA * cosmosAlpha;
   float fog = clamp((dist - 1.6) / 3.4, 0.0, 1.0);
   float zLift = clamp(0.58 + form.z * 4.2, 0.36, 1.72);
   float sideShade = clamp(0.9 + form.x * 0.14, 0.74, 1.14);
@@ -501,7 +552,7 @@ void main(){
   // camera z distance per shape; horizontal shift comes from setSide()
   const CAM_Z = [3.8, 4.4, 4.2, 4.5, 4.8, 4.2, 4.0, 4.4, 4.5, 4.6];
   const CAM_RX = [0.10, 0.10, 0.10, 0.09, 0.07, 0.12, 0.10, 0.10, 0.09, 0.04];
-  const CAM_SCL = [0.88, 0.76, 0.78, 0.74, 0.68, 0.76, 0.86, 0.74, 0.72, 1.0];
+  const CAM_SCL = [0.88, 0.76, 0.78, 0.74, 0.76, 0.76, 0.86, 0.74, 0.72, 1.0];
   const SIDE_X = 1.55;
   const SIDE_X_M = 0.95;
 
@@ -564,7 +615,7 @@ void main(){
       this._gl = gl;
 
       this._u = {};
-      ['uMV', 'uP', 'uWF', 'uWT', 'uScF', 'uScT', 'uT', 'uTime', 'uMouse', 'uMouseF', 'uSize', 'uA'].forEach(n => this._u[n] = gl.getUniformLocation(prog, n));
+      ['uMV', 'uP', 'uWF', 'uWT', 'uScF', 'uScT', 'uT', 'uTime', 'uMouse', 'uMouseF', 'uSize', 'uA', 'uPureCosmos'].forEach(n => this._u[n] = gl.getUniformLocation(prog, n));
       gl.uniform1f(this._u.uA, ALPHA);
       gl.uniform1f(this._u.uMouseF, reduced || MOBILE ? 0 : 1);
       gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.disable(gl.DEPTH_TEST);
@@ -596,6 +647,10 @@ void main(){
           gl.bindBuffer(gl.ARRAY_BUFFER, this._bufs[6]);
           gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
           gl.vertexAttribPointer(gl.getAttribLocation(prog, 'aP6'), 3, gl.FLOAT, false, 0, 0);
+          if (this._toId === 6) {
+            this._t = 0;
+            this._playing = true;
+          }
         }).catch(() => {});
       }
 
@@ -670,6 +725,7 @@ void main(){
         gl.uniform1f(this._u.uScT, this._scT);
         gl.uniform1f(this._u.uT, this._t);
         gl.uniform1f(this._u.uTime, time);
+        gl.uniform1f(this._u.uPureCosmos, id === 9 ? 1 : 0);
         gl.uniform2f(this._u.uMouse, this._mx, this._my);
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);

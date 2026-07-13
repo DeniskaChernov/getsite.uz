@@ -416,7 +416,6 @@
 
     const applyScene = (shape, side) => {
       if (!pf) return;
-      if (!siteIntroDone && (shape !== 0 || side !== "left")) return;
       if (shape !== lastShape && typeof pf.setShape === "function") {
         lastShape = shape;
         pf.setShape(shape);
@@ -544,6 +543,107 @@
     });
   }
 
+  function initCookies() {
+    const widget = doc.querySelector("[data-cookie-widget]");
+    const panel = doc.querySelector("[data-cookie-panel]");
+    if (!widget || !panel) return;
+
+    const STORAGE_KEY = "getsite-cookie-consent";
+    const trigger = widget.querySelector("[data-cookie-open]");
+    const closeButtons = doc.querySelectorAll("[data-cookie-close]");
+    const acceptBtn = doc.querySelector("[data-cookie-accept]");
+    const declineBtn = doc.querySelector("[data-cookie-decline]");
+    const detailsToggle = doc.querySelector("[data-cookie-details-toggle]");
+    const detailsPanel = doc.querySelector("[data-cookie-details]");
+    const perfInput = doc.querySelector("#cookie-performance");
+    const targetInput = doc.querySelector("#cookie-targeting");
+
+    const readConsent = () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
+      }
+    };
+
+    const writeConsent = (value) => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+      } catch (_) {
+        /* ignore */
+      }
+    };
+
+    const setPanelOpen = (open) => {
+      panel.classList.toggle("is-open", open);
+      panel.setAttribute("aria-hidden", String(!open));
+      if (open) {
+        const focusTarget = panel.querySelector(".cookie-panel__accept") || panel.querySelector(".cookie-panel__close");
+        window.setTimeout(() => focusTarget?.focus(), 0);
+      } else if (trigger) {
+        trigger.focus();
+      }
+    };
+
+    const applyConsentToForm = (consent) => {
+      if (!consent) return;
+      if (perfInput) perfInput.checked = Boolean(consent.performance);
+      if (targetInput) targetInput.checked = Boolean(consent.targeting);
+    };
+
+    const saveConsent = (performance, targeting) => {
+      writeConsent({
+        essential: true,
+        performance,
+        targeting,
+        ts: Date.now(),
+      });
+      setPanelOpen(false);
+    };
+
+    trigger?.addEventListener("click", () => setPanelOpen(true));
+    closeButtons.forEach((button) => button.addEventListener("click", () => setPanelOpen(false)));
+
+    acceptBtn?.addEventListener("click", () => {
+      saveConsent(
+        perfInput ? perfInput.checked : true,
+        targetInput ? targetInput.checked : true,
+      );
+    });
+
+    declineBtn?.addEventListener("click", () => {
+      if (perfInput) perfInput.checked = false;
+      if (targetInput) targetInput.checked = false;
+      saveConsent(false, false);
+    });
+
+    detailsToggle?.addEventListener("click", () => {
+      if (!detailsPanel) return;
+      const open = detailsPanel.hasAttribute("hidden");
+      if (open) detailsPanel.removeAttribute("hidden");
+      else detailsPanel.setAttribute("hidden", "");
+      detailsToggle.setAttribute("aria-expanded", String(open));
+    });
+
+    doc.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && panel.classList.contains("is-open")) {
+        setPanelOpen(false);
+      }
+    });
+
+    widget.addEventListener("mouseenter", () => widget.classList.add("is-expanded"));
+    widget.addEventListener("mouseleave", () => widget.classList.remove("is-expanded"));
+    trigger?.addEventListener("focus", () => widget.classList.add("is-expanded"));
+    trigger?.addEventListener("blur", () => widget.classList.remove("is-expanded"));
+
+    const saved = readConsent();
+    applyConsentToForm(saved);
+    if (!saved) {
+      window.setTimeout(() => setPanelOpen(true), 2000);
+    }
+  }
+
   initPreloader();
   initBlogPage();
   initGetdesignPage();
@@ -559,4 +659,5 @@
   initScrollState();
   initAnchorScroll();
   initForm();
+  initCookies();
 })();
