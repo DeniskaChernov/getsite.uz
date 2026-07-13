@@ -518,7 +518,7 @@ void main(){
       this._shuffle = built.shuffle;
       this._toId = 0;
       this._t = 0;
-      this._playing = false;
+      this._playing = true;
       // morph weights: scatter scalar + 9 shape weights, "from" and "to"
       this._scF = 1; this._scT = 0;
       this._wF = new Float32Array(9);
@@ -641,7 +641,11 @@ void main(){
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.POINTS, 0, this._drawN);
-        if (!ready) { ready = true; this.dispatchEvent(new CustomEvent('pf-ready', { bubbles: true })); }
+        if (!ready) {
+          ready = true;
+          this.setAttribute('data-ready', '');
+          this.dispatchEvent(new CustomEvent('pf-ready', { bubbles: true }));
+        }
       };
       this._raf = requestAnimationFrame(loop);
     }
@@ -649,7 +653,11 @@ void main(){
     /* Retarget without any GPU uploads: fold eased progress into the "from" weights.
        id 0..8 = shapes; id 9 = starfield (seed-derived scatter). */
     setShape(id) {
-      if (!this._gl || id === this._toId) return;
+      if (!this._gl) return;
+      if (id === this._toId) {
+        if (this._t < 0.98) this._playing = true;
+        return;
+      }
       const snapT = this._t < 0.72 ? this._t : 1;
       const e = snapT * snapT * (3 - 2 * snapT);
       this._scF = this._scF * (1 - e) + this._scT * e;

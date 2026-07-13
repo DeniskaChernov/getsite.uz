@@ -24,12 +24,20 @@
       particlesReady = true;
     };
 
-    doc.addEventListener("pf-ready", () => {
+    let heroBooted = false;
+    const bootHeroParticles = () => {
+      if (heroBooted) return;
+      heroBooted = true;
       setParticlesReady();
       if (pf && typeof pf.setShape === "function") pf.setShape(0);
       if (pf && typeof pf.setSide === "function") pf.setSide("left");
       if (pf && typeof pf.startIntro === "function") pf.startIntro();
-    }, { once: true });
+    };
+
+    doc.addEventListener("pf-ready", bootHeroParticles, { once: true });
+    queueMicrotask(() => {
+      if (pf?.hasAttribute("data-ready")) bootHeroParticles();
+    });
 
     if (doc.fonts && doc.fonts.ready) {
       doc.fonts.ready.then(() => {
