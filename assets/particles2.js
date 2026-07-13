@@ -252,6 +252,7 @@ void main(){
       this.style.display = 'block';
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const holder = document.createElement('div');
+      holder.className = 'pf-holder';
       holder.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none';
       const canvas = document.createElement('canvas');
       canvas.style.cssText = 'width:100%;height:100%;display:block';

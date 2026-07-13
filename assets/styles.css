@@ -52,6 +52,20 @@ body.menu-open {
   overflow: hidden;
 }
 
+body.menu-open::before {
+  opacity: 0;
+}
+
+body.menu-open .pf-holder {
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.menu-open .cursor-dot,
+body.menu-open .cursor-ring {
+  opacity: 0 !important;
+}
+
 body.has-custom-cursor,
 body.has-custom-cursor a,
 body.has-custom-cursor button {
@@ -546,13 +560,12 @@ body.menu-open .menu-button span:last-child {
 .menu-panel {
   position: fixed;
   inset: 0;
-  z-index: 150;
+  z-index: 240;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 var(--side);
-  background: rgba(2, 3, 3, 0.92);
-  backdrop-filter: blur(16px);
+  background: var(--bg);
   visibility: hidden;
   pointer-events: none;
   clip-path: inset(0 0 100% 0);
