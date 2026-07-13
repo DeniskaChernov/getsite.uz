@@ -50,50 +50,38 @@
   };
 
   function buildLogoPts() {
-    const size = 512;
-    const cv = document.createElement('canvas'); cv.width = size; cv.height = size;
+    const w = 720, h = 180;
+    const cv = document.createElement('canvas');
+    cv.width = w;
+    cv.height = h;
     const c = cv.getContext('2d');
-    const cx = size * 0.5, cy = size * 0.5, r = size * 0.42;
-    c.fillStyle = '#000';
-    c.beginPath(); c.arc(cx, cy, r, 0, 6.2832); c.fill();
-    c.strokeStyle = 'rgba(245,242,235,0.14)'; c.lineWidth = 2;
-    c.stroke();
     c.fillStyle = '#f5f2eb';
-    c.font = '900 250px Unbounded, Arial, sans-serif';
+    c.font = '900 120px Unbounded, Arial, sans-serif';
     c.textAlign = 'center';
     c.textBaseline = 'middle';
-    c.fillText('g', cx - size * 0.02, cy + size * 0.03);
-    c.fillStyle = '#d8ff3d';
-    c.save();
-    c.translate(cx + size * 0.17, cy - size * 0.17);
-    for (let i = 0; i < 3; i++) {
-      c.rotate(1.0472);
-      c.fillRect(-size * 0.018, -size * 0.09, size * 0.036, size * 0.18);
-    }
-    c.restore();
-    const d = c.getImageData(0, 0, size, size).data; const pts = [];
-    for (let y = 0; y < size; y += 2) {
-      for (let x = 0; x < size; x += 2) {
-        const i = (y * size + x) * 4;
-        const alpha = d[i + 3];
-        if (alpha < 100) continue;
-        const lum = d[i] + d[i + 1] + d[i + 2];
-        if (lum < 200) continue;
-        pts.push([x, y]);
+    c.fillText('getsite', w * 0.5, h * 0.52);
+    const d = c.getImageData(0, 0, w, h).data;
+    const pts = [];
+    for (let y = 0; y < h; y += 2) {
+      for (let x = 0; x < w; x += 2) {
+        const i = (y * w + x) * 4;
+        if (d[i + 3] > 100) pts.push([x, y]);
       }
     }
-    return { pts, size };
+    return { pts, w, h };
   }
   const buildLogoRaw = (sample) => gen((a, i, f) => {
-    const { pts, size } = sample;
+    const { pts, w, h } = sample;
+    const sx = 3.85, sy = 1.28;
+    const place = (p, z, jitter) => {
+      put(a, i, (p[0] / w - 0.5) * sx + G() * jitter, (0.5 - p[1] / h) * sy + G() * jitter, z);
+    };
     if (!pts.length) {
       if (f < 0.72) {
         const t = R(), an = R() * 6.2832, r = 0.78 + G() * 0.02;
         put(a, i, Math.cos(an) * r, Math.sin(an) * r, G() * 0.05);
       } else if (f < 0.88) {
-        const p = pts.length ? pts[Math.floor(R() * pts.length)] : null;
-        if (p) put(a, i, (p[0] / size - 0.5) * 2.4, (0.5 - p[1] / size) * 2.4, G() * 0.04);
-        else put(a, i, -0.12 + G() * 0.24, G() * 0.2, G() * 0.06);
+        put(a, i, -0.12 + G() * 0.24, G() * 0.2, G() * 0.06);
       } else radialDust(a, i, 0.55, 5.2);
       return;
     }
@@ -101,10 +89,9 @@
       const p = pts[Math.floor(R() * pts.length)];
       const layer = R();
       const nz = layer < 0.42 ? 0.16 + R() * 0.05 : layer < 0.72 ? R() * 0.14 : -0.08 - R() * 0.06;
-      put(a, i, (p[0] / size - 0.5) * 2.4 + G() * 0.006, (0.5 - p[1] / size) * 2.4 + G() * 0.006, nz);
+      place(p, nz, 0.006);
     } else if (f < 0.978) {
-      const p = pts[Math.floor(R() * pts.length)];
-      put(a, i, (p[0] / size - 0.5) * 2.4 + G() * 0.01, (0.5 - p[1] / size) * 2.4 + G() * 0.01, G() * 0.02);
+      place(pts[Math.floor(R() * pts.length)], G() * 0.02, 0.01);
     } else radialDust(a, i, 0.55, 5.2);
   });
 

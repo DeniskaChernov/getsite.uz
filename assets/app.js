@@ -9,6 +9,40 @@
 
   let siteIntroDone = false;
 
+  function getActiveScrollScene() {
+    const sections = [...doc.querySelectorAll("section[data-shape]")];
+    if (!sections.length) return { shape: 0, side: "left", index: 0 };
+
+    const viewport = window.innerHeight || 1;
+    const switchLine = viewport * (mobileMq.matches ? 0.48 : 0.58);
+    let nextIndex = 0;
+
+    sections.forEach((section, index) => {
+      if (section.getBoundingClientRect().top < switchLine) nextIndex = index;
+    });
+
+    const section = sections[nextIndex];
+    return {
+      shape: Number(section.dataset.shape),
+      side: section.dataset.side || "left",
+      index: nextIndex,
+    };
+  }
+
+  function shouldPlayHeroIntro(deepLinked = false) {
+    if (reduced || deepLinked) return false;
+    return getActiveScrollScene().index === 0;
+  }
+
+  function syncParticleScene(pf, deepLinked = false) {
+    if (!pf) return;
+    const { shape, side } = getActiveScrollScene();
+    if (typeof pf.skipIntro === "function") pf.skipIntro();
+    if (typeof pf.setShape === "function") pf.setShape(shape);
+    if (typeof pf.setSide === "function") pf.setSide(side);
+    if (!shouldPlayHeroIntro(deepLinked)) siteIntroDone = true;
+  }
+
   function initPreloader() {
     const preloader = doc.querySelector("[data-preloader]");
     const bar = doc.querySelector("[data-loader-bar]");
@@ -31,18 +65,22 @@
       if (heroBooted) return;
       heroBooted = true;
       setParticlesReady();
-      if (pf && typeof pf.prepareIntro === "function") {
-        pf.prepareIntro();
-      } else {
-        if (pf && typeof pf.setShape === "function") pf.setShape(0);
-        if (pf && typeof pf.setSide === "function") pf.setSide("left");
-      }
+      if (!pf) return;
+      const applyBoot = () => {
+        if (shouldPlayHeroIntro(deepLinked) && typeof pf.prepareIntro === "function") {
+          pf.prepareIntro();
+          return;
+        }
+        syncParticleScene(pf, deepLinked);
+      };
+      requestAnimationFrame(() => requestAnimationFrame(applyBoot));
     };
 
     const launchSiteIntro = () => {
-      if (reduced) {
-        if (pf && typeof pf.skipIntro === "function") pf.skipIntro();
+      if (reduced || !shouldPlayHeroIntro(deepLinked)) {
+        syncParticleScene(pf, deepLinked);
         body.classList.add("is-ready", "skip-intro");
+        body.classList.remove("intro-lock", "is-entering");
         siteIntroDone = true;
         return;
       }
@@ -96,8 +134,9 @@
       window.clearTimeout(hardFinish);
       body.classList.toggle("skip-intro", Boolean(options.immediate));
       if (options.immediate) {
-        if (pf && typeof pf.skipIntro === "function") pf.skipIntro();
-        body.classList.add("is-ready");
+        syncParticleScene(pf, deepLinked);
+        body.classList.add("is-ready", "skip-intro");
+        body.classList.remove("intro-lock", "is-entering");
         siteIntroDone = true;
         preloader.remove();
         return;
@@ -478,6 +517,14 @@
     measure();
     update();
     window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("load", () => {
+      measure();
+      requestUpdate();
+    });
+    window.addEventListener("pageshow", () => {
+      measure();
+      requestUpdate();
+    });
     window.addEventListener("resize", () => {
       measure();
       requestUpdate();
