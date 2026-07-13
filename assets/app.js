@@ -7,6 +7,8 @@
 
   const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
 
+  let siteIntroDone = false;
+
   function initPreloader() {
     const preloader = doc.querySelector("[data-preloader]");
     const bar = doc.querySelector("[data-loader-bar]");
@@ -25,19 +27,45 @@
     };
 
     let heroBooted = false;
-    const bootHeroParticles = () => {
+    const prepareHeroParticles = () => {
       if (heroBooted) return;
       heroBooted = true;
       setParticlesReady();
-      if (pf && typeof pf.setShape === "function") pf.setShape(0);
-      if (pf && typeof pf.setSide === "function") pf.setSide("left");
-      if (pf && typeof pf.startIntro === "function") pf.startIntro();
+      if (pf && typeof pf.prepareIntro === "function") {
+        pf.prepareIntro();
+      } else {
+        if (pf && typeof pf.setShape === "function") pf.setShape(0);
+        if (pf && typeof pf.setSide === "function") pf.setSide("left");
+      }
     };
 
-    doc.addEventListener("pf-ready", bootHeroParticles, { once: true });
+    const launchSiteIntro = () => {
+      if (reduced) {
+        if (pf && typeof pf.skipIntro === "function") pf.skipIntro();
+        body.classList.add("is-ready", "skip-intro");
+        siteIntroDone = true;
+        return;
+      }
+
+      body.classList.add("intro-lock", "is-entering");
+      if (pf && typeof pf.startIntro === "function") pf.startIntro();
+      window.setTimeout(() => body.classList.add("is-ready"), 220);
+      window.setTimeout(() => body.classList.remove("is-entering"), 1800);
+      window.setTimeout(() => {
+        body.classList.remove("intro-lock");
+        siteIntroDone = true;
+      }, 2800);
+    };
+
+    doc.addEventListener("pf-ready", prepareHeroParticles, { once: true });
     queueMicrotask(() => {
-      if (pf?.hasAttribute("data-ready")) bootHeroParticles();
+      if (pf?.hasAttribute("data-ready")) prepareHeroParticles();
     });
+
+    doc.addEventListener("pf-intro-complete", () => {
+      siteIntroDone = true;
+      body.classList.remove("intro-lock");
+    }, { once: true });
 
     if (doc.fonts && doc.fonts.ready) {
       doc.fonts.ready.then(() => {
@@ -67,12 +95,15 @@
       window.clearTimeout(fallback);
       window.clearTimeout(hardFinish);
       body.classList.toggle("skip-intro", Boolean(options.immediate));
-      body.classList.add("is-ready");
       if (options.immediate) {
+        if (pf && typeof pf.skipIntro === "function") pf.skipIntro();
+        body.classList.add("is-ready");
+        siteIntroDone = true;
         preloader.remove();
         return;
       }
-      preloader.classList.add("is-hidden");
+      preloader.classList.add("is-exiting", "is-hidden");
+      launchSiteIntro();
       window.setTimeout(() => preloader.remove(), 980);
     };
 
@@ -385,6 +416,7 @@
 
     const applyScene = (shape, side) => {
       if (!pf) return;
+      if (!siteIntroDone && (shape !== 0 || side !== "left")) return;
       if (shape !== lastShape && typeof pf.setShape === "function") {
         lastShape = shape;
         pf.setShape(shape);

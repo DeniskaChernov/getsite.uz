@@ -178,6 +178,68 @@ a:hover {
   visibility: hidden;
 }
 
+.preloader.is-exiting {
+  animation: preloaderExit 0.95s cubic-bezier(0.7, 0, 0.15, 1) forwards;
+}
+
+@keyframes preloaderExit {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+    filter: blur(10px);
+  }
+}
+
+body.intro-lock {
+  overflow: hidden;
+}
+
+body.is-entering::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 46%, transparent 0%, rgba(2, 3, 3, 0.2) 42%, rgba(2, 3, 3, 0.92) 100%);
+  animation: enterTunnel 1.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes enterTunnel {
+  0% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+body.is-entering #main-content,
+body.is-entering .site-header,
+body.is-entering .cursor-dot,
+body.is-entering .cursor-ring {
+  animation: siteEnter 1.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes siteEnter {
+  0% {
+    opacity: 0;
+    transform: scale(1.12) translateY(5vh);
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
 .preloader__brand {
   font-family: "Unbounded", Arial, sans-serif;
   font-size: 1.65rem;

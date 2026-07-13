@@ -260,7 +260,11 @@ void main(){
       this._shuffle = built.shuffle;
       this._toId = 0;
       this._t = 0;
-      this._playing = true;
+      this._playing = false;
+      this._introHold = true;
+      this._introActive = false;
+      this._introZoom = 0;
+      this._introT0 = 0;
       // morph weights: scatter scalar + 9 shape weights, "from" and "to"
       this._scF = 1; this._scT = 0;
       this._wF = new Float32Array(9);
@@ -343,8 +347,17 @@ void main(){
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;
         if (this._playing && this._t < 1) {
-          const morphSpeed = this._toId === 9 ? 1.05 : 1.45;
+          const morphSpeed = this._introActive ? 0.62 : (this._toId === 9 ? 1.05 : 1.45);
           this._t = Math.min(1, this._t + Math.min(dtMs / 1000, 0.08) * (reduced ? 2.8 : morphSpeed));
+        }
+
+        if (this._introActive && this._introT0) {
+          const introAge = (now - this._introT0) / 1000;
+          this._introZoom = Math.min(1, introAge / 1.9);
+          if (this._t >= 0.995 && this._introZoom >= 0.995) {
+            this._introActive = false;
+            this.dispatchEvent(new CustomEvent('pf-intro-complete', { bubbles: true }));
+          }
         }
 
         const id = this._toId;
@@ -358,7 +371,9 @@ void main(){
         this._rx += (tRx - this._rx) * 0.045;
         const mob = window.innerWidth < 700;
         const targetCx = -this._side * (mob ? SIDE_X_M : SIDE_X);
-        const targetCz = CAM_Z[id];
+        const zoomEase = this._introZoom * this._introZoom * (3 - 2 * this._introZoom);
+        const introPull = this._introActive ? (1 - zoomEase) * 5.8 : 0;
+        const targetCz = CAM_Z[id] + introPull;
         this._side += (this._targetSide - this._side) * 0.09;
         this._cx += (targetCx - this._cx) * 0.09;
         this._cz += (targetCz - this._cz) * 0.09;
@@ -397,7 +412,7 @@ void main(){
     setShape(id) {
       if (!this._gl) return;
       if (id === this._toId) {
-        if (this._t < 0.98) this._playing = true;
+        if (!this._introHold && this._t < 0.98) this._playing = true;
         return;
       }
       const snapT = this._t < 0.72 ? this._t : 1;
@@ -409,6 +424,8 @@ void main(){
       this._toId = id;
       this._t = 0;
       this._playing = true;
+      this._introHold = false;
+      this._introActive = false;
     }
 
     setSide(side) {
@@ -416,7 +433,57 @@ void main(){
       else this._targetSide = side === 'right' ? 1 : -1;
     }
 
-    startIntro() { this._playing = true; }
+    prepareIntro() {
+      if (!this._gl) return;
+      this._toId = 0;
+      this._scF = 1;
+      this._scT = 0;
+      this._wF.fill(0);
+      this._wT.fill(0);
+      this._wT[0] = 1;
+      this._t = 0;
+      this._playing = false;
+      this._introHold = true;
+      this._introActive = false;
+      this._introZoom = 0;
+      this._introT0 = 0;
+      this.setSide('left');
+    }
+
+    startIntro() {
+      if (!this._gl) return;
+      this._toId = 0;
+      this._scF = 1;
+      this._scT = 0;
+      this._wF.fill(0);
+      this._wT.fill(0);
+      this._wT[0] = 1;
+      this._t = 0;
+      this._introHold = false;
+      this._introActive = true;
+      this._introZoom = 0;
+      this._introT0 = performance.now();
+      this._playing = true;
+      this._cz = CAM_Z[0] + 5.8;
+      this.setSide('left');
+    }
+
+    skipIntro() {
+      if (!this._gl) return;
+      this._toId = 0;
+      this._scF = 0;
+      this._scT = 0;
+      this._wF.fill(0);
+      this._wT.fill(0);
+      this._wT[0] = 1;
+      this._t = 1;
+      this._playing = false;
+      this._introHold = false;
+      this._introActive = false;
+      this._introZoom = 1;
+      this._introT0 = 0;
+      this.setSide('left');
+    }
 
     disconnectedCallback() {
       cancelAnimationFrame(this._raf);
