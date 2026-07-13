@@ -31,14 +31,45 @@
 
   function shouldPlayHeroIntro(deepLinked = false) {
     if (reduced || deepLinked) return false;
-    return getActiveScrollScene().index === 0;
+    const scene = getActiveScrollScene();
+    const scrollY = window.scrollY || doc.documentElement.scrollTop;
+    return scene.index === 0 && scrollY < 120;
+  }
+
+  function whenScrollReady(callback) {
+    let done = false;
+    let started = false;
+    const invoke = () => {
+      if (done) return;
+      done = true;
+      callback();
+    };
+    const tryInvoke = (attempt = 0) => {
+      const scrollY = window.scrollY || doc.documentElement.scrollTop;
+      const hasHash = Boolean(window.location.hash);
+      const scene = getActiveScrollScene();
+      const looksRestored = scrollY > 0 || hasHash || scene.index > 0 || attempt >= 10;
+      if (looksRestored) {
+        invoke();
+        return;
+      }
+      window.requestAnimationFrame(() => tryInvoke(attempt + 1));
+    };
+    const start = () => {
+      if (started) return;
+      started = true;
+      tryInvoke(0);
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+    window.addEventListener("pageshow", start, { once: true });
   }
 
   function syncParticleScene(pf, deepLinked = false) {
     if (!pf) return;
     const { shape, side } = getActiveScrollScene();
-    if (typeof pf.skipIntro === "function") pf.skipIntro();
-    if (typeof pf.setShape === "function") pf.setShape(shape);
+    if (typeof pf.skipIntro === "function") pf.skipIntro(shape);
+    else if (typeof pf.setShape === "function") pf.setShape(shape);
     if (typeof pf.setSide === "function") pf.setSide(side);
     if (!shouldPlayHeroIntro(deepLinked)) siteIntroDone = true;
   }
@@ -67,13 +98,15 @@
       setParticlesReady();
       if (!pf) return;
       const applyBoot = () => {
-        if (shouldPlayHeroIntro(deepLinked) && typeof pf.prepareIntro === "function") {
-          pf.prepareIntro();
-          return;
-        }
-        syncParticleScene(pf, deepLinked);
+        whenScrollReady(() => {
+          if (shouldPlayHeroIntro(deepLinked) && typeof pf.prepareIntro === "function") {
+            pf.prepareIntro();
+            return;
+          }
+          syncParticleScene(pf, deepLinked);
+        });
       };
-      requestAnimationFrame(() => requestAnimationFrame(applyBoot));
+      requestAnimationFrame(applyBoot);
     };
 
     const launchSiteIntro = () => {
@@ -133,17 +166,22 @@
       window.clearTimeout(fallback);
       window.clearTimeout(hardFinish);
       body.classList.toggle("skip-intro", Boolean(options.immediate));
-      if (options.immediate) {
-        syncParticleScene(pf, deepLinked);
-        body.classList.add("is-ready", "skip-intro");
-        body.classList.remove("intro-lock", "is-entering");
-        siteIntroDone = true;
-        preloader.remove();
-        return;
-      }
-      preloader.classList.add("is-exiting", "is-hidden");
-      launchSiteIntro();
-      window.setTimeout(() => preloader.remove(), 980);
+
+      const complete = () => {
+        if (options.immediate) {
+          syncParticleScene(pf, deepLinked);
+          body.classList.add("is-ready", "skip-intro");
+          body.classList.remove("intro-lock", "is-entering");
+          siteIntroDone = true;
+          preloader.remove();
+          return;
+        }
+        preloader.classList.add("is-exiting", "is-hidden");
+        launchSiteIntro();
+        window.setTimeout(() => preloader.remove(), 980);
+      };
+
+      whenScrollReady(complete);
     };
 
     const tick = () => {
@@ -516,6 +554,14 @@
 
     measure();
     update();
+    whenScrollReady(() => {
+      measure();
+      update();
+    });
+    doc.addEventListener("pf-intro-complete", () => {
+      measure();
+      update();
+    });
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("load", () => {
       measure();

@@ -787,21 +787,26 @@ void main(){
       this.setSide('left');
     }
 
-    skipIntro() {
+    skipIntro(targetId = 0) {
       if (!this._gl) return;
-      this._toId = 0;
-      this._scF = 0;
-      this._scT = 0;
+      const id = targetId;
       this._wF.fill(0);
       this._wT.fill(0);
-      this._wT[0] = 1;
+      if (id === 9) {
+        this._scF = 1;
+        this._scT = 1;
+      } else {
+        this._wT[id] = 1;
+        this._scF = 0;
+        this._scT = 0;
+      }
+      this._toId = id;
       this._t = 1;
       this._playing = false;
       this._introHold = false;
       this._introActive = false;
       this._introZoom = 1;
       this._introT0 = 0;
-      this.setSide('left');
     }
 
     disconnectedCallback() {

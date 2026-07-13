@@ -58,6 +58,20 @@ body.menu-open .pf-holder {
 body.menu-open .cursor-dot,
 body.menu-open .cursor-ring {
   opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.menu-open.has-custom-cursor,
+body.menu-open.has-custom-cursor a,
+body.menu-open.has-custom-cursor button {
+  cursor: auto;
+}
+
+body.menu-open.has-custom-cursor .menu-panel a,
+body.menu-open.has-custom-cursor .menu-panel button,
+body.menu-open.has-custom-cursor .menu-button {
+  cursor: pointer;
 }
 
 body.has-custom-cursor,
@@ -186,6 +200,7 @@ a:hover {
 .preloader.is-hidden {
   clip-path: inset(0 0 100% 0);
   visibility: hidden;
+  pointer-events: none;
 }
 
 .preloader.is-exiting {
@@ -551,7 +566,7 @@ body.menu-open .menu-button span:last-child {
 .menu-panel {
   position: fixed;
   inset: 0;
-  z-index: 240;
+  z-index: 300;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -560,13 +575,20 @@ body.menu-open .menu-button span:last-child {
     calc(var(--side) + var(--safe-right))
     calc(48px + var(--safe-bottom))
     calc(var(--side) + var(--safe-left));
-  background: rgba(2, 3, 3, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--bg);
+  isolation: isolate;
   visibility: hidden;
   pointer-events: none;
   clip-path: inset(0 0 100% 0);
   transition: clip-path 0.55s cubic-bezier(0.7, 0, 0.2, 1), visibility 0.55s;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .menu-panel {
+    background: rgba(2, 3, 3, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
 }
 
 .menu-panel.is-open {
@@ -658,6 +680,7 @@ body.menu-open .menu-button span:last-child {
 .menu-panel.is-open .menu-panel__nav a {
   transform: translateY(0);
   opacity: 1;
+  pointer-events: auto;
 }
 
 .menu-panel.is-open .menu-panel__nav a:nth-child(1) { transition-delay: 0.08s; }
