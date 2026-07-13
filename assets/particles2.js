@@ -187,22 +187,32 @@
       } else dust(a, i);
     });
 
-    // 3 SUPPORT — headset: band + two cups + mic
+    // 3 SUPPORT — bold headset + speech bubble (readable silhouette)
     shapes[3] = gen((a, i, f) => {
-      if (f < 0.28) {
-        const an = 0.35 + R() * 2.45;
-        const r = 0.78 + G() * 0.04;
-        put(a, i, Math.cos(an) * r, Math.sin(an) * r * 0.62 + 0.08, G() * 0.04);
-      } else if (f < 0.48) boxVol(a, i, -0.92, -0.18, -0.48, 0.5, 0.02, 0.16);
-      else if (f < 0.68) boxVol(a, i, 0.48, -0.18, 0.92, 0.5, 0.02, 0.16);
-      else if (f < 0.82) {
-        const t = R(), u = 1 - t;
-        put(a, i,
-          u * u * 0.72 + 2 * u * t * 0.5 + t * t * 0.22,
-          u * u * 0.05 + 2 * u * t * -0.3 + t * t * -0.62,
-          0.08 + G() * 0.02);
-      } else if (f < 0.90) boxVol(a, i, 0.14, -0.66, 0.34, -0.48, 0.06, 0.12);
-      else dust(a, i);
+      if (f < 0.22) {
+        // thick headband (arc tube)
+        const an = 0.45 + R() * 2.24;
+        const r = 0.7 + (R() - 0.5) * 0.12;
+        put(a, i, Math.cos(an) * r, Math.sin(an) * r * 0.72 + 0.14, G() * 0.04);
+      } else if (f < 0.42) {
+        // left ear cup
+        boxVol(a, i, -0.96, -0.22, -0.5, 0.46, -0.02, 0.16);
+      } else if (f < 0.62) {
+        // right ear cup
+        boxVol(a, i, 0.5, -0.22, 0.96, 0.46, -0.02, 0.16);
+      } else if (f < 0.74) {
+        // mic boom
+        const t = R();
+        put(a, i, 0.72 - t * 0.42, 0.02 - t * 0.58, 0.08 + G() * 0.02);
+      } else if (f < 0.80) {
+        // mic tip
+        boxVol(a, i, 0.2, -0.68, 0.42, -0.48, 0.04, 0.12);
+      } else if (f < 0.94) {
+        // chat bubble — clear support mark
+        const bx0 = -0.22, bx1 = 0.34, by0 = -0.18, by1 = 0.38;
+        if (R() < 0.78) boxVol(a, i, bx0, by0, bx1, by1, 0.12, 0.22);
+        else tri(a, i, [bx0 + 0.04, by0], [bx0 - 0.12, by0 - 0.18], [bx0 + 0.18, by0], 0.14, 0.02);
+      } else dust(a, i);
     });
 
     // 4 WORKFLOW — 4 large steps with arrows between
