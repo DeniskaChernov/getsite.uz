@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ru">
   <head>
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/styles.css?v=36">
+    <link rel="stylesheet" href="../assets/styles.css?v=37">
     <script src="../assets/app.js?v=24" defer></script>
   </head>
   <body class="page-article">
@@ -35,25 +35,26 @@
       </div>
       <h1 class="article-page__title">Передача дизайна в разработку без сюрпризов</h1>
       <p class="article-page__lead">Как отдать макет так, чтобы вёрстка не превратилась в угадайку и переделки.</p>
-      <figure class="article-cover">
-        <img src="../assets/blog/handoff-cover.svg" alt="Передача дизайна в разработку без сюрпризов" width="1600" height="900" decoding="async">
-      </figure>
-      <div class="article-body">
-<h2>Р§С‚Рѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ РїРµСЂРµРґР°С‡Рµ</h2>
-<p>РЎРѕСЃС‚РѕСЏРЅРёСЏ РєРЅРѕРїРѕРє, РѕС‚СЃС‚СѓРїС‹, Р°РґР°РїС‚РёРІ, С‚РµРєСЃС‚С‹ РѕС€РёР±РѕРє, РїСѓСЃС‚С‹Рµ СЃРѕСЃС‚РѕСЏРЅРёСЏ. Р‘РµР· СЌС‚РѕРіРѕ СЂР°Р·СЂР°Р±РѕС‚С‡РёРє РґРѕРґСѓРјС‹РІР°РµС‚ вЂ” Рё РјР°РєРµС‚ В«РїР»С‹РІС‘С‚В». Handoff вЂ” СЌС‚Рѕ РЅРµ В«СЃРєРёРЅСѓС‚СЊ FigmaВ», Р° РЅР°Р±РѕСЂ СЂРµС€РµРЅРёР№.</p>
-<p>РћС‚РґРµР»СЊРЅРѕ Р·Р°С„РёРєСЃРёСЂСѓР№С‚Рµ, С‡С‚Рѕ РјРѕР¶РЅРѕ СѓРїСЂРѕСЃС‚РёС‚СЊ РїСЂРё РІС‘СЂСЃС‚РєРµ. РРґРµР°Р»СЊРЅР°СЏ РїРёРєСЃРµР»СЊРЅР°СЏ С‚РѕС‡РЅРѕСЃС‚СЊ РЅРµ РІСЃРµРіРґР° СЃС‚РѕРёС‚ РґРЅРµР№ СЂР°Р±РѕС‚С‹.</p>
-<figure class="article-figure">
-  <img src="../assets/blog/handoff-figure.svg" alt="РџРµСЂРµРґР°С‡Р° РґРёР·Р°Р№РЅР°" width="1600" height="1000" loading="lazy">
-  <figcaption>РҐРѕСЂРѕС€РёР№ handoff СЌРєРѕРЅРѕРјРёС‚ РґРЅРё РЅР° РїСЂР°РІРєР°С… РїРѕСЃР»Рµ В«РїРѕС‡С‚Рё РіРѕС‚РѕРІРѕВ».</figcaption>
-</figure>
-<h2>РљРѕСЂРѕС‚РєРёР№ С‡РµРєР»РёСЃС‚ РїРµСЂРµРґР°С‡Рё</h2>
+            <div class="article-visual article-visual--layers" aria-hidden="true">
+        <div class="article-visual__scene">
+          <span class="article-3d article-3d--a"></span>
+          <span class="article-3d article-3d--b"></span>
+          <span class="article-3d article-3d--c"></span>
+          <span class="article-3d article-3d--d"></span>
+        </div>
+      </div>
+<div class="article-body">
+<h2>Что должно быть в передаче</h2>
+<p>Состояния кнопок, отступы, адаптив, тексты ошибок, пустые состояния. Без этого разработчик додумывает — и макет «плывёт». Handoff — это не «скинуть Figma», а набор решений.</p>
+<p>Отдельно зафиксируйте, что можно упростить при вёрстке. Идеальная пиксельная точность не всегда стоит дней работы.</p>
+<h2>Короткий чеклист передачи</h2>
 <ul>
-  <li>Desktop + mobile РєР»СЋС‡РµРІС‹Рµ СЌРєСЂР°РЅС‹.</li>
-  <li>Hover/focus/disabled РґР»СЏ РёРЅС‚РµСЂР°РєС‚РёРІР°.</li>
-  <li>РљРѕРЅС‚РµРЅС‚-Р»РёРјРёС‚С‹: С‡С‚Рѕ Р±СѓРґРµС‚ РїСЂРё РґР»РёРЅРЅРѕРј Р·Р°РіРѕР»РѕРІРєРµ.</li>
-  <li>РђСЃСЃРµС‚С‹ РІ РЅСѓР¶РЅС‹С… С„РѕСЂРјР°С‚Р°С… Рё СЂР°Р·РјРµСЂР°С….</li>
+  <li>Desktop + mobile ключевые экраны.</li>
+  <li>Hover/focus/disabled для интерактива.</li>
+  <li>Контент-лимиты: что будет при длинном заголовке.</li>
+  <li>Ассеты в нужных форматах и размерах.</li>
 </ul>
-<p>Р•СЃР»Рё С…РѕС‚СЏ Р±С‹ РѕРґРЅРѕРіРѕ РїСѓРЅРєС‚Р° РЅРµС‚ вЂ” Р·Р°Р»РѕР¶РёС‚Рµ РІСЂРµРјСЏ РЅР° СѓС‚РѕС‡РЅРµРЅРёСЏ РґРѕ СЃС‚Р°СЂС‚Р° РІС‘СЂСЃС‚РєРё, Р° РЅРµ РІ РєРѕРЅС†Рµ СЃРїСЂРёРЅС‚Р°.</p>
+<p>Если хотя бы одного пункта нет — заложите время на уточнения до старта вёрстки, а не в конце спринта.</p>
       </div>
       <div class="article-cta">
         <p>Нужно такое же решение под ваш проект? Напишите — разберём задачу и предложим план.</p>
