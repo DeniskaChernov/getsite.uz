@@ -151,6 +151,15 @@ a:hover {
   overflow: hidden;
 }
 
+.pf-holder {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+body.pf-scene-synced .pf-holder {
+  opacity: 1;
+}
+
 .cursor-dot,
 .cursor-ring {
   position: fixed;

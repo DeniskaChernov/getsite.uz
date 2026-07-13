@@ -6,8 +6,55 @@
   const mobileMq = window.matchMedia("(max-width: 700px)");
 
   const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
+  const SCROLL_CACHE_KEY = "getsite-scroll-y";
 
   let siteIntroDone = false;
+
+  function getCachedScrollY() {
+    if (typeof window.__GETSITE_CACHED_SCROLL__ === "number" && window.__GETSITE_CACHED_SCROLL__ > 0) {
+      return window.__GETSITE_CACHED_SCROLL__;
+    }
+    try {
+      const raw = sessionStorage.getItem(SCROLL_CACHE_KEY);
+      const y = raw ? Number(raw) : 0;
+      return Number.isFinite(y) ? y : 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function getEffectiveScrollY() {
+    const live = window.scrollY || doc.documentElement.scrollTop;
+    return Math.max(live, getCachedScrollY());
+  }
+
+  function ensureScrollRestored() {
+    const cached = getCachedScrollY();
+    const live = window.scrollY || doc.documentElement.scrollTop;
+    if (cached > 80 && live < cached - 8) {
+      window.scrollTo(0, cached);
+      window.__GETSITE_CACHED_SCROLL__ = cached;
+    }
+  }
+
+  function persistScrollPosition() {
+    const y = Math.round(window.scrollY || doc.documentElement.scrollTop);
+    try {
+      if (y > 80) {
+        sessionStorage.setItem(SCROLL_CACHE_KEY, String(y));
+        window.__GETSITE_CACHED_SCROLL__ = y;
+      } else {
+        sessionStorage.removeItem(SCROLL_CACHE_KEY);
+        window.__GETSITE_CACHED_SCROLL__ = 0;
+      }
+    } catch {
+      /* ignore quota errors */
+    }
+  }
+
+  function markSceneSynced() {
+    body.classList.add("pf-scene-synced");
+  }
 
   function getActiveScrollScene() {
     const sections = [...doc.querySelectorAll("section[data-shape]")];
@@ -31,9 +78,8 @@
 
   function shouldPlayHeroIntro(deepLinked = false) {
     if (reduced || deepLinked) return false;
-    const scene = getActiveScrollScene();
-    const scrollY = window.scrollY || doc.documentElement.scrollTop;
-    return scene.index === 0 && scrollY < 120;
+    if (getEffectiveScrollY() >= 120) return false;
+    return getActiveScrollScene().index === 0;
   }
 
   function whenScrollReady(callback) {
@@ -42,13 +88,23 @@
     const invoke = () => {
       if (done) return;
       done = true;
+      ensureScrollRestored();
       callback();
     };
     const tryInvoke = (attempt = 0) => {
+      ensureScrollRestored();
       const scrollY = window.scrollY || doc.documentElement.scrollTop;
+      const cached = getCachedScrollY();
       const hasHash = Boolean(window.location.hash);
       const scene = getActiveScrollScene();
-      const looksRestored = scrollY > 0 || hasHash || scene.index > 0 || attempt >= 10;
+      const scrollMatchesCache = cached === 0 || scrollY >= cached - 6;
+      const looksRestored = scrollMatchesCache && (
+        hasHash ||
+        cached > 0 ||
+        scrollY > 0 ||
+        scene.index > 0 ||
+        attempt >= 24
+      );
       if (looksRestored) {
         invoke();
         return;
@@ -67,10 +123,12 @@
 
   function syncParticleScene(pf, deepLinked = false) {
     if (!pf) return;
+    ensureScrollRestored();
     const { shape, side } = getActiveScrollScene();
     if (typeof pf.skipIntro === "function") pf.skipIntro(shape);
     else if (typeof pf.setShape === "function") pf.setShape(shape);
     if (typeof pf.setSide === "function") pf.setSide(side);
+    markSceneSynced();
     if (!shouldPlayHeroIntro(deepLinked)) siteIntroDone = true;
   }
 
@@ -101,6 +159,7 @@
         whenScrollReady(() => {
           if (shouldPlayHeroIntro(deepLinked) && typeof pf.prepareIntro === "function") {
             pf.prepareIntro();
+            markSceneSynced();
             return;
           }
           syncParticleScene(pf, deepLinked);
@@ -119,6 +178,7 @@
       }
 
       body.classList.add("intro-lock", "is-entering");
+      markSceneSynced();
       if (pf && typeof pf.startIntro === "function") pf.startIntro();
       window.setTimeout(() => body.classList.add("is-ready"), 220);
       window.setTimeout(() => body.classList.remove("is-entering"), 1800);
@@ -483,6 +543,7 @@
     let sectionTops = [];
 
     const measure = () => {
+      ensureScrollRestored();
       const scrollY = window.scrollY || doc.documentElement.scrollTop;
       sectionTops = sections.map((section) => ({
         shape: Number(section.dataset.shape),
@@ -562,12 +623,17 @@
       measure();
       update();
     });
-    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("scroll", () => {
+      requestUpdate();
+      window.requestAnimationFrame(persistScrollPosition);
+    }, { passive: true });
+    window.addEventListener("pagehide", persistScrollPosition);
     window.addEventListener("load", () => {
       measure();
       requestUpdate();
     });
     window.addEventListener("pageshow", () => {
+      ensureScrollRestored();
       measure();
       requestUpdate();
     });
