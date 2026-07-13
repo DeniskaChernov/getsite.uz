@@ -138,29 +138,288 @@
         const fin = Math.floor(R() * 3), t = R(), an = fin / 3 * 6.2832;
         const y = -0.6 - t * 0.38, spread = 0.24 + t * 0.48;
         put(a, i, Math.cos(an) * spread + G() * 0.01, y, 0.1 + Math.sin(an) * spread * 0.42);
-      } else if (f < 0.96) {
+      } else if (f < 0.84) {
         const t = R(), an = R() * 6.2832, y = -0.9 - t * 1.28, r = 0.14 * (1 - t * 0.8) * (0.35 + R() * 0.65);
         put(a, i, Math.cos(an) * r + G() * 0.012, y, Math.sin(an) * r * 0.48);
-      } else if (f < 0.978) {
-        const t = R(), an = R() * 6.2832, y = -0.8 + t * 1.2, r = 0.17 + G() * 0.012;
-        put(a, i, Math.cos(an) * r, y, Math.sin(an) * r * 0.5);
-      } else radialDust(a, i, 0.55, 3.4);
+      } else radialDust(a, i, 0.55, 5.2);
     });
 
-    const SI = window.PF_SHAPE_ICONS;
-    const iconVol = (key) => {
-      const sc = SI.scales[key];
-      return SI.makeVol(SI.ICONS[key](), sc[0], sc[1], sc[2], SI.dust, put, gen, radialDust);
-    };
+    // 1 WEBSITE — browser UI card (reference layout, extruded)
+    const WX0 = -0.82, WX1 = 0.82, WY0 = -0.7, WY1 = 0.74, HDR = 0.44;
+    shapes[1] = gen((a, i, f) => {
+      if (f < 0.10) {
+        rectFill(a, i, WX0, WY0, WX1, WY1, 0.14 + G() * 0.02, 0.02);
+      } else if (f < 0.14) {
+        rectFill(a, i, WX0, WY0, WX1, WY1, -0.06 + G() * 0.015, 0.018);
+      } else if (f < 0.18) {
+        boxVol(a, i, WX0, WY0, WX1, WY1, -0.06, 0.16);
+      } else if (f < 0.21) {
+        rectFill(a, i, WX0 + 0.04, WY1 - 0.08, WX1 - 0.04, WY1, 0.13, 0.015);
+      } else if (f < 0.24) {
+        seg(a, i, WX0 + 0.06, HDR, WX1 - 0.06, HDR, 0.13, 0.13);
+      } else if (f < 0.28) {
+        const k = Math.floor(R() * 3);
+        sphere(a, i, [-0.66, -0.56, -0.46][k], 0.58, 0.14 + G() * 0.012, 0.022);
+      } else if (f < 0.32) {
+        boxVol(a, i, -0.22, 0.5, 0.62, 0.6, 0.1, 0.14);
+      } else if (f < 0.40) {
+        boxVol(a, i, WX0 + 0.06, 0.08, -0.16, 0.42, 0.1, 0.15);
+      } else if (f < 0.44) {
+        if (R() < 0.55) tri(a, i, [-0.66, 0.12], [-0.44, 0.32], [-0.28, 0.12], 0.14, 0.012);
+        else tri(a, i, [-0.44, 0.12], [-0.22, 0.28], [-0.1, 0.12], 0.14, 0.012);
+      } else if (f < 0.46) {
+        sphere(a, i, -0.2, 0.32, 0.14, 0.052);
+      } else if (f < 0.54) {
+        const k = Math.floor(R() * 3), ys = [0.3, 0.24, 0.18];
+        seg(a, i, 0.24, ys[k], 0.72, ys[k], 0.13, 0.13);
+      } else if (f < 0.58) {
+        seg(a, i, 0.24, 0.36, 0.68, 0.36, 0.13, 0.13);
+        seg(a, i, 0.24, 0.1, 0.7, 0.1, 0.13, 0.13);
+      } else if (f < 0.66) {
+        const k = Math.floor(R() * 3), x0 = [-0.74, -0.18, 0.38][k];
+        boxVol(a, i, x0, -0.64, x0 + 0.48, -0.3, 0.1, 0.14);
+      } else if (f < 0.76) {
+        const k = Math.floor(R() * 3), x0 = [-0.7, -0.14, 0.42][k];
+        const line = Math.floor(R() * 3), ys = [-0.38, -0.48, -0.56], w = [0.34, 0.26, 0.2][line];
+        seg(a, i, x0, ys[line], x0 + w[line], ys[line], 0.14, 0.14);
+      } else if (f < 0.84) {
+        const cr = Math.floor(R() * 4), r = 0.07;
+        const cx = cr < 2 ? WX1 : WX0, cy = cr % 2 === 0 ? WY1 : WY0;
+        const an = R() * 1.57;
+        put(a, i, cx + (cr < 2 ? -1 : 1) * Math.cos(an) * r, cy + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, 0.13);
+      } else radialDust(a, i, 0.55, 5.2);
+    });
 
-    shapes[1] = iconVol('browser');
-    shapes[2] = iconVol('briefcase');
-    shapes[3] = iconVol('headset');
-    shapes[4] = iconVol('workflow');
-    shapes[5] = iconVol('book');
+    // 2 BRIEFCASE — portfolio bag with dashboard widgets
+    const BBW = 0.86, BBH = 0.7;
+    shapes[2] = gen((a, i, f) => {
+      if (f < 0.16) rectFill(a, i, -BBW, -BBH, BBW, BBH, 0.14 + G() * 0.02, 0.03);
+      else if (f < 0.22) rectFill(a, i, -BBW, -BBH, BBW, BBH, -0.06 + G() * 0.015, 0.025);
+      else if (f < 0.28) boxVol(a, i, -BBW, -BBH, BBW, BBH, -0.06, 0.16);
+      else if (f < 0.32) {
+        const t = R();
+        put(a, i, -0.32 + t * 0.64, 0.76 + Math.sin(t * Math.PI) * 0.2, 0.16 + G() * 0.02);
+      } else if (f < 0.36) seg(a, i, -BBW * 0.82, 0.3, BBW * 0.82, 0.3, 0.15, 0.15);
+      else if (f < 0.42) boxVol(a, i, -0.76, -0.46, -0.16, 0.26, 0.12, 0.18);
+      else if (f < 0.48) {
+        if (R() < 0.55) tri(a, i, [-0.66, -0.34], [-0.4, 0.06], [-0.54, -0.34], 0.18, 0.02);
+        else tri(a, i, [-0.52, -0.34], [-0.26, -0.02], [-0.36, -0.34], 0.18, 0.02);
+      } else if (f < 0.52) sphere(a, i, -0.32, 0.08, 0.19, 0.038);
+      else if (f < 0.58) {
+        rectEdge(a, i, -0.04, 0.04, 0.26, 0.26, 0.18, 0.02);
+        seg(a, i, -0.04, 0.26, 0.12, 0.36, 0.18, 0.26);
+        seg(a, i, 0.26, 0.04, 0.12, 0.14, 0.18, 0.26);
+      } else if (f < 0.64) {
+        const k = Math.floor(R() * 3), h = [0.38, 0.5, 0.62][k];
+        rectFill(a, i, 0.36 + k * 0.12, -0.04, 0.44 + k * 0.12, h, 0.18, 0.01);
+      } else if (f < 0.72) {
+        const t = R(), x = -0.7 + t * 1.3;
+        put(a, i, x, -0.56 + Math.sin(t * 5.2) * 0.1 + t * 0.06, 0.18 + G() * 0.01);
+      } else if (f < 0.78) {
+        const k = Math.floor(R() * 3);
+        sphere(a, i, -0.1 + k * 0.1, -0.6, 0.19, k === 1 ? 0.042 : 0.028);
+      } else if (f < 0.84) rectFill(a, i, -0.1, 0.26, 0.1, 0.4, 0.19, 0.02);
+      else radialDust(a, i, 0.55, 5.2);
+    });
+
+    // 3 SUPPORT — headset wrapping chat bubble
+    const BX0 = -0.38, BX1 = 0.38, BY0 = -0.28, BY1 = 0.38;
+    shapes[3] = gen((a, i, f) => {
+      if (f < 0.16) {
+        rectFill(a, i, BX0, BY0, BX1, BY1, 0.12 + G() * 0.02, 0.02);
+      } else if (f < 0.20) {
+        rectFill(a, i, BX0, BY0, BX1, BY1, -0.04 + G() * 0.015, 0.018);
+      } else if (f < 0.24) {
+        boxVol(a, i, BX0, BY0, BX1, BY1, -0.04, 0.14);
+      } else if (f < 0.28) {
+        tri(a, i, [BX0 + 0.04, BY0], [BX0 - 0.14, BY0 - 0.16], [BX0 + 0.1, BY0 - 0.02], 0.1, 0.015);
+      } else if (f < 0.34) {
+        const k = Math.floor(R() * 3), ys = [0.06, 0.0, -0.06];
+        seg(a, i, -0.22, ys[k], 0.22, ys[k], 0.12, 0.12);
+      } else if (f < 0.38) {
+        const k = Math.floor(R() * 3);
+        sphere(a, i, [-0.18, 0, 0.18][k], 0.02, 0.13 + G() * 0.01, 0.028);
+      } else if (f < 0.46) {
+        const an = 0.55 + R() * 2.05, r = 0.82 + G() * 0.03;
+        put(a, i, Math.cos(an) * r, Math.sin(an) * r * 0.62 + 0.12, 0.06 + G() * 0.016);
+      } else if (f < 0.52) {
+        boxVol(a, i, -0.82, -0.12, -0.42, 0.52, 0.04, 0.12);
+      } else if (f < 0.58) {
+        boxVol(a, i, 0.42, -0.12, 0.82, 0.52, 0.04, 0.12);
+      } else if (f < 0.64) {
+        const t = R();
+        put(a, i, 0.84 + G() * 0.012, 0.04 + t * 0.16, 0.1 + G() * 0.01);
+      } else if (f < 0.70) {
+        const t = R(), u = 1 - t;
+        put(a, i, u * u * 0.56 + 2 * u * t * 0.42 + t * t * 0.16 + G() * 0.01, u * u * -0.1 + 2 * u * t * -0.34 + t * t * -0.48 + G() * 0.01, 0.08 + G() * 0.012);
+      } else if (f < 0.76) {
+        rectFill(a, i, 0.12, -0.5, 0.3, -0.38, 0.1, 0.012);
+      } else if (f < 0.84) {
+        const t = R();
+        put(a, i, 0.18 + t * 0.06, -0.42 + G() * 0.01, 0.11);
+      } else radialDust(a, i, 0.55, 5.2);
+    });
+
+    // 4 WORKFLOW — 4-step rail
+    const PLQ = [-1.0, -0.33, 0.33, 1.0];
+    const PW = 0.3, PH = 0.34;
+    shapes[4] = gen((a, i, f) => {
+      if (f < 0.22) {
+        const k = Math.floor(R() * 4);
+        boxVol(a, i, PLQ[k] - PW, 0.02, PLQ[k] + PW, PH, 0.04, 0.14);
+      } else if (f < 0.30) {
+        const t = R();
+        put(a, i, -1.5 + t * 3.45, -0.38 + G() * 0.025, G() * 0.04);
+      } else if (f < 0.36) {
+        const k = Math.floor(R() * 3), t = R();
+        put(a, i, PLQ[k] + PW + t * (PLQ[k + 1] - PW - PLQ[k] - PW), -0.05 + G() * 0.02, 0.09 + G() * 0.02);
+      } else if (f < 0.42) {
+        const an = Math.PI * 0.55 + R() * Math.PI * 0.9;
+        put(a, i, -1.52 + Math.cos(an) * 0.22, -0.38 + Math.sin(an) * 0.22, G() * 0.03);
+      } else if (f < 0.48) {
+        if (R() < 0.55) seg(a, i, 1.72, -0.38, 2.02, -0.38, 0, 0);
+        else tri(a, i, [1.92, -0.38], [2.18, -0.5], [2.18, -0.26], 0, 0.02);
+      } else if (f < 0.58) {
+        const cx = PLQ[0], cy = 0.42;
+        if (R() < 0.65) sphere(a, i, cx, cy, 0.1, 0.085);
+        else seg(a, i, cx + 0.05, cy - 0.05, cx + 0.17, cy - 0.17, 0.12, 0.12);
+      } else if (f < 0.66) {
+        const cx = PLQ[1], cy = 0.45;
+        sphere(a, i, cx, cy, 0.09, 0.095);
+        if (R() < 0.4) {
+          const an = R() * 6.2832;
+          put(a, i, cx + Math.cos(an) * 0.17, cy + 0.14 + Math.sin(an) * 0.06, 0.13 + G() * 0.01);
+        }
+      } else if (f < 0.74) {
+        seg(a, i, PLQ[2] - 0.1, 0.28, PLQ[2] + 0.16, 0.52, 0.12, 0.12);
+      } else if (f < 0.84) {
+        const cx = PLQ[3], cy = 0.38;
+        if (R() < 0.55) {
+          const t = R(), an = R() * 6.2832, y = cy - 0.05 + t * 0.35, r = 0.07 * (1 - t * 0.35);
+          put(a, i, cx + Math.cos(an) * r * 0.45, y, 0.11 + G() * 0.01);
+        } else {
+          const t = R();
+          put(a, i, cx + G() * 0.03, cy - 0.2 - t * 0.22, G() * 0.025);
+        }
+      } else radialDust(a, i, 0.55, 5.2);
+    });
+
+    // 5 CLOSED BOOK — 3/4 view with spine, pages, bookmark
+    const FCX0 = -0.28, FCX1 = 0.68, FCY0 = -0.58, FCY1 = 0.62;
+    const fcZ = (x) => 0.1 + ((x - FCX0) / (FCX1 - FCX0)) * 0.14;
+    shapes[5] = gen((a, i, f) => {
+      if (f < 0.28) {
+        const x = FCX0 + R() * (FCX1 - FCX0), y = FCY0 + R() * (FCY1 - FCY0);
+        put(a, i, x + G() * 0.01, y + G() * 0.01, fcZ(x) + G() * 0.02);
+      } else if (f < 0.34) {
+        rectEdge(a, i, FCX0, FCY0, FCX1, FCY1, 0.22, 0.03);
+      } else if (f < 0.40) {
+        const t = R(), y = FCY0 + t * (FCY1 - FCY0);
+        const an = Math.PI * 0.5 + R() * Math.PI;
+        put(a, i, -0.35 + Math.cos(an) * 0.1 + G() * 0.01, y, 0.06 + Math.sin(an) * 0.1 + G() * 0.015);
+      } else if (f < 0.46) {
+        const band = Math.floor(R() * 2), y = band === 0 ? -0.1 : 0.32;
+        const an = Math.PI * 0.35 + R() * Math.PI * 0.65;
+        put(a, i, -0.36 + Math.cos(an) * 0.12, y + G() * 0.02, 0.07 + Math.sin(an) * 0.11);
+      } else if (f < 0.52) {
+        const t = R(), x = -0.22 + t * 0.98;
+        put(a, i, x, -0.78 + G() * 0.02, 0.06 + R() * 0.08);
+      } else if (f < 0.58) {
+        const line = Math.floor(R() * 8), y = -0.76 + line * 0.01;
+        const t = R();
+        put(a, i, -0.18 + t * 0.94, y, 0.1 + G() * 0.01);
+      } else if (f < 0.64) {
+        const t = R();
+        put(a, i, FCX0 + t * (FCX1 - FCX0), FCY1 - R() * 0.04, 0.12 + G() * 0.02);
+      } else if (f < 0.70) {
+        const t = R();
+        put(a, i, 0.15 + G() * 0.05, 0.28 + t * 0.48, 0.26 + G() * 0.015);
+      } else if (f < 0.76) {
+        const t = R();
+        put(a, i, 0.08 + t * 0.2, 0.8 + G() * 0.02, 0.24 + G() * 0.015);
+      } else if (f < 0.82) {
+        if (R() < 0.5) seg(a, i, 0.08, 0.42, 0.2, 0.26, 0.26, 0.26);
+        else seg(a, i, 0.32, 0.42, 0.2, 0.26, 0.26, 0.26);
+      } else if (f < 0.88) {
+        const cr = Math.floor(R() * 4), r = 0.07;
+        const cx = cr < 2 ? FCX1 : FCX0, cy = cr % 2 === 0 ? FCY1 : FCY0;
+        const an = R() * 1.57;
+        put(a, i, cx + (cr < 2 ? -1 : 1) * Math.cos(an) * r, cy + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, fcZ(cx) + 0.02);
+      } else radialDust(a, i, 0.55, 5.2);
+    });
+
     shapes[6] = buildLogoRaw(buildLogoPts());
-    shapes[7] = iconVol('plane');
-    shapes[8] = iconVol('automation');
+
+    // 7 TELEGRAM — paper plane with folded wings
+    const TN = [0.92, 0.52], TBL = [-0.78, 0.18], TBR = [0.22, -0.28], TC = [-0.02, 0.02], TKF = [-0.32, -0.62];
+    shapes[7] = gen((a, i, f) => {
+      if (f < 0.28) tri(a, i, TN, TBL, TC, 0.16, 0.022);
+      else if (f < 0.44) tri(a, i, TN, TC, TBR, 0.1, 0.02);
+      else if (f < 0.54) tri(a, i, TBL, TBR, TKF, -0.16, 0.026);
+      else if (f < 0.58) tri(a, i, TC, TBR, TKF, -0.12, 0.02);
+      else if (f < 0.64) seg(a, i, TN[0], TN[1], TBL[0], TBL[1], 0.16, 0.12);
+      else if (f < 0.68) seg(a, i, TN[0], TN[1], TBR[0], TBR[1], 0.12, 0.06);
+      else if (f < 0.72) seg(a, i, TBL[0], TBL[1], TKF[0], TKF[1], 0.02, -0.14);
+      else if (f < 0.76) seg(a, i, TC[0], TC[1], TBR[0], TBR[1], 0.08, 0.04);
+      else if (f < 0.82) {
+        const t = R();
+        seg(a, i, TN[0] - t * 1.05, TN[1] - t * 0.88, TN[0] - t * 1.05 + G() * 0.02, TN[1] - t * 0.88 + G() * 0.02, 0.14 - t * 0.2, 0.08 - t * 0.16);
+      } else if (f < 0.86) {
+        put(a, i, TN[0] + G() * 0.012, TN[1] + G() * 0.012, 0.18 + G() * 0.01);
+      } else if (f < 0.90) {
+        put(a, i, TBL[0] + G() * 0.018, TBL[1] + G() * 0.018, 0.14);
+      } else radialDust(a, i, 0.55, 5.2);
+    });
+
+    shapes[8] = gen((a, i, f) => {
+      const AC = [[-0.74, 0.66], [0.74, 0.66], [-0.74, -0.66], [0.74, -0.66]], ASQ = 0.22;
+      if (f < 0.14) {
+        const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
+        boxVol(a, i, cx - ASQ, cy - ASQ, cx + ASQ, cy + ASQ, 0.04, 0.14);
+      } else if (f < 0.20) {
+        const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
+        const dot = Math.floor(R() * 3);
+        sphere(a, i, cx + [-0.06, 0, 0.06][dot], cy + [0.06, 0, -0.06][dot], 0.12, 0.02);
+      } else if (f < 0.30) {
+        const tooth = Math.floor(R() * 10), ban = tooth / 10 * 6.2832 + R() * 0.1;
+        const r = 0.22 + Math.abs(Math.sin(ban * 4)) * 0.09;
+        put(a, i, Math.cos(ban) * r, Math.sin(ban) * r, 0.08 + G() * 0.02);
+      } else if (f < 0.34) {
+        sphere(a, i, 0, 0, 0.08, 0.12);
+      } else if (f < 0.42) {
+        const k = Math.floor(R() * 4), t = R();
+        const mx = AC[k][0] * t * 0.78, my = AC[k][1] * t * 0.78;
+        put(a, i, mx + G() * 0.015, my + G() * 0.015, 0.06 + G() * 0.014);
+      } else if (f < 0.48) {
+        const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
+        if (Math.abs(cx) > Math.abs(cy)) {
+          seg(a, i, cx > 0 ? 0.14 : -0.14, cy * 0.35, cx > 0 ? cx - ASQ : cx + ASQ, cy, 0.1, 0.1);
+        } else {
+          seg(a, i, cx * 0.35, cy > 0 ? 0.14 : -0.14, cx, cy > 0 ? cy - ASQ : cy + ASQ, 0.1, 0.1);
+        }
+      } else if (f < 0.54) {
+        if (R() < 0.45) seg(a, i, -0.8, 0.58, -0.64, 0.78, 0.12, 0.12);
+        else if (R() < 0.75) seg(a, i, -0.64, 0.78, -0.76, 0.62, 0.12, 0.12);
+        else seg(a, i, -0.64, 0.78, -0.52, 0.58, 0.12, 0.12);
+      } else if (f < 0.60) {
+        const line = Math.floor(R() * 3), y = 0.74 - line * 0.08;
+        seg(a, i, 0.58, y, 0.86, y, 0.12, 0.12);
+        sphere(a, i, [0.66, 0.78, 0.74][line], y, 0.12, 0.024);
+      } else if (f < 0.66) {
+        const cyl = Math.floor(R() * 3), y = -0.56 - cyl * 0.11, an = R() * 6.2832;
+        put(a, i, -0.74 + Math.cos(an) * 0.08, y, 0.09 + Math.sin(an) * 0.03);
+      } else if (f < 0.72) {
+        boxVol(a, i, 0.58, -0.76, 0.88, -0.52, 0.08, 0.13);
+        const dot = Math.floor(R() * 3);
+        sphere(a, i, 0.62 + dot * 0.05, -0.54, 0.12, 0.016);
+      } else if (f < 0.84) {
+        const k = Math.floor(R() * 4), cx = AC[k][0], cy = AC[k][1];
+        const cr = Math.floor(R() * 4), r = 0.06;
+        const ex = cr < 2 ? cx + ASQ : cx - ASQ, ey = cr % 2 === 0 ? cy + ASQ : cy - ASQ;
+        const an = R() * 1.57;
+        put(a, i, ex + (cr < 2 ? -1 : 1) * Math.cos(an) * r, ey + (cr % 2 === 0 ? -1 : 1) * Math.sin(an) * r, 0.12);
+      } else radialDust(a, i, 0.55, 5.2);
+    });
 
     return { shapes: shapes.map(shuffle), shuffle };
   }
@@ -182,14 +441,14 @@ void main(){
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6] + aP7 * uWT[7] + aP8 * uWT[8];
   vec3 form = mix(F, T, tt);
   float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
-  float cloud = step(0.70, cloudSeed);
+  float cloud = step(0.56, cloudSeed);
   vec3 cosmosDir = normalize(vec3(
     sin(aSeed.x * 6.283 + aSeed.y * 3.11),
     cos(aSeed.y * 6.283 + aSeed.z * 2.7) * 0.55,
     sin(aSeed.z * 6.283 + aSeed.x * 4.3)));
-  float cosmosDist = pow(cloudSeed, 1.6) * 14.0 + 0.4;
+  float cosmosDist = pow(cloudSeed, 1.45) * 16.0 + 0.35;
   vec3 cosmosPos = form + cosmosDir * cosmosDist;
-  float cosmosFade = exp(-cosmosDist * 0.22);
+  float cosmosFade = exp(-cosmosDist * 0.14);
   vec3 p = mix(form, cosmosPos, cloud);
   float w = 0.014 + 0.020 * aSeed.x;
   p += w * vec3(
@@ -206,21 +465,21 @@ void main(){
   pos.xy += (dir * 0.12 + vec2(-dir.y, dir.x) * 0.06) * f * pos.w;
   gl_Position = pos;
   float dist = max(0.7, -mv.z);
-  float lime = step(0.93, aSeed.y);
-  float ps = uSize * (0.7 + aSeed.z * 1.2) * (2.4 / dist) * (1.0 + lime * 0.5);
+  float lime = step(0.86, aSeed.y);
+  float ps = uSize * (0.7 + aSeed.z * 1.2) * (2.4 / dist) * (1.0 + lime * 0.65);
   float zSize = clamp(0.82 + form.z * 2.4, 0.62, 1.38);
   gl_PointSize = max(1.0, min(ps * zSize, uSize * 4.6));
   vCloud = cloud;
   vFormZ = form.z;
-  float cosmosAlpha = mix(1.0, cosmosFade * 0.85, cloud);
-  vA = (0.44 + 0.24 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA * cosmosAlpha;
+  float cosmosAlpha = mix(1.0, max(0.42, cosmosFade * 0.95), cloud);
+  vA = (0.46 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA * cosmosAlpha;
   float fog = clamp((dist - 1.6) / 3.4, 0.0, 1.0);
   float zLift = clamp(0.58 + form.z * 4.2, 0.36, 1.72);
   float sideShade = clamp(0.9 + form.x * 0.14, 0.74, 1.14);
-  vec3 base = mix(vec3(0.949, 0.941, 0.918), vec3(0.337, 0.784, 1.0), smoothstep(0.5, 0.93, aSeed.y) * 0.85);
-  vec3 col = mix(base, vec3(0.847, 1.0, 0.239) * 1.35, lime);
-  vColor = col * (1.32 - fog * 0.45) * cosmosAlpha * zLift * sideShade;
-  gl_PointSize *= mix(1.0, 0.35 + cosmosFade * 0.65, cloud);
+  vec3 base = mix(vec3(0.949, 0.941, 0.918), vec3(0.42, 0.88, 1.0), smoothstep(0.32, 0.86, aSeed.y) * 1.0);
+  vec3 col = mix(base, vec3(0.847, 1.0, 0.239) * 1.45, lime);
+  vColor = col * (1.38 - fog * 0.42) * cosmosAlpha * zLift * sideShade;
+  gl_PointSize *= mix(1.0, 0.52 + cosmosFade * 0.62, cloud);
 }`;
   const FS = `
 precision mediump float;
