@@ -57,14 +57,14 @@ body.menu-open.pf-scene-synced .pf-holder {
 }
 
 body.has-custom-cursor,
-body.has-custom-cursor a,
-body.has-custom-cursor button {
-  cursor: none;
+body.has-custom-cursor * {
+  cursor: none !important;
 }
 
 body.has-custom-cursor input,
-body.has-custom-cursor textarea {
-  cursor: text;
+body.has-custom-cursor textarea,
+body.has-custom-cursor [contenteditable="true"] {
+  cursor: text !important;
 }
 
 button,
