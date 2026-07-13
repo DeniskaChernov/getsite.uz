@@ -254,25 +254,32 @@
       } else dust(a, i);
     });
 
-    // 8 AUTOMATION — hub + gear + four linked nodes
+    // 8 AUTOMATION — two interlocking gears (clear silhouette, no center cross)
     shapes[8] = gen((a, i, f) => {
-      const nodes = [[-0.78, 0.7], [0.78, 0.7], [-0.78, -0.7], [0.78, -0.7]];
-      if (f < 0.22) {
-        const an = R() * 6.2832, r = 0.18 + R() * 0.14;
-        put(a, i, Math.cos(an) * r, Math.sin(an) * r, 0.06 + G() * 0.03);
-      } else if (f < 0.38) {
-        const tooth = Math.floor(R() * 12), an = tooth / 12 * 6.2832 + R() * 0.08;
-        const r = 0.34 + Math.abs(Math.sin(an * 6)) * 0.1;
-        put(a, i, Math.cos(an) * r, Math.sin(an) * r, 0.08 + G() * 0.02);
-      } else if (f < 0.58) {
-        const k = Math.floor(R() * 4), n = nodes[k];
-        boxVol(a, i, n[0] - 0.2, n[1] - 0.2, n[0] + 0.2, n[1] + 0.2, 0.04, 0.14);
-      } else if (f < 0.76) {
-        const k = Math.floor(R() * 4), n = nodes[k], t = R();
-        put(a, i, n[0] * t * 0.72, n[1] * t * 0.72, 0.06 + G() * 0.02);
-      } else if (f < 0.90) {
-        const k = Math.floor(R() * 4), n = nodes[k];
-        sphere(a, i, n[0], n[1], 0.14, 0.06);
+      const sampleGear = (cx, cy, teeth, rHub, rRing, rTooth, z) => {
+        if (R() < 0.42) {
+          const an = R() * 6.2832;
+          const r = rHub + R() * (rRing - rHub);
+          put(a, i, cx + Math.cos(an) * r, cy + Math.sin(an) * r, z + G() * 0.03);
+          return;
+        }
+        const tooth = Math.floor(R() * teeth);
+        const an = (tooth + 0.5) / teeth * 6.2832;
+        const t = R();
+        const r = rRing + t * (rTooth - rRing);
+        const half = 0.09 + R() * 0.05;
+        const tang = an + Math.PI * 0.5;
+        const ox = (R() - 0.5) * half * rTooth;
+        put(a, i,
+          cx + Math.cos(an) * r + Math.cos(tang) * ox,
+          cy + Math.sin(an) * r + Math.sin(tang) * ox,
+          z + G() * 0.025);
+      };
+
+      if (f < 0.58) {
+        sampleGear(-0.18, 0.16, 10, 0.16, 0.42, 0.58, 0.08);
+      } else if (f < 0.92) {
+        sampleGear(0.46, -0.4, 8, 0.1, 0.28, 0.4, 0.1);
       } else dust(a, i);
     });
 
