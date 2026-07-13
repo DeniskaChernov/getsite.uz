@@ -543,87 +543,6 @@
     });
   }
 
-  function initCasesRail() {
-    const stage = doc.querySelector("[data-cases-rail]");
-    if (!stage) return;
-
-    const cards = [...stage.querySelectorAll(".cases-card")];
-    const focalRatio = 0.16;
-    let raf = 0;
-
-    const updateCards = () => {
-      const vw = window.innerWidth || 1;
-      const focusX = vw * focalRatio;
-
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const cx = rect.left + rect.width * 0.38;
-        const dist = Math.max(0, cx - focusX);
-        const t = Math.min(1, dist / (vw * 0.78));
-        const scale = 1 - t * 0.38;
-        const lift = t * 34;
-        const opacity = 1 - t * 0.58;
-        const blur = t * 1.2;
-        card.style.setProperty("--cases-scale", scale.toFixed(3));
-        card.style.setProperty("--cases-lift", `${lift.toFixed(1)}px`);
-        card.style.setProperty("--cases-opacity", opacity.toFixed(3));
-        card.style.setProperty("--cases-blur", `${blur.toFixed(2)}px`);
-      });
-    };
-
-    const requestUpdate = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = 0;
-        updateCards();
-      });
-    };
-
-    stage.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-
-    let drag = false;
-    let startX = 0;
-    let startLeft = 0;
-
-    stage.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "touch") return;
-      drag = true;
-      startX = event.clientX;
-      startLeft = stage.scrollLeft;
-      stage.classList.add("is-dragging");
-      stage.setPointerCapture(event.pointerId);
-    });
-
-    stage.addEventListener("pointermove", (event) => {
-      if (!drag) return;
-      stage.scrollLeft = startLeft - (event.clientX - startX);
-      requestUpdate();
-    });
-
-    const endDrag = (event) => {
-      if (!drag) return;
-      drag = false;
-      stage.classList.remove("is-dragging");
-      if (event.pointerId) stage.releasePointerCapture(event.pointerId);
-    };
-
-    stage.addEventListener("pointerup", endDrag);
-    stage.addEventListener("pointercancel", endDrag);
-
-    if (!reduced) {
-      stage.addEventListener("wheel", (event) => {
-        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-        stage.scrollLeft += event.deltaY * 0.9;
-        event.preventDefault();
-        requestUpdate();
-      }, { passive: false });
-    }
-
-    requestUpdate();
-  }
-
   function initCookies() {
     const widget = doc.querySelector("[data-cookie-widget]");
     const panel = doc.querySelector("[data-cookie-panel]");
@@ -634,10 +553,8 @@
     const closeButtons = doc.querySelectorAll("[data-cookie-close]");
     const acceptBtn = doc.querySelector("[data-cookie-accept]");
     const declineBtn = doc.querySelector("[data-cookie-decline]");
-    const saveBtn = doc.querySelector("[data-cookie-save]");
-    const tabButtons = panel.querySelectorAll("[data-cookie-tab]");
-    const panes = panel.querySelectorAll("[data-cookie-pane]");
-    const showButtons = panel.querySelectorAll("[data-cookie-show]");
+    const detailsToggle = doc.querySelector("[data-cookie-details-toggle]");
+    const detailsPanel = doc.querySelector("[data-cookie-details]");
     const perfInput = doc.querySelector("#cookie-performance");
     const targetInput = doc.querySelector("#cookie-targeting");
 
@@ -658,43 +575,21 @@
       }
     };
 
-    const syncToggleTracks = () => {
-      panel.querySelectorAll(".cookie-toggle input[type='checkbox']").forEach((input) => {
-        const track = input.nextElementSibling;
-        if (track) track.classList.toggle("is-on", input.checked);
-      });
-    };
-
     const setPanelOpen = (open) => {
       panel.classList.toggle("is-open", open);
       panel.setAttribute("aria-hidden", String(!open));
       if (open) {
-        const focusTarget = panel.querySelector("[data-cookie-save]") || panel.querySelector(".cookie-panel__close");
+        const focusTarget = panel.querySelector(".cookie-panel__accept") || panel.querySelector(".cookie-panel__close");
         window.setTimeout(() => focusTarget?.focus(), 0);
       } else if (trigger) {
         trigger.focus();
       }
     };
 
-    const setTab = (name) => {
-      tabButtons.forEach((button) => {
-        const active = button.dataset.cookieTab === name;
-        button.classList.toggle("is-active", active);
-        button.setAttribute("aria-selected", String(active));
-      });
-      panes.forEach((pane) => {
-        const active = pane.dataset.cookiePane === name;
-        pane.classList.toggle("is-active", active);
-        if (active) pane.removeAttribute("hidden");
-        else pane.setAttribute("hidden", "");
-      });
-    };
-
     const applyConsentToForm = (consent) => {
       if (!consent) return;
       if (perfInput) perfInput.checked = Boolean(consent.performance);
       if (targetInput) targetInput.checked = Boolean(consent.targeting);
-      syncToggleTracks();
     };
 
     const saveConsent = (performance, targeting) => {
@@ -707,52 +602,28 @@
       setPanelOpen(false);
     };
 
-    const readForm = () => ({
-      performance: perfInput ? perfInput.checked : false,
-      targeting: targetInput ? targetInput.checked : false,
-    });
-
     trigger?.addEventListener("click", () => setPanelOpen(true));
     closeButtons.forEach((button) => button.addEventListener("click", () => setPanelOpen(false)));
 
     acceptBtn?.addEventListener("click", () => {
-      if (perfInput) perfInput.checked = true;
-      if (targetInput) targetInput.checked = true;
-      syncToggleTracks();
-      saveConsent(true, true);
+      saveConsent(
+        perfInput ? perfInput.checked : true,
+        targetInput ? targetInput.checked : true,
+      );
     });
 
     declineBtn?.addEventListener("click", () => {
       if (perfInput) perfInput.checked = false;
       if (targetInput) targetInput.checked = false;
-      syncToggleTracks();
       saveConsent(false, false);
     });
 
-    saveBtn?.addEventListener("click", () => {
-      const form = readForm();
-      saveConsent(form.performance, form.targeting);
-    });
-
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => setTab(button.dataset.cookieTab));
-    });
-
-    showButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const key = button.dataset.cookieShow;
-        const list = panel.querySelector(`[data-cookie-list="${key}"]`);
-        if (!list) return;
-        const open = list.hasAttribute("hidden");
-        if (open) list.removeAttribute("hidden");
-        else list.setAttribute("hidden", "");
-        button.setAttribute("aria-expanded", String(open));
-        button.classList.toggle("is-open", open);
-      });
-    });
-
-    panel.querySelectorAll(".cookie-toggle input[type='checkbox']").forEach((input) => {
-      input.addEventListener("change", syncToggleTracks);
+    detailsToggle?.addEventListener("click", () => {
+      if (!detailsPanel) return;
+      const open = detailsPanel.hasAttribute("hidden");
+      if (open) detailsPanel.removeAttribute("hidden");
+      else detailsPanel.setAttribute("hidden", "");
+      detailsToggle.setAttribute("aria-expanded", String(open));
     });
 
     doc.addEventListener("keydown", (event) => {
@@ -766,7 +637,6 @@
     trigger?.addEventListener("focus", () => widget.classList.add("is-expanded"));
     trigger?.addEventListener("blur", () => widget.classList.remove("is-expanded"));
 
-    syncToggleTracks();
     const saved = readConsent();
     applyConsentToForm(saved);
     if (!saved) {
@@ -787,7 +657,6 @@
   initLangSwitch();
   initMagneticButtons();
   initScrollState();
-  initCasesRail();
   initAnchorScroll();
   initForm();
   initCookies();

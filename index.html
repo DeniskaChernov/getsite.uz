@@ -37,19 +37,19 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=30">
+    <link rel="stylesheet" href="assets/styles.css?v=28">
     <noscript>
       <style>
         .preloader { display: none !important; }
         .line-reveal > span, .reveal { opacity: 1 !important; transform: none !important; }
       </style>
     </noscript>
-    <script src="assets/particles2.js?v=43" defer></script>
-    <script src="assets/i18n.js?v=3" defer></script>
+    <script src="assets/particles2.js?v=37" defer></script>
+    <script src="assets/i18n.js?v=2" defer></script>
     <script src="assets/i18n-pricing.js?v=1" defer></script>
     <script src="assets/i18n-process.js?v=1" defer></script>
     <script src="assets/i18n-blog.js?v=1" defer></script>
-    <script src="assets/app.js?v=23" defer></script>
+    <script src="assets/app.js?v=21" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="skip">Перейти к содержанию</a>
@@ -506,86 +506,47 @@
       </section>
 
       <section class="cases section section--left" id="cases" data-screen-label="Кейсы" data-shape="2" data-side="left">
-        <div class="cases__head section__content reveal">
-          <h2 class="spotlight__title" data-i18n="cases.title">Кейсы</h2>
-          <p class="spotlight__text" data-i18n="cases.lead">
-            Несколько недавних проектов. Подробности — по запросу, часть под NDA.
-          </p>
-        </div>
-
-        <div class="cases-stage" data-cases-rail tabindex="0" aria-label="Лента кейсов">
-          <div class="cases-rail">
-            <article class="cases-card">
-              <div class="cases-card__frame">
-                <div class="cases-card__visual cases-card__visual--1" aria-hidden="true"></div>
-              </div>
-              <div class="cases-card__caption">
-                <span class="cases-card__meta">ритейл · 2025</span>
+        <div class="section__content section__content--wide">
+          <div class="spotlight-intro reveal">
+            <h2 class="spotlight__title" data-i18n="cases.title">Кейсы</h2>
+            <p class="spotlight__text" data-i18n="cases.lead">
+              Несколько недавних проектов. Подробности — по запросу, часть под NDA.
+            </p>
+          </div>
+          <div class="cases-grid" data-stagger>
+            <article class="case-card">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
+                <span class="case-card__meta">ритейл · 2025</span>
                 <h3>Каталог + заявки в Telegram</h3>
-                <p>Клиент искал товары на сайте, менеджер получал заявку в боте за 30 секунд.</p>
-                <ul class="cases-card__tags">
+                <p>Клиент искал товары на сайте, менеджер получал заявку в боте за 30 секунд вместо переписки в Direct.</p>
+                <ul class="case-card__tags">
                   <li>каталог</li>
                   <li>бот</li>
                 </ul>
               </div>
             </article>
-
-            <article class="cases-card">
-              <div class="cases-card__frame">
-                <div class="cases-card__visual cases-card__visual--2" aria-hidden="true"></div>
-              </div>
-              <div class="cases-card__caption">
-                <span class="cases-card__meta">услуги · 2025</span>
+            <article class="case-card case-card--reverse">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
+                <span class="case-card__meta">услуги · 2025</span>
                 <h3>Лендинг и учёт лидов</h3>
-                <p>Одна страница, форма и панель: видно, откуда пришла заявка и на каком этапе.</p>
-                <ul class="cases-card__tags">
+                <p>Одна страница, форма и простая панель: видно, откуда пришла заявка и на каком она этапе.</p>
+                <ul class="case-card__tags">
                   <li>лендинг</li>
                   <li>панель</li>
                 </ul>
               </div>
             </article>
-
-            <article class="cases-card">
-              <div class="cases-card__frame">
-                <div class="cases-card__visual cases-card__visual--3" aria-hidden="true"></div>
-              </div>
-              <div class="cases-card__caption">
-                <span class="cases-card__meta">логистика · 2024</span>
+            <article class="case-card">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
+                <span class="case-card__meta">логистика · 2024</span>
                 <h3>Внутренний сервис для команды</h3>
                 <p>Заменили таблицы и чаты одним интерфейсом: статусы заказов и роли для трёх отделов.</p>
-                <ul class="cases-card__tags">
+                <ul class="case-card__tags">
                   <li>сервис</li>
                   <li>роли</li>
-                </ul>
-              </div>
-            </article>
-
-            <article class="cases-card">
-              <div class="cases-card__frame">
-                <div class="cases-card__visual cases-card__visual--4" aria-hidden="true"></div>
-              </div>
-              <div class="cases-card__caption">
-                <span class="cases-card__meta">e-commerce · 2024</span>
-                <h3>Интернет-магазин + CRM</h3>
-                <p>Каталог, оплата и синхронизация заказов с CRM без ручного переноса данных.</p>
-                <ul class="cases-card__tags">
-                  <li>магазин</li>
-                  <li>crm</li>
-                </ul>
-              </div>
-            </article>
-
-            <article class="cases-card">
-              <div class="cases-card__frame">
-                <div class="cases-card__visual cases-card__visual--5" aria-hidden="true"></div>
-              </div>
-              <div class="cases-card__caption">
-                <span class="cases-card__meta">образование · 2024</span>
-                <h3>Платформа для курсов</h3>
-                <p>Личный кабинет, оплата и выдача доступа к урокам в одном потоке.</p>
-                <ul class="cases-card__tags">
-                  <li>платформа</li>
-                  <li>оплата</li>
                 </ul>
               </div>
             </article>
@@ -706,102 +667,29 @@
     >
       <div class="cookie-panel__card">
         <button class="cookie-panel__close" type="button" data-cookie-close data-i18n-aria="menu.close" aria-label="Закрыть">×</button>
-
-        <div class="cookie-panel__brand">
-          <span class="cookie-panel__brand-icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64" width="28" height="28" focusable="false">
-              <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="3"></circle>
-              <circle cx="32" cy="32" r="22" fill="#141516"></circle>
-              <circle cx="24" cy="23" r="4.2" fill="currentColor"></circle>
-              <circle cx="40" cy="26" r="3.2" fill="currentColor"></circle>
-              <circle cx="35" cy="38" r="3.6" fill="currentColor"></circle>
-              <circle cx="22" cy="36" r="2.8" fill="currentColor"></circle>
-            </svg>
-          </span>
-          <span class="cookie-panel__brand-name">getsite<span class="accent">*</span></span>
-        </div>
-
         <h2 class="cookie-panel__title" id="cookie-panel-title" data-i18n="cookie.title">Мы используем cookie</h2>
-        <p class="cookie-panel__text">
-          <span data-i18n="cookie.text">Они помогают сайту работать стабильно и понимать, что улучшить. Продолжая пользоваться сайтом, вы соглашаетесь с использованием cookie.</span>
-          <button class="cookie-panel__readmore" type="button" data-cookie-tab="about" data-i18n="cookie.readmore">Подробнее</button>
+        <p class="cookie-panel__text" data-i18n="cookie.text">
+          Они помогают сайту работать стабильно и понимать, что улучшить. Продолжая пользоваться сайтом, вы соглашаетесь с использованием cookie.
         </p>
-
-        <div class="cookie-panel__tabs" role="tablist" aria-label="Cookie">
-          <button class="cookie-panel__tab is-active" type="button" role="tab" data-cookie-tab="declaration" aria-selected="true" aria-controls="cookie-pane-declaration" id="cookie-tab-declaration" data-i18n="cookie.tab.declaration">Декларация cookie</button>
-          <button class="cookie-panel__tab" type="button" role="tab" data-cookie-tab="about" aria-selected="false" aria-controls="cookie-pane-about" id="cookie-tab-about" data-i18n="cookie.tab.about">О cookie</button>
+        <div class="cookie-panel__options" data-cookie-details hidden>
+          <label class="cookie-option">
+            <input type="checkbox" checked disabled>
+            <span data-i18n="cookie.essential">Необходимые</span>
+          </label>
+          <label class="cookie-option">
+            <input type="checkbox" id="cookie-performance" checked>
+            <span data-i18n="cookie.performance">Аналитика</span>
+          </label>
+          <label class="cookie-option">
+            <input type="checkbox" id="cookie-targeting" checked>
+            <span data-i18n="cookie.targeting">Маркетинг</span>
+          </label>
         </div>
-
-        <div class="cookie-panel__body">
-          <div class="cookie-panel__pane is-active" id="cookie-pane-declaration" data-cookie-pane="declaration" role="tabpanel" aria-labelledby="cookie-tab-declaration">
-            <article class="cookie-category">
-              <div class="cookie-category__head">
-                <h3 class="cookie-category__title" data-i18n="cookie.essential">Необходимые</h3>
-                <span class="cookie-toggle cookie-toggle--locked" aria-hidden="true">
-                  <span class="cookie-toggle__track is-on"><span class="cookie-toggle__thumb"></span></span>
-                </span>
-              </div>
-              <p class="cookie-category__desc" data-i18n="cookie.essential.desc">Нужны для работы сайта: сохранение языка, согласия и базовых настроек. Их нельзя отключить.</p>
-              <button class="cookie-category__show" type="button" data-cookie-show="essential" aria-expanded="false">
-                <span data-i18n="cookie.show">Показать cookie</span>
-                <span class="cookie-category__chev" aria-hidden="true">⌄</span>
-              </button>
-              <ul class="cookie-category__list" data-cookie-list="essential" hidden>
-                <li><strong>getsite-cookie-consent</strong> — <span data-i18n="cookie.item.consent">ваш выбор по cookie</span></li>
-                <li><strong>getsite-lang</strong> — <span data-i18n="cookie.item.lang">выбранный язык интерфейса</span></li>
-              </ul>
-            </article>
-
-            <article class="cookie-category">
-              <div class="cookie-category__head">
-                <h3 class="cookie-category__title" data-i18n="cookie.performance">Аналитика</h3>
-                <label class="cookie-toggle">
-                  <input type="checkbox" id="cookie-performance" checked>
-                  <span class="cookie-toggle__track"><span class="cookie-toggle__thumb"></span></span>
-                </label>
-              </div>
-              <p class="cookie-category__desc" data-i18n="cookie.performance.desc">Помогают понять, как посетители используют сайт, без прямой идентификации человека.</p>
-              <button class="cookie-category__show" type="button" data-cookie-show="performance" aria-expanded="false">
-                <span data-i18n="cookie.show">Показать cookie</span>
-                <span class="cookie-category__chev" aria-hidden="true">⌄</span>
-              </button>
-              <ul class="cookie-category__list" data-cookie-list="performance" hidden>
-                <li><strong>_ga</strong> — <span data-i18n="cookie.item.ga">Google Analytics, 2 года</span></li>
-                <li><strong>_gid</strong> — <span data-i18n="cookie.item.gid">Google Analytics, 24 часа</span></li>
-              </ul>
-            </article>
-
-            <article class="cookie-category">
-              <div class="cookie-category__head">
-                <h3 class="cookie-category__title" data-i18n="cookie.targeting">Маркетинг</h3>
-                <label class="cookie-toggle">
-                  <input type="checkbox" id="cookie-targeting" checked>
-                  <span class="cookie-toggle__track"><span class="cookie-toggle__thumb"></span></span>
-                </label>
-              </div>
-              <p class="cookie-category__desc" data-i18n="cookie.targeting.desc">Используются для показа релевантной рекламы и оценки эффективности кампаний на других сайтах.</p>
-              <button class="cookie-category__show" type="button" data-cookie-show="targeting" aria-expanded="false">
-                <span data-i18n="cookie.show">Показать cookie</span>
-                <span class="cookie-category__chev" aria-hidden="true">⌄</span>
-              </button>
-              <ul class="cookie-category__list" data-cookie-list="targeting" hidden>
-                <li><strong>_fbp</strong> — <span data-i18n="cookie.item.fbp">Meta Pixel, 90 дней</span></li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="cookie-panel__pane" id="cookie-pane-about" data-cookie-pane="about" role="tabpanel" aria-labelledby="cookie-tab-about" hidden>
-            <p class="cookie-panel__about" data-i18n="cookie.about">Cookie — небольшие файлы, которые сайт сохраняет в браузере. Они помогают запоминать настройки, анализировать трафик и улучшать сервис. Вы можете принять все категории, отклонить необязательные или выбрать только нужные и сохранить выбор.</p>
-          </div>
+        <div class="cookie-panel__actions">
+          <button class="btn btn--accent cookie-panel__accept" type="button" data-cookie-accept data-i18n="cookie.accept">Принять все</button>
+          <button class="btn btn--ghost cookie-panel__decline" type="button" data-cookie-decline data-i18n="cookie.decline">Отклонить</button>
         </div>
-
-        <div class="cookie-panel__footer">
-          <div class="cookie-panel__footer-left">
-            <button class="cookie-panel__btn cookie-panel__btn--outline" type="button" data-cookie-accept data-i18n="cookie.accept">Принять все</button>
-            <button class="cookie-panel__btn cookie-panel__btn--outline" type="button" data-cookie-decline data-i18n="cookie.decline">Отклонить</button>
-          </div>
-          <button class="cookie-panel__btn cookie-panel__btn--save" type="button" data-cookie-save data-i18n="cookie.save">Сохранить</button>
-        </div>
+        <button class="cookie-panel__details" type="button" data-cookie-details-toggle data-i18n="cookie.details">Подробнее</button>
       </div>
     </div>
 
