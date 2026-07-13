@@ -497,8 +497,29 @@
   }
 
   function initBlogPage() {
-    if (!doc.body.classList.contains("page-blog")) return;
+    if (!doc.body.classList.contains("page-blog") && !doc.body.classList.contains("page-article")) {
+      return;
+    }
     doc.body.classList.add("is-ready");
+  }
+
+  function initArticleProgress() {
+    if (!doc.body.classList.contains("page-article")) return;
+    const fill = doc.querySelector("[data-read-progress]");
+    if (!fill) return;
+
+    const update = () => {
+      const max = Math.max(
+        doc.documentElement.scrollHeight - window.innerHeight,
+        1
+      );
+      const progress = Math.min(1, Math.max(0, window.scrollY / max));
+      fill.style.transform = `scaleX(${progress})`;
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
   }
 
   function initGetdesignPage() {
@@ -805,6 +826,7 @@
 
   initPreloader();
   initBlogPage();
+  initArticleProgress();
   initGetdesignPage();
   initMenu();
   initCursor();

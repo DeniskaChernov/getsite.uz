@@ -11,10 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/styles.css?v=37">
-    <script src="../assets/app.js?v=24" defer></script>
+    <link rel="stylesheet" href="../assets/styles.css?v=38">
+    <script src="../assets/app.js?v=25" defer></script>
   </head>
   <body class="page-article">
+    <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+    <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
     <header class="site-header is-scrolled" data-header>
       <div class="brand-switch" data-brand-switch>
         <a class="brand-switch__item is-active" href="../index.html">
@@ -26,10 +28,13 @@
         <a class="btn btn--ghost btn--header" href="../index.html#contact">Обсудить проект</a>
         <a class="menu-button menu-button--link" href="../index.html" aria-label="На главную">←</a>
       </div>
+          <div class="read-progress" aria-hidden="true">
+        <span class="read-progress__fill" data-read-progress></span>
+      </div>
     </header>
     <main class="article-page" id="main-content">
-      <a class="article-page__back" href="../blog.html">← Все статьи</a>
-      <div class="article-page__meta">
+      <a class="article-back" href="../blog.html" aria-label="Все статьи">←</a>
+<div class="article-page__meta">
         <time datetime="2026-03-10">10 марта 2026</time>
         <span>7 мин чтения</span>
       </div>

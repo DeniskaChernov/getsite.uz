@@ -1613,7 +1613,10 @@ body.skip-intro .line-reveal > span {
 }
 
 .article-page {
-  width: min(100%, 780px);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 18px;
+  width: min(100%, 860px);
   margin: 0 auto;
   padding:
     calc(110px + var(--safe-bottom))
@@ -1622,15 +1625,79 @@ body.skip-intro .line-reveal > span {
     calc(var(--side) + var(--safe-left));
 }
 
-.article-page__back {
-  display: inline-flex;
-  margin-bottom: 28px;
-  color: var(--muted);
-  font-size: 0.88rem;
+.article-page > *:not(.article-back) {
+  grid-column: 2;
 }
 
-.article-page__back:hover {
+.article-back {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  align-self: start;
+  position: sticky;
+  top: 7.25rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  margin-top: 0.1rem;
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.article-back:hover,
+.article-back:focus-visible {
   color: var(--accent);
+  border-color: rgba(216, 255, 61, 0.35);
+  background: rgba(216, 255, 61, 0.06);
+}
+
+@media (max-width: 720px) {
+  .article-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-page > *:not(.article-back) {
+    grid-column: 1;
+  }
+
+  .article-back {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+    margin: 0 0 18px;
+  }
+}
+
+.read-progress {
+  display: none;
+}
+
+.page-article .read-progress {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgba(245, 242, 235, 0.08);
+}
+
+.read-progress__fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--accent);
+  will-change: transform;
 }
 
 .article-page__meta {
@@ -2106,13 +2173,9 @@ body.skip-intro .line-reveal > span {
 
 .page-blog .particle-root,
 .page-blog .preloader,
-.page-blog .cursor-dot,
-.page-blog .cursor-ring,
 .page-blog .mobile-cta,
 .page-article .particle-root,
 .page-article .preloader,
-.page-article .cursor-dot,
-.page-article .cursor-ring,
 .page-article .mobile-cta {
   display: none !important;
 }
