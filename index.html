@@ -37,19 +37,19 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=29">
+    <link rel="stylesheet" href="assets/styles.css?v=28">
     <noscript>
       <style>
         .preloader { display: none !important; }
         .line-reveal > span, .reveal { opacity: 1 !important; transform: none !important; }
       </style>
     </noscript>
-    <script src="assets/particles2.js?v=38" defer></script>
-    <script src="assets/i18n.js?v=3" defer></script>
+    <script src="assets/particles2.js?v=37" defer></script>
+    <script src="assets/i18n.js?v=2" defer></script>
     <script src="assets/i18n-pricing.js?v=1" defer></script>
     <script src="assets/i18n-process.js?v=1" defer></script>
     <script src="assets/i18n-blog.js?v=1" defer></script>
-    <script src="assets/app.js?v=22" defer></script>
+    <script src="assets/app.js?v=21" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="skip">Перейти к содержанию</a>
@@ -513,9 +513,10 @@
               Несколько недавних проектов. Подробности — по запросу, часть под NDA.
             </p>
           </div>
-          <div class="cases-showcase reveal" data-cases-showcase>
-            <div class="cases-showcase__detail" data-cases-detail aria-live="polite">
-              <article class="cases-detail__pane is-active" data-cases-pane="0">
+          <div class="cases-grid" data-stagger>
+            <article class="case-card">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
                 <span class="case-card__meta">ритейл · 2025</span>
                 <h3>Каталог + заявки в Telegram</h3>
                 <p>Клиент искал товары на сайте, менеджер получал заявку в боте за 30 секунд вместо переписки в Direct.</p>
@@ -523,8 +524,11 @@
                   <li>каталог</li>
                   <li>бот</li>
                 </ul>
-              </article>
-              <article class="cases-detail__pane" data-cases-pane="1" hidden>
+              </div>
+            </article>
+            <article class="case-card case-card--reverse">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
                 <span class="case-card__meta">услуги · 2025</span>
                 <h3>Лендинг и учёт лидов</h3>
                 <p>Одна страница, форма и простая панель: видно, откуда пришла заявка и на каком она этапе.</p>
@@ -532,8 +536,11 @@
                   <li>лендинг</li>
                   <li>панель</li>
                 </ul>
-              </article>
-              <article class="cases-detail__pane" data-cases-pane="2" hidden>
+              </div>
+            </article>
+            <article class="case-card">
+              <div class="case-card__visual" aria-hidden="true"></div>
+              <div class="case-card__body">
                 <span class="case-card__meta">логистика · 2024</span>
                 <h3>Внутренний сервис для команды</h3>
                 <p>Заменили таблицы и чаты одним интерфейсом: статусы заказов и роли для трёх отделов.</p>
@@ -541,41 +548,8 @@
                   <li>сервис</li>
                   <li>роли</li>
                 </ul>
-              </article>
-            </div>
-
-            <div class="cases-stack-wrap">
-              <div
-                class="cases-stack"
-                data-cases-stack
-                role="group"
-                data-i18n-aria="cases.stack.aria"
-                aria-label="Кейсы проектов"
-              >
-                <article class="cases-stack__card" data-cases-card style="--i:0" tabindex="0" aria-pressed="false">
-                  <div class="cases-stack__visual cases-stack__visual--retail" aria-hidden="true"></div>
-                  <div class="cases-stack__caption">
-                    <span class="case-card__meta">ритейл · 2025</span>
-                    <h3>Каталог + заявки в Telegram</h3>
-                  </div>
-                </article>
-                <article class="cases-stack__card" data-cases-card style="--i:1" tabindex="0" aria-pressed="false">
-                  <div class="cases-stack__visual cases-stack__visual--leads" aria-hidden="true"></div>
-                  <div class="cases-stack__caption">
-                    <span class="case-card__meta">услуги · 2025</span>
-                    <h3>Лендинг и учёт лидов</h3>
-                  </div>
-                </article>
-                <article class="cases-stack__card" data-cases-card style="--i:2" tabindex="0" aria-pressed="false">
-                  <div class="cases-stack__visual cases-stack__visual--service" aria-hidden="true"></div>
-                  <div class="cases-stack__caption">
-                    <span class="case-card__meta">логистика · 2024</span>
-                    <h3>Внутренний сервис для команды</h3>
-                  </div>
-                </article>
               </div>
-              <p class="cases-stack__hint" data-i18n="cases.stack.hint">Наведите на стопку или нажмите карточку</p>
-            </div>
+            </article>
           </div>
         </div>
       </section>
