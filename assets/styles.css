@@ -242,6 +242,14 @@ body.is-entering .cursor-ring {
   }
 }
 
+.preloader__mark {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  animation: preloaderPulse 2.2s ease-in-out infinite;
+}
+
 .preloader__brand {
   font-family: "Unbounded", Arial, sans-serif;
   font-size: 1.65rem;
@@ -362,6 +370,7 @@ body.is-entering .cursor-ring {
 .brand-switch__item {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   padding: 10px 16px;
   border-radius: 999px;
   font-family: "Unbounded", Arial, sans-serif;
@@ -374,6 +383,14 @@ body.is-entering .cursor-ring {
 
 .brand-switch__item span {
   color: inherit;
+}
+
+.brand-mark {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .brand-switch__item.is-active {

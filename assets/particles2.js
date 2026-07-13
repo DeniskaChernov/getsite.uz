@@ -50,31 +50,47 @@
   };
 
   function buildLogoPts() {
-    const cv = document.createElement('canvas'); cv.width = 720; cv.height = 180;
+    const size = 512;
+    const cv = document.createElement('canvas'); cv.width = size; cv.height = size;
     const c = cv.getContext('2d');
-    const text = 'getsite';
-    c.font = '900 108px Unbounded, Arial, sans-serif';
+    const cx = size * 0.5, cy = size * 0.5, r = size * 0.42;
+    c.fillStyle = '#000';
+    c.beginPath(); c.arc(cx, cy, r, 0, 6.2832); c.fill();
+    c.strokeStyle = 'rgba(245,242,235,0.14)'; c.lineWidth = 2;
+    c.stroke();
+    c.fillStyle = '#f5f2eb';
+    c.font = '900 250px Unbounded, Arial, sans-serif';
+    c.textAlign = 'center';
     c.textBaseline = 'middle';
-    const w = c.measureText(text).width;
-    const x0 = (720 - w - 44) / 2;
-    c.fillStyle = '#fff';
-    c.fillText(text, x0, 92);
+    c.fillText('g', cx - size * 0.02, cy + size * 0.03);
     c.fillStyle = '#d8ff3d';
-    c.font = '900 64px Unbounded, Arial, sans-serif';
-    c.fillText('*', x0 + w + 2, 64);
-    const d = c.getImageData(0, 0, 720, 180).data; const pts = [];
-    for (let y = 0; y < 180; y += 2) for (let x = 0; x < 720; x += 2) if (d[(y * 720 + x) * 4 + 3] > 110) pts.push([x, y]);
-    return pts;
+    c.save();
+    c.translate(cx + size * 0.17, cy - size * 0.17);
+    for (let i = 0; i < 3; i++) {
+      c.rotate(1.0472);
+      c.beginPath();
+      c.roundRect(-size * 0.018, -size * 0.09, size * 0.036, size * 0.18, size * 0.018);
+      c.fill();
+    }
+    c.restore();
+    const d = c.getImageData(0, 0, size, size).data; const pts = [];
+    for (let y = 0; y < size; y += 2) {
+      for (let x = 0; x < size; x += 2) {
+        if (d[(y * size + x) * 4 + 3] > 100) pts.push([x, y]);
+      }
+    }
+    return { pts, size };
   }
-  const buildLogoRaw = (pts) => gen((a, i, f) => {
+  const buildLogoRaw = (sample) => gen((a, i, f) => {
+    const { pts, size } = sample;
     if (pts.length && f < 0.92) {
       const p = pts[Math.floor(R() * pts.length)];
       const layer = R();
       const nz = layer < 0.42 ? 0.16 + R() * 0.05 : layer < 0.72 ? R() * 0.14 : -0.08 - R() * 0.06;
-      put(a, i, (p[0] / 720 - 0.5) * 3.2 + G() * 0.006, (0.5 - p[1] / 180) * 0.82 + G() * 0.006, nz);
+      put(a, i, (p[0] / size - 0.5) * 2.4 + G() * 0.006, (0.5 - p[1] / size) * 2.4 + G() * 0.006, nz);
     } else if (f < 0.978) {
       const p = pts[Math.floor(R() * pts.length)];
-      put(a, i, (p[0] / 720 - 0.5) * 3.2 + G() * 0.01, (0.5 - p[1] / 180) * 0.82 + G() * 0.01, G() * 0.02);
+      put(a, i, (p[0] / size - 0.5) * 2.4 + G() * 0.01, (0.5 - p[1] / size) * 2.4 + G() * 0.01, G() * 0.02);
     } else radialDust(a, i, 0.35, 3.2);
   });
 
@@ -314,9 +330,9 @@ void main(){
       // rebuild logo glyphs once the display font is available (one-time upload)
       if (document.fonts && document.fonts.load) {
         document.fonts.load('900 112px "Unbounded"').then(() => {
-          const pts = buildLogoPts();
-          if (!pts.length || !this._gl) return;
-          const data = this._shuffle(buildLogoRaw(pts));
+          const sample = buildLogoPts();
+          if (!sample.pts.length || !this._gl) return;
+          const data = this._shuffle(buildLogoRaw(sample));
           gl.bindBuffer(gl.ARRAY_BUFFER, this._bufs[6]);
           gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
           gl.vertexAttribPointer(gl.getAttribLocation(prog, 'aP6'), 3, gl.FLOAT, false, 0, 0);

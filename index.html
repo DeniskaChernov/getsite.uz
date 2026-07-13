@@ -17,8 +17,10 @@
     <meta name="author" content="getsite">
     <meta name="theme-color" content="#020303">
     <link rel="canonical" href="https://getsite.uz/">
+    <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="assets/brand/favicon-16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="assets/brand/logo-mark-circle-accent.png">
+    <link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
     <link rel="manifest" href="manifest.webmanifest">
     <meta property="og:title" content="getsite">
     <meta
@@ -35,7 +37,7 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=23">
+    <link rel="stylesheet" href="assets/styles.css?v=24">
     <noscript>
       <style>
         .preloader { display: none !important; }
@@ -43,7 +45,7 @@
       </style>
     </noscript>
     <script src="assets/shape-icons.js?v=30" defer></script>
-    <script src="assets/particles2.js?v=31" defer></script>
+    <script src="assets/particles2.js?v=32" defer></script>
     <script src="assets/i18n.js?v=1" defer></script>
     <script src="assets/i18n-pricing.js?v=1" defer></script>
     <script src="assets/i18n-process.js?v=1" defer></script>
@@ -58,6 +60,7 @@
     <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
 
     <div class="preloader" data-preloader role="status" aria-live="polite" data-i18n-aria="preloader.aria" aria-label="Загрузка сайта">
+      <img class="preloader__mark" src="assets/brand/logo-mark-g-star.png" width="88" height="88" alt="" decoding="async">
       <span class="preloader__brand">getsite<span class="accent">*</span></span>
       <div class="preloader__bar" aria-hidden="true">
         <div data-loader-bar></div>
@@ -82,7 +85,10 @@
 
     <header class="site-header" data-header>
       <div class="brand-switch" data-brand-switch>
-        <a class="brand-switch__item is-active" href="#top" aria-current="page">getsite<span>*</span></a>
+        <a class="brand-switch__item is-active" href="#top" aria-current="page">
+          <img class="brand-mark" src="assets/brand/logo-mark-g-star.png" width="24" height="24" alt="" decoding="async">
+          getsite<span>*</span>
+        </a>
         <a class="brand-switch__item" href="getdesign.html">getdesign<span>*</span></a>
       </div>
       <div class="site-header__actions">

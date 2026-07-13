@@ -10,16 +10,22 @@
   "theme_color": "#020303",
   "icons": [
     {
+      "src": "assets/brand/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/brand/favicon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "assets/favicon.svg",
       "sizes": "64x64",
       "type": "image/svg+xml",
       "purpose": "any"
-    },
-    {
-      "src": "assets/brand/logo-mark-circle-accent.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
     }
   ]
 }
