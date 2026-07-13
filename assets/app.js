@@ -644,6 +644,57 @@
     }
   }
 
+  function initCasesStack() {
+    const stack = doc.querySelector("[data-cases-stack]");
+    if (!stack) return;
+
+    const cards = [...stack.querySelectorAll("[data-cases-card]")];
+    const panes = [...doc.querySelectorAll("[data-cases-pane]")];
+    let frontIndex = null;
+
+    const setPane = (index) => {
+      panes.forEach((pane, i) => {
+        const active = i === index;
+        pane.classList.toggle("is-active", active);
+        if (active) pane.removeAttribute("hidden");
+        else pane.setAttribute("hidden", "");
+      });
+    };
+
+    const setFront = (index) => {
+      frontIndex = frontIndex === index ? null : index;
+      stack.classList.toggle("has-front", frontIndex !== null);
+      cards.forEach((card, i) => {
+        const isFront = frontIndex === i;
+        card.classList.toggle("is-front", isFront);
+        card.setAttribute("aria-pressed", String(isFront));
+      });
+      if (frontIndex !== null) setPane(frontIndex);
+    };
+
+    stack.addEventListener("mouseenter", () => stack.classList.add("is-hovered"));
+    stack.addEventListener("mouseleave", () => stack.classList.remove("is-hovered"));
+
+    cards.forEach((card, index) => {
+      card.addEventListener("mouseenter", () => {
+        if (!stack.classList.contains("has-front")) setPane(index);
+      });
+      card.addEventListener("click", () => setFront(index));
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          setFront(index);
+        }
+      });
+    });
+
+    doc.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && frontIndex !== null) {
+        setFront(frontIndex);
+      }
+    });
+  }
+
   initPreloader();
   initBlogPage();
   initGetdesignPage();
@@ -657,6 +708,7 @@
   initLangSwitch();
   initMagneticButtons();
   initScrollState();
+  initCasesStack();
   initAnchorScroll();
   initForm();
   initCookies();

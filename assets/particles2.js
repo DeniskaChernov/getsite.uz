@@ -467,36 +467,25 @@ attribute vec3 aP0; attribute vec3 aP1; attribute vec3 aP2; attribute vec3 aP3;
 attribute vec3 aP4; attribute vec3 aP5; attribute vec3 aP6; attribute vec3 aP7; attribute vec3 aP8; attribute vec3 aSeed;
 uniform mat4 uMV; uniform mat4 uP;
 uniform float uWF[9]; uniform float uWT[9]; uniform float uScF; uniform float uScT;
-uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA; uniform float uPureCosmos;
+uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uMouseF; uniform float uSize; uniform float uA;
 varying float vA; varying float vCloud; varying vec3 vColor; varying float vFormZ;
 void main(){
-  float tl = mix(clamp(uT * 2.55 - aSeed.x * 0.04, 0.0, 1.0), uT, uPureCosmos);
+  float tl = clamp(uT * 2.55 - aSeed.x * 0.04, 0.0, 1.0);
   float tt = tl * tl * (3.0 - 2.0 * tl);
   vec3 sc = vec3((aSeed.x * 2.0 - 1.0) * 5.0, (aSeed.y * 2.0 - 1.0) * 3.2, (aSeed.z * 2.0 - 1.0) * 3.0 - 0.8);
   vec3 F = sc * uScF + aP0 * uWF[0] + aP1 * uWF[1] + aP2 * uWF[2] + aP3 * uWF[3] + aP4 * uWF[4] + aP5 * uWF[5] + aP6 * uWF[6] + aP7 * uWF[7] + aP8 * uWF[8];
   vec3 T = sc * uScT + aP0 * uWT[0] + aP1 * uWT[1] + aP2 * uWT[2] + aP3 * uWT[3] + aP4 * uWT[4] + aP5 * uWT[5] + aP6 * uWT[6] + aP7 * uWT[7] + aP8 * uWT[8];
   vec3 form = mix(F, T, tt);
   float cloudSeed = fract(aSeed.x * 37.17 + aSeed.y * 11.31 + aSeed.z * 5.73);
-  float cloudFrac = smoothstep(0.48, 0.70, cloudSeed);
-  float cloud = mix(cloudFrac, 1.0, uPureCosmos);
-  float h1 = fract(aSeed.x * 127.1 + aSeed.y * 311.7);
-  float h2 = fract(aSeed.z * 269.5 + aSeed.x * 183.3);
-  float h3 = fract(aSeed.y * 419.2 + aSeed.z * 97.1);
-  vec3 hashDir = normalize(vec3(
-    sin(h1 * 6.2831853) * 0.92 + sin(h2 * 12.56637) * 0.08,
-    cos(h2 * 6.2831853) * 0.68 + sin(h3 * 9.42477) * 0.06,
-    sin(h3 * 6.2831853) * 0.92 + cos(h1 * 7.85398) * 0.08));
-  float hashDist = pow(h3, 1.28) * 22.0 + 0.35;
-  vec3 purePos = hashDir * hashDist;
+  float cloud = step(0.56, cloudSeed);
   vec3 cosmosDir = normalize(vec3(
     sin(aSeed.x * 6.283 + aSeed.y * 3.11),
     cos(aSeed.y * 6.283 + aSeed.z * 2.7) * 0.55,
     sin(aSeed.z * 6.283 + aSeed.x * 4.3)));
   float cosmosDist = pow(cloudSeed, 1.45) * 16.0 + 0.35;
   vec3 cosmosPos = form + cosmosDir * cosmosDist;
-  vec3 starPos = mix(cosmosPos, purePos, uPureCosmos);
-  float cosmosFade = exp(-mix(cosmosDist, hashDist, uPureCosmos) * 0.14);
-  vec3 p = mix(form, starPos, cloud);
+  float cosmosFade = exp(-cosmosDist * 0.14);
+  vec3 p = mix(form, cosmosPos, cloud);
   float w = 0.014 + 0.020 * aSeed.x;
   p += w * vec3(
     sin(uTime * (0.5 + aSeed.y) + aSeed.x * 19.0),
@@ -518,12 +507,8 @@ void main(){
   gl_PointSize = max(1.0, min(ps * zSize, uSize * 4.6));
   vCloud = cloud;
   vFormZ = form.z;
-  float twinkle = mix(
-    0.46 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0),
-    0.48 + 0.24 * sin(uTime * (0.85 + aSeed.z * 2.6) + h1 * 47.0 + h3 * 29.0),
-    uPureCosmos);
   float cosmosAlpha = mix(1.0, max(0.42, cosmosFade * 0.95), cloud);
-  vA = twinkle * uA * cosmosAlpha;
+  vA = (0.46 + 0.26 * sin(uTime * (0.8 + aSeed.y * 2.0) + aSeed.x * 40.0)) * uA * cosmosAlpha;
   float fog = clamp((dist - 1.6) / 3.4, 0.0, 1.0);
   float zLift = clamp(0.58 + form.z * 4.2, 0.36, 1.72);
   float sideShade = clamp(0.9 + form.x * 0.14, 0.74, 1.14);
@@ -615,7 +600,7 @@ void main(){
       this._gl = gl;
 
       this._u = {};
-      ['uMV', 'uP', 'uWF', 'uWT', 'uScF', 'uScT', 'uT', 'uTime', 'uMouse', 'uMouseF', 'uSize', 'uA', 'uPureCosmos'].forEach(n => this._u[n] = gl.getUniformLocation(prog, n));
+      ['uMV', 'uP', 'uWF', 'uWT', 'uScF', 'uScT', 'uT', 'uTime', 'uMouse', 'uMouseF', 'uSize', 'uA'].forEach(n => this._u[n] = gl.getUniformLocation(prog, n));
       gl.uniform1f(this._u.uA, ALPHA);
       gl.uniform1f(this._u.uMouseF, reduced || MOBILE ? 0 : 1);
       gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.disable(gl.DEPTH_TEST);
@@ -725,7 +710,6 @@ void main(){
         gl.uniform1f(this._u.uScT, this._scT);
         gl.uniform1f(this._u.uT, this._t);
         gl.uniform1f(this._u.uTime, time);
-        gl.uniform1f(this._u.uPureCosmos, id === 9 ? 1 : 0);
         gl.uniform2f(this._u.uMouse, this._mx, this._my);
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
