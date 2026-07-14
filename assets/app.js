@@ -345,7 +345,9 @@
     }, { passive: true });
 
     window.addEventListener("pointerover", (event) => {
-      active = Boolean(event.target.closest("a, button, input, textarea, .service-row"));
+      active = Boolean(
+        event.target.closest("a, button, input, textarea, .service-row, .price-card[data-tg-start]")
+      );
     }, { passive: true });
 
     const loop = () => {
@@ -430,6 +432,68 @@
     } else if (typeof mobileMq.addListener === "function") {
       mobileMq.addListener(syncMode);
     }
+  }
+
+  function getTelegramConfig() {
+    const tg = window.GETSITE_CONFIG?.telegram || {};
+    const bot = String(tg.bot || "").replace(/^@/, "").trim();
+    const channel = String(tg.channel || "getsiteuz").replace(/^@/, "").trim();
+    return { bot, channel };
+  }
+
+  function telegramBotUrl(startPayload) {
+    const { bot, channel } = getTelegramConfig();
+    const user = bot || channel;
+    const start = String(startPayload || "")
+      .trim()
+      .replace(/[^a-zA-Z0-9_-]/g, "")
+      .slice(0, 64);
+    if (!user) return "https://t.me/getsiteuz";
+    if (bot && start) return `https://t.me/${bot}?start=${encodeURIComponent(start)}`;
+    return `https://t.me/${user}`;
+  }
+
+  function openTelegramBot(startPayload) {
+    const url = telegramBotUrl(startPayload);
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function initTelegramLeads() {
+    const botUrl = telegramBotUrl("discuss");
+
+    doc.querySelectorAll("a[data-tg-start]").forEach((link) => {
+      const start = link.getAttribute("data-tg-start") || "discuss";
+      link.setAttribute("href", telegramBotUrl(start));
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+    });
+
+    doc.querySelectorAll(".price-card[data-tg-start]").forEach((card) => {
+      const start = card.getAttribute("data-tg-start");
+      if (!start) return;
+      card.classList.add("price-card--tg");
+      card.setAttribute("role", "link");
+      card.setAttribute("tabindex", "0");
+      if (!card.getAttribute("aria-label")) {
+        const title = card.querySelector("h3, h4");
+        const label = title?.textContent?.trim() || start;
+        card.setAttribute("aria-label", `${label} — Telegram`);
+      }
+
+      const open = () => openTelegramBot(start);
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("a, button, summary, details")) return;
+        open();
+      });
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        open();
+      });
+    });
+
+    window.GETSITE_TG_URL = telegramBotUrl;
+    window.GETSITE_TG_DISCUSS = botUrl;
   }
 
   function initMobileCta() {
@@ -815,6 +879,7 @@
   initReveal();
   initLineReveal();
   initServiceRows();
+  initTelegramLeads();
   initMobileCta();
   initLangSwitch();
   initMagneticButtons();

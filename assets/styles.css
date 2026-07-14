@@ -1365,6 +1365,22 @@ body.skip-intro .line-reveal > span {
   font-weight: 600;
 }
 
+.price-card__cta {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.price-card--tg {
+  cursor: pointer;
+}
+
+.price-card--tg:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .price-card__tags {
   display: flex;
   flex-wrap: wrap;

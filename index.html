@@ -31,13 +31,19 @@
     <meta property="og:url" content="https://getsite.uz/">
     <meta property="og:site_name" content="getsite">
     <meta property="og:image" content="https://getsite.uz/assets/og-image.png">
+    <meta property="og:image:alt" content="getsite — сайты, боты и цифровые решения">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="getsite">
+    <meta name="twitter:description" content="С нами вы будете заметнее. Сайты, боты и цифровые решения для бизнеса.">
+    <meta name="twitter:image" content="https://getsite.uz/assets/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=43">
+    <link rel="stylesheet" href="assets/styles.css?v=44">
     <noscript>
       <style>
         .preloader { display: none !important; }
@@ -46,14 +52,14 @@
       </style>
     </noscript>
     <script src="assets/scroll-restore.js?v=2"></script>
-    <script src="assets/site-config.js?v=1"></script>
+    <script src="assets/site-config.js?v=2"></script>
     <script src="assets/analytics.js?v=1" defer></script>
     <script src="assets/particles2.js?v=45" defer></script>
-    <script src="assets/i18n.js?v=4" defer></script>
+    <script src="assets/i18n.js?v=5" defer></script>
     <script src="assets/i18n-pricing.js?v=1" defer></script>
     <script src="assets/i18n-process.js?v=1" defer></script>
     <script src="assets/i18n-blog.js?v=1" defer></script>
-    <script src="assets/app.js?v=27" defer></script>
+    <script src="assets/app.js?v=28" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="skip">Перейти к содержанию</a>
@@ -97,7 +103,7 @@
         <a class="brand-switch__item" href="getdesign.html">getdesign<span class="accent">*</span></a>
       </div>
       <div class="site-header__actions">
-        <a class="btn btn--ghost btn--header" href="#contact" data-i18n="cta.discuss">Обсудить проект</a>
+        <a class="btn btn--ghost btn--header" href="https://t.me/getsiteuz_bot?start=discuss" data-tg-start="discuss" target="_blank" rel="noopener noreferrer" data-i18n="cta.discuss">Обсудить проект</a>
         <div class="lang-switch" data-lang-switch role="group" data-i18n-aria="lang.aria" aria-label="Язык сайта">
           <button class="lang-switch__btn is-active" type="button" data-lang="ru" aria-pressed="true">RU</button>
           <button class="lang-switch__btn" type="button" data-lang="uz" aria-pressed="false">UZ</button>
@@ -149,37 +155,41 @@
           <div class="pricing-catalog reveal">
             <h3 class="pricing-group__title" data-i18n="pricing.sites">Сайты</h3>
               <div class="pricing-mains pricing-mains--duo" data-stagger>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="sites_landing">
                   <div class="price-card__top">
                     <h4 data-i18n="price.sites.landing.title">Лендинг</h4>
                     <p class="price-card__sum" data-i18n="price.sites.landing.sum">от 4,9 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.sites.landing.desc">Одностраничный сайт для рекламы и заявок.</p>
                   <p class="price-card__included" data-i18n="price.sites.landing.included">Структура, до 10 блоков, дизайн, адаптив, формы, Telegram-уведомления, базовое SEO, аналитика, запуск.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="sites_corporate">
                   <div class="price-card__top">
                     <h4 data-i18n="price.sites.corporate.title">Корпоративный сайт</h4>
                     <p class="price-card__sum" data-i18n="price.sites.corporate.sum">от 8,9 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.sites.corporate.desc">Многостраничный сайт компании.</p>
                   <p class="price-card__included" data-i18n="price.sites.corporate.included">До 8 страниц, структура, дизайн, CMS, формы, аналитика, базовое SEO и запуск.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="sites_catalog">
                   <div class="price-card__top">
                     <h4 data-i18n="price.sites.catalog.title">Сайт-каталог</h4>
                     <p class="price-card__sum" data-i18n="price.sites.catalog.sum">от 11,9 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.sites.catalog.desc">Каталог товаров без обязательной онлайн-оплаты.</p>
                   <p class="price-card__included" data-i18n="price.sites.catalog.included">Категории, карточки, CMS, заявки с товара, базовый поиск, аналитика и запуск.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="sites_shop">
                   <div class="price-card__top">
                     <h4 data-i18n="price.sites.shop.title">Интернет-магазин</h4>
                     <p class="price-card__sum" data-i18n="price.sites.shop.sum">от 14,9 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.sites.shop.desc">Каталог, корзина, заказ и онлайн-продажи.</p>
                   <p class="price-card__included" data-i18n="price.sites.shop.included">Каталог, корзина, checkout, CMS, адаптив, статусы, аналитика и запуск.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
               </div>
               <details class="pricing-subs">
@@ -214,29 +224,32 @@
           <div class="pricing-catalog reveal">
             <h3 class="pricing-group__title" data-i18n="pricing.telegram">Telegram</h3>
               <div class="pricing-mains" data-stagger>
-                <article class="price-card price-card--accent">
+                <article class="price-card price-card--accent" data-tg-start="tg_bot">
                   <div class="price-card__top">
                     <h4 data-i18n="price.telegram.bot.title">Telegram-бот</h4>
                     <p class="price-card__sum" data-i18n="price.telegram.bot.sum">от 4,5 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.telegram.bot.desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
                   <p class="price-card__included" data-i18n="price.telegram.bot.included">Сценарий, меню, база, уведомления, админ-команды, тестирование и размещение.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card price-card--accent">
+                <article class="price-card price-card--accent" data-tg-start="tg_admin">
                   <div class="price-card__top">
                     <h4 data-i18n="price.telegram.admin.title">Бот + админ-панель</h4>
                     <p class="price-card__sum" data-i18n="price.telegram.admin.sum">от 9,9 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.telegram.admin.desc">Бот с web-панелью, статусами и пользователями.</p>
                   <p class="price-card__included" data-i18n="price.telegram.admin.included">Бот, панель, роли, база данных, статусы, уведомления и базовые отчёты.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="tg_miniapp">
                   <div class="price-card__top">
                     <h4 data-i18n="price.telegram.miniapp.title">Telegram Mini App</h4>
                     <p class="price-card__sum" data-i18n="price.telegram.miniapp.sum">от 18 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.telegram.miniapp.desc">Веб-приложение внутри Telegram.</p>
                   <p class="price-card__included" data-i18n="price.telegram.miniapp.included">MVP, Telegram-авторизация, интерфейс, база и до 3 ключевых сценариев.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
               </div>
               <details class="pricing-subs">
@@ -259,45 +272,50 @@
           <div class="pricing-catalog reveal">
             <h3 class="pricing-group__title" data-i18n="pricing.automation">Автоматизация</h3>
               <div class="pricing-mains pricing-mains--duo" data-stagger>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="auto_analytics">
                   <div class="price-card__top">
                     <h4 data-i18n="price.automation.analytics.title">Аналитика и проектирование</h4>
                     <p class="price-card__sum" data-i18n="price.automation.analytics.sum">от 1,9 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.automation.analytics.desc">Разбор процессов перед CRM, Mini App или внутренней системой.</p>
                   <p class="price-card__included" data-i18n="price.automation.analytics.included">Интервью, процессы, роли, MVP, функции, риски, этапы и предварительная смета.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="auto_process">
                   <div class="price-card__top">
                     <h4 data-i18n="price.automation.process.title">Автоматизация процесса</h4>
                     <p class="price-card__sum" data-i18n="price.automation.process.sum">от 3 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.automation.process.desc">Автоматизация одного ручного процесса.</p>
                   <p class="price-card__included" data-i18n="price.automation.process.included">Логика, интеграция сервисов, уведомления, тестирование и инструкция.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="auto_integration">
                   <div class="price-card__top">
                     <h4 data-i18n="price.automation.integration.title">Интеграция систем</h4>
                     <p class="price-card__sum" data-i18n="price.automation.integration.sum">от 2,5 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.automation.integration.desc">Связка сайта, бота, CRM, платежей или API.</p>
                   <p class="price-card__included" data-i18n="price.automation.integration.included">Схема обмена, реализация, ошибки, тестирование и документация.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="auto_internal">
                   <div class="price-card__top">
                     <h4 data-i18n="price.automation.internal.title">Внутренняя бизнес-система</h4>
                     <p class="price-card__sum" data-i18n="price.automation.internal.sum">от 20 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.automation.internal.desc">Сервис для сотрудников и внутренних процессов.</p>
                   <p class="price-card__included" data-i18n="price.automation.internal.included">После аналитики: MVP, роли, сущности, базовые отчёты, уведомления и размещение.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
-                <article class="price-card price-card--custom">
+                <article class="price-card price-card--custom" data-tg-start="auto_crm">
                   <div class="price-card__top">
                     <h4 data-i18n="price.automation.crm.title">CRM-система с нуля</h4>
                     <p class="price-card__sum" data-i18n="price.automation.crm.sum">от 25 млн сум</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.automation.crm.desc">Индивидуальная CRM под процесс компании.</p>
                   <p class="price-card__included" data-i18n="price.automation.crm.included">После аналитики: воронка, клиенты, задачи, роли, статусы, отчёты и уведомления.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
               </div>
               <details class="pricing-subs">
@@ -320,13 +338,14 @@
           <div class="pricing-catalog reveal">
             <h3 class="pricing-group__title" data-i18n="pricing.support">Поддержка</h3>
               <div class="pricing-mains pricing-mains--solo" data-stagger>
-                <article class="price-card">
+                <article class="price-card" data-tg-start="support_maint">
                   <div class="price-card__top">
                     <h4 data-i18n="price.support.maintenance.title">Техническое сопровождение</h4>
                     <p class="price-card__sum" data-i18n="price.support.maintenance.sum">от 700 тыс / мес</p>
                   </div>
                   <p class="price-card__desc" data-i18n="price.support.maintenance.desc">Мониторинг и регулярные небольшие изменения.</p>
                   <p class="price-card__included" data-i18n="price.support.maintenance.included">Мониторинг, backups, мелкие исправления, консультации и лимит работ.</p>
+                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
                 </article>
               </div>
               <details class="pricing-subs">
@@ -682,10 +701,11 @@
       <section class="contact section section--left" id="contact" data-screen-label="Контакты" data-shape="6" data-side="left">
         <div class="section__content">
           <p class="contact__eyebrow reveal" data-i18n="contact.eyebrow">Обсудить проект</p>
-          <p class="contact__lead reveal" data-i18n="contact.lead">Напишите в пару строк, что нужно — ответим в рабочий день.</p>
+          <p class="contact__lead reveal" data-i18n="contact.lead">Напишите боту — он уточнит задачу и передаст нам. Или свяжитесь напрямую.</p>
           <a class="contact__mail reveal" href="mailto:getsiteuzbekistan@gmail.com">getsiteuzbekistan@gmail.com</a>
           <div class="contact__actions reveal">
-            <a href="https://t.me/getsiteuz" target="_blank" rel="noopener noreferrer">Telegram · @getsiteuz</a>
+            <a href="https://t.me/getsiteuz_bot?start=discuss" data-tg-start="discuss" target="_blank" rel="noopener noreferrer" data-i18n="contact.bot">Telegram-бот · обсудить</a>
+            <a href="https://t.me/getsiteuz" target="_blank" rel="noopener noreferrer" data-i18n="contact.direct">Написать Денису · @getsiteuz</a>
             <a href="tel:+998919080621">+998 91 908-06-21</a>
             <span>Денис</span>
             <span data-i18n="contact.city">Ташкент</span>
@@ -694,7 +714,7 @@
       </section>
     </main>
 
-    <a class="mobile-cta" href="#contact" data-mobile-cta data-i18n="cta.discuss">Обсудить проект</a>
+    <a class="mobile-cta" href="https://t.me/getsiteuz_bot?start=discuss" data-mobile-cta data-tg-start="discuss" target="_blank" rel="noopener noreferrer" data-i18n="cta.discuss">Обсудить проект</a>
 
     <div class="cookie-widget" data-cookie-widget>
       <button
