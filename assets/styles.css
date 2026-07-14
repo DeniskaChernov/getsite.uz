@@ -3231,6 +3231,19 @@ body.page-article {
   transform: translateY(0);
 }
 
+.page-blog .reveal,
+.page-article .reveal {
+  transform: translateY(14px);
+  transition:
+    opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+}
+
+.page-blog .reveal--stagger,
+.page-article .reveal--stagger {
+  transform: translateY(10px);
+}
+
 .mobile-cta {
   position: fixed;
   left: calc(var(--side) + var(--safe-left));
