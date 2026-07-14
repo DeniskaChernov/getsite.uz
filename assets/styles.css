@@ -3071,6 +3071,15 @@ body.page-article {
   font-family: "Unbounded", Arial, sans-serif;
 }
 
+.site-footer a {
+  color: var(--muted);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--accent);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(36px);
