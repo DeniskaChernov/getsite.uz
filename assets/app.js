@@ -588,6 +588,16 @@
       return;
     }
     doc.body.classList.add("is-ready");
+
+    if (doc.body.classList.contains("page-article")) {
+      const enter = doc.querySelectorAll(
+        ".article-page__meta, .article-page__title, .article-page__lead, .article-cover, .article-body > *:nth-child(-n+3)"
+      );
+      enter.forEach((el, index) => {
+        el.classList.add("reveal", "reveal--stagger");
+        el.style.setProperty("--reveal-delay", `${index * 0.07}s`);
+      });
+    }
   }
 
   function initArticleProgress() {
