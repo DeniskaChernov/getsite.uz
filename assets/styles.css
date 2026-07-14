@@ -381,7 +381,8 @@ body.is-entering .cursor-ring {
   gap: 4px;
   min-width: 0;
   max-width: 100%;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
+  width: max-content;
   padding: 4px;
   border: 1px solid var(--line);
   border-radius: 999px;
