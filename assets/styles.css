@@ -2396,68 +2396,6 @@ body.page-article {
     calc(var(--side) + var(--safe-left));
 }
 
-.gd-orbit {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: min(72vw, 520px);
-  height: min(72vw, 520px);
-  margin: calc(min(72vw, 520px) / -2) 0 0 calc(min(72vw, 520px) / -2);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.gd-orbit span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  padding: 6px 12px;
-  border: 1px solid rgba(216, 255, 61, 0.22);
-  border-radius: 999px;
-  background: rgba(2, 3, 3, 0.55);
-  color: rgba(245, 242, 235, 0.55);
-  font-family: "Unbounded", Arial, sans-serif;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transform:
-    translate(-50%, -50%)
-    rotate(calc(var(--i) * 45deg))
-    translateY(calc(min(72vw, 520px) * -0.42))
-    rotate(calc(var(--i) * -45deg));
-  animation: gdOrbit 18s linear infinite;
-  animation-delay: calc(var(--i) * -2.2s);
-}
-
-.gd-orbit span:nth-child(1) { --i: 0; }
-.gd-orbit span:nth-child(2) { --i: 1; }
-.gd-orbit span:nth-child(3) { --i: 2; }
-.gd-orbit span:nth-child(4) { --i: 3; }
-.gd-orbit span:nth-child(5) { --i: 4; }
-.gd-orbit span:nth-child(6) { --i: 5; }
-.gd-orbit span:nth-child(7) { --i: 6; }
-.gd-orbit span:nth-child(8) { --i: 7; }
-
-@keyframes gdOrbit {
-  from {
-    transform:
-      translate(-50%, -50%)
-      rotate(calc(var(--i) * 45deg))
-      translateY(calc(min(72vw, 520px) * -0.42))
-      rotate(calc(var(--i) * -45deg));
-  }
-
-  to {
-    transform:
-      translate(-50%, -50%)
-      rotate(calc(var(--i) * 45deg + 360deg))
-      translateY(calc(min(72vw, 520px) * -0.42))
-      rotate(calc(var(--i) * -45deg - 360deg));
-  }
-}
-
 .gd-panel {
   position: relative;
   z-index: 2;
@@ -2673,40 +2611,6 @@ body.page-article {
 }
 
 @media (max-width: 700px) {
-  .gd-orbit {
-    width: 92vw;
-    height: 92vw;
-    margin: -46vw 0 0 -46vw;
-    opacity: 0.55;
-  }
-
-  .gd-orbit span {
-    font-size: 0.56rem;
-    transform:
-      translate(-50%, -50%)
-      rotate(calc(var(--i) * 45deg))
-      translateY(calc(92vw * -0.4))
-      rotate(calc(var(--i) * -45deg));
-  }
-
-  @keyframes gdOrbit {
-    from {
-      transform:
-        translate(-50%, -50%)
-        rotate(calc(var(--i) * 45deg))
-        translateY(calc(92vw * -0.4))
-        rotate(calc(var(--i) * -45deg));
-    }
-
-    to {
-      transform:
-        translate(-50%, -50%)
-        rotate(calc(var(--i) * 45deg + 360deg))
-        translateY(calc(92vw * -0.4))
-        rotate(calc(var(--i) * -45deg - 360deg));
-    }
-  }
-
   .gd-panel {
     padding: 20px 16px;
     border-radius: 16px;
@@ -2718,7 +2622,6 @@ body.page-article {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gd-orbit span,
   .gd-code::before,
   .gd-code::after,
   .gd-progress__fill,
