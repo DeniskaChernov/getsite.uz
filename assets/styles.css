@@ -2104,6 +2104,22 @@ body.skip-intro .line-reveal > span {
   gap: 18px;
 }
 
+.article-cover {
+  margin: 0 0 36px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #0a0b0c;
+}
+
+.article-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .article-body h2 {
   margin: 18px 0 0;
   font-family: "Unbounded", Arial, sans-serif;
