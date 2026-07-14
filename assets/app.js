@@ -685,44 +685,6 @@
     });
   }
 
-  function initForm() {
-    const form = doc.querySelector("[data-form]");
-    if (!form) return;
-
-    const success = form.querySelector("[data-form-success]");
-    const bodyEl = form.querySelector("[data-form-body]");
-    const taskButtons = [...form.querySelectorAll("[data-task-type]")];
-    const taskInput = form.querySelector("[data-task-input]");
-    const honeypot = form.querySelector("input[name='website']");
-    const submit = form.querySelector(".lead-form__submit");
-
-    taskButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        taskButtons.forEach((item) => {
-          const active = item === button;
-          item.classList.toggle("is-active", active);
-          item.setAttribute("aria-pressed", String(active));
-        });
-        if (taskInput) taskInput.value = button.textContent.trim();
-      });
-    });
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (honeypot && honeypot.value.trim()) return;
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      if (submit) submit.disabled = true;
-      if (bodyEl) bodyEl.hidden = true;
-      if (success) {
-        success.hidden = false;
-        success.focus();
-      }
-    });
-  }
-
   function initCookies() {
     const widget = doc.querySelector("[data-cookie-widget]");
     const panel = doc.querySelector("[data-cookie-panel]");
@@ -736,7 +698,6 @@
     const detailsToggle = doc.querySelector("[data-cookie-details-toggle]");
     const detailsPanel = doc.querySelector("[data-cookie-details]");
     const perfInput = doc.querySelector("#cookie-performance");
-    const targetInput = doc.querySelector("#cookie-targeting");
 
     const readConsent = () => {
       try {
@@ -769,33 +730,31 @@
     const applyConsentToForm = (consent) => {
       if (!consent) return;
       if (perfInput) perfInput.checked = Boolean(consent.performance);
-      if (targetInput) targetInput.checked = Boolean(consent.targeting);
     };
 
-    const saveConsent = (performance, targeting) => {
+    const saveConsent = (performance) => {
       writeConsent({
         essential: true,
         performance,
-        targeting,
+        targeting: false,
         ts: Date.now(),
       });
       setPanelOpen(false);
+      if (typeof window.GETSITE_APPLY_ANALYTICS === "function") {
+        window.GETSITE_APPLY_ANALYTICS();
+      }
     };
 
     trigger?.addEventListener("click", () => setPanelOpen(true));
     closeButtons.forEach((button) => button.addEventListener("click", () => setPanelOpen(false)));
 
     acceptBtn?.addEventListener("click", () => {
-      saveConsent(
-        perfInput ? perfInput.checked : true,
-        targetInput ? targetInput.checked : true,
-      );
+      saveConsent(perfInput ? perfInput.checked : true);
     });
 
     declineBtn?.addEventListener("click", () => {
       if (perfInput) perfInput.checked = false;
-      if (targetInput) targetInput.checked = false;
-      saveConsent(false, false);
+      saveConsent(false);
     });
 
     detailsToggle?.addEventListener("click", () => {
@@ -821,6 +780,8 @@
     applyConsentToForm(saved);
     if (!saved) {
       window.setTimeout(() => setPanelOpen(true), 2000);
+    } else if (typeof window.GETSITE_APPLY_ANALYTICS === "function") {
+      window.GETSITE_APPLY_ANALYTICS();
     }
   }
 
@@ -839,6 +800,5 @@
   initMagneticButtons();
   initScrollState();
   initAnchorScroll();
-  initForm();
   initCookies();
 })();

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://mc.yandex.ru https://mc.yandex.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru https://mc.yandex.com; form-action 'self'"
     >
     <title>getdesign* — в разработке</title>
     <meta name="description" content="getdesign* — раздел в разработке. Скоро здесь будет дизайн-направление getsite.">
@@ -21,9 +21,11 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=36">
-    <script src="assets/particles2.js?v=13" defer></script>
-    <script src="assets/app.js?v=21" defer></script>
+    <link rel="stylesheet" href="assets/styles.css?v=41">
+    <script src="assets/site-config.js?v=1"></script>
+    <script src="assets/analytics.js?v=1" defer></script>
+    <script src="assets/particles2.js?v=45" defer></script>
+    <script src="assets/app.js?v=26" defer></script>
   </head>
   <body class="page-getdesign">
     <pf-scene class="particle-root" aria-hidden="true"></pf-scene>
@@ -136,7 +138,7 @@
         <button class="cookie-panel__close" type="button" data-cookie-close data-i18n-aria="menu.close" aria-label="Закрыть">×</button>
         <h2 class="cookie-panel__title" id="cookie-panel-title" data-i18n="cookie.title">Мы используем cookie</h2>
         <p class="cookie-panel__text" data-i18n="cookie.text">
-          Они помогают сайту работать стабильно и понимать, что улучшить. Продолжая пользоваться сайтом, вы соглашаетесь с использованием cookie.
+          Нужные cookie держат сайт рабочим. Аналитика (Яндекс Метрика) включается только после согласия — чтобы понимать, что улучшить.
         </p>
         <div class="cookie-panel__options" data-cookie-details hidden>
           <label class="cookie-option">
@@ -147,14 +149,10 @@
             <input type="checkbox" id="cookie-performance" checked>
             <span data-i18n="cookie.performance">Аналитика</span>
           </label>
-          <label class="cookie-option">
-            <input type="checkbox" id="cookie-targeting" checked>
-            <span data-i18n="cookie.targeting">Маркетинг</span>
-          </label>
         </div>
         <div class="cookie-panel__actions">
-          <button class="btn btn--accent cookie-panel__accept" type="button" data-cookie-accept data-i18n="cookie.accept">Принять все</button>
-          <button class="btn btn--ghost cookie-panel__decline" type="button" data-cookie-decline data-i18n="cookie.decline">Отклонить</button>
+          <button class="btn btn--accent cookie-panel__accept" type="button" data-cookie-accept data-i18n="cookie.accept">Принять</button>
+          <button class="btn btn--ghost cookie-panel__decline" type="button" data-cookie-decline data-i18n="cookie.decline">Только необходимые</button>
         </div>
         <button class="cookie-panel__details" type="button" data-cookie-details-toggle data-i18n="cookie.details">Подробнее</button>
       </div>
