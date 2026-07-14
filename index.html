@@ -44,7 +44,7 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=51">
+    <link rel="stylesheet" href="assets/styles.css?v=52">
     <noscript>
       <style>
         .preloader { display: none !important; }
@@ -60,7 +60,7 @@
     <script src="assets/i18n-pricing.js?v=1" defer></script>
     <script src="assets/i18n-process.js?v=1" defer></script>
     <script src="assets/i18n-blog.js?v=1" defer></script>
-    <script src="assets/app.js?v=33" defer></script>
+    <script src="assets/app.js?v=34" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="skip">Перейти к содержанию</a>
@@ -94,6 +94,11 @@
         <a href="blog.html" data-menu-link><span>04</span><span data-i18n="nav.blog">Блог</span></a>
         <a class="is-accent" href="#contact" data-menu-link><span>05</span><span data-i18n="nav.contact">Контакты</span></a>
       </nav>
+      <div class="menu-panel__langs lang-switch" data-lang-switch role="group" data-i18n-aria="lang.aria" aria-label="Язык сайта">
+        <button class="lang-switch__btn is-active" type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <button class="lang-switch__btn" type="button" data-lang="uz" aria-pressed="false">UZ</button>
+        <button class="lang-switch__btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
     </div>
 
     <header class="site-header" data-header>
@@ -105,7 +110,7 @@
       </div>
       <div class="site-header__actions">
         <a class="btn btn--ghost btn--header" href="https://telegram.me/getsiteuzbot?start=discuss" data-tg-start="discuss" target="_blank" rel="noopener noreferrer" data-i18n="cta.discuss">Обсудить проект</a>
-        <div class="lang-switch" data-lang-switch role="group" data-i18n-aria="lang.aria" aria-label="Язык сайта">
+        <div class="lang-switch lang-switch--header" data-lang-switch role="group" data-i18n-aria="lang.aria" aria-label="Язык сайта">
           <button class="lang-switch__btn is-active" type="button" data-lang="ru" aria-pressed="true">RU</button>
           <button class="lang-switch__btn" type="button" data-lang="uz" aria-pressed="false">UZ</button>
           <button class="lang-switch__btn" type="button" data-lang="en" aria-pressed="false">EN</button>

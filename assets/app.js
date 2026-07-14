@@ -562,38 +562,39 @@
   }
 
   function initLangSwitch() {
-    const groups = doc.querySelectorAll("[data-lang-switch]");
+    const groups = [...doc.querySelectorAll("[data-lang-switch]")];
     if (!groups.length) return;
 
-    groups.forEach((group) => {
-      const buttons = [...group.querySelectorAll("[data-lang]")];
-      buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const lang = button.dataset.lang;
-          buttons.forEach((item) => {
-            const active = item === button;
-            item.classList.toggle("is-active", active);
-            item.setAttribute("aria-pressed", String(active));
-          });
-          applyLang(lang);
-          try {
-            localStorage.setItem("getsite-lang", lang);
-          } catch (_) {
-            /* ignore */
-          }
-        });
-      });
+    const allButtons = () => groups.flatMap((group) => [...group.querySelectorAll("[data-lang]")]);
 
+    const setActive = (lang) => {
+      allButtons().forEach((item) => {
+        const active = item.dataset.lang === lang;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      applyLang(lang);
       try {
-        const saved = localStorage.getItem("getsite-lang");
-        if (saved) {
-          const savedBtn = buttons.find((item) => item.dataset.lang === saved);
-          if (savedBtn) savedBtn.click();
-        }
+        localStorage.setItem("getsite-lang", lang);
       } catch (_) {
         /* ignore */
       }
+    };
+
+    groups.forEach((group) => {
+      group.querySelectorAll("[data-lang]").forEach((button) => {
+        button.addEventListener("click", () => setActive(button.dataset.lang));
+      });
     });
+
+    try {
+      const saved = localStorage.getItem("getsite-lang");
+      if (saved && allButtons().some((item) => item.dataset.lang === saved)) {
+        setActive(saved);
+      }
+    } catch (_) {
+      /* ignore */
+    }
   }
 
   function initBlogPage() {
