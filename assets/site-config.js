@@ -4,7 +4,7 @@ window.GETSITE_CONFIG = {
   telegram: {
     /** Личный/канал: прямой контакт */
     channel: "getsiteuz",
-    /** Username бота (без @). Deep-link: https://t.me/{bot}?start={payload} */
+    /** Username бота (без @). Deep-link: https://telegram.me/{bot}?start={payload} */
     bot: "getsiteuzbot",
   },
 };

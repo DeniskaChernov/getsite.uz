@@ -448,9 +448,9 @@
       .trim()
       .replace(/[^a-zA-Z0-9_-]/g, "")
       .slice(0, 64);
-    if (!user) return "https://t.me/getsiteuz";
-    if (bot && start) return `https://t.me/${bot}?start=${encodeURIComponent(start)}`;
-    return `https://t.me/${user}`;
+    if (!user) return "https://telegram.me/getsiteuz";
+    if (bot && start) return `https://telegram.me/${bot}?start=${encodeURIComponent(start)}`;
+    return `https://telegram.me/${user}`;
   }
 
   function openTelegramBot(startPayload) {
