@@ -11,4 +11,4 @@ This is a static website. There is no server-side form handler or database in th
 
 ## Reporting
 
-Please report security issues privately to `hello@getsite.uz`.
+Please report security issues privately to `getsiteuzbekistan@gmail.com`.
