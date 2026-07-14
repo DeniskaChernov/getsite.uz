@@ -297,7 +297,9 @@
       body.classList.toggle("menu-open", state);
       if (state) {
         previousFocus = doc.activeElement;
-        window.setTimeout(() => close.focus(), 0);
+        window.setTimeout(() => {
+          if (menu.classList.contains("is-open")) close.focus();
+        }, 320);
       } else if (previousFocus && typeof previousFocus.focus === "function") {
         previousFocus.focus();
       }
@@ -623,6 +625,9 @@
   function initGetdesignPage() {
     if (!doc.body.classList.contains("page-getdesign")) return;
     doc.body.classList.add("is-ready");
+    doc.querySelectorAll(".gd-panel.reveal").forEach((el) => {
+      el.classList.add("is-visible");
+    });
     const pf = doc.querySelector("pf-scene");
     const boot = () => {
       if (pf && typeof pf.setShape === "function") pf.setShape(1);
