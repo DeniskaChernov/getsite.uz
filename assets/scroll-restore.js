@@ -1,5 +1,11 @@
 (function () {
-  var KEY = 'getsite-scroll-y';
+  try {
+    sessionStorage.removeItem('getsite-scroll-y');
+  } catch (error) {
+    /* ignore */
+  }
+
+  var KEY = 'getsite-scroll-y:' + location.pathname;
 
   function readCachedScroll() {
     try {

@@ -6,11 +6,29 @@
   const mobileMq = window.matchMedia("(max-width: 700px)");
 
   const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
-  const SCROLL_CACHE_KEY = "getsite-scroll-y";
+  const isLandingScrollPage =
+    !body.classList.contains("page-blog") && !body.classList.contains("page-article");
+  const SCROLL_CACHE_KEY = `getsite-scroll-y:${location.pathname}`;
 
   let siteIntroDone = false;
 
+  try {
+    sessionStorage.removeItem("getsite-scroll-y");
+  } catch {
+    /* ignore */
+  }
+
+  if (!isLandingScrollPage) {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+      doc.documentElement.scrollTop = 0;
+      body.scrollTop = 0;
+    }
+  }
+
   function getCachedScrollY() {
+    if (!isLandingScrollPage) return 0;
     if (typeof window.__GETSITE_CACHED_SCROLL__ === "number" && window.__GETSITE_CACHED_SCROLL__ > 0) {
       return window.__GETSITE_CACHED_SCROLL__;
     }
@@ -29,6 +47,7 @@
   }
 
   function ensureScrollRestored() {
+    if (!isLandingScrollPage) return;
     const cached = getCachedScrollY();
     const live = window.scrollY || doc.documentElement.scrollTop;
     if (cached > 80 && live < cached - 8) {
@@ -38,6 +57,7 @@
   }
 
   function persistScrollPosition() {
+    if (!isLandingScrollPage) return;
     const y = Math.round(window.scrollY || doc.documentElement.scrollTop);
     try {
       if (y > 80) {
