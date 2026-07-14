@@ -3728,6 +3728,10 @@ body.page-article {
   margin: 0 0 16px;
 }
 
+.cookie-panel__options[hidden] {
+  display: none !important;
+}
+
 .cookie-option {
   display: flex;
   align-items: center;

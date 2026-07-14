@@ -518,8 +518,11 @@
 
     doc.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.dataset.i18n;
-      const value = dict[key];
+      let value = dict[key];
       if (value == null) return;
+      if (el.matches("[data-cookie-details-toggle]") && el.getAttribute("aria-expanded") === "true") {
+        value = dict["cookie.detailsHide"] || value;
+      }
       if (el.dataset.i18nHtml === "true") el.innerHTML = value;
       else el.textContent = value;
     });
@@ -843,11 +846,24 @@
 
     detailsToggle?.addEventListener("click", () => {
       if (!detailsPanel) return;
-      const open = detailsPanel.hasAttribute("hidden");
-      if (open) detailsPanel.removeAttribute("hidden");
+      const willOpen = detailsPanel.hasAttribute("hidden");
+      if (willOpen) detailsPanel.removeAttribute("hidden");
       else detailsPanel.setAttribute("hidden", "");
-      detailsToggle.setAttribute("aria-expanded", String(open));
+      detailsToggle.setAttribute("aria-expanded", String(willOpen));
+      const dict = window.GETSITE_I18N?.[doc.documentElement.lang] || window.GETSITE_I18N?.ru;
+      const openLabel = dict?.["cookie.details"] || "Подробнее";
+      const closeLabel = dict?.["cookie.detailsHide"] || "Скрыть";
+      detailsToggle.textContent = willOpen ? closeLabel : openLabel;
     });
+
+    if (detailsToggle) {
+      detailsToggle.setAttribute("aria-expanded", "false");
+      detailsToggle.setAttribute("aria-controls", "cookie-details");
+    }
+    if (detailsPanel) {
+      detailsPanel.id = detailsPanel.id || "cookie-details";
+      if (!detailsPanel.hasAttribute("hidden")) detailsPanel.setAttribute("hidden", "");
+    }
 
     doc.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && panel.classList.contains("is-open")) {

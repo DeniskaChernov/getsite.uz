@@ -71,6 +71,7 @@ window.GETSITE_I18N = {
     "cookie.accept": "Принять",
     "cookie.decline": "Только необходимые",
     "cookie.details": "Подробнее",
+    "cookie.detailsHide": "Скрыть",
   },
   uz: {
     "meta.title": "getsite",
@@ -144,6 +145,7 @@ window.GETSITE_I18N = {
     "cookie.accept": "Qabul qilish",
     "cookie.decline": "Faqat zarur",
     "cookie.details": "Batafsil",
+    "cookie.detailsHide": "Yashirish",
   },
   en: {
     "meta.title": "getsite",
@@ -217,5 +219,6 @@ window.GETSITE_I18N = {
     "cookie.accept": "Accept",
     "cookie.decline": "Essential only",
     "cookie.details": "Show details",
+    "cookie.detailsHide": "Hide",
   },
 };
