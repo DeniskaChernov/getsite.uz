@@ -13,7 +13,7 @@
   // never a short desktop/preview window (that used to silently degrade the scene)
   const MOBILE = window.innerWidth < 700;
   const CORES = navigator.hardwareConcurrency || 4;
-  const N = MOBILE ? 120000 : (CORES >= 8 ? 420000 : 280000);
+  const N = MOBILE ? 70000 : (CORES >= 8 ? 420000 : 280000);
   // Keep the v5 GPU morphing look, but cap particles for fast first paint.
   // Per-particle alpha is scaled so additive glow doesn't blow out.
   const ALPHA = Math.max(0.72, Math.min(1.28, Math.sqrt(900000 / N)));
@@ -500,7 +500,7 @@ void main(){
         const time = (now - t0) / 1000;
 
         this._ema = this._ema * 0.94 + Math.min(dtMs, 100) * 0.06;
-        if ((++this._fc % 90) === 0 && this._ema > 28 && this._drawN > 120000) this._drawN = Math.floor(this._drawN * 0.72);
+        if ((++this._fc % 90) === 0 && this._ema > 28 && this._drawN > (MOBILE ? 32000 : 120000)) this._drawN = Math.floor(this._drawN * 0.72);
 
         this._mx += (this._tmx - this._mx) * 0.06;
         this._my += (this._tmy - this._my) * 0.06;

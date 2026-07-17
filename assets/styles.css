@@ -21,6 +21,17 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+a,
+button,
+input,
+label,
+summary {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -4230,5 +4241,142 @@ body.menu-open .cookie-panel {
   body:not(:has(.mobile-cta)) .cookie-panel {
     bottom: calc(72px + var(--safe-bottom));
     width: min(360px, calc(100vw - 32px));
+  }
+}
+
+/* === Touch feedback: instant tactile response instead of hover === */
+@media (hover: none) and (pointer: coarse) {
+  .menu-button:active {
+    border-color: var(--accent);
+    transform: scale(0.92);
+    transition-duration: 0.08s;
+  }
+
+  .brand-switch__item:active {
+    color: var(--text);
+    transform: scale(0.95);
+  }
+
+  .lang-switch button:active {
+    color: var(--text);
+    transform: scale(0.92);
+  }
+
+  .btn:active {
+    transform: translate(var(--magnet-x, 0), var(--magnet-y, 0)) scale(0.95);
+    transition-duration: 0.08s;
+  }
+
+  .menu-panel__nav a:active {
+    color: var(--accent);
+    padding-left: 10px;
+    transition-duration: 0.1s;
+  }
+
+  .menu-panel__close:active {
+    border-color: var(--accent);
+    transform: scale(0.9);
+    transition-duration: 0.08s;
+  }
+
+  .blog-teaser:active,
+  .blog-card:active {
+    border-color: rgba(216, 255, 61, 0.5);
+    transition-duration: 0.12s;
+  }
+
+  .blog-page__back:active {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: scale(0.96);
+    transition-duration: 0.08s;
+  }
+
+  .blog-more:active,
+  .blog-teaser__more:active {
+    color: var(--accent);
+    transform: translateX(4px);
+    transition-duration: 0.1s;
+  }
+
+  .service-row.is-touch:active h3 {
+    color: var(--accent);
+    transition-duration: 0.1s;
+  }
+
+  .cookie-widget button:active {
+    transform: scale(0.92);
+    transition-duration: 0.08s;
+  }
+}
+
+/* === Mobile performance: lighter effects, snappier motion === */
+@media (max-width: 700px) {
+  .reveal {
+    transform: translateY(18px);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+  }
+
+  .reveal--stagger {
+    transform: translateY(14px);
+  }
+
+  .reveal.is-visible {
+    transform: translateY(0);
+  }
+
+  /* blur() on animated large text is expensive on mobile GPUs */
+  .moment__text.reveal.is-visible {
+    animation: momentInMobile 0.65s cubic-bezier(0.16, 0.7, 0.2, 1) both;
+  }
+
+  body.is-entering #main-content,
+  body.is-entering .site-header {
+    animation-name: siteEnterMobile;
+    animation-duration: 1.05s;
+  }
+
+  /* cheaper backdrop blur radii */
+  .site-header.is-scrolled {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .menu-panel {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .process-panel,
+  .pricing-catalog,
+  .gd-panel {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+
+@keyframes momentInMobile {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes siteEnterMobile {
+  0% {
+    opacity: 0;
+    transform: scale(1.06) translateY(3vh);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
   }
 }
