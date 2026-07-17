@@ -1,0 +1,5 @@
+Contact: mailto:getsiteuzbekistan@gmail.com
+Contact: https://t.me/getsiteuz
+Expires: 2027-07-31T00:00:00.000Z
+Preferred-Languages: ru, uz, en
+Canonical: https://getsite.uz/.well-known/security.txt
