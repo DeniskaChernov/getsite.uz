@@ -19,12 +19,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=59">
+    <link rel="stylesheet" href="assets/styles.css?v=60">
     <script src="assets/site-config.js?v=4"></script>
     <script src="assets/analytics.js?v=1" defer></script>
-    <script src="assets/i18n.js?v=10" defer></script>
-    <script src="assets/i18n-pricing.js?v=3" defer></script>
-    <script src="assets/app.js?v=35" defer></script>
+    <script src="assets/i18n.js?v=11" defer></script>
+    <script src="assets/i18n-pricing.js?v=4" defer></script>
+    <script src="assets/app.js?v=36" defer></script>
   </head>
   <body class="page-blog page-catalog">
     <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
@@ -46,7 +46,7 @@
       <div class="blog-page__content">
         <div class="blog-page__head">
           <h1 data-i18n="catalog.page.title">Каталог</h1>
-          <p data-i18n="catalog.page.lead">Цены «от» при стандартном составе. Нажмите услугу — обсудим в Telegram.</p>
+          <p data-i18n="catalog.page.lead">Цены «от» при стандартном составе. Наведите — что входит. Нажмите — обсудим в Telegram.</p>
         </div>
 
         <nav class="catalog-nav" aria-label="Разделы каталога">
@@ -69,6 +69,10 @@
                 <p data-i18n="price.sites.landing.desc">Сайт под рекламу, который ведёт к заявке, а не к «красивой витрине». Структура, адаптив и уведомления в Telegram — менеджер видит лид в тот же день.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.sites.landing.included">Структура, до 10 блоков, дизайн, адаптив, формы, Telegram-уведомления, базовое SEO, аналитика, запуск.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_corporate" data-tg-start="sites_corporate" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -79,6 +83,10 @@
                 <p data-i18n="price.sites.corporate.desc">Сайт компании, где понятно, кто вы и что заказать. Страницы, CMS и рабочие формы — без шаблонной оболочки, которую стыдно показывать клиентам.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.sites.corporate.included">До 8 страниц, структура, дизайн, CMS, формы, аналитика, базовое SEO и запуск.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_catalog" data-tg-start="sites_catalog" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -89,6 +97,10 @@
                 <p data-i18n="price.sites.catalog.desc">Каталог, по которому реально выбирают и оставляют заявку с карточки. Категории, CMS и поиск — без обязательной онлайн-оплаты, если она пока не нужна.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.sites.catalog.included">Категории, карточки, CMS, заявки с товара, базовый поиск, аналитика и запуск.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_shop" data-tg-start="sites_shop" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -99,6 +111,10 @@
                 <p data-i18n="price.sites.shop.desc">Магазин до оплаты и статусов заказа, а не каталог с кнопкой «купить». Корзина, checkout и CMS — под ваш ассортимент и сценарий продажи.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.sites.shop.included">Каталог, корзина, checkout, CMS, адаптив, статусы, аналитика и запуск.</p>
+              </aside>
             </a>
 
             <details class="catalog-subs">
@@ -138,6 +154,10 @@
                 <p data-i18n="price.telegram.bot.desc">Бот собирает заявку с контекстом, а не только номер телефона. Сценарий под вашу задачу, уведомления команде и тест в реальном чате до передачи.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.telegram.bot.included">Сценарий, меню, база, уведомления, админ-команды, тестирование и размещение.</p>
+              </aside>
             </a>
             <a class="catalog-row catalog-row--accent" href="https://telegram.me/getsiteuzbot?start=tg_admin" data-tg-start="tg_admin" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -148,6 +168,10 @@
                 <p data-i18n="price.telegram.admin.desc">Бот плюс панель, где видны статусы и пользователи — без хаоса в личных чатах. Роли, база и базовые отчёты, чтобы команда не теряла заявки.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.telegram.admin.included">Бот, панель, роли, база данных, статусы, уведомления и базовые отчёты.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=tg_miniapp" data-tg-start="tg_miniapp" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -158,6 +182,10 @@
                 <p data-i18n="price.telegram.miniapp.desc">Полноценный интерфейс внутри Telegram, когда бота уже мало. Авторизация через Telegram, база и до трёх ключевых сценариев — без отдельного ещё одного приложения.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.telegram.miniapp.included">MVP, Telegram-авторизация, интерфейс, база и до 3 ключевых сценариев.</p>
+              </aside>
             </a>
 
             <details class="catalog-subs">
@@ -185,6 +213,10 @@
                 <p data-i18n="price.automation.analytics.desc">Сначала разбираем, что автоматизировать, чтобы не платить за лишние модули. Интервью, роли, MVP и смета — ясный план до кода.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.automation.analytics.included">Интервью, процессы, роли, MVP, функции, риски, этапы и предварительная смета.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_process" data-tg-start="auto_process" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -195,6 +227,10 @@
                 <p data-i18n="price.automation.process.desc">Убираем один ручной процесс, который съедает часы каждый день. Связка сервисов, уведомления и инструкция — без переписывания всей компании.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.automation.process.included">Логика, интеграция сервисов, уведомления, тестирование и инструкция.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_integration" data-tg-start="auto_integration" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -205,6 +241,10 @@
                 <p data-i18n="price.automation.integration.desc">Чтобы данные не копировали руками между сайтом, ботом и CRM. Схема обмена, обработка ошибок и документация — связка, которой можно доверять.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.automation.integration.included">Схема обмена, реализация, ошибки, тестирование и документация.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_internal" data-tg-start="auto_internal" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -215,6 +255,10 @@
                 <p data-i18n="price.automation.internal.desc">Внутренний сервис под ваши роли и сущности, а не коробка ради галочки. После аналитики: MVP, отчёты и размещение под реальный процесс команды.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.automation.internal.included">После аналитики: MVP, роли, сущности, базовые отчёты, уведомления и размещение.</p>
+              </aside>
             </a>
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_crm" data-tg-start="auto_crm" target="_blank" rel="noopener noreferrer">
               <div class="catalog-row__main">
@@ -225,6 +269,10 @@
                 <p data-i18n="price.automation.crm.desc">CRM под ваш процесс продаж, а не под чужой шаблон. Воронка, задачи, роли и статусы — после аналитики, чтобы не переделывать через месяц.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.automation.crm.included">После аналитики: воронка, клиенты, задачи, роли, статусы, отчёты и уведомления.</p>
+              </aside>
             </a>
 
             <details class="catalog-subs">
@@ -252,6 +300,10 @@
                 <p data-i18n="price.support.maintenance.desc">После запуска остаёмся на связи: мониторинг, бэкапы и мелкие правки по лимиту. Без «исчезли после сдачи» и ожидания ответа неделями.</p>
                 <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
               </div>
+              <aside class="catalog-row__included">
+                <p class="catalog-row__included-label" data-i18n="pricing.includedLabel">Входит в стоимость</p>
+                <p data-i18n="price.support.maintenance.included">Мониторинг, backups, мелкие исправления, консультации и лимит работ.</p>
+              </aside>
             </a>
 
             <details class="catalog-subs">

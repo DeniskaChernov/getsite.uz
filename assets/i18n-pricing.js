@@ -3,6 +3,7 @@
   const data = {
     ru: {
       "price.from": "от",
+      "pricing.includedLabel": "Входит в стоимость",
       "pricing.subs.sites": "Подуслуги · Сайты",
       "pricing.subs.telegram": "Подуслуги · Telegram",
       "pricing.subs.automation": "Подуслуги · Автоматизация",
@@ -158,6 +159,7 @@
     },
     uz: {
       "price.from": "dan",
+      "pricing.includedLabel": "Narxga kiradi",
       "pricing.subs.sites": "Qo'shimcha xizmatlar · Saytlar",
       "pricing.subs.telegram": "Qo'shimcha xizmatlar · Telegram",
       "pricing.subs.automation": "Qo'shimcha xizmatlar · Avtomatlashtirish",
@@ -313,6 +315,7 @@
     },
     en: {
       "price.from": "from",
+      "pricing.includedLabel": "Included in the price",
       "pricing.subs.sites": "Add-on services · Websites",
       "pricing.subs.telegram": "Add-on services · Telegram",
       "pricing.subs.automation": "Add-on services · Automation",

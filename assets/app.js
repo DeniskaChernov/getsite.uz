@@ -471,6 +471,34 @@
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
+  function initCatalogIncluded() {
+    const rows = Array.from(doc.querySelectorAll(".catalog-row"));
+    if (!rows.length) return;
+
+    const touchLike = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if (!touchLike) return;
+
+    const closeAll = (except) => {
+      rows.forEach((row) => {
+        if (row !== except) row.classList.remove("is-open");
+      });
+    };
+
+    rows.forEach((row) => {
+      row.addEventListener("click", (event) => {
+        if (row.classList.contains("is-open")) return;
+        event.preventDefault();
+        closeAll(row);
+        row.classList.add("is-open");
+      });
+    });
+
+    doc.addEventListener("click", (event) => {
+      if (event.target.closest(".catalog-row")) return;
+      closeAll();
+    });
+  }
+
   function initTelegramLeads() {
     const botUrl = telegramBotUrl("discuss");
 
@@ -913,6 +941,7 @@
   initLineReveal();
   initServiceRows();
   initTelegramLeads();
+  initCatalogIncluded();
   initMobileCta();
   initLangSwitch();
   initMagneticButtons();

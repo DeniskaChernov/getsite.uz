@@ -1449,7 +1449,7 @@ body.skip-intro .line-reveal > span {
 .catalog-feed {
   display: flex;
   flex-direction: column;
-  gap: 2.75rem;
+  gap: 3.25rem;
 }
 
 .catalog-group {
@@ -1459,7 +1459,7 @@ body.skip-intro .line-reveal > span {
 }
 
 .catalog-group__title {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.65rem;
   scroll-margin-top: 6.5rem;
   font-family: "Unbounded", Arial, sans-serif;
   font-size: clamp(0.9rem, 2vw, 1.05rem);
@@ -1469,9 +1469,14 @@ body.skip-intro .line-reveal > span {
   color: var(--accent);
 }
 
+body.page-catalog .blog-page {
+  width: min(100%, calc(1040px + 7.5rem + 1.15rem));
+}
+
 .catalog-row {
   display: block;
-  padding: 22px 0;
+  position: relative;
+  padding: 36px 0;
   border-top: 1px solid rgba(245, 242, 235, 0.12);
   text-decoration: none;
   color: inherit;
@@ -1484,25 +1489,137 @@ body.skip-intro .line-reveal > span {
 }
 
 .catalog-row:hover,
-.catalog-row:focus-visible {
+.catalog-row:focus-visible,
+.catalog-row.is-open {
   padding-left: 6px;
   outline: none;
 }
 
 .catalog-row:hover h3,
-.catalog-row:focus-visible h3 {
+.catalog-row:focus-visible h3,
+.catalog-row.is-open h3 {
   color: var(--accent);
 }
 
 .catalog-row:hover .catalog-row__cta,
-.catalog-row:focus-visible .catalog-row__cta {
+.catalog-row:focus-visible .catalog-row__cta,
+.catalog-row.is-open .catalog-row__cta {
   color: var(--accent);
   transform: translateX(3px);
 }
 
-.catalog-row:hover p,
-.catalog-row:focus-visible p {
+.catalog-row:hover .catalog-row__main > p,
+.catalog-row:focus-visible .catalog-row__main > p,
+.catalog-row.is-open .catalog-row__main > p {
   color: #e8e9ea;
+}
+
+.catalog-row__main {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  transition: max-width 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.catalog-row__included {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(216, 255, 61, 0.28);
+  border-radius: 14px;
+  background:
+    linear-gradient(145deg, rgba(216, 255, 61, 0.1) 0%, rgba(2, 3, 3, 0.92) 55%, rgba(2, 3, 3, 0.88) 100%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 901px) {
+  .catalog-row__included {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: min(270px, 34%);
+    min-height: 7.5rem;
+    transform: translate(18px, -50%);
+    z-index: 2;
+  }
+
+  .catalog-row:focus-visible .catalog-row__main,
+  .catalog-row.is-open .catalog-row__main {
+    max-width: calc(100% - 300px);
+  }
+
+  .catalog-row:focus-visible .catalog-row__included,
+  .catalog-row.is-open .catalog-row__included {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 901px) {
+  .catalog-row:hover .catalog-row__main {
+    max-width: calc(100% - 300px);
+  }
+
+  .catalog-row:hover .catalog-row__included {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+.catalog-row__included-label {
+  margin: 0;
+  color: var(--accent);
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.catalog-row__included > p:last-child {
+  margin: 0;
+  color: #e4e5e6;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .catalog-row__included {
+    max-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-6px);
+    box-shadow: none;
+    transition:
+      max-height 0.32s ease,
+      opacity 0.28s ease,
+      transform 0.28s ease,
+      margin-top 0.28s ease,
+      padding 0.28s ease,
+      border-width 0.28s ease;
+  }
+
+  .catalog-row.is-open .catalog-row__included,
+  .catalog-row:focus-visible .catalog-row__included {
+    max-height: 240px;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-width: 1px;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .catalog-row__head {
@@ -4129,7 +4246,7 @@ body.page-cases {
   }
 
   .catalog-row {
-    padding: 28px 0;
+    padding: 34px 0;
   }
 
   .catalog-row__main h3 {
