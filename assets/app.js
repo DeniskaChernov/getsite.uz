@@ -348,7 +348,7 @@
 
     window.addEventListener("pointerover", (event) => {
       active = Boolean(
-        event.target.closest("a, button, input, textarea, .service-row, .price-card[data-tg-start]")
+        event.target.closest("a, button, input, textarea, .service-row, .price-card[data-tg-start], .service-top__item[data-tg-start]")
       );
     }, { passive: true });
 
@@ -481,7 +481,7 @@
       link.setAttribute("rel", "noopener noreferrer");
     });
 
-    doc.querySelectorAll(".price-card[data-tg-start]").forEach((card) => {
+    doc.querySelectorAll(".price-card[data-tg-start], .service-top__item[data-tg-start]").forEach((card) => {
       const start = card.getAttribute("data-tg-start");
       if (!start) return;
       card.classList.add("price-card--tg");

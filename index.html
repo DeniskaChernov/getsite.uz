@@ -44,7 +44,7 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=56">
+    <link rel="stylesheet" href="assets/styles.css?v=57">
     <noscript>
       <style>
         .preloader { display: none !important; }
@@ -56,11 +56,11 @@
     <script src="assets/site-config.js?v=4"></script>
     <script src="assets/analytics.js?v=1" defer></script>
     <script src="assets/particles2.js?v=46" defer></script>
-    <script src="assets/i18n.js?v=9" defer></script>
+    <script src="assets/i18n.js?v=10" defer></script>
     <script src="assets/i18n-pricing.js?v=2" defer></script>
     <script src="assets/i18n-process.js?v=1" defer></script>
     <script src="assets/i18n-blog.js?v=1" defer></script>
-    <script src="assets/app.js?v=34" defer></script>
+    <script src="assets/app.js?v=35" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="skip">Перейти к содержанию</a>
@@ -155,39 +155,34 @@
           <div class="spotlight-intro reveal">
             <h2 class="spotlight__title" data-i18n="pricing.title">Услуги</h2>
             <p class="spotlight__text" data-i18n="pricing.lead">
-              Три быстрых входа. Полный каталог с ценами «от» и составом — на отдельной странице.
+              Три быстрых входа. Полный каталог — на отдельной странице.
             </p>
           </div>
-          <div class="pricing-catalog reveal">
-            <div class="pricing-mains pricing-mains--trio" data-stagger>
-              <article class="price-card" data-tg-start="sites_landing">
-                <div class="price-card__top">
-                  <h4 data-i18n="price.sites.landing.title">Лендинг</h4>
-                  <p class="price-card__sum" data-i18n="price.sites.landing.sum">от 4,9 млн сум</p>
-                </div>
-                <p class="price-card__desc" data-i18n="price.sites.landing.desc">Одностраничный сайт для рекламы и заявок.</p>
-                <p class="price-card__included" data-i18n="price.sites.landing.included">Структура, до 10 блоков, дизайн, адаптив, формы, Telegram-уведомления, базовое SEO, аналитика, запуск.</p>
-                <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-              </article>
-              <article class="price-card price-card--accent" data-tg-start="tg_bot">
-                <div class="price-card__top">
-                  <h4 data-i18n="price.telegram.bot.title">Telegram-бот</h4>
-                  <p class="price-card__sum" data-i18n="price.telegram.bot.sum">от 4,5 млн сум</p>
-                </div>
-                <p class="price-card__desc" data-i18n="price.telegram.bot.desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
-                <p class="price-card__included" data-i18n="price.telegram.bot.included">Сценарий, меню, база, уведомления, админ-команды, тестирование и размещение.</p>
-                <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-              </article>
-              <article class="price-card" data-tg-start="auto_process">
-                <div class="price-card__top">
-                  <h4 data-i18n="price.automation.process.title">Автоматизация процесса</h4>
-                  <p class="price-card__sum" data-i18n="price.automation.process.sum">от 3 млн сум</p>
-                </div>
-                <p class="price-card__desc" data-i18n="price.automation.process.desc">Автоматизация одного ручного процесса.</p>
-                <p class="price-card__included" data-i18n="price.automation.process.included">Логика, интеграция сервисов, уведомления, тестирование и инструкция.</p>
-                <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-              </article>
-            </div>
+          <div class="service-top" data-stagger>
+            <article class="service-top__item" data-tg-start="sites_landing" role="link" tabindex="0" aria-label="Лендинг — Telegram">
+              <div class="service-top__row">
+                <h3 data-i18n="price.sites.landing.title">Лендинг</h3>
+                <p class="service-top__sum" data-i18n="price.sites.landing.sum">от 4,9 млн сум</p>
+              </div>
+              <p class="service-top__desc" data-i18n="price.sites.landing.desc">Одностраничный сайт для рекламы и заявок.</p>
+              <span class="service-top__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+            </article>
+            <article class="service-top__item service-top__item--accent" data-tg-start="tg_bot" role="link" tabindex="0" aria-label="Telegram-бот — Telegram">
+              <div class="service-top__row">
+                <h3 data-i18n="price.telegram.bot.title">Telegram-бот</h3>
+                <p class="service-top__sum" data-i18n="price.telegram.bot.sum">от 4,5 млн сум</p>
+              </div>
+              <p class="service-top__desc" data-i18n="price.telegram.bot.desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
+              <span class="service-top__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+            </article>
+            <article class="service-top__item" data-tg-start="auto_process" role="link" tabindex="0" aria-label="Автоматизация процесса — Telegram">
+              <div class="service-top__row">
+                <h3 data-i18n="price.automation.process.title">Автоматизация процесса</h3>
+                <p class="service-top__sum" data-i18n="price.automation.process.sum">от 3 млн сум</p>
+              </div>
+              <p class="service-top__desc" data-i18n="price.automation.process.desc">Автоматизация одного ручного процесса.</p>
+              <span class="service-top__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+            </article>
           </div>
           <a class="blog-more reveal" href="catalog.html" data-i18n="pricing.more">Весь каталог →</a>
         </div>
