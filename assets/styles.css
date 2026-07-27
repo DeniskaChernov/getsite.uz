@@ -2496,6 +2496,131 @@ body.page-catalog .blog-page__head p {
   max-width: 36rem;
 }
 
+/* SEO FAQ on homepage */
+.seo-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: min(100%, 720px);
+  margin: 0 0 1.5rem;
+}
+
+.seo-faq__item {
+  margin: 0;
+  border-top: 1px solid rgba(245, 242, 235, 0.12);
+  background: transparent;
+}
+
+.seo-faq__item:first-child {
+  border-top-color: rgba(216, 255, 61, 0.28);
+}
+
+.seo-faq__item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 1.35rem 0;
+  color: var(--text);
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  transition: color 0.35s ease, padding-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.seo-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.seo-faq__item summary::after {
+  content: "+";
+  float: right;
+  margin-left: 12px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.seo-faq__item[open] summary::after {
+  content: "−";
+}
+
+.seo-faq__item summary:hover,
+.seo-faq__item summary:focus-visible {
+  color: var(--accent);
+  padding-left: 6px;
+  outline: none;
+}
+
+.seo-faq__item p {
+  margin: 0 0 1.35rem;
+  max-width: 40rem;
+  color: #d0d2d4;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* SEO landing */
+.seo-landing {
+  max-width: 42rem;
+}
+
+.seo-landing__lead {
+  margin: 0 0 2rem;
+  color: #e4e5e6;
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
+.seo-landing h2 {
+  margin: 2.25rem 0 1rem;
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.seo-landing p {
+  margin: 0 0 1.25rem;
+  color: #d0d2d4;
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.seo-landing a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.seo-landing a:hover,
+.seo-landing a:focus-visible {
+  opacity: 0.85;
+  outline: none;
+}
+
+.seo-landing__list,
+.seo-landing__steps {
+  margin: 0 0 1.5rem;
+  padding-left: 1.2rem;
+  color: #d0d2d4;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.seo-landing__list li,
+.seo-landing__steps li {
+  margin-bottom: 0.65rem;
+}
+
+.seo-landing__cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 2.5rem;
+}
+
 .blog-feed {
   display: flex;
   flex-direction: column;
