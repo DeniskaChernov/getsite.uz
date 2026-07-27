@@ -44,7 +44,7 @@
       href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="assets/styles.css?v=55">
+    <link rel="stylesheet" href="assets/styles.css?v=56">
     <noscript>
       <style>
         .preloader { display: none !important; }
@@ -56,8 +56,8 @@
     <script src="assets/site-config.js?v=4"></script>
     <script src="assets/analytics.js?v=1" defer></script>
     <script src="assets/particles2.js?v=46" defer></script>
-    <script src="assets/i18n.js?v=8" defer></script>
-    <script src="assets/i18n-pricing.js?v=1" defer></script>
+    <script src="assets/i18n.js?v=9" defer></script>
+    <script src="assets/i18n-pricing.js?v=2" defer></script>
     <script src="assets/i18n-process.js?v=1" defer></script>
     <script src="assets/i18n-blog.js?v=1" defer></script>
     <script src="assets/app.js?v=34" defer></script>
@@ -89,7 +89,7 @@
       </button>
       <nav class="menu-panel__nav" aria-label="Основное меню">
         <a href="#top" data-menu-link><span>01</span><span data-i18n="nav.home">Главная</span></a>
-        <a href="#pricing" data-menu-link><span>02</span><span data-i18n="nav.pricing">Цены</span></a>
+        <a href="#pricing" data-menu-link><span>02</span><span data-i18n="nav.pricing">Услуги</span></a>
         <a href="#cases" data-menu-link><span>03</span><span data-i18n="nav.cases">Кейсы</span></a>
         <a href="blog.html" data-menu-link><span>04</span><span data-i18n="nav.blog">Блог</span></a>
         <a class="is-accent" href="#contact" data-menu-link><span>05</span><span data-i18n="nav.contact">Контакты</span></a>
@@ -150,218 +150,46 @@
         </div>
       </section>
 
-      <section class="pricing pricing-block section section--left section--pricing" id="pricing" data-screen-label="Цены · Сайты" data-shape="1" data-side="left">
+      <section class="pricing pricing-block section section--left section--pricing" id="pricing" data-screen-label="Услуги" data-shape="1" data-side="left">
         <div class="section__content section__content--pricing">
           <div class="spotlight-intro reveal">
-            <h2 class="spotlight__title" data-i18n="pricing.title">Цены</h2>
+            <h2 class="spotlight__title" data-i18n="pricing.title">Услуги</h2>
             <p class="spotlight__text" data-i18n="pricing.lead">
-              Цена «от» — при стандартном составе. Точная сумма зависит от объёма, функций и интеграций. Сложный проект начинаем с аналитики.
+              Три быстрых входа. Полный каталог с ценами «от» и составом — на отдельной странице.
             </p>
           </div>
           <div class="pricing-catalog reveal">
-            <h3 class="pricing-group__title" data-i18n="pricing.sites">Сайты</h3>
-              <div class="pricing-mains pricing-mains--duo" data-stagger>
-                <article class="price-card" data-tg-start="sites_landing">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.sites.landing.title">Лендинг</h4>
-                    <p class="price-card__sum" data-i18n="price.sites.landing.sum">от 4,9 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.sites.landing.desc">Одностраничный сайт для рекламы и заявок.</p>
-                  <p class="price-card__included" data-i18n="price.sites.landing.included">Структура, до 10 блоков, дизайн, адаптив, формы, Telegram-уведомления, базовое SEO, аналитика, запуск.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card" data-tg-start="sites_corporate">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.sites.corporate.title">Корпоративный сайт</h4>
-                    <p class="price-card__sum" data-i18n="price.sites.corporate.sum">от 8,9 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.sites.corporate.desc">Многостраничный сайт компании.</p>
-                  <p class="price-card__included" data-i18n="price.sites.corporate.included">До 8 страниц, структура, дизайн, CMS, формы, аналитика, базовое SEO и запуск.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card" data-tg-start="sites_catalog">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.sites.catalog.title">Сайт-каталог</h4>
-                    <p class="price-card__sum" data-i18n="price.sites.catalog.sum">от 11,9 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.sites.catalog.desc">Каталог товаров без обязательной онлайн-оплаты.</p>
-                  <p class="price-card__included" data-i18n="price.sites.catalog.included">Категории, карточки, CMS, заявки с товара, базовый поиск, аналитика и запуск.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card" data-tg-start="sites_shop">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.sites.shop.title">Интернет-магазин</h4>
-                    <p class="price-card__sum" data-i18n="price.sites.shop.sum">от 14,9 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.sites.shop.desc">Каталог, корзина, заказ и онлайн-продажи.</p>
-                  <p class="price-card__included" data-i18n="price.sites.shop.included">Каталог, корзина, checkout, CMS, адаптив, статусы, аналитика и запуск.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-              </div>
-              <details class="pricing-subs">
-                <summary data-i18n="pricing.subs.sites">Подуслуги · Сайты</summary>
-                <ul class="pricing-subs__list">
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.1.name">Анализ и структура сайта</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.1.meta">от 700 тыс · проект</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.1.desc">Карта сайта и логика страниц.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.2.name">Прототип страницы</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.2.meta">от 800 тыс · страница</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.2.desc">Wireframe до дизайна.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.3.name">Индивидуальный дизайн</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.3.meta">от 1,5 млн · страница</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.3.desc">Дизайн ключевой страницы без разработки.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.4.name">Дополнительная страница</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.4.meta">от 350 тыс · страница</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.4.desc">Новая типовая страница в существующем стиле.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.5.name">Дополнительный язык</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.5.meta">от 1,2 млн · язык</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.5.desc">Языковая версия без стоимости перевода.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.6.name">Текст / редактура блока</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.6.meta">от 180 тыс · блок</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.6.desc">Текст одного смыслового блока.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.7.name">CMS / управление контентом</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.7.meta">от 1,5 млн · модуль</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.7.desc">Самостоятельное изменение контента.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.8.name">Блог / новости</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.8.meta">от 1,2 млн · модуль</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.8.desc">Раздел публикаций.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.9.name">Форма + Telegram-уведомление</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.9.meta">от 500 тыс · форма</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.9.desc">Форма заявки с отправкой менеджеру.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.10.name">Подключение аналитики</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.10.meta">от 350 тыс · система</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.10.desc">Счётчик и базовые события.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.11.name">Базовая SEO-настройка</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.11.meta">от 700 тыс · сайт</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.11.desc">Техническая подготовка к индексации.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.12.name">Заполнение карточки товара</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.12.meta">от 30 тыс · товар</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.12.desc">Одна карточка из готовых материалов.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.13.name">Фильтры каталога</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.13.meta">от 1,2 млн · набор</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.13.desc">Фильтрация по характеристикам.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.14.name">Поиск по каталогу</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.14.meta">от 900 тыс · модуль</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.14.desc">Поиск товаров.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.15.name">Корзина и оформление заказа</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.15.meta">от 1,5 млн · модуль</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.15.desc">Корзина и checkout.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.16.name">Онлайн-оплата</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.16.meta">от 2 млн · провайдер</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.16.desc">Одна платёжная система.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.17.name">Интеграция доставки</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.17.meta">от 1,5 млн · служба</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.17.desc">Одна служба доставки.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.sites.sub.18.name">Личный кабинет</span><span class="pricing-subs__meta" data-i18n="price.sites.sub.18.meta">от 3 млн · модуль</span><span class="pricing-subs__desc" data-i18n="price.sites.sub.18.desc">Авторизация, профиль и один рабочий раздел.</span></li>
-                </ul>
-              </details>
+            <div class="pricing-mains pricing-mains--trio" data-stagger>
+              <article class="price-card" data-tg-start="sites_landing">
+                <div class="price-card__top">
+                  <h4 data-i18n="price.sites.landing.title">Лендинг</h4>
+                  <p class="price-card__sum" data-i18n="price.sites.landing.sum">от 4,9 млн сум</p>
+                </div>
+                <p class="price-card__desc" data-i18n="price.sites.landing.desc">Одностраничный сайт для рекламы и заявок.</p>
+                <p class="price-card__included" data-i18n="price.sites.landing.included">Структура, до 10 блоков, дизайн, адаптив, формы, Telegram-уведомления, базовое SEO, аналитика, запуск.</p>
+                <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
+              </article>
+              <article class="price-card price-card--accent" data-tg-start="tg_bot">
+                <div class="price-card__top">
+                  <h4 data-i18n="price.telegram.bot.title">Telegram-бот</h4>
+                  <p class="price-card__sum" data-i18n="price.telegram.bot.sum">от 4,5 млн сум</p>
+                </div>
+                <p class="price-card__desc" data-i18n="price.telegram.bot.desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
+                <p class="price-card__included" data-i18n="price.telegram.bot.included">Сценарий, меню, база, уведомления, админ-команды, тестирование и размещение.</p>
+                <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
+              </article>
+              <article class="price-card" data-tg-start="auto_process">
+                <div class="price-card__top">
+                  <h4 data-i18n="price.automation.process.title">Автоматизация процесса</h4>
+                  <p class="price-card__sum" data-i18n="price.automation.process.sum">от 3 млн сум</p>
+                </div>
+                <p class="price-card__desc" data-i18n="price.automation.process.desc">Автоматизация одного ручного процесса.</p>
+                <p class="price-card__included" data-i18n="price.automation.process.included">Логика, интеграция сервисов, уведомления, тестирование и инструкция.</p>
+                <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
+              </article>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section class="pricing pricing-block section section--right section--pricing" id="pricing-telegram" data-screen-label="Цены · Telegram" data-shape="7" data-side="right">
-        <div class="section__content section__content--pricing">
-          <div class="pricing-catalog reveal">
-            <h3 class="pricing-group__title" data-i18n="pricing.telegram">Telegram</h3>
-              <div class="pricing-mains" data-stagger>
-                <article class="price-card price-card--accent" data-tg-start="tg_bot">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.telegram.bot.title">Telegram-бот</h4>
-                    <p class="price-card__sum" data-i18n="price.telegram.bot.sum">от 4,5 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.telegram.bot.desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
-                  <p class="price-card__included" data-i18n="price.telegram.bot.included">Сценарий, меню, база, уведомления, админ-команды, тестирование и размещение.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card price-card--accent" data-tg-start="tg_admin">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.telegram.admin.title">Бот + админ-панель</h4>
-                    <p class="price-card__sum" data-i18n="price.telegram.admin.sum">от 9,9 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.telegram.admin.desc">Бот с web-панелью, статусами и пользователями.</p>
-                  <p class="price-card__included" data-i18n="price.telegram.admin.included">Бот, панель, роли, база данных, статусы, уведомления и базовые отчёты.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card" data-tg-start="tg_miniapp">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.telegram.miniapp.title">Telegram Mini App</h4>
-                    <p class="price-card__sum" data-i18n="price.telegram.miniapp.sum">от 18 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.telegram.miniapp.desc">Веб-приложение внутри Telegram.</p>
-                  <p class="price-card__included" data-i18n="price.telegram.miniapp.included">MVP, Telegram-авторизация, интерфейс, база и до 3 ключевых сценариев.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-              </div>
-              <details class="pricing-subs">
-                <summary data-i18n="pricing.subs.telegram">Подуслуги · Telegram</summary>
-                <ul class="pricing-subs__list">
-                  <li><span class="pricing-subs__name" data-i18n="price.telegram.sub.1.name">Web-админ-панель</span><span class="pricing-subs__meta" data-i18n="price.telegram.sub.1.meta">от 4 млн · панель</span><span class="pricing-subs__desc" data-i18n="price.telegram.sub.1.desc">Управление данными бота.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.telegram.sub.2.name">Оплата в Telegram</span><span class="pricing-subs__meta" data-i18n="price.telegram.sub.2.meta">от 1,5 млн · провайдер</span><span class="pricing-subs__desc" data-i18n="price.telegram.sub.2.desc">Платёж в боте или Mini App.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.telegram.sub.3.name">Интеграция бота с CRM</span><span class="pricing-subs__meta" data-i18n="price.telegram.sub.3.meta">от 2,5 млн · CRM</span><span class="pricing-subs__desc" data-i18n="price.telegram.sub.3.desc">Лиды, заказы или статусы в CRM.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.telegram.sub.4.name">Модуль рассылок</span><span class="pricing-subs__meta" data-i18n="price.telegram.sub.4.meta">от 1,2 млн · модуль</span><span class="pricing-subs__desc" data-i18n="price.telegram.sub.4.desc">Уведомления пользователям.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.telegram.sub.5.name">Роли пользователей</span><span class="pricing-subs__meta" data-i18n="price.telegram.sub.5.meta">от 1,5 млн · модель</span><span class="pricing-subs__desc" data-i18n="price.telegram.sub.5.desc">Разные права и сценарии.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.telegram.sub.6.name">AI-модуль</span><span class="pricing-subs__meta" data-i18n="price.telegram.sub.6.meta">от 3 млн · сценарий</span><span class="pricing-subs__desc" data-i18n="price.telegram.sub.6.desc">Один управляемый AI-сценарий.</span></li>
-                </ul>
-              </details>
-          </div>
-        </div>
-      </section>
-
-      <section class="pricing pricing-block section section--left section--pricing" id="pricing-automation" data-screen-label="Цены · Автоматизация" data-shape="8" data-side="left">
-        <div class="section__content section__content--pricing">
-          <div class="pricing-catalog reveal">
-            <h3 class="pricing-group__title" data-i18n="pricing.automation">Автоматизация</h3>
-              <div class="pricing-mains pricing-mains--duo" data-stagger>
-                <article class="price-card" data-tg-start="auto_analytics">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.automation.analytics.title">Аналитика и проектирование</h4>
-                    <p class="price-card__sum" data-i18n="price.automation.analytics.sum">от 1,9 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.automation.analytics.desc">Разбор процессов перед CRM, Mini App или внутренней системой.</p>
-                  <p class="price-card__included" data-i18n="price.automation.analytics.included">Интервью, процессы, роли, MVP, функции, риски, этапы и предварительная смета.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card" data-tg-start="auto_process">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.automation.process.title">Автоматизация процесса</h4>
-                    <p class="price-card__sum" data-i18n="price.automation.process.sum">от 3 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.automation.process.desc">Автоматизация одного ручного процесса.</p>
-                  <p class="price-card__included" data-i18n="price.automation.process.included">Логика, интеграция сервисов, уведомления, тестирование и инструкция.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card" data-tg-start="auto_integration">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.automation.integration.title">Интеграция систем</h4>
-                    <p class="price-card__sum" data-i18n="price.automation.integration.sum">от 2,5 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.automation.integration.desc">Связка сайта, бота, CRM, платежей или API.</p>
-                  <p class="price-card__included" data-i18n="price.automation.integration.included">Схема обмена, реализация, ошибки, тестирование и документация.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card" data-tg-start="auto_internal">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.automation.internal.title">Внутренняя бизнес-система</h4>
-                    <p class="price-card__sum" data-i18n="price.automation.internal.sum">от 20 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.automation.internal.desc">Сервис для сотрудников и внутренних процессов.</p>
-                  <p class="price-card__included" data-i18n="price.automation.internal.included">После аналитики: MVP, роли, сущности, базовые отчёты, уведомления и размещение.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-                <article class="price-card price-card--custom" data-tg-start="auto_crm">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.automation.crm.title">CRM-система с нуля</h4>
-                    <p class="price-card__sum" data-i18n="price.automation.crm.sum">от 25 млн сум</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.automation.crm.desc">Индивидуальная CRM под процесс компании.</p>
-                  <p class="price-card__included" data-i18n="price.automation.crm.included">После аналитики: воронка, клиенты, задачи, роли, статусы, отчёты и уведомления.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-              </div>
-              <details class="pricing-subs">
-                <summary data-i18n="pricing.subs.automation">Подуслуги · Автоматизация</summary>
-                <ul class="pricing-subs__list">
-                  <li><span class="pricing-subs__name" data-i18n="price.automation.sub.1.name">Внешний API</span><span class="pricing-subs__meta" data-i18n="price.automation.sub.1.meta">от 2 млн · API</span><span class="pricing-subs__desc" data-i18n="price.automation.sub.1.desc">Один документированный API.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.automation.sub.2.name">Роли и права доступа</span><span class="pricing-subs__meta" data-i18n="price.automation.sub.2.meta">от 1,5 млн · модель</span><span class="pricing-subs__desc" data-i18n="price.automation.sub.2.desc">Разделение функций и данных.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.automation.sub.3.name">Отчёт / аналитическая таблица</span><span class="pricing-subs__meta" data-i18n="price.automation.sub.3.meta">от 1,2 млн · отчёт</span><span class="pricing-subs__desc" data-i18n="price.automation.sub.3.desc">Один управленческий отчёт.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.automation.sub.4.name">Миграция данных</span><span class="pricing-subs__meta" data-i18n="price.automation.sub.4.meta">от 1,5 млн · источник</span><span class="pricing-subs__desc" data-i18n="price.automation.sub.4.desc">Перенос из одной базы или файла.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.automation.sub.5.name">Журнал действий</span><span class="pricing-subs__meta" data-i18n="price.automation.sub.5.meta">от 1,5 млн · модуль</span><span class="pricing-subs__desc" data-i18n="price.automation.sub.5.desc">История изменений пользователей.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.automation.sub.6.name">Управленческий дашборд</span><span class="pricing-subs__meta" data-i18n="price.automation.sub.6.meta">от 2,5 млн · дашборд</span><span class="pricing-subs__desc" data-i18n="price.automation.sub.6.desc">KPI и контрольные показатели.</span></li>
-                </ul>
-              </details>
-          </div>
-        </div>
-      </section>
-
-      <section class="pricing pricing-block section section--right section--pricing" id="pricing-support" data-screen-label="Цены · Поддержка" data-shape="3" data-side="right">
-        <div class="section__content section__content--pricing">
-          <div class="pricing-catalog reveal">
-            <h3 class="pricing-group__title" data-i18n="pricing.support">Поддержка</h3>
-              <div class="pricing-mains pricing-mains--solo" data-stagger>
-                <article class="price-card" data-tg-start="support_maint">
-                  <div class="price-card__top">
-                    <h4 data-i18n="price.support.maintenance.title">Техническое сопровождение</h4>
-                    <p class="price-card__sum" data-i18n="price.support.maintenance.sum">от 700 тыс / мес</p>
-                  </div>
-                  <p class="price-card__desc" data-i18n="price.support.maintenance.desc">Мониторинг и регулярные небольшие изменения.</p>
-                  <p class="price-card__included" data-i18n="price.support.maintenance.included">Мониторинг, backups, мелкие исправления, консультации и лимит работ.</p>
-                  <p class="price-card__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</p>
-                </article>
-              </div>
-              <details class="pricing-subs">
-                <summary data-i18n="pricing.subs.support">Подуслуги · Поддержка</summary>
-                <ul class="pricing-subs__list">
-                  <li><span class="pricing-subs__name" data-i18n="price.support.sub.1.name">Разовая техническая работа</span><span class="pricing-subs__meta" data-i18n="price.support.sub.1.meta">от 250 тыс · час</span><span class="pricing-subs__desc" data-i18n="price.support.sub.1.desc">Небольшое изменение вне тарифа.</span></li>
-                  <li><span class="pricing-subs__name" data-i18n="price.support.sub.2.name">Пакет контентных изменений</span><span class="pricing-subs__meta" data-i18n="price.support.sub.2.meta">от 500 тыс · пакет</span><span class="pricing-subs__desc" data-i18n="price.support.sub.2.desc">До 10 изменений текста или фото.</span></li>
-                </ul>
-              </details>
-          </div>
+          <a class="blog-more reveal" href="catalog.html" data-i18n="pricing.more">Весь каталог →</a>
         </div>
       </section>
 
@@ -542,7 +370,7 @@
           <div class="spotlight-intro reveal">
             <h2 class="spotlight__title" data-i18n="cases.title">Кейсы</h2>
             <p class="spotlight__text" data-i18n="cases.lead">
-              Три живых проекта в продакшене — можно открыть и полистать.
+              Живые проекты в продакшене — можно открыть и полистать.
             </p>
           </div>
           <div class="cases-grid" data-stagger>
@@ -638,53 +466,8 @@
                 <a class="case-card__link" href="https://cartello.uz/" target="_blank" rel="noopener noreferrer">cartello.uz →</a>
               </div>
             </article>
-            <article class="case-card">
-              <a
-                class="case-card__visual"
-                href="http://bizly.uz/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="assets/cases/bizly.png"
-                  alt="Bizly"
-                  width="1280"
-                  height="720"
-                  loading="lazy"
-                  decoding="async"
-                >
-              </a>
-              <div class="case-card__body">
-                <span class="case-card__meta" data-i18n="case.3.meta">B2B · продукт · 2025</span>
-                <h3>
-                  <a href="http://bizly.uz/" target="_blank" rel="noopener noreferrer" data-i18n="case.3.title">Bizly</a>
-                </h3>
-                <p data-i18n="case.3.desc">
-                  Лендинг сервиса автоматизации и маркетинга: чистый оффер, блоки проблем и услуг, CTA «Обсудить проект».
-                </p>
-                <ul class="case-card__stats" aria-label="Показатели проекта">
-                  <li>
-                    <strong data-i18n="case.3.s1.v">1</strong>
-                    <span data-i18n="case.3.s1.l">оффер на экране</span>
-                  </li>
-                  <li>
-                    <strong data-i18n="case.3.s2.v">3</strong>
-                    <span data-i18n="case.3.s2.l">блока выгод</span>
-                  </li>
-                  <li>
-                    <strong data-i18n="case.3.s3.v">1</strong>
-                    <span data-i18n="case.3.s3.l">точка входа в заявку</span>
-                  </li>
-                </ul>
-                <ul class="case-card__tags">
-                  <li data-i18n="case.3.tag1">лендинг</li>
-                  <li data-i18n="case.3.tag2">B2B</li>
-                  <li data-i18n="case.3.tag3">продукт</li>
-                </ul>
-                <a class="case-card__link" href="http://bizly.uz/" target="_blank" rel="noopener noreferrer">bizly.uz →</a>
-              </div>
-            </article>
           </div>
+          <a class="blog-more reveal" href="cases.html" data-i18n="cases.more">Все кейсы →</a>
         </div>
       </section>
 

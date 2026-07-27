@@ -1304,9 +1304,88 @@ body.skip-intro .line-reveal > span {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.pricing-mains--trio {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .pricing-mains--solo {
   grid-template-columns: 1fr;
   max-width: none;
+}
+
+.catalog-group__title {
+  margin: 2.2rem 0 0.35rem;
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.catalog-group__title:first-child {
+  margin-top: 0;
+}
+
+.catalog-teaser__included {
+  margin: 0 0 0.85rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.case-teaser__visual {
+  margin: 0 0 1rem;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(245, 242, 235, 0.1);
+}
+
+.case-teaser__visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.case-teaser__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.case-teaser__stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.case-teaser__stats strong {
+  font-family: "Unbounded", Arial, sans-serif;
+  font-size: 1.05rem;
+  color: var(--accent);
+}
+
+.case-teaser__stats span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+@media (max-width: 700px) {
+  .case-teaser__stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.section--pricing .blog-more,
+.cases .blog-more {
+  margin-top: 1.5rem;
 }
 
 .pricing-subs {
@@ -2630,7 +2709,9 @@ body.skip-intro .line-reveal > span {
 }
 
 body.page-blog,
-body.page-article {
+body.page-article,
+body.page-catalog,
+body.page-cases {
   background: var(--bg);
 }
 
@@ -3274,6 +3355,8 @@ body.page-article {
 
 .page-blog .reveal,
 .page-article .reveal,
+.page-catalog .reveal,
+.page-cases .reveal,
 .page-getdesign .reveal {
   transform: translateY(14px);
   transition:
@@ -3282,7 +3365,9 @@ body.page-article {
 }
 
 .page-blog .reveal--stagger,
-.page-article .reveal--stagger {
+.page-article .reveal--stagger,
+.page-catalog .reveal--stagger,
+.page-cases .reveal--stagger {
   transform: translateY(10px);
 }
 
@@ -3589,7 +3674,8 @@ body.page-article {
   }
 
   .pricing-mains,
-  .pricing-mains--duo {
+  .pricing-mains--duo,
+  .pricing-mains--trio {
     grid-template-columns: 1fr;
   }
 
