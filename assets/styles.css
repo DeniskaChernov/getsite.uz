@@ -1519,10 +1519,7 @@ body.page-catalog .blog-page__head p {
   border-top: 1px solid rgba(245, 242, 235, 0.12);
   text-decoration: none;
   color: inherit;
-  transition:
-    padding-left 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.45s ease,
-    background-color 0.45s ease;
+  transition: border-color 0.45s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -1545,7 +1542,6 @@ body.page-catalog .blog-page__head p {
 .catalog-row:hover,
 .catalog-row:focus-visible,
 .catalog-row.is-open {
-  padding-left: 10px;
   outline: none;
 }
 
@@ -1584,7 +1580,6 @@ body.page-catalog .blog-page__head p {
   position: relative;
   z-index: 1;
   max-width: 40rem;
-  transition: max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .catalog-row__included {
@@ -1602,80 +1597,39 @@ body.page-catalog .blog-page__head p {
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.5s ease,
-    border-color 0.45s ease;
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.4s;
+  visibility: hidden;
 }
 
 .catalog-row__included-label,
 .catalog-row__included > p:last-child {
-  opacity: 0;
-  transform: translateX(12px);
-  transition:
-    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+  transform: none;
 }
 
 @media (min-width: 901px) {
   .catalog-row__included {
     position: absolute;
     top: 50%;
-    right: 0;
-    width: min(300px, 32%);
+    left: calc(40rem + 2rem);
+    width: min(300px, calc(100% - 40rem - 2.5rem));
     min-height: 8.5rem;
-    transform: translate(36px, -50%) scale(0.96);
+    transform: translateY(-50%);
     z-index: 2;
-  }
-
-  .catalog-row:focus-visible .catalog-row__main,
-  .catalog-row.is-open .catalog-row__main {
-    max-width: calc(100% - 360px);
   }
 
   .catalog-row:focus-visible .catalog-row__included,
   .catalog-row.is-open .catalog-row__included {
     opacity: 1;
-    transform: translate(0, -50%) scale(1);
-    box-shadow: 0 22px 56px rgba(0, 0, 0, 0.42);
-  }
-
-  .catalog-row:focus-visible .catalog-row__included-label,
-  .catalog-row.is-open .catalog-row__included-label {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.1s;
-  }
-
-  .catalog-row:focus-visible .catalog-row__included > p:last-child,
-  .catalog-row.is-open .catalog-row__included > p:last-child {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.18s;
+    visibility: visible;
   }
 }
 
 @media (hover: hover) and (pointer: fine) and (min-width: 901px) {
-  .catalog-row:hover .catalog-row__main {
-    max-width: calc(100% - 360px);
-  }
-
   .catalog-row:hover .catalog-row__included {
     opacity: 1;
-    transform: translate(0, -50%) scale(1);
-    box-shadow: 0 22px 56px rgba(0, 0, 0, 0.42);
-  }
-
-  .catalog-row:hover .catalog-row__included-label {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.1s;
-  }
-
-  .catalog-row:hover .catalog-row__included > p:last-child {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.18s;
+    visibility: visible;
   }
 }
 
@@ -1698,29 +1652,25 @@ body.page-catalog .blog-page__head p {
 
 @media (max-width: 900px) {
   .catalog-row__included {
+    position: static;
     max-height: 0;
     margin-top: 0;
     padding-top: 0;
     padding-bottom: 0;
     border-width: 0;
     opacity: 0;
+    visibility: hidden;
     overflow: hidden;
-    transform: translateY(-8px) scale(0.98);
-    box-shadow: none;
-    transition:
-      max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      margin-top 0.4s ease,
-      padding 0.4s ease,
-      border-width 0.35s ease;
-  }
-
-  .catalog-row__included-label,
-  .catalog-row__included > p:last-child {
-    opacity: 1;
     transform: none;
-    transition: none;
+    box-shadow: none;
+    width: auto;
+    transition:
+      max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s ease,
+      margin-top 0.35s ease,
+      padding 0.35s ease,
+      border-width 0.3s ease,
+      visibility 0.35s;
   }
 
   .catalog-row.is-open .catalog-row__included,
@@ -1730,7 +1680,7 @@ body.page-catalog .blog-page__head p {
     padding: 20px 20px;
     border-width: 1px;
     opacity: 1;
-    transform: none;
+    visibility: visible;
   }
 }
 
@@ -4990,8 +4940,8 @@ body.menu-open .cookie-panel {
     color: var(--accent);
   }
 
-  .catalog-row:active {
-    padding-left: 6px;
+  .catalog-row:active h3 {
+    color: var(--accent);
     transition-duration: 0.1s;
   }
 
