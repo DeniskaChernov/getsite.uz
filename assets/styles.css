@@ -1589,23 +1589,33 @@ body.page-catalog .blog-page__head p {
   gap: 12px;
   margin: 0;
   padding: 22px 24px;
-  border: 1px solid rgba(216, 255, 61, 0.28);
+  border: 1px solid rgba(216, 255, 61, 0.15);
   border-radius: 16px;
   background:
     linear-gradient(145deg, rgba(216, 255, 61, 0.1) 0%, rgba(2, 3, 3, 0.92) 55%, rgba(2, 3, 3, 0.88) 100%);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 transparent;
   opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0.4s;
   visibility: hidden;
+  pointer-events: none;
+  filter: blur(10px);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 0.7, 0.2, 1),
+    transform 0.65s cubic-bezier(0.16, 0.7, 0.2, 1),
+    filter 0.55s cubic-bezier(0.16, 0.7, 0.2, 1),
+    border-color 0.5s ease,
+    box-shadow 0.6s cubic-bezier(0.16, 0.7, 0.2, 1),
+    visibility 0.55s;
 }
 
 .catalog-row__included-label,
 .catalog-row__included > p:last-child {
-  opacity: 1;
-  transform: none;
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(4px);
+  transition:
+    opacity 0.45s cubic-bezier(0.16, 0.7, 0.2, 1),
+    transform 0.5s cubic-bezier(0.16, 0.7, 0.2, 1),
+    filter 0.45s cubic-bezier(0.16, 0.7, 0.2, 1);
 }
 
 @media (min-width: 901px) {
@@ -1615,7 +1625,7 @@ body.page-catalog .blog-page__head p {
     left: calc(40rem + 2rem);
     width: min(300px, calc(100% - 40rem - 2.5rem));
     min-height: 8.5rem;
-    transform: translateY(-50%);
+    transform: translateY(-50%) translateX(28px) scale(0.92);
     z-index: 2;
   }
 
@@ -1623,6 +1633,28 @@ body.page-catalog .blog-page__head p {
   .catalog-row.is-open .catalog-row__included {
     opacity: 1;
     visibility: visible;
+    filter: blur(0);
+    transform: translateY(-50%) translateX(0) scale(1);
+    border-color: rgba(216, 255, 61, 0.5);
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.48),
+      0 0 48px rgba(216, 255, 61, 0.14);
+  }
+
+  .catalog-row:focus-visible .catalog-row__included-label,
+  .catalog-row.is-open .catalog-row__included-label {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    transition-delay: 0.12s;
+  }
+
+  .catalog-row:focus-visible .catalog-row__included > p:last-child,
+  .catalog-row.is-open .catalog-row__included > p:last-child {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    transition-delay: 0.22s;
   }
 }
 
@@ -1630,6 +1662,26 @@ body.page-catalog .blog-page__head p {
   .catalog-row:hover .catalog-row__included {
     opacity: 1;
     visibility: visible;
+    filter: blur(0);
+    transform: translateY(-50%) translateX(0) scale(1);
+    border-color: rgba(216, 255, 61, 0.5);
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.48),
+      0 0 48px rgba(216, 255, 61, 0.14);
+  }
+
+  .catalog-row:hover .catalog-row__included-label {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    transition-delay: 0.12s;
+  }
+
+  .catalog-row:hover .catalog-row__included > p:last-child {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    transition-delay: 0.22s;
   }
 }
 
@@ -1661,16 +1713,28 @@ body.page-catalog .blog-page__head p {
     opacity: 0;
     visibility: hidden;
     overflow: hidden;
-    transform: none;
+    filter: none;
+    transform: translateY(12px) scale(0.97);
     box-shadow: none;
     width: auto;
     transition:
-      max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.35s ease,
-      margin-top 0.35s ease,
-      padding 0.35s ease,
+      max-height 0.45s cubic-bezier(0.16, 0.7, 0.2, 1),
+      opacity 0.4s cubic-bezier(0.16, 0.7, 0.2, 1),
+      transform 0.45s cubic-bezier(0.16, 0.7, 0.2, 1),
+      margin-top 0.4s ease,
+      padding 0.4s ease,
       border-width 0.3s ease,
-      visibility 0.35s;
+      border-color 0.4s ease,
+      box-shadow 0.45s ease,
+      visibility 0.4s;
+  }
+
+  .catalog-row__included-label,
+  .catalog-row__included > p:last-child {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
   }
 
   .catalog-row.is-open .catalog-row__included,
@@ -1679,8 +1743,11 @@ body.page-catalog .blog-page__head p {
     margin-top: 22px;
     padding: 20px 20px;
     border-width: 1px;
+    border-color: rgba(216, 255, 61, 0.45);
     opacity: 1;
     visibility: visible;
+    transform: none;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   }
 }
 
