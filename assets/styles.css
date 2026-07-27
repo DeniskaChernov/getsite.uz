@@ -3817,7 +3817,7 @@ body.page-cases {
 
 @media (max-width: 700px) {
   :root {
-    --side: 20px;
+    --side: 22px;
   }
 
   body::before {
@@ -3830,12 +3830,12 @@ body.page-cases {
   }
 
   main {
-    padding-bottom: calc(72px + var(--safe-bottom));
+    padding-bottom: calc(88px + var(--safe-bottom));
   }
 
   .site-header {
     gap: 10px;
-    padding: 12px calc(var(--side) + var(--safe-right)) 12px calc(var(--side) + var(--safe-left));
+    padding: 14px calc(var(--side) + var(--safe-right)) 14px calc(var(--side) + var(--safe-left));
   }
 
   .site-header__actions .btn--header {
@@ -3928,35 +3928,38 @@ body.page-cases {
 
   .hero {
     min-height: auto;
-    padding-top: 96px;
-    padding-bottom: 36px;
+    padding-top: calc(104px + var(--safe-top));
+    padding-bottom: 56px;
   }
 
   .hero__title {
     max-width: 100%;
-    font-size: clamp(2.15rem, 12vw, 3.2rem);
-    line-height: 1.08;
-    margin-bottom: 12px;
+    font-size: clamp(2rem, 10.5vw, 2.85rem);
+    line-height: 1.1;
+    margin-bottom: 18px;
+    letter-spacing: -0.03em;
   }
 
   .hero__tagline {
     max-width: 100%;
-    font-size: clamp(1rem, 4.8vw, 1.25rem);
-    margin-bottom: 10px;
+    font-size: clamp(1.05rem, 4.4vw, 1.3rem);
+    margin-bottom: 16px;
+    line-height: 1.35;
   }
 
   .hero__lead {
-    max-width: 100%;
-    font-size: 0.92rem;
-    line-height: 1.5;
+    max-width: 34ch;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 8px;
   }
 
   .hero__meta {
     position: static;
     flex-direction: column;
-    margin-top: 22px;
-    gap: 4px;
-    font-size: 0.84rem;
+    margin-top: 28px;
+    gap: 10px;
+    font-size: 0.88rem;
     color: var(--muted);
   }
 
@@ -4060,49 +4063,88 @@ body.page-cases {
   }
 
   .spotlight__title {
-    font-size: clamp(2rem, 12vw, 3rem);
-    margin-bottom: 18px;
+    font-size: clamp(1.85rem, 9.2vw, 2.55rem);
+    margin-bottom: 16px;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
   }
 
   .spotlight__text {
     max-width: 100%;
-    font-size: 1rem;
+    font-size: 0.98rem;
     line-height: 1.6;
   }
 
   .spotlight-intro {
-    margin-bottom: 28px;
+    margin-bottom: 40px;
   }
 
   .moment {
-    min-height: 56svh;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    min-height: auto;
+    padding-top: clamp(56px, 10vh, 88px);
+    padding-bottom: clamp(56px, 10vh, 88px);
   }
 
   .moment__text {
-    font-size: clamp(1.15rem, 5.6vw, 1.65rem);
-    line-height: 1.22;
-    padding: 0 2px;
+    font-size: clamp(1.12rem, 5.2vw, 1.55rem);
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    padding: 0 4px;
+    max-width: 18ch;
   }
 
   .section {
     min-height: auto;
-    padding-top: 8vh;
-    padding-bottom: 8vh;
-    scroll-margin-top: 78px;
+    padding-top: clamp(64px, 11vh, 104px);
+    padding-bottom: clamp(64px, 11vh, 104px);
+    scroll-margin-top: 86px;
   }
 
   .pricing,
   .process {
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    padding-top: clamp(72px, 12vh, 112px);
+    padding-bottom: clamp(72px, 12vh, 112px);
+  }
+
+  .service-top {
+    width: 100%;
+  }
+
+  .service-top__item {
+    gap: 10px;
+    padding: 28px 0;
+  }
+
+  .service-top__item:first-child {
+    padding-top: 8px;
+  }
+
+  .service-top__item h3 {
+    font-size: clamp(1.08rem, 4.5vw, 1.28rem);
+  }
+
+  .service-top__desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .catalog-row {
+    padding: 28px 0;
+  }
+
+  .catalog-row__main h3 {
+    font-size: clamp(1.08rem, 4.5vw, 1.28rem);
+  }
+
+  .catalog-row__main p {
+    font-size: 0.9rem;
+    line-height: 1.55;
   }
 
   .service-row {
     grid-template-columns: 40px 1fr;
     gap: 10px;
-    padding: 16px 0;
+    padding: 20px 0;
   }
 
   .service-row h3 {
@@ -4255,7 +4297,7 @@ body.page-cases {
 
 @media (max-width: 420px) {
   :root {
-    --side: 18px;
+    --side: 20px;
   }
 
   .brand-switch__item {
@@ -4299,7 +4341,8 @@ body.page-cases {
   }
 
   .cookie-panel {
-    left: 12px;
+    left: auto;
+    right: 12px;
     width: calc(100vw - 24px);
   }
 }
@@ -4623,13 +4666,24 @@ body.menu-open .cookie-panel {
 }
 
 @media (max-width: 700px) {
+  /* Cookie справа — не перекрывает заголовки слева */
+  .cookie-widget {
+    left: auto;
+    right: calc(var(--side) + var(--safe-right));
+  }
+
+  .cookie-panel {
+    left: auto;
+    right: calc(var(--side) + var(--safe-right));
+  }
+
   body:has(.mobile-cta) .cookie-widget {
     bottom: calc(84px + var(--safe-bottom));
   }
 
   body:has(.mobile-cta) .cookie-panel {
     bottom: calc(148px + var(--safe-bottom));
-    width: min(360px, calc(100vw - 32px));
+    width: min(360px, calc(100vw - 44px));
   }
 
   body:not(:has(.mobile-cta)) .cookie-widget {
@@ -4638,7 +4692,7 @@ body.menu-open .cookie-panel {
 
   body:not(:has(.mobile-cta)) .cookie-panel {
     bottom: calc(72px + var(--safe-bottom));
-    width: min(360px, calc(100vw - 32px));
+    width: min(360px, calc(100vw - 44px));
   }
 }
 
