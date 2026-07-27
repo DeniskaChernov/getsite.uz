@@ -19,11 +19,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=57">
+    <link rel="stylesheet" href="assets/styles.css?v=58">
     <script src="assets/site-config.js?v=4"></script>
     <script src="assets/analytics.js?v=1" defer></script>
     <script src="assets/i18n.js?v=10" defer></script>
-    <script src="assets/i18n-pricing.js?v=2" defer></script>
+    <script src="assets/i18n-pricing.js?v=3" defer></script>
     <script src="assets/app.js?v=35" defer></script>
   </head>
   <body class="page-blog page-catalog">
@@ -56,144 +56,212 @@
           <a href="#cat-support" data-i18n="pricing.support">Поддержка</a>
         </nav>
 
-        <div class="blog-feed catalog-feed">
-          <h2 class="catalog-group__title" id="cat-sites" data-i18n="pricing.sites">Сайты</h2>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_landing" data-tg-start="sites_landing" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.sites.landing.title">Лендинг</h3>
-              <p data-i18n="price.sites.landing.desc">Одностраничный сайт для рекламы и заявок.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.sites.landing.sum">от 4,9 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_corporate" data-tg-start="sites_corporate" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.sites.corporate.title">Корпоративный сайт</h3>
-              <p data-i18n="price.sites.corporate.desc">Многостраничный сайт компании.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.sites.corporate.sum">от 8,9 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_catalog" data-tg-start="sites_catalog" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.sites.catalog.title">Сайт-каталог</h3>
-              <p data-i18n="price.sites.catalog.desc">Каталог товаров без обязательной онлайн-оплаты.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.sites.catalog.sum">от 11,9 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_shop" data-tg-start="sites_shop" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.sites.shop.title">Интернет-магазин</h3>
-              <p data-i18n="price.sites.shop.desc">Каталог, корзина, заказ и онлайн-продажи.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.sites.shop.sum">от 14,9 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
+        <div class="catalog-feed">
+          <section class="catalog-group" id="cat-sites">
+            <h2 class="catalog-group__title" data-i18n="pricing.sites">Сайты</h2>
 
-          <h2 class="catalog-group__title" id="cat-telegram" data-i18n="pricing.telegram">Telegram</h2>
-          <a class="catalog-row catalog-row--accent" href="https://telegram.me/getsiteuzbot?start=tg_bot" data-tg-start="tg_bot" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.telegram.bot.title">Telegram-бот</h3>
-              <p data-i18n="price.telegram.bot.desc">Заявки, запись, FAQ, каталог или простой сценарий.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.telegram.bot.sum">от 4,5 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row catalog-row--accent" href="https://telegram.me/getsiteuzbot?start=tg_admin" data-tg-start="tg_admin" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.telegram.admin.title">Бот + админ-панель</h3>
-              <p data-i18n="price.telegram.admin.desc">Бот с web-панелью, статусами и пользователями.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.telegram.admin.sum">от 9,9 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=tg_miniapp" data-tg-start="tg_miniapp" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.telegram.miniapp.title">Telegram Mini App</h3>
-              <p data-i18n="price.telegram.miniapp.desc">Веб-приложение внутри Telegram.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.telegram.miniapp.sum">от 18 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_landing" data-tg-start="sites_landing" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.sites.landing.title">Лендинг</h3>
+                  <span class="catalog-row__sum" data-i18n="price.sites.landing.sum">от 4,9 млн сум</span>
+                </div>
+                <p data-i18n="price.sites.landing.desc">Сайт под рекламу, который ведёт к заявке, а не к «красивой витрине». Структура, адаптив и уведомления в Telegram — менеджер видит лид в тот же день.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_corporate" data-tg-start="sites_corporate" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.sites.corporate.title">Корпоративный сайт</h3>
+                  <span class="catalog-row__sum" data-i18n="price.sites.corporate.sum">от 8,9 млн сум</span>
+                </div>
+                <p data-i18n="price.sites.corporate.desc">Сайт компании, где понятно, кто вы и что заказать. Страницы, CMS и рабочие формы — без шаблонной оболочки, которую стыдно показывать клиентам.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_catalog" data-tg-start="sites_catalog" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.sites.catalog.title">Сайт-каталог</h3>
+                  <span class="catalog-row__sum" data-i18n="price.sites.catalog.sum">от 11,9 млн сум</span>
+                </div>
+                <p data-i18n="price.sites.catalog.desc">Каталог, по которому реально выбирают и оставляют заявку с карточки. Категории, CMS и поиск — без обязательной онлайн-оплаты, если она пока не нужна.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_shop" data-tg-start="sites_shop" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.sites.shop.title">Интернет-магазин</h3>
+                  <span class="catalog-row__sum" data-i18n="price.sites.shop.sum">от 14,9 млн сум</span>
+                </div>
+                <p data-i18n="price.sites.shop.desc">Магазин до оплаты и статусов заказа, а не каталог с кнопкой «купить». Корзина, checkout и CMS — под ваш ассортимент и сценарий продажи.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
 
-          <h2 class="catalog-group__title" id="cat-auto" data-i18n="pricing.automation">Автоматизация</h2>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_analytics" data-tg-start="auto_analytics" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.automation.analytics.title">Аналитика и проектирование</h3>
-              <p data-i18n="price.automation.analytics.desc">Разбор процессов перед CRM, Mini App или внутренней системой.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.automation.analytics.sum">от 1,9 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_process" data-tg-start="auto_process" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.automation.process.title">Автоматизация процесса</h3>
-              <p data-i18n="price.automation.process.desc">Автоматизация одного ручного процесса.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.automation.process.sum">от 3 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_integration" data-tg-start="auto_integration" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.automation.integration.title">Интеграция систем</h3>
-              <p data-i18n="price.automation.integration.desc">Связка сайта, бота, CRM, платежей или API.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.automation.integration.sum">от 2,5 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_internal" data-tg-start="auto_internal" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.automation.internal.title">Внутренняя бизнес-система</h3>
-              <p data-i18n="price.automation.internal.desc">Сервис для сотрудников и внутренних процессов.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.automation.internal.sum">от 20 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_crm" data-tg-start="auto_crm" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.automation.crm.title">CRM-система с нуля</h3>
-              <p data-i18n="price.automation.crm.desc">Индивидуальная CRM под процесс компании.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.automation.crm.sum">от 25 млн сум</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
+            <details class="catalog-subs">
+              <summary data-i18n="pricing.subs.sites">Подуслуги · Сайты</summary>
+              <ul class="catalog-subs__list">
+                <li><span data-i18n="price.sites.sub.1.name">Анализ и структура сайта</span><span data-i18n="price.sites.sub.1.meta">от 700 тыс · проект</span></li>
+                <li><span data-i18n="price.sites.sub.2.name">Прототип страницы</span><span data-i18n="price.sites.sub.2.meta">от 800 тыс · страница</span></li>
+                <li><span data-i18n="price.sites.sub.3.name">Индивидуальный дизайн</span><span data-i18n="price.sites.sub.3.meta">от 1,5 млн · страница</span></li>
+                <li><span data-i18n="price.sites.sub.4.name">Дополнительная страница</span><span data-i18n="price.sites.sub.4.meta">от 350 тыс · страница</span></li>
+                <li><span data-i18n="price.sites.sub.5.name">Дополнительный язык</span><span data-i18n="price.sites.sub.5.meta">от 1,2 млн · язык</span></li>
+                <li><span data-i18n="price.sites.sub.6.name">Текст / редактура блока</span><span data-i18n="price.sites.sub.6.meta">от 180 тыс · блок</span></li>
+                <li><span data-i18n="price.sites.sub.7.name">CMS / управление контентом</span><span data-i18n="price.sites.sub.7.meta">от 1,5 млн · модуль</span></li>
+                <li><span data-i18n="price.sites.sub.8.name">Блог / новости</span><span data-i18n="price.sites.sub.8.meta">от 1,2 млн · модуль</span></li>
+                <li><span data-i18n="price.sites.sub.9.name">Форма + Telegram-уведомление</span><span data-i18n="price.sites.sub.9.meta">от 500 тыс · форма</span></li>
+                <li><span data-i18n="price.sites.sub.10.name">Подключение аналитики</span><span data-i18n="price.sites.sub.10.meta">от 350 тыс · система</span></li>
+                <li><span data-i18n="price.sites.sub.11.name">Базовая SEO-настройка</span><span data-i18n="price.sites.sub.11.meta">от 700 тыс · сайт</span></li>
+                <li><span data-i18n="price.sites.sub.12.name">Заполнение карточки товара</span><span data-i18n="price.sites.sub.12.meta">от 30 тыс · товар</span></li>
+                <li><span data-i18n="price.sites.sub.13.name">Фильтры каталога</span><span data-i18n="price.sites.sub.13.meta">от 1,2 млн · набор</span></li>
+                <li><span data-i18n="price.sites.sub.14.name">Поиск по каталогу</span><span data-i18n="price.sites.sub.14.meta">от 900 тыс · модуль</span></li>
+                <li><span data-i18n="price.sites.sub.15.name">Корзина и оформление заказа</span><span data-i18n="price.sites.sub.15.meta">от 1,5 млн · модуль</span></li>
+                <li><span data-i18n="price.sites.sub.16.name">Онлайн-оплата</span><span data-i18n="price.sites.sub.16.meta">от 2 млн · провайдер</span></li>
+                <li><span data-i18n="price.sites.sub.17.name">Интеграция доставки</span><span data-i18n="price.sites.sub.17.meta">от 1,5 млн · служба</span></li>
+                <li><span data-i18n="price.sites.sub.18.name">Личный кабинет</span><span data-i18n="price.sites.sub.18.meta">от 3 млн · модуль</span></li>
+              </ul>
+            </details>
+          </section>
 
-          <h2 class="catalog-group__title" id="cat-support" data-i18n="pricing.support">Поддержка</h2>
-          <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=support_maint" data-tg-start="support_maint" target="_blank" rel="noopener noreferrer">
-            <div class="catalog-row__main">
-              <h3 data-i18n="price.support.maintenance.title">Техническое сопровождение</h3>
-              <p data-i18n="price.support.maintenance.desc">Мониторинг и регулярные небольшие изменения.</p>
-            </div>
-            <div class="catalog-row__side">
-              <span class="catalog-row__sum" data-i18n="price.support.maintenance.sum">от 700 тыс / мес</span>
-              <span class="catalog-row__cta" data-i18n="pricing.discussShort">Обсудить →</span>
-            </div>
-          </a>
+          <section class="catalog-group" id="cat-telegram">
+            <h2 class="catalog-group__title" data-i18n="pricing.telegram">Telegram</h2>
+
+            <a class="catalog-row catalog-row--accent" href="https://telegram.me/getsiteuzbot?start=tg_bot" data-tg-start="tg_bot" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.telegram.bot.title">Telegram-бот</h3>
+                  <span class="catalog-row__sum" data-i18n="price.telegram.bot.sum">от 4,5 млн сум</span>
+                </div>
+                <p data-i18n="price.telegram.bot.desc">Бот собирает заявку с контекстом, а не только номер телефона. Сценарий под вашу задачу, уведомления команде и тест в реальном чате до передачи.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row catalog-row--accent" href="https://telegram.me/getsiteuzbot?start=tg_admin" data-tg-start="tg_admin" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.telegram.admin.title">Бот + админ-панель</h3>
+                  <span class="catalog-row__sum" data-i18n="price.telegram.admin.sum">от 9,9 млн сум</span>
+                </div>
+                <p data-i18n="price.telegram.admin.desc">Бот плюс панель, где видны статусы и пользователи — без хаоса в личных чатах. Роли, база и базовые отчёты, чтобы команда не теряла заявки.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=tg_miniapp" data-tg-start="tg_miniapp" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.telegram.miniapp.title">Telegram Mini App</h3>
+                  <span class="catalog-row__sum" data-i18n="price.telegram.miniapp.sum">от 18 млн сум</span>
+                </div>
+                <p data-i18n="price.telegram.miniapp.desc">Полноценный интерфейс внутри Telegram, когда бота уже мало. Авторизация через Telegram, база и до трёх ключевых сценариев — без отдельного ещё одного приложения.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+
+            <details class="catalog-subs">
+              <summary data-i18n="pricing.subs.telegram">Подуслуги · Telegram</summary>
+              <ul class="catalog-subs__list">
+                <li><span data-i18n="price.telegram.sub.1.name">Web-админ-панель</span><span data-i18n="price.telegram.sub.1.meta">от 4 млн · панель</span></li>
+                <li><span data-i18n="price.telegram.sub.2.name">Оплата в Telegram</span><span data-i18n="price.telegram.sub.2.meta">от 1,5 млн · провайдер</span></li>
+                <li><span data-i18n="price.telegram.sub.3.name">Интеграция бота с CRM</span><span data-i18n="price.telegram.sub.3.meta">от 2,5 млн · CRM</span></li>
+                <li><span data-i18n="price.telegram.sub.4.name">Модуль рассылок</span><span data-i18n="price.telegram.sub.4.meta">от 1,2 млн · модуль</span></li>
+                <li><span data-i18n="price.telegram.sub.5.name">Роли пользователей</span><span data-i18n="price.telegram.sub.5.meta">от 1,5 млн · модель</span></li>
+                <li><span data-i18n="price.telegram.sub.6.name">AI-модуль</span><span data-i18n="price.telegram.sub.6.meta">от 3 млн · сценарий</span></li>
+              </ul>
+            </details>
+          </section>
+
+          <section class="catalog-group" id="cat-auto">
+            <h2 class="catalog-group__title" data-i18n="pricing.automation">Автоматизация</h2>
+
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_analytics" data-tg-start="auto_analytics" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.automation.analytics.title">Аналитика и проектирование</h3>
+                  <span class="catalog-row__sum" data-i18n="price.automation.analytics.sum">от 1,9 млн сум</span>
+                </div>
+                <p data-i18n="price.automation.analytics.desc">Сначала разбираем, что автоматизировать, чтобы не платить за лишние модули. Интервью, роли, MVP и смета — ясный план до кода.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_process" data-tg-start="auto_process" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.automation.process.title">Автоматизация процесса</h3>
+                  <span class="catalog-row__sum" data-i18n="price.automation.process.sum">от 3 млн сум</span>
+                </div>
+                <p data-i18n="price.automation.process.desc">Убираем один ручной процесс, который съедает часы каждый день. Связка сервисов, уведомления и инструкция — без переписывания всей компании.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_integration" data-tg-start="auto_integration" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.automation.integration.title">Интеграция систем</h3>
+                  <span class="catalog-row__sum" data-i18n="price.automation.integration.sum">от 2,5 млн сум</span>
+                </div>
+                <p data-i18n="price.automation.integration.desc">Чтобы данные не копировали руками между сайтом, ботом и CRM. Схема обмена, обработка ошибок и документация — связка, которой можно доверять.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_internal" data-tg-start="auto_internal" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.automation.internal.title">Внутренняя бизнес-система</h3>
+                  <span class="catalog-row__sum" data-i18n="price.automation.internal.sum">от 20 млн сум</span>
+                </div>
+                <p data-i18n="price.automation.internal.desc">Внутренний сервис под ваши роли и сущности, а не коробка ради галочки. После аналитики: MVP, отчёты и размещение под реальный процесс команды.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_crm" data-tg-start="auto_crm" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.automation.crm.title">CRM-система с нуля</h3>
+                  <span class="catalog-row__sum" data-i18n="price.automation.crm.sum">от 25 млн сум</span>
+                </div>
+                <p data-i18n="price.automation.crm.desc">CRM под ваш процесс продаж, а не под чужой шаблон. Воронка, задачи, роли и статусы — после аналитики, чтобы не переделывать через месяц.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+
+            <details class="catalog-subs">
+              <summary data-i18n="pricing.subs.automation">Подуслуги · Автоматизация</summary>
+              <ul class="catalog-subs__list">
+                <li><span data-i18n="price.automation.sub.1.name">Внешний API</span><span data-i18n="price.automation.sub.1.meta">от 2 млн · API</span></li>
+                <li><span data-i18n="price.automation.sub.2.name">Роли и права доступа</span><span data-i18n="price.automation.sub.2.meta">от 1,5 млн · модель</span></li>
+                <li><span data-i18n="price.automation.sub.3.name">Отчёт / аналитическая таблица</span><span data-i18n="price.automation.sub.3.meta">от 1,2 млн · отчёт</span></li>
+                <li><span data-i18n="price.automation.sub.4.name">Миграция данных</span><span data-i18n="price.automation.sub.4.meta">от 1,5 млн · источник</span></li>
+                <li><span data-i18n="price.automation.sub.5.name">Журнал действий</span><span data-i18n="price.automation.sub.5.meta">от 1,5 млн · модуль</span></li>
+                <li><span data-i18n="price.automation.sub.6.name">Управленческий дашборд</span><span data-i18n="price.automation.sub.6.meta">от 2,5 млн · дашборд</span></li>
+              </ul>
+            </details>
+          </section>
+
+          <section class="catalog-group" id="cat-support">
+            <h2 class="catalog-group__title" data-i18n="pricing.support">Поддержка</h2>
+
+            <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=support_maint" data-tg-start="support_maint" target="_blank" rel="noopener noreferrer">
+              <div class="catalog-row__main">
+                <div class="catalog-row__head">
+                  <h3 data-i18n="price.support.maintenance.title">Техническое сопровождение</h3>
+                  <span class="catalog-row__sum" data-i18n="price.support.maintenance.sum">от 700 тыс / мес</span>
+                </div>
+                <p data-i18n="price.support.maintenance.desc">После запуска остаёмся на связи: мониторинг, бэкапы и мелкие правки по лимиту. Без «исчезли после сдачи» и ожидания ответа неделями.</p>
+                <span class="catalog-row__cta" data-i18n="pricing.tgCta">Обсудить в Telegram →</span>
+              </div>
+            </a>
+
+            <details class="catalog-subs">
+              <summary data-i18n="pricing.subs.support">Подуслуги · Поддержка</summary>
+              <ul class="catalog-subs__list">
+                <li><span data-i18n="price.support.sub.1.name">Разовая техническая работа</span><span data-i18n="price.support.sub.1.meta">от 250 тыс · час</span></li>
+                <li><span data-i18n="price.support.sub.2.name">Пакет контентных изменений</span><span data-i18n="price.support.sub.2.meta">от 500 тыс · пакет</span></li>
+              </ul>
+            </details>
+          </section>
         </div>
       </div>
     </main>
