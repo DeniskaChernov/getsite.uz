@@ -399,8 +399,10 @@
     const groups = doc.querySelectorAll("[data-stagger]");
     if (!groups.length) return;
 
-    const step = doc.body.classList.contains("page-blog") ? 0.035 : 0.055;
-    const maxDelay = doc.body.classList.contains("page-blog") ? 0.18 : 0.28;
+    const isCatalog = doc.body.classList.contains("page-catalog");
+    const isBlogLike = doc.body.classList.contains("page-blog") && !isCatalog;
+    const step = isCatalog ? 0.08 : isBlogLike ? 0.035 : 0.055;
+    const maxDelay = isCatalog ? 0.48 : isBlogLike ? 0.18 : 0.28;
 
     groups.forEach((group) => {
       const children = [...group.children];

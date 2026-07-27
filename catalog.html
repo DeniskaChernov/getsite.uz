@@ -19,12 +19,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=61">
+    <link rel="stylesheet" href="assets/styles.css?v=62">
     <script src="assets/site-config.js?v=4"></script>
     <script src="assets/analytics.js?v=1" defer></script>
     <script src="assets/i18n.js?v=11" defer></script>
     <script src="assets/i18n-pricing.js?v=4" defer></script>
-    <script src="assets/app.js?v=36" defer></script>
+    <script src="assets/app.js?v=37" defer></script>
   </head>
   <body class="page-blog page-catalog">
     <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
@@ -44,12 +44,12 @@
     <main class="blog-page" id="main-content">
       <a class="blog-page__back" href="index.html" aria-label="На главную" data-i18n="blog.page.back">← getsite</a>
       <div class="blog-page__content">
-        <div class="blog-page__head">
+        <div class="blog-page__head reveal">
           <h1 data-i18n="catalog.page.title">Каталог</h1>
           <p data-i18n="catalog.page.lead">Цены «от» при стандартном составе. Наведите — что входит. Нажмите — обсудим в Telegram.</p>
         </div>
 
-        <nav class="catalog-nav" aria-label="Разделы каталога">
+        <nav class="catalog-nav" aria-label="Разделы каталога" data-stagger>
           <a href="#cat-sites" data-i18n="pricing.sites">Сайты</a>
           <a href="#cat-telegram" data-i18n="pricing.telegram">Telegram</a>
           <a href="#cat-auto" data-i18n="pricing.automation">Автоматизация</a>
@@ -57,7 +57,7 @@
         </nav>
 
         <div class="catalog-feed">
-          <section class="catalog-group" id="cat-sites">
+          <section class="catalog-group" id="cat-sites" data-stagger>
             <h2 class="catalog-group__title" data-i18n="pricing.sites">Сайты</h2>
 
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=sites_landing" data-tg-start="sites_landing" target="_blank" rel="noopener noreferrer">
@@ -142,7 +142,7 @@
             </details>
           </section>
 
-          <section class="catalog-group" id="cat-telegram">
+          <section class="catalog-group" id="cat-telegram" data-stagger>
             <h2 class="catalog-group__title" data-i18n="pricing.telegram">Telegram</h2>
 
             <a class="catalog-row catalog-row--accent" href="https://telegram.me/getsiteuzbot?start=tg_bot" data-tg-start="tg_bot" target="_blank" rel="noopener noreferrer">
@@ -201,7 +201,7 @@
             </details>
           </section>
 
-          <section class="catalog-group" id="cat-auto">
+          <section class="catalog-group" id="cat-auto" data-stagger>
             <h2 class="catalog-group__title" data-i18n="pricing.automation">Автоматизация</h2>
 
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=auto_analytics" data-tg-start="auto_analytics" target="_blank" rel="noopener noreferrer">
@@ -288,7 +288,7 @@
             </details>
           </section>
 
-          <section class="catalog-group" id="cat-support">
+          <section class="catalog-group" id="cat-support" data-stagger>
             <h2 class="catalog-group__title" data-i18n="pricing.support">Поддержка</h2>
 
             <a class="catalog-row" href="https://telegram.me/getsiteuzbot?start=support_maint" data-tg-start="support_maint" target="_blank" rel="noopener noreferrer">
