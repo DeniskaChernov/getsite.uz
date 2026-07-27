@@ -555,6 +555,12 @@
     window.addEventListener("resize", show);
   }
 
+  function isHomePath() {
+    let path = window.location.pathname || "/";
+    path = path.replace(/^\/(uz|en)(?=\/|$)/, "") || "/";
+    return path === "/" || path === "" || path === "/index.html";
+  }
+
   function applyLang(lang) {
     const dict = window.GETSITE_I18N?.[lang] || window.GETSITE_I18N?.ru;
     if (!dict) return;
@@ -576,24 +582,64 @@
       if (value != null) el.setAttribute("aria-label", value);
     });
 
-    const title = dict["meta.title"];
-    if (title) doc.title = title;
+    // Page-specific titles are baked into HTML; only sync homepage meta from i18n
+    if (isHomePath()) {
+      const title = dict["meta.title"];
+      if (title) doc.title = title;
 
-    const metaDesc = doc.querySelector('meta[name="description"]');
-    if (metaDesc && dict["meta.description"]) metaDesc.setAttribute("content", dict["meta.description"]);
+      const metaDesc = doc.querySelector('meta[name="description"]');
+      if (metaDesc && dict["meta.description"]) metaDesc.setAttribute("content", dict["meta.description"]);
 
-    const ogTitle = doc.querySelector('meta[property="og:title"]');
-    if (ogTitle && title) ogTitle.setAttribute("content", title);
+      const ogTitle = doc.querySelector('meta[property="og:title"]');
+      if (ogTitle && title) ogTitle.setAttribute("content", title);
 
-    const ogDesc = doc.querySelector('meta[property="og:description"]');
-    if (ogDesc && dict["meta.description"]) ogDesc.setAttribute("content", dict["meta.description"]);
+      const ogDesc = doc.querySelector('meta[property="og:description"]');
+      if (ogDesc && dict["meta.description"]) ogDesc.setAttribute("content", dict["meta.description"]);
+    }
 
     doc.documentElement.lang = lang === "uz" ? "uz" : lang === "en" ? "en" : "ru";
   }
 
+  function detectLangFromPath() {
+    const path = window.location.pathname || "";
+    if (path === "/uz" || path.startsWith("/uz/")) return "uz";
+    if (path === "/en" || path.startsWith("/en/")) return "en";
+    return "ru";
+  }
+
+  function langPath(lang, pathname) {
+    let path = pathname || window.location.pathname || "/";
+    path = path.replace(/^\/(uz|en)(?=\/|$)/, "") || "/";
+    if (path.endsWith("/index.html")) path = path.slice(0, -10) || "/";
+    if (path.endsWith("index.html")) path = path.slice(0, -10) || "/";
+    const hash = window.location.hash || "";
+    const search = window.location.search || "";
+    if (lang === "ru") {
+      if (path === "/" || path === "") return `/${search}${hash}`;
+      return `${path}${search}${hash}`;
+    }
+    if (path === "/" || path === "") return `/${lang}/${search}${hash}`;
+    return `/${lang}${path.startsWith("/") ? path : `/${path}`}${search}${hash}`;
+  }
+
+  function hasLangMirror(pathname) {
+    let path = pathname || window.location.pathname || "/";
+    path = path.replace(/^\/(uz|en)(?=\/|$)/, "") || "/";
+    if (path.endsWith("/index.html")) path = path.slice(0, -10) || "/";
+    if (path === "/" || path === "") return true;
+    return ["/catalog.html", "/cases.html", "/blog.html", "/cookies.html"].includes(path);
+  }
+
   function initLangSwitch() {
     const groups = [...doc.querySelectorAll("[data-lang-switch]")];
-    if (!groups.length) return;
+    const pathLang = detectLangFromPath();
+    const forced = doc.documentElement.getAttribute("data-lang") || "";
+    const initial = forced || pathLang;
+
+    if (!groups.length) {
+      applyLang(initial);
+      return;
+    }
 
     const allButtons = () => groups.flatMap((group) => [...group.querySelectorAll("[data-lang]")]);
 
@@ -613,18 +659,27 @@
 
     groups.forEach((group) => {
       group.querySelectorAll("[data-lang]").forEach((button) => {
-        button.addEventListener("click", () => setActive(button.dataset.lang));
+        button.addEventListener("click", (event) => {
+          const lang = button.dataset.lang;
+          if (!lang || lang === detectLangFromPath()) return;
+          // Crawlable mirrors for key pages; in-place i18n for the rest (blog posts, etc.)
+          if (hasLangMirror()) {
+            event.preventDefault();
+            try {
+              localStorage.setItem("getsite-lang", lang);
+            } catch (_) {
+              /* ignore */
+            }
+            window.location.assign(langPath(lang));
+            return;
+          }
+          setActive(lang);
+        });
       });
     });
 
-    try {
-      const saved = localStorage.getItem("getsite-lang");
-      if (saved && allButtons().some((item) => item.dataset.lang === saved)) {
-        setActive(saved);
-      }
-    } catch (_) {
-      /* ignore */
-    }
+    // URL / data-lang win over localStorage so crawlers and share links stay consistent
+    setActive(initial);
   }
 
   function initBlogPage() {

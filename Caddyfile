@@ -25,6 +25,20 @@
 
 	respond /health 200
 
+	# Старые SEO-посадочные → актуальные страницы (после отказа от хаба)
+	redir /uslugi.html /catalog.html 301
+	redir /zakazat-sajt.html / 301
+	redir /sozdat-sajt.html / 301
+	redir /sdelat-sajt.html / 301
+	redir /razrabotka-sajta.html / 301
+	redir /lending-tashkent.html /catalog.html 301
+	redir /korporativnyj-sajt.html /catalog.html 301
+	redir /sajt-katalog.html /catalog.html 301
+	redir /internet-magazin.html /catalog.html 301
+	redir /telegram-bot-tashkent.html /catalog.html 301
+	redir /stoimost-sajta.html /catalog.html 301
+	redir /avtomatizaciya-biznesa.html /catalog.html 301
+
 	# Служебные файлы репозитория не должны быть доступны публично
 	@internal path /docs/* /project/* /scripts/* /_headers /README.md /Caddyfile
 	respond @internal 404
