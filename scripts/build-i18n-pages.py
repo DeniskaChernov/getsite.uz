@@ -268,6 +268,106 @@ def strip_hreflang(html: str) -> str:
     return re.sub(r'\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+"\s*/?>', "", html)
 
 
+def localize_jsonld(html: str, dict_: dict, lang: str, page: str) -> str:
+    """Rewrite homepage FAQ + key LocalBusiness strings for language mirrors."""
+    if page != "index.html":
+        return html
+
+    match = re.search(
+        r'(<script type="application/ld\+json">)([\s\S]*?)(</script>)',
+        html,
+        flags=re.I,
+    )
+    if not match:
+        return html
+
+    try:
+        data = json.loads(match.group(2))
+    except json.JSONDecodeError:
+        return html
+
+    city = {"uz": "Toshkent", "en": "Tashkent"}.get(lang, "Ташкент")
+    country = {"uz": "O'zbekiston", "en": "Uzbekistan"}.get(lang, "Узбекистан")
+    service_name = {
+        "uz": "getsite — Toshkentda sayt yaratish",
+        "en": "getsite — website development in Tashkent",
+    }.get(lang, "getsite — создание сайтов в Ташкенте")
+    service_types = {
+        "uz": [
+            "Sayt yaratish",
+            "Landing ishlab chiqish",
+            "Telegram-botlar",
+            "Biznesni avtomatlashtirish",
+        ],
+        "en": [
+            "Website development",
+            "Landing page development",
+            "Telegram bots",
+            "Business automation",
+        ],
+    }.get(
+        lang,
+        [
+            "Создание сайтов",
+            "Разработка лендингов",
+            "Telegram-боты",
+            "Автоматизация бизнеса",
+        ],
+    )
+
+    home = abs_url(lang, "index.html")
+    graph = data.get("@graph") or []
+    for node in graph:
+        t = node.get("@type")
+        if t == "Organization":
+            node["url"] = home
+            if isinstance(node.get("address"), dict):
+                node["address"]["addressLocality"] = city
+        elif t == "WebSite":
+            node["url"] = home
+            node["inLanguage"] = lang
+        elif t == "ProfessionalService":
+            node["name"] = service_name
+            node["url"] = home
+            node["serviceType"] = service_types
+            if isinstance(node.get("address"), dict):
+                node["address"]["addressLocality"] = city
+            served = []
+            for item in node.get("areaServed") or []:
+                if not isinstance(item, dict):
+                    continue
+                copy = dict(item)
+                if copy.get("@type") == "City":
+                    copy["name"] = city
+                elif copy.get("@type") == "Country":
+                    copy["name"] = country
+                served.append(copy)
+            if served:
+                node["areaServed"] = served
+        elif t == "FAQPage":
+            node["@id"] = f"{home.rstrip('/')}/#faq"
+            entities = []
+            for i in range(1, 5):
+                q = dict_.get(f"faq.q{i}")
+                a = dict_.get(f"faq.a{i}")
+                if not q or not a:
+                    continue
+                entities.append(
+                    {
+                        "@type": "Question",
+                        "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": a},
+                    }
+                )
+            if entities:
+                node["mainEntity"] = entities
+
+    payload = json.dumps(data, ensure_ascii=False, indent=2)
+    # Keep indentation style similar to source
+    indented = "\n".join("    " + line if line else line for line in payload.splitlines())
+    return html[: match.start()] + match.group(1) + "\n" + indented + "\n    " + match.group(3) + html[match.end() :]
+
+
 def inject_head(html: str, page: str, lang: str) -> str:
     html = strip_hreflang(html)
     block = hreflang_block(page)
@@ -326,6 +426,7 @@ def build() -> None:
             html = raw_clean
             html = rewrite_asset_paths(html)
             html = replace_meta(html, dict_, page, lang)
+            html = localize_jsonld(html, dict_, lang, page)
             html = bake_i18n(html, dict_)
             html = bake_lang_switch(html, lang)
             html = inject_head(html, page, lang)

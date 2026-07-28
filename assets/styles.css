@@ -4332,6 +4332,12 @@ body.page-cases {
     display: none;
   }
 
+  /* Внутренние страницы без burger-меню — переключатель остаётся в шапке */
+  .page-blog .lang-switch--header,
+  .page-legal .lang-switch--header {
+    display: inline-flex;
+  }
+
   .menu-panel__langs {
     display: inline-flex;
   }
