@@ -9,3 +9,4 @@ dist/
 build/
 *.log
 .image-slots.state.json
+.wrangler/

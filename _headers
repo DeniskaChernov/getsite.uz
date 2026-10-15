@@ -8,4 +8,6 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
   X-XSS-Protection: 0
-*/
+
+/assets/*
+  Cache-Control: public, max-age=2592000

@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "getsite-uz",
+  "account_id": "b88b217785d17297f8fa3f4cc9f9a341",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2026-10-15",
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "getsite.uz/*", "zone_id": "0c5b592a41ed8915039b572ae41ec35c" },
+    { "pattern": "www.getsite.uz/*", "zone_id": "0c5b592a41ed8915039b572ae41ec35c" }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "not_found_handling": "none"
+  }
+}
