@@ -40,8 +40,9 @@ npm run deploy
 `/uz/` без изменения существующих ссылок. `/health` возвращает `OK`.
 
 В Cloudflare DNS обе записи доменов должны оставаться **Proxied**.
-Для Worker Routes используется адрес-заглушка `192.0.2.1`; весь HTTP-трафик
-обслуживает Worker, обращения к Railway отсутствуют.
+Для `getsite.uz` используется A-запись с адресом-заглушкой `192.0.2.1`,
+для `www` — CNAME на `getsite.uz`. Весь HTTP-трафик обслуживает Worker,
+обращения к Railway отсутствуют.
 
 Настройки Git-сборки Cloudflare: репозиторий `DeniskaChernov/getsite.uz`,
 ветка `main`, корень `/`, команда сборки `npm run build`,
