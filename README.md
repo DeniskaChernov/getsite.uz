@@ -44,6 +44,8 @@ npm run deploy
 для `www` — CNAME на `getsite.uz`. Весь HTTP-трафик обслуживает Worker,
 обращения к Railway отсутствуют.
 
+Автоматическая публикация включена: каждый push в `main` запускает сборку
+и публикацию в Cloudflare Workers. Предпросмотры других веток отключены.
 Настройки Git-сборки Cloudflare: репозиторий `DeniskaChernov/getsite.uz`,
 ветка `main`, корень `/`, команда сборки `npm run build`,
 команда публикации `npx wrangler deploy`.
